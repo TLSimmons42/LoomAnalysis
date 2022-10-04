@@ -1,13 +1,21 @@
 library(plot3D)
 library(rgl)
+library(dplyr)
 
 
-participantDataFile <- "analytics2_P29.csv"
+participantDataFile <- "analytics2_P27.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
+#originalDF <- originalDF[originalDF$Condition != "tut",]
+
+startIndexes <- originalDF[originalDF$Event=="Game Start",]
+endIndexes <- originalDF[originalDF$Event=="Game Over",]
+
+originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[4,])))
 
 originalDF <-  originalDF[originalDF$xPos != "c",]
 
 soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
+                     
 #soloDF <- originalDF[originalDF$Event == "looking at View wall" | originalDF$Event == "looking at Build wall" | originalDF$Event == "looking at Play wall" ,]
 
 
@@ -25,7 +33,7 @@ zCo <- coDF[ ,11]
 
 
 #plot3d(xSolo, ySolo, zSolo)
-plot3d(xCo, yCo, zCo)
+#plot3d(xCo, yCo, zCo)
 
 
 
