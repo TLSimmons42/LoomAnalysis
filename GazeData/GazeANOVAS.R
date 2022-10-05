@@ -51,7 +51,7 @@ plot(df$AvgTotalTransferTime ~ factor(df$Condition), data = df)
 
 
 
-
+#ANOVA TESTS
 twoANOVA <- aov(AvgTotalTransferTime ~ factor(Condition) * factor(Group) , data = anovaTTDF)
 summary(twoANOVA)
 
@@ -61,3 +61,14 @@ summary(twoANOVA)
 
 twoANOVA <- aov(AvgTotalTransferTime ~ factor(Group), data = anovaTTDF)
 summary(twoANOVA)
+
+
+#Regression model
+model <- lm(df$AvgTotalTransferTime ~ factor(df$Group) + factor(df$Condition) + df$Age + factor(df$Gender), data = df)
+summary(model)
+
+model2 <- lm(AvgTotalTransferTime ~ factor(Group), data = anovaTTDF)
+summary(model2)
+
+
+
