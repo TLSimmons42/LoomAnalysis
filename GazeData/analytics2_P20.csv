@@ -1,4 +1,4 @@
-TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos, group
+TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos,group
 637980746123893385,P20,tut,1,25,m,0,looking at View wall,4.97,5,-9.85,c
 637980746124033015,P20,tut,1,25,m,0,looking at View wall,4.97,5,-9.85,c
 637980746124162668,P20,tut,1,25,m,0,looking at View wall,4.97,5,-9.85,c
@@ -429,7 +429,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980746269196601,P20,tut,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980746269316279,P20,tut,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980746270647761,P20,tut,1,25,m,0,looking at View wall,-2.09,5,10,c
-637980746289505687,P20,tut,1,25,m,0,300,Game Start,c
+637980746289505687,P20,tut,1,25,m,0,Game Start,c
 637980746296208661,P20,tut,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980746296308397,P20,tut,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980746296518137,P20,tut,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
@@ -5981,7 +5981,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980747829256723,P20,s,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980747829475859,P20,s,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980747829595535,P20,s,1,25,m,0,looking at View wall,-2.09,5,10,c
-637980747857788770,P20,s,1,25,m,0,300,Game Start,c
+637980747857788770,P20,s,1,25,m,0,Game Start,c
 637980747861524369,P20,s,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980747861634075,P20,s,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980747861743776,P20,s,1,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
@@ -16627,7 +16627,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980750355875189,P20,s,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980750355975262,P20,s,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980750356204328,P20,s,2,25,m,0,looking at View wall,-2.09,5,10,c
-637980750377181273,P20,s,2,25,m,0,300,Game Start,c
+637980750377181273,P20,s,2,25,m,0,Game Start,c
 637980750381700085,P20,s,2,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980750381799825,P20,s,2,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
 637980750381908272,P20,s,2,25,m,0,looking at Play wall,1.26,11.20539,-0.3032137,c
@@ -28164,7 +28164,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980753104486543,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980753104605941,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980753104815380,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
-637980753117684386,P20,tut,2,25,m,0,300,Game Start,c
+637980753117684386,P20,tut,2,25,m,0,Game Start,c
 637980753120756446,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980753120866151,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980753120975853,P20,tut,2,25,m,0,looking at View wall,-2.09,5,10,c
@@ -34689,7 +34689,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980754476075218,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980754476404333,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980754476524306,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
-637980754484495365,P20,co,1,25,m,0,300,Game Start,c
+637980754484495365,P20,co,1,25,m,0,Game Start,c
 637980754485199093,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980754485298815,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
 637980754485398547,P20,co,1,25,m,0,looking at View wall,-2.09,5,10,c
@@ -42569,7 +42569,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637980756294553598,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980756294663302,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980756294773300,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c
-637980756324309509,P20,co,2,25,m,0,300,Game Start,c
+637980756324309509,P20,co,2,25,m,0,Game Start,c
 637980756327835371,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980756327935096,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c
 637980756328050299,P20,co,2,25,m,0,looking at View wall,-2.09,5,10,c

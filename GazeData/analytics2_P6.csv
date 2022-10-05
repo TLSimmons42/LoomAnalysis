@@ -234,7 +234,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637958192561240091,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958192561330109,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958192561450139,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
-637958192561500148,P6,s,0,23,m,300,Game Start,e,e
+637958192561500148,P6,tut,0,23,m,300,Game Start,e,e
 637958192561780216,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958192561890232,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958192562000259,P6,s,0,23,m,,looking at Play wall,1.26,11.20539,-0.3032137,e

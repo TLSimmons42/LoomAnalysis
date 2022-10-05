@@ -3,14 +3,17 @@ library(rgl)
 library(dplyr)
 
 
-participantDataFile <- "analytics2_P27.csv"
+participantDataFile <- "analytics2_P2.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 #originalDF <- originalDF[originalDF$Condition != "tut",]
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
 endIndexes <- originalDF[originalDF$Event=="Game Over",]
 
-originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[4,])))
+#originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[4,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[5,])))
+originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
+
+
 
 originalDF <-  originalDF[originalDF$xPos != "c",]
 
@@ -20,7 +23,7 @@ soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking 
 
 
 coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
-#coDF <- originalDF[originalDF$Event == "looking at View wall" | originalDF$Event == "looking at Build wall" | originalDF$Event == "looking at Play wall",]
+#coDF <- originalDF[originalDF$Condition == "co" &(originalDF$Event == "looking at View wall" | originalDF$Event == "looking at Build wall" | originalDF$Event == "looking at Play wall"),]
 
 
 xSolo <- soloDF[,9]
@@ -32,7 +35,7 @@ yCo <- coDF[,10]
 zCo <- coDF[ ,11]
 
 
-#plot3d(xSolo, ySolo, zSolo)
+plot3d(xSolo, ySolo, zSolo)
 #plot3d(xCo, yCo, zCo)
 
 
@@ -210,7 +213,7 @@ for(j in 0:1)
     
     currentTime <- shortGroupDF[i,1]/10000
     if(previousTime != 0){
-      previousTime
+      
       reactionTime <- currentTime - previousTime
     }
     
@@ -272,8 +275,8 @@ for(j in 0:1)
   avgPlay2Build = totalPlay2Build/play2BuildCounter
   avgPlay2View = totalPlay2View/play2ViewCounter
   
-  
-  
+  # 
+  # 
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),

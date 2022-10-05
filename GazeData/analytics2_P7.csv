@@ -911,7 +911,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637958335784715339,P7,s,tut,26,f,,looking at View wall,-2.09,5,10,e
 637958335784825365,P7,s,tut,26,f,,looking at View wall,-2.09,5,10,e
 637958335784935395,P7,s,tut,26,f,,looking at View wall,-2.09,5,10,e
-637958335785025414,P7,s,tut,26,f,300,Game Start,e,e
+637958335785025414,P7,tut,1,26,f,300,Game Start,e,e
 637958335788996312,P7,s,tut,26,f,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958335789216356,P7,s,tut,26,f,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958335789436415,P7,s,tut,26,f,,looking at Play wall,1.26,11.20539,-0.3032137,e
@@ -14397,7 +14397,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637958339549569017,P7,co,tut,e,looking at View wall,-2.09,5,10,e
 637958339549669036,P7,co,tut,e,looking at View wall,-2.09,5,10,e
 637958339549789084,P7,co,tut,e,looking at View wall,-2.09,5,10,e
-637958339560411483,P7,co,tut,e300,Game Start,e,e
+637958339549789084,P7,tut,2,26,f,300,Game Start,e,e
 637958339562952048,P7,co,tut,e,looking at View wall,-2.09,5,10,e
 637958339563062077,P7,co,tut,e,looking at View wall,-2.09,5,10,e
 637958339563172091,P7,co,tut,e,looking at View wall,-2.09,5,10,e

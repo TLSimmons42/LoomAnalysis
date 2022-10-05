@@ -1,4 +1,4 @@
-TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos
+TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos, group
 637958990456235131,P8,tut,1,18,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958990456355160,P8,tut,1,18,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
 637958990456445187,P8,tut,1,18,m,,looking at Play wall,1.26,11.20539,-0.3032137,e
