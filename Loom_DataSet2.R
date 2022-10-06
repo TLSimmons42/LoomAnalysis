@@ -3,15 +3,18 @@ library(rgl)
 library(dplyr)
 
 
-participantDataFile <- "analytics2_P2.csv"
+participantDataFile <- "analytics2_P29.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 #originalDF <- originalDF[originalDF$Condition != "tut",]
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
 endIndexes <- originalDF[originalDF$Event=="Game Over",]
 
-#originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[4,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[5,])))
-originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
+startIndexes <- startIndexes[startIndexes$Condition == "s" | startIndexes$Condition == "co", ]
+endIndexes <- endIndexes[endIndexes$Condition == "s" | endIndexes$Condition == "co", ]
+
+#originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
+originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[4,])))
 
 
 
@@ -35,8 +38,8 @@ yCo <- coDF[,10]
 zCo <- coDF[ ,11]
 
 
-plot3d(xSolo, ySolo, zSolo)
-#plot3d(xCo, yCo, zCo)
+#plot3d(xSolo, ySolo, zSolo)
+plot3d(xCo, yCo, zCo)
 
 
 
@@ -276,7 +279,7 @@ for(j in 0:1)
   avgPlay2View = totalPlay2View/play2ViewCounter
   
   # 
-  # 
+  # # 
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),
