@@ -1,5 +1,5 @@
 TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos, Group
-637987621066861955,P23,tut,1,29,m,300,Game Start,,,
+637987621066861955,P23,tut,1,29,m,300,Game Start
 637987621119204082,P23,tut,1,29,m,,looking at gold cube,1.390015,11.58682,-1.813
 637987621119423494,P23,tut,1,29,m,,looking at gold cube,1.390015,11.52015,-1.813
 637987621119543163,P23,tut,1,29,m,,looking at gold cube,1.390015,11.48643,-1.813
@@ -1110,7 +1110,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987622123576545,P23,tut,1,29,m,,Regular Red Cube(Clone) was picked up,11,2,10.41
 637987622146449802,P23,tut,1,29,m,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41
 637987622210360693,P23,tut,1,29,m,,looking at red cube,1.389999,5.956012,0.944
-637987623433414447,P23,s,1,29,m,300,Game Start,,,
+637987623433414447,P23,s,1,29,m,300,Game Start
 637987623461324676,P23,s,1,29,m,,looking at blue cube,1.389999,18.91683,-0.46
 637987623461434381,P23,s,1,29,m,,looking at blue cube,1.389999,18.88382,-0.46
 637987623461554049,P23,s,1,29,m,,looking at blue cube,1.389999,18.85086,-0.46
@@ -3193,8 +3193,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987624485962223,P23,s,1,29,m,,looking at gold cube,1.389999,5.620185,-0.46
 637987624487734449,P23,s,1,29,m,,looking at gold cube,1.389999,5.087897,-0.46
 637987624487844148,P23,s,1,29,m,,looking at gold cube,1.389999,5.053974,-0.46
-637987624494372941,P23,s,1,29,m,,Game Over,,,
-637987624980149630,P23,s,2,29,m,300,Game Start,,,
+637987624494372941,P23,s,1,29,m,,Game Over
+637987624980149630,P23,s,2,29,m,300,Game Start
 637987625003714480,P23,s,2,29,m,,looking at gold cube,1.389999,20.21672,0.944
 637987625003824180,P23,s,2,29,m,,looking at gold cube,1.389999,20.18338,0.944
 637987625003933892,P23,s,2,29,m,,looking at gold cube,1.389999,20.15018,0.944
@@ -4947,8 +4947,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987625844983109,P23,s,2,29,m,,looking at Drop Zone,14,7,10.41
 637987625845322198,P23,s,2,29,m,,looking at Drop Zone,14,7,10.41
 637987625845431906,P23,s,2,29,m,,looking at Drop Zone,14,7,10.41
-637987625855280585,P23,s,2,29,m,,Game Over,,,
-637987627259414001,P23,tut,2,29,m,300,Game Start,,,
+637987625855280585,P23,s,2,29,m,,Game Over
+637987627259414001,P23,tut,2,29,m,300,Game Start
 637987627286648929,P23,tut,2,29,m,,looking at Drop Zone,12,7,10.41
 637987627311978078,P23,tut,2,29,m,,looking at Drop Zone,-8.93,7,-10.9
 637987627312087775,P23,tut,2,29,m,,looking at Drop Zone,-8.93,7,-10.9
@@ -6663,7 +6663,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987628259423136,P23,tut,2,29,m,,looking at red cube,1.389999,15.08386,0.944
 637987628259542801,P23,tut,2,29,m,,looking at red cube,1.389999,15.05052,0.944
 637987628274318450,P23,tut,2,29,m,,looking at red cube,1.389999,10.61892,0.944
-637987629840885586,P23,co,1,29,m,300,Game Start,,,
+637987629840885586,P23,co,1,29,m,300,Game Start
 637987629855363381,P23,co,1,29,m,,looking at red cube,1.389999,22.94896,2.336
 637987629855473078,P23,co,1,29,m,,looking at red cube,1.389999,22.91538,2.336
 637987629855587846,P23,co,1,29,m,,looking at red cube,1.389999,22.88212,2.336
@@ -8645,10 +8645,10 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987631039711195,P23,co,1,29,m,,looking at Drop Zone,13,7,10.41
 637987631039810925,P23,co,1,29,m,,looking at Drop Zone,13,7,10.41
 637987631039930595,P23,co,1,29,m,,looking at Drop Zone,13,7,10.41
-637987631063665029,P23,co,1,29,m,,Game Over,,,
+637987631063665029,P23,co,1,29,m,,Game Over
 637987631072800569,P23,co,1,29,m,,looking at gold cube,1.389999,3.657506,2.336
 637987631093467278,P23,co,1,29,m,,looking at blue cube,1.390015,6.65427,-1.813
-637987631832089344,P23,co,2,29,m,300,Game Start,,,
+637987631832089344,P23,co,2,29,m,300,Game Start
 637987631866548043,P23,co,2,29,m,,looking at invis cube,1.390015,20.017,-1.813
 637987631866657741,P23,co,2,29,m,,looking at invis cube,1.390015,19.98348,-1.813
 637987631866777428,P23,co,2,29,m,,looking at invis cube,1.390015,19.95027,-1.813
@@ -9990,7 +9990,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637987632786784076,P23,co,2,29,m,,looking at Drop Zone,12,7,10.41
 637987632786893778,P23,co,2,29,m,,looking at Drop Zone,12,7,10.41
 637987632787342577,P23,co,2,29,m,,looking at Drop Zone,12,7,10.41
-637987632815214605,P23,co,2,29,m,,Game Over,,,
+637987632815214605,P23,co,2,29,m,,Game Over
 637987632856654684,P23,co,2,29,m,,looking at invis cube,1.390015,4.657214,-3.12
 637987632856983804,P23,co,2,29,m,,looking at invis cube,1.390015,4.557241,-3.12
 637987632857203215,P23,co,2,29,m,,looking at invis cube,1.390015,4.490484,-3.12

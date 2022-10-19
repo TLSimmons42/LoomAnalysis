@@ -1,5 +1,5 @@
 TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, zPos, Group
-638004786259866204,P30,s,1,18,f,300,Game Start,,,,c
+638004786259866204,P30,s,1,18,f,300,Game Start,c
 638004786342798434,P30,s,1,18,f,,looking at Play wall,2.802482,7.043648,2.367829,c
 638004786343031306,P30,s,1,18,f,,looking at Play wall,2.802482,8.150752,0.2021472,c
 638004786343251305,P30,s,1,18,f,,looking at Play wall,2.802482,8.362304,-2.131437,c
@@ -7905,8 +7905,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 638004787672585498,P30,s,1,18,f,,looking at Play wall,2.802482,7.907117,0.921863,c
 638004787672685496,P30,s,1,18,f,,looking at Play wall,2.802482,7.184132,2.114595,c
 638004787672805496,P30,s,1,18,f,,looking at Play wall,2.802482,6.152601,2.946649,c
-638004787678755484,P30,s,1,18,f,,Game Over,,,,c
-638004788082799803,P30,s,2,18,f,300,Game Start,,,,c
+638004787678755484,P30,s,1,18,f,,Game Over,c
+638004788082799803,P30,s,2,18,f,300,Game Start,c
 638004788161369672,P30,s,2,18,f,,looking at Play wall,2.802482,7.010998,3.225058,c
 638004788161849666,P30,s,2,18,f,,looking at Play wall,2.802482,7.101489,3.243408,c
 638004788161959665,P30,s,2,18,f,,looking at Play wall,2.802482,7.116958,3.209494,c
@@ -14248,8 +14248,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 638004789152377764,P30,s,2,18,f,,looking at Build wall,11.0711,5.86713,9.91,c
 638004789152497772,P30,s,2,18,f,,looking at Build wall,11.04446,5.91443,9.91,c
 638004789152607774,P30,s,2,18,f,,looking at Build wall,11.09211,5.767735,9.91,c
-638004789160788292,P30,s,2,18,f,,Game Over,,,,c
-638004791557867773,P30,tut,2,18,f,300,Game Start,,,,c
+638004789160788292,P30,s,2,18,f,,Game Over,c
+638004791557867773,P30,tut,2,18,f,300,Game Start,c
 638004791636117660,P30,tut,2,18,f,,looking at Play wall,2.802482,10.22413,1.231638,c
 638004791636197657,P30,tut,2,18,f,,looking at Play wall,2.802482,10.22334,1.236087,c
 638004791636267656,P30,tut,2,18,f,,looking at Play wall,2.802482,10.20942,1.227564,c
@@ -20724,7 +20724,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 638004792531561599,P30,tut,2,18,f,,looking at Build wall,-9.252093,6.071264,-10.4,c
 638004792531661593,P30,tut,2,18,f,,looking at Build wall,-9.249011,6.012144,-10.4,c
 638004792531781594,P30,tut,2,18,f,,looking at Build wall,-8.779494,5.905018,-10.4,c
-638004793230442101,P30,co,1,18,f,300,Game Start,,,,c
+638004793230442101,P30,co,1,18,f,300,Game Start,c
 638004793308571989,P30,co,1,18,f,,looking at Play wall,2.802482,11.46698,-0.6580884,c
 638004793308651987,P30,co,1,18,f,,looking at Play wall,2.802482,11.44573,-0.7039933,c
 638004793308741978,P30,co,1,18,f,,looking at Play wall,2.802482,11.52238,-0.5556272,c
@@ -26823,8 +26823,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 638004794205960670,P30,co,1,18,f,,looking at Build wall,12.5945,5.701711,9.91,c
 638004794206240666,P30,co,1,18,f,,looking at Build wall,12.72142,5.690733,9.91,c
 638004794206370667,P30,co,1,18,f,,looking at Build wall,12.56624,5.612789,9.91,c
-638004794210320662,P30,co,1,18,f,,Game Over,,,,c
-638004794881909611,P30,co,2,18,f,300,Game Start,,,,c
+638004794210320662,P30,co,1,18,f,,Game Over,c
+638004794881909611,P30,co,2,18,f,300,Game Start,c
 638004794962304419,P30,co,2,18,f,,looking at Play wall,2.802482,11.67219,-1.150643,c
 638004794962404650,P30,co,2,18,f,,looking at Play wall,2.802482,11.38706,-1.186939,c
 638004794962524687,P30,co,2,18,f,,looking at Play wall,2.802482,11.44026,-1.057938,c
@@ -32669,4 +32669,4 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 638004795836722970,P30,co,2,18,f,,looking at Play wall,2.802482,2.034064,1.918491,c
 638004795836852967,P30,co,2,18,f,,looking at Play wall,2.802482,2.53124,2.448872,c
 638004795836942966,P30,co,2,18,f,,looking at Play wall,2.802482,2.658872,3.206337,c
-638004795849792938,P30,co,2,18,f,,Game Over,,,,c
+638004795849792938,P30,co,2,18,f,,Game Over,c

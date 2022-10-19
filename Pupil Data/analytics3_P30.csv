@@ -1,5 +1,5 @@
 TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, leftEye, zPos, Group
-638004786259886204,P30,s,1,18,f,300,Game Start,,,,c
+638004786259886204,P30,s,1,18,f,300,Game Start,c
 638004786338496235,P30,s,1,18,f,,RightPupil,3.556122,3.661514,,c
 638004786338576227,P30,s,1,18,f,,RightPupil,3.556122,3.661514,,c
 638004786338686226,P30,s,1,18,f,,RightPupil,3.47963,3.723526,,c
@@ -292,7 +292,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786374043072,P30,s,1,18,f,,RightPupil,3.482498,3.654327,,c
 638004786374153081,P30,s,1,18,f,,RightPupil,3.472412,3.646408,,c
 638004786374283072,P30,s,1,18,f,,RightPupil,3.599442,3.654922,,c
-638004786374363071,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,16.21076,-3.12,,,,c
+638004786374363071,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,16.21076,-3.12,c
 638004786374433069,P30,s,1,18,f,,RightPupil,3.497269,3.660675,,c
 638004786374523069,P30,s,1,18,f,,RightPupil,3.624786,3.662552,,c
 638004786374603079,P30,s,1,18,f,,RightPupil,3.667313,3.686356,,c
@@ -379,7 +379,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786383597949,P30,s,1,18,f,,RightPupil,4.325836,4.722275,,c
 638004786383717943,P30,s,1,18,f,,RightPupil,4.368423,4.70903,,c
 638004786383817946,P30,s,1,18,f,,RightPupil,4.344086,4.792725,,c
-638004786383907947,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004786383907947,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004786383987949,P30,s,1,18,f,,RightPupil,4.414093,4.505142,,c
 638004786384047949,P30,s,1,18,f,,RightPupil,4.414093,4.505142,,c
 638004786384157941,P30,s,1,18,f,,RightPupil,4.494522,4.525833,,c
@@ -491,7 +491,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786395927921,P30,s,1,18,f,,RightPupil,3.722183,4.15596,,c
 638004786396037925,P30,s,1,18,f,,RightPupil,3.72113,4.14769,,c
 638004786396147927,P30,s,1,18,f,,RightPupil,3.614227,4.11319,,c
-638004786396227925,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,15.75165,-0.46,,,,c
+638004786396227925,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,15.75165,-0.46,c
 638004786396287917,P30,s,1,18,f,,RightPupil,3.708481,4.095276,,c
 638004786396367918,P30,s,1,18,f,,RightPupil,3.621429,4.033447,,c
 638004786396477925,P30,s,1,18,f,,RightPupil,3.548737,4.033401,,c
@@ -579,7 +579,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786405587911,P30,s,1,18,f,,RightPupil,4.318253,4.451035,,c
 638004786405697896,P30,s,1,18,f,,RightPupil,4.165558,4.464203,,c
 638004786405807906,P30,s,1,18,f,,RightPupil,4.341797,4.441605,,c
-638004786405887903,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004786405887903,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004786405957899,P30,s,1,18,f,,RightPupil,4.406158,4.43959,,c
 638004786406027902,P30,s,1,18,f,,RightPupil,4.392868,4.438171,,c
 638004786406137896,P30,s,1,18,f,,RightPupil,4.259842,4.436584,,c
@@ -638,7 +638,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786412027886,P30,s,1,18,f,,RightPupil,4.666824,4.704819,,c
 638004786412137885,P30,s,1,18,f,,RightPupil,4.562515,4.725388,,c
 638004786412247886,P30,s,1,18,f,,RightPupil,4.566574,4.69873,,c
-638004786412337893,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,13,4.067278,10.41,,,,c
+638004786412337893,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,13,4.067278,10.41,c
 638004786412417889,P30,s,1,18,f,,RightPupil,4.566376,4.692886,,c
 638004786412507884,P30,s,1,18,f,,RightPupil,4.580902,4.715744,,c
 638004786412587889,P30,s,1,18,f,,RightPupil,4.594604,4.714935,,c
@@ -864,7 +864,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786437017844,P30,s,1,18,f,,RightPupil,3.396027,3.492401,,c
 638004786437147839,P30,s,1,18,f,,RightPupil,3.445084,3.505844,,c
 638004786437247837,P30,s,1,18,f,,RightPupil,3.397079,3.51149,,c
-638004786437317841,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,15.68454,-1.813,,,,c
+638004786437317841,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,15.68454,-1.813,c
 638004786437377838,P30,s,1,18,f,,RightPupil,3.349167,3.520721,,c
 638004786437477838,P30,s,1,18,f,,RightPupil,3.502365,3.533936,,c
 638004786437587838,P30,s,1,18,f,,RightPupil,3.462692,3.535324,,c
@@ -958,7 +958,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786447347823,P30,s,1,18,f,,RightPupil,4.065125,4.22496,,c
 638004786447457819,P30,s,1,18,f,,RightPupil,4.123489,4.230774,,c
 638004786447577819,P30,s,1,18,f,,RightPupil,4.120865,4.23056,,c
-638004786447647823,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004786447647823,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004786447697825,P30,s,1,18,f,,RightPupil,4.116943,4.23465,,c
 638004786447787822,P30,s,1,18,f,,RightPupil,4.120132,4.238312,,c
 638004786447897818,P30,s,1,18,f,,RightPupil,4.115173,4.238586,,c
@@ -1093,7 +1093,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786462227788,P30,s,1,18,f,,RightPupil,3.424149,3.600449,,c
 638004786462337793,P30,s,1,18,f,,RightPupil,3.537186,3.610992,,c
 638004786462447792,P30,s,1,18,f,,RightPupil,3.375946,3.608902,,c
-638004786462547789,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,17.31813,0.944,,,,c
+638004786462547789,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,17.31813,0.944,c
 638004786462607790,P30,s,1,18,f,,RightPupil,3.581635,3.611053,,c
 638004786462687793,P30,s,1,18,f,,RightPupil,3.318329,3.590195,,c
 638004786462787793,P30,s,1,18,f,,RightPupil,3.402832,3.579681,,c
@@ -1193,7 +1193,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786473227767,P30,s,1,18,f,,RightPupil,4.167206,4.427612,,c
 638004786473337770,P30,s,1,18,f,,RightPupil,4.268356,4.444626,,c
 638004786473447769,P30,s,1,18,f,,RightPupil,4.224899,4.416153,,c
-638004786473527772,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004786473527772,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004786473587774,P30,s,1,18,f,,RightPupil,4.195313,4.415649,,c
 638004786473677765,P30,s,1,18,f,,RightPupil,4.188583,4.397568,,c
 638004786473777768,P30,s,1,18,f,,RightPupil,4.200119,4.397446,,c
@@ -1794,7 +1794,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786542747637,P30,s,1,18,f,,RightPupil,3.266373,3.453903,,c
 638004786542857633,P30,s,1,18,f,,RightPupil,3.287781,3.460999,,c
 638004786542977634,P30,s,1,18,f,,RightPupil,3.298294,3.463318,,c
-638004786543047637,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,17.65067,0.944,,,,c
+638004786543047637,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,17.65067,0.944,c
 638004786543117638,P30,s,1,18,f,,RightPupil,3.282135,3.472229,,c
 638004786543207636,P30,s,1,18,f,,RightPupil,3.264862,3.49025,,c
 638004786543307631,P30,s,1,18,f,,RightPupil,3.295151,3.489334,,c
@@ -1895,7 +1895,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786553797613,P30,s,1,18,f,,RightPupil,4.031586,4.185806,,c
 638004786553907616,P30,s,1,18,f,,RightPupil,4.028397,4.18132,,c
 638004786554017609,P30,s,1,18,f,,RightPupil,3.994064,4.178833,,c
-638004786554097614,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004786554097614,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004786554167610,P30,s,1,18,f,,RightPupil,3.993729,4.182068,,c
 638004786554247614,P30,s,1,18,f,,RightPupil,4.137115,4.179123,,c
 638004786554357615,P30,s,1,18,f,,RightPupil,4.040939,4.180023,,c
@@ -2107,7 +2107,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786577297565,P30,s,1,18,f,,RightPupil,3.503952,4.113968,,c
 638004786577407567,P30,s,1,18,f,,RightPupil,3.793945,4.115631,,c
 638004786577517571,P30,s,1,18,f,,RightPupil,3.712296,4.107147,,c
-638004786577587570,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,13.41849,-3.12,,,,c
+638004786577587570,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,13.41849,-3.12,c
 638004786577647568,P30,s,1,18,f,,RightPupil,3.6763,4.108795,,c
 638004786577747565,P30,s,1,18,f,,RightPupil,3.676132,4.106445,,c
 638004786577837563,P30,s,1,18,f,,RightPupil,3.774796,4.10199,,c
@@ -2197,7 +2197,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786587177547,P30,s,1,18,f,,RightPupil,4.242783,4.253693,,c
 638004786587287545,P30,s,1,18,f,,RightPupil,4.175003,4.251266,,c
 638004786587387551,P30,s,1,18,f,,RightPupil,4.168961,4.250702,,c
-638004786587467547,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004786587467547,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004786587537561,P30,s,1,18,f,,RightPupil,4.183075,4.250488,,c
 638004786587617548,P30,s,1,18,f,,RightPupil,4.193237,4.257248,,c
 638004786587727546,P30,s,1,18,f,,RightPupil,4.189331,4.252167,,c
@@ -2357,7 +2357,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786604827510,P30,s,1,18,f,,RightPupil,3.953857,4.419632,,c
 638004786604947507,P30,s,1,18,f,,RightPupil,3.955292,4.395187,,c
 638004786605067509,P30,s,1,18,f,,RightPupil,3.966049,4.393875,,c
-638004786605127514,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,11.27175,-3.12,,,,c
+638004786605127514,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,11.27175,-3.12,c
 638004786605197508,P30,s,1,18,f,,RightPupil,3.964539,4.352722,,c
 638004786605277516,P30,s,1,18,f,,RightPupil,3.953049,4.351593,,c
 638004786605407510,P30,s,1,18,f,,RightPupil,3.951309,4.363037,,c
@@ -2473,7 +2473,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786617607485,P30,s,1,18,f,,RightPupil,4.221252,4.396255,,c
 638004786617717491,P30,s,1,18,f,,RightPupil,4.220932,4.396378,,c
 638004786617817491,P30,s,1,18,f,,RightPupil,4.220551,4.393112,,c
-638004786617897484,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004786617897484,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004786617957487,P30,s,1,18,f,,RightPupil,4.21106,4.391342,,c
 638004786618057485,P30,s,1,18,f,,RightPupil,4.211655,4.392731,,c
 638004786618157483,P30,s,1,18,f,,RightPupil,4.200684,4.391281,,c
@@ -2762,7 +2762,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786649587430,P30,s,1,18,f,,RightPupil,3.765335,4.016785,,c
 638004786649697428,P30,s,1,18,f,,RightPupil,3.615143,3.949478,,c
 638004786649807426,P30,s,1,18,f,,RightPupil,3.751053,3.891785,,c
-638004786649887424,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,13.12037,0.944,,,,c
+638004786649887424,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,13.12037,0.944,c
 638004786649937418,P30,s,1,18,f,,RightPupil,3.659531,3.907455,,c
 638004786650027428,P30,s,1,18,f,,RightPupil,3.602844,3.917511,,c
 638004786650147419,P30,s,1,18,f,,RightPupil,3.721176,3.92189,,c
@@ -2848,7 +2848,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786659027408,P30,s,1,18,f,,RightPupil,4.291809,4.410629,,c
 638004786659137406,P30,s,1,18,f,,RightPupil,4.148712,4.356339,,c
 638004786659247412,P30,s,1,18,f,,RightPupil,4.304337,4.360397,,c
-638004786659337410,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004786659337410,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004786659427404,P30,s,1,18,f,,RightPupil,4.345688,4.358154,,c
 638004786659497407,P30,s,1,18,f,,RightPupil,4.161697,4.356079,,c
 638004786659587408,P30,s,1,18,f,,RightPupil,4.319366,4.35733,,c
@@ -3213,7 +3213,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786699457324,P30,s,1,18,f,,RightPupil,3.956711,4.444336,,c
 638004786699577322,P30,s,1,18,f,,RightPupil,4.140198,4.242538,,c
 638004786699677328,P30,s,1,18,f,,RightPupil,4.378998,4.328705,,c
-638004786699757329,P30,s,1,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,10.42055,-0.46,,,,c
+638004786699757329,P30,s,1,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,10.42055,-0.46,c
 638004786699817330,P30,s,1,18,f,,RightPupil,4.126358,4.076355,,c
 638004786699907330,P30,s,1,18,f,,RightPupil,4.237808,4.227783,,c
 638004786700007328,P30,s,1,18,f,,RightPupil,4.466904,4.194321,,c
@@ -3321,7 +3321,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786711337301,P30,s,1,18,f,,RightPupil,4.146729,4.431671,,c
 638004786711447299,P30,s,1,18,f,,RightPupil,4.168381,4.43103,,c
 638004786711557300,P30,s,1,18,f,,RightPupil,4.168518,4.432999,,c
-638004786711637312,P30,s,1,18,f,,Regular Gold Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004786711637312,P30,s,1,18,f,,Regular Gold Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004786711687312,P30,s,1,18,f,,RightPupil,4.098907,4.376404,,c
 638004786711777305,P30,s,1,18,f,,RightPupil,4.227081,4.345825,,c
 638004786711897301,P30,s,1,18,f,,RightPupil,4.199539,4.331909,,c
@@ -3690,7 +3690,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786752217228,P30,s,1,18,f,,RightPupil,3.668793,4.023346,,c
 638004786752317222,P30,s,1,18,f,,RightPupil,3.71167,4.051331,,c
 638004786752427222,P30,s,1,18,f,,RightPupil,3.666412,4.06955,,c
-638004786752507226,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,19.1165,-3.12,,,,c
+638004786752507226,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,19.1165,-3.12,c
 638004786752577225,P30,s,1,18,f,,RightPupil,3.588089,4.071762,,c
 638004786752657222,P30,s,1,18,f,,RightPupil,3.610168,4.073608,,c
 638004786752767226,P30,s,1,18,f,,RightPupil,3.633331,4.072433,,c
@@ -3801,7 +3801,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786764427203,P30,s,1,18,f,,RightPupil,4.390686,4.579117,,c
 638004786764537201,P30,s,1,18,f,,RightPupil,4.379593,4.621124,,c
 638004786764647196,P30,s,1,18,f,,RightPupil,4.434509,4.677383,,c
-638004786764727208,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004786764727208,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004786764777207,P30,s,1,18,f,,RightPupil,4.253098,4.706375,,c
 638004786764867199,P30,s,1,18,f,,RightPupil,4.471283,4.675278,,c
 638004786764977200,P30,s,1,18,f,,RightPupil,4.313309,4.676376,,c
@@ -4000,7 +4000,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786786417161,P30,s,1,18,f,,RightPupil,3.694412,3.643829,,c
 638004786786527157,P30,s,1,18,f,,RightPupil,3.570847,3.674103,,c
 638004786786637159,P30,s,1,18,f,,RightPupil,3.500519,3.641296,,c
-638004786786717165,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,18.05087,-0.46,,,,c
+638004786786717165,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,18.05087,-0.46,c
 638004786786777154,P30,s,1,18,f,,RightPupil,3.585434,3.669052,,c
 638004786786867158,P30,s,1,18,f,,RightPupil,3.490814,3.67601,,c
 638004786786967163,P30,s,1,18,f,,RightPupil,3.578781,3.673676,,c
@@ -4070,7 +4070,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786795357140,P30,s,1,18,f,,RightPupil,4.265167,4.214157,,c
 638004786795577146,P30,s,1,18,f,,RightPupil,4.265167,4.214417,,c
 638004786795837137,P30,s,1,18,f,,RightPupil,4.265854,4.211014,,c
-638004786795987135,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004786795987135,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004786796067482,P30,s,1,18,f,,RightPupil,4.252274,4.196991,,c
 638004786796247409,P30,s,1,18,f,,RightPupil,4.208557,4.226456,,c
 638004786796467496,P30,s,1,18,f,,RightPupil,4.208054,4.266479,,c
@@ -4322,7 +4322,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786824737079,P30,s,1,18,f,,RightPupil,3.662735,4.00882,,c
 638004786824857082,P30,s,1,18,f,,RightPupil,3.715195,3.868576,,c
 638004786824957080,P30,s,1,18,f,,RightPupil,3.726883,3.969452,,c
-638004786825037081,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,12.68569,0.944,,,,c
+638004786825037081,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,12.68569,0.944,c
 638004786825097082,P30,s,1,18,f,,RightPupil,3.583206,4.082016,,c
 638004786825187077,P30,s,1,18,f,,RightPupil,3.414444,4.021301,,c
 638004786825287084,P30,s,1,18,f,,RightPupil,3.753632,4.017792,,c
@@ -4417,7 +4417,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786835177062,P30,s,1,18,f,,RightPupil,4.400528,4.416458,,c
 638004786835287060,P30,s,1,18,f,,RightPupil,4.298309,4.317383,,c
 638004786835387065,P30,s,1,18,f,,RightPupil,4.231415,4.338577,,c
-638004786835467061,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004786835467061,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004786835527068,P30,s,1,18,f,,RightPupil,4.288223,4.359604,,c
 638004786835617061,P30,s,1,18,f,,RightPupil,4.367935,4.290726,,c
 638004786835727063,P30,s,1,18,f,,RightPupil,4.233124,4.263947,,c
@@ -4535,7 +4535,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786848167034,P30,s,1,18,f,,RightPupil,3.549271,3.780029,,c
 638004786848277038,P30,s,1,18,f,,RightPupil,3.496582,3.781097,,c
 638004786848397038,P30,s,1,18,f,,RightPupil,3.411789,3.752853,,c
-638004786848457041,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,17.95154,-1.813,,,,c
+638004786848457041,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,17.95154,-1.813,c
 638004786848517035,P30,s,1,18,f,,RightPupil,3.487778,3.735779,,c
 638004786848607045,P30,s,1,18,f,,RightPupil,3.523712,3.734055,,c
 638004786848717041,P30,s,1,18,f,,RightPupil,3.410141,3.700638,,c
@@ -4630,7 +4630,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786858597019,P30,s,1,18,f,,RightPupil,4.155136,4.350861,,c
 638004786858717013,P30,s,1,18,f,,RightPupil,4.153946,4.350861,,c
 638004786858837014,P30,s,1,18,f,,RightPupil,4.155075,4.350098,,c
-638004786858897025,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004786858897025,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004786858957011,P30,s,1,18,f,,RightPupil,4.051392,4.350174,,c
 638004786859047021,P30,s,1,18,f,,RightPupil,4.109161,4.347534,,c
 638004786859157017,P30,s,1,18,f,,RightPupil,4.070633,4.347107,,c
@@ -4818,7 +4818,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786879366979,P30,s,1,18,f,,RightPupil,3.629639,3.703171,,c
 638004786879486986,P30,s,1,18,f,,RightPupil,3.52536,3.760803,,c
 638004786879596971,P30,s,1,18,f,,RightPupil,3.639572,3.767609,,c
-638004786879666979,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,14.71865,2.336,,,,c
+638004786879666979,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,14.71865,2.336,c
 638004786879726978,P30,s,1,18,f,,RightPupil,3.592041,3.773453,,c
 638004786879826978,P30,s,1,18,f,,RightPupil,3.567215,3.811401,,c
 638004786879926969,P30,s,1,18,f,,RightPupil,3.567612,3.793381,,c
@@ -4924,7 +4924,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786891036948,P30,s,1,18,f,,RightPupil,4.135223,4.514053,,c
 638004786891146953,P30,s,1,18,f,,RightPupil,4.07692,4.448639,,c
 638004786891256954,P30,s,1,18,f,,RightPupil,4.16243,4.481445,,c
-638004786891326951,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004786891326951,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004786891386954,P30,s,1,18,f,,RightPupil,4.044876,4.513016,,c
 638004786891476950,P30,s,1,18,f,,RightPupil,4.199631,4.512131,,c
 638004786891586946,P30,s,1,18,f,,RightPupil,4.152084,4.483368,,c
@@ -5159,7 +5159,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786917016904,P30,s,1,18,f,,RightPupil,3.680115,3.93071,,c
 638004786917136900,P30,s,1,18,f,,RightPupil,3.671539,3.954315,,c
 638004786917236905,P30,s,1,18,f,,RightPupil,3.662949,3.950592,,c
-638004786917316901,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,12.62021,-0.46,,,,c
+638004786917316901,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,12.62021,-0.46,c
 638004786917376905,P30,s,1,18,f,,RightPupil,3.663361,3.951675,,c
 638004786917476897,P30,s,1,18,f,,RightPupil,3.654083,3.937195,,c
 638004786917576901,P30,s,1,18,f,,RightPupil,3.637848,3.935226,,c
@@ -5533,7 +5533,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786958456824,P30,s,1,18,f,,RightPupil,3.69928,3.866013,,c
 638004786958566820,P30,s,1,18,f,,RightPupil,3.649841,3.880478,,c
 638004786958666820,P30,s,1,18,f,,RightPupil,3.652115,3.896194,,c
-638004786958746822,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,21.64964,-3.12,,,,c
+638004786958746822,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,21.64964,-3.12,c
 638004786958806819,P30,s,1,18,f,,RightPupil,3.713867,3.915985,,c
 638004786958896819,P30,s,1,18,f,,RightPupil,3.656174,3.922501,,c
 638004786958996822,P30,s,1,18,f,,RightPupil,3.780869,3.927063,,c
@@ -5631,7 +5631,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786969216804,P30,s,1,18,f,,RightPupil,4.183746,4.310822,,c
 638004786969336794,P30,s,1,18,f,,RightPupil,4.212311,4.307098,,c
 638004786969436795,P30,s,1,18,f,,RightPupil,4.256821,4.309845,,c
-638004786969516798,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004786969516798,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004786969577287,P30,s,1,18,f,,RightPupil,4.192429,4.309616,,c
 638004786969667040,P30,s,1,18,f,,RightPupil,4.208069,4.340088,,c
 638004786969776796,P30,s,1,18,f,,RightPupil,4.219803,4.313522,,c
@@ -5839,7 +5839,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004786992216755,P30,s,1,18,f,,RightPupil,3.86882,3.974823,,c
 638004786992316750,P30,s,1,18,f,,RightPupil,3.753235,3.971695,,c
 638004786992426758,P30,s,1,18,f,,RightPupil,3.633362,3.972183,,c
-638004786992506753,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,5.389954,-1.813,,,,c
+638004786992506753,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,5.389954,-1.813,c
 638004786992556749,P30,s,1,18,f,,RightPupil,3.562149,3.975128,,c
 638004786992656752,P30,s,1,18,f,,RightPupil,3.63562,3.986679,,c
 638004786992766755,P30,s,1,18,f,,RightPupil,3.692993,4.003036,,c
@@ -5990,7 +5990,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787008866723,P30,s,1,18,f,,RightPupil,3.433685,3.859894,,c
 638004787008976721,P30,s,1,18,f,,RightPupil,3.427734,3.860077,,c
 638004787009096722,P30,s,1,18,f,,RightPupil,3.434845,3.858749,,c
-638004787009166722,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.84909,2.336,,,,c
+638004787009166722,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.84909,2.336,c
 638004787009226727,P30,s,1,18,f,,RightPupil,3.532211,3.857544,,c
 638004787009316724,P30,s,1,18,f,,RightPupil,3.510086,3.855286,,c
 638004787009426714,P30,s,1,18,f,,RightPupil,3.53154,3.856659,,c
@@ -6064,7 +6064,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787016976707,P30,s,1,18,f,,RightPupil,4.116638,4.328384,,c
 638004787017086700,P30,s,1,18,f,,RightPupil,4.123688,4.334915,,c
 638004787017206707,P30,s,1,18,f,,RightPupil,4.234161,4.334686,,c
-638004787017276707,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004787017276707,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004787017366708,P30,s,1,18,f,,RightPupil,4.229431,4.357422,,c
 638004787017436705,P30,s,1,18,f,,RightPupil,4.237091,4.36261,,c
 638004787017526703,P30,s,1,18,f,,RightPupil,4.239746,4.364609,,c
@@ -6292,7 +6292,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787042186660,P30,s,1,18,f,,RightPupil,3.325775,3.672943,,c
 638004787042296653,P30,s,1,18,f,,RightPupil,3.327377,3.672058,,c
 638004787042406653,P30,s,1,18,f,,RightPupil,3.326828,3.68338,,c
-638004787042486655,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,21.04922,2.336,,,,c
+638004787042486655,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,21.04922,2.336,c
 638004787042546657,P30,s,1,18,f,,RightPupil,3.326828,3.700333,,c
 638004787042646664,P30,s,1,18,f,,RightPupil,3.32814,3.723923,,c
 638004787042746654,P30,s,1,18,f,,RightPupil,3.343811,3.742432,,c
@@ -6363,7 +6363,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787049956642,P30,s,1,18,f,,RightPupil,4.126175,4.294647,,c
 638004787050076638,P30,s,1,18,f,,RightPupil,4.128372,4.412125,,c
 638004787050196644,P30,s,1,18,f,,RightPupil,4.123184,4.418793,,c
-638004787050256639,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004787050256639,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004787050336641,P30,s,1,18,f,,RightPupil,4.182541,4.43306,,c
 638004787050426645,P30,s,1,18,f,,RightPupil,4.147919,4.418533,,c
 638004787050516642,P30,s,1,18,f,,RightPupil,4.20163,4.368729,,c
@@ -6546,7 +6546,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787070176604,P30,s,1,18,f,,RightPupil,3.463074,3.629013,,c
 638004787070286599,P30,s,1,18,f,,RightPupil,3.463974,3.630539,,c
 638004787070406601,P30,s,1,18,f,,RightPupil,3.426254,3.633148,,c
-638004787070476605,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,15.71823,-0.46,,,,c
+638004787070476605,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,15.71823,-0.46,c
 638004787070526608,P30,s,1,18,f,,RightPupil,3.451126,3.628845,,c
 638004787070616597,P30,s,1,18,f,,RightPupil,3.478485,3.628296,,c
 638004787070736596,P30,s,1,18,f,,RightPupil,3.41304,3.620453,,c
@@ -6612,7 +6612,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787077386593,P30,s,1,18,f,,RightPupil,3.995605,4.186813,,c
 638004787077506584,P30,s,1,18,f,,RightPupil,4.236618,4.186554,,c
 638004787077616582,P30,s,1,18,f,,RightPupil,4.180191,4.175339,,c
-638004787077696592,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004787077696592,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004787077756590,P30,s,1,18,f,,RightPupil,4.178024,4.185181,,c
 638004787077836586,P30,s,1,18,f,,RightPupil,4.068405,4.151215,,c
 638004787077956588,P30,s,1,18,f,,RightPupil,4.114105,4.102386,,c
@@ -6620,7 +6620,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787078166584,P30,s,1,18,f,,RightPupil,3.93512,4.289719,,c
 638004787078286582,P30,s,1,18,f,,RightPupil,4.208466,4.345047,,c
 638004787078386592,P30,s,1,18,f,,RightPupil,4.114197,4.23999,,c
-638004787078466590,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,11,6,10.41,,,,c
+638004787078466590,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,11,6,10.41,c
 638004787078526582,P30,s,1,18,f,,RightPupil,4.031433,4.16304,,c
 638004787078616583,P30,s,1,18,f,,RightPupil,4.104874,4.130814,,c
 638004787078726586,P30,s,1,18,f,,RightPupil,3.929428,4.281281,,c
@@ -6832,7 +6832,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787104376529,P30,s,1,18,f,,RightPupil,3.580017,3.661133,,c
 638004787104486533,P30,s,1,18,f,,RightPupil,3.605881,3.662582,,c
 638004787104616537,P30,s,1,18,f,,RightPupil,3.682953,3.67511,,c
-638004787104686536,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,11.58683,0.944,,,,c
+638004787104686536,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,11.58683,0.944,c
 638004787104736540,P30,s,1,18,f,,RightPupil,3.669952,3.682724,,c
 638004787104836534,P30,s,1,18,f,,RightPupil,3.709946,3.692963,,c
 638004787104946536,P30,s,1,18,f,,RightPupil,3.666351,3.718735,,c
@@ -7336,7 +7336,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787160246430,P30,s,1,18,f,,RightPupil,3.483932,3.680649,,c
 638004787160356426,P30,s,1,18,f,,RightPupil,3.404602,3.682266,,c
 638004787160476425,P30,s,1,18,f,,RightPupil,3.4711,3.686264,,c
-638004787160546425,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,16.25136,-1.813,,,,c
+638004787160546425,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,16.25136,-1.813,c
 638004787160596420,P30,s,1,18,f,,RightPupil,3.329453,3.683716,,c
 638004787160686422,P30,s,1,18,f,,RightPupil,3.272385,3.692566,,c
 638004787160806426,P30,s,1,18,f,,RightPupil,3.295181,3.707581,,c
@@ -7677,7 +7677,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787198006345,P30,s,1,18,f,,RightPupil,4.19072,4.495667,,c
 638004787198116346,P30,s,1,18,f,,RightPupil,4.339478,4.497726,,c
 638004787198226355,P30,s,1,18,f,,RightPupil,4.259308,4.494507,,c
-638004787198306352,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004787198306352,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004787198366352,P30,s,1,18,f,,RightPupil,4.160599,4.492249,,c
 638004787198466350,P30,s,1,18,f,,RightPupil,4.17067,4.451538,,c
 638004787198556347,P30,s,1,18,f,,RightPupil,4.066605,4.4095,,c
@@ -7876,7 +7876,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787219996307,P30,s,1,18,f,,RightPupil,3.712143,3.918869,,c
 638004787220106307,P30,s,1,18,f,,RightPupil,3.777893,3.951797,,c
 638004787220216308,P30,s,1,18,f,,RightPupil,3.806946,3.837357,,c
-638004787220296313,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,16.71797,-0.46,,,,c
+638004787220296313,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,16.71797,-0.46,c
 638004787220346313,P30,s,1,18,f,,RightPupil,3.965347,3.752045,,c
 638004787220446305,P30,s,1,18,f,,RightPupil,3.909195,3.929916,,c
 638004787220556309,P30,s,1,18,f,,RightPupil,3.844254,3.964127,,c
@@ -7971,7 +7971,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787230436286,P30,s,1,18,f,,RightPupil,4.017014,4.164215,,c
 638004787230546284,P30,s,1,18,f,,RightPupil,4.043472,4.162979,,c
 638004787230656280,P30,s,1,18,f,,RightPupil,4.079529,4.146881,,c
-638004787230736288,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004787230736288,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004787230806285,P30,s,1,18,f,,RightPupil,4.071304,4.136826,,c
 638004787230896289,P30,s,1,18,f,,RightPupil,4.071426,4.11412,,c
 638004787230986285,P30,s,1,18,f,,RightPupil,4.076324,4.114532,,c
@@ -8358,7 +8358,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787273416205,P30,s,1,18,f,,RightPupil,-1,-1,,c
 638004787273526199,P30,s,1,18,f,,RightPupil,-1,-1,,c
 638004787273636202,P30,s,1,18,f,,RightPupil,-1,-1,,c
-638004787273716209,P30,s,1,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,15.95162,2.336,,,,c
+638004787273716209,P30,s,1,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,15.95162,2.336,c
 638004787273776201,P30,s,1,18,f,,RightPupil,-1,-1,,c
 638004787273856203,P30,s,1,18,f,,RightPupil,-1,-1,,c
 638004787273966204,P30,s,1,18,f,,RightPupil,-1,-1,,c
@@ -8559,7 +8559,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787295626157,P30,s,1,18,f,,RightPupil,3.884781,3.896149,,c
 638004787295746159,P30,s,1,18,f,,RightPupil,3.744614,3.920486,,c
 638004787295846156,P30,s,1,18,f,,RightPupil,3.888596,3.932816,,c
-638004787295926165,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,18.45069,2.336,,,,c
+638004787295926165,P30,s,1,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,18.45069,2.336,c
 638004787295996159,P30,s,1,18,f,,RightPupil,3.689041,3.967819,,c
 638004787296076161,P30,s,1,18,f,,RightPupil,3.638779,3.995834,,c
 638004787296186161,P30,s,1,18,f,,RightPupil,3.677704,4.007782,,c
@@ -8633,7 +8633,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787303736149,P30,s,1,18,f,,RightPupil,4.400772,4.32222,,c
 638004787303846150,P30,s,1,18,f,,RightPupil,4.386246,4.293716,,c
 638004787303956141,P30,s,1,18,f,,RightPupil,4.37146,4.294525,,c
-638004787304036146,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004787304036146,P30,s,1,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004787304096147,P30,s,1,18,f,,RightPupil,4.349396,4.284134,,c
 638004787304176144,P30,s,1,18,f,,RightPupil,4.400467,4.281525,,c
 638004787304286149,P30,s,1,18,f,,RightPupil,4.35994,4.289551,,c
@@ -8882,7 +8882,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787331276099,P30,s,1,18,f,,RightPupil,3.748413,3.889771,,c
 638004787331396094,P30,s,1,18,f,,RightPupil,3.694229,3.999542,,c
 638004787331496093,P30,s,1,18,f,,RightPupil,3.80278,4.011856,,c
-638004787331576096,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,20.01651,2.336,,,,c
+638004787331576096,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,20.01651,2.336,c
 638004787331646095,P30,s,1,18,f,,RightPupil,3.7966,3.829208,,c
 638004787331726097,P30,s,1,18,f,,RightPupil,3.742081,3.802261,,c
 638004787331836090,P30,s,1,18,f,,RightPupil,3.873413,3.984726,,c
@@ -8997,7 +8997,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787343946076,P30,s,1,18,f,,RightPupil,4.357864,4.38237,,c
 638004787344066080,P30,s,1,18,f,,RightPupil,4.30928,4.382706,,c
 638004787344166071,P30,s,1,18,f,,RightPupil,4.403137,4.369019,,c
-638004787344246078,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004787344246078,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004787344316072,P30,s,1,18,f,,RightPupil,4.496506,4.356506,,c
 638004787344396072,P30,s,1,18,f,,RightPupil,4.473923,4.361099,,c
 638004787344496071,P30,s,1,18,f,,RightPupil,4.498688,4.359238,,c
@@ -9010,7 +9010,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787345276073,P30,s,1,18,f,,RightPupil,4.455795,4.432999,,c
 638004787345376069,P30,s,1,18,f,,RightPupil,4.494949,4.45311,,c
 638004787345496074,P30,s,1,18,f,,RightPupil,4.486191,4.461044,,c
-638004787345566074,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,13,6,10.41,,,,c
+638004787345566074,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,13,6,10.41,c
 638004787345626072,P30,s,1,18,f,,RightPupil,4.442795,4.461304,,c
 638004787345716069,P30,s,1,18,f,,RightPupil,4.462189,4.457413,,c
 638004787345826070,P30,s,1,18,f,,RightPupil,4.477768,4.464493,,c
@@ -9199,7 +9199,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787366146038,P30,s,1,18,f,,RightPupil,3.789078,4.042709,,c
 638004787366266038,P30,s,1,18,f,,RightPupil,3.777939,4.037781,,c
 638004787366366040,P30,s,1,18,f,,RightPupil,3.774704,4.026871,,c
-638004787366456037,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.81568,2.336,,,,c
+638004787366456037,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.81568,2.336,c
 638004787366506039,P30,s,1,18,f,,RightPupil,3.765961,4.026306,,c
 638004787366596038,P30,s,1,18,f,,RightPupil,3.774384,4.033264,,c
 638004787366706031,P30,s,1,18,f,,RightPupil,3.785553,4.026291,,c
@@ -9283,7 +9283,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787375376021,P30,s,1,18,f,,RightPupil,4.330383,4.289093,,c
 638004787375476016,P30,s,1,18,f,,RightPupil,4.336411,4.290909,,c
 638004787375596015,P30,s,1,18,f,,RightPupil,4.336563,4.289474,,c
-638004787375666021,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004787375666021,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004787375736019,P30,s,1,18,f,,RightPupil,4.321548,4.290909,,c
 638004787375816022,P30,s,1,18,f,,RightPupil,4.329697,4.289963,,c
 638004787375926016,P30,s,1,18,f,,RightPupil,4.336624,4.289413,,c
@@ -9294,7 +9294,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787376476014,P30,s,1,18,f,,RightPupil,4.310974,4.297928,,c
 638004787376586019,P30,s,1,18,f,,RightPupil,4.307419,4.30069,,c
 638004787376706016,P30,s,1,18,f,,RightPupil,4.307709,4.296997,,c
-638004787376796019,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,13,6,10.41,,,,c
+638004787376796019,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,13,6,10.41,c
 638004787376856021,P30,s,1,18,f,,RightPupil,4.303375,4.302719,,c
 638004787376946013,P30,s,1,18,f,,RightPupil,4.303375,4.302719,,c
 638004787377036019,P30,s,1,18,f,,RightPupil,4.296173,4.295181,,c
@@ -9592,7 +9592,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787412135959,P30,s,1,18,f,,RightPupil,3.455002,3.733658,,c
 638004787412245951,P30,s,1,18,f,,RightPupil,3.458923,3.732178,,c
 638004787412355955,P30,s,1,18,f,,RightPupil,3.45993,3.733551,,c
-638004787412435955,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,23.39993,2.336,,,,c
+638004787412435955,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.389999,23.39993,2.336,c
 638004787412495959,P30,s,1,18,f,,RightPupil,3.481262,3.736176,,c
 638004787412575957,P30,s,1,18,f,,RightPupil,3.484146,3.735657,,c
 638004787412685953,P30,s,1,18,f,,RightPupil,3.485626,3.744308,,c
@@ -9673,7 +9673,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787421015940,P30,s,1,18,f,,RightPupil,4.245117,4.360474,,c
 638004787421145941,P30,s,1,18,f,,RightPupil,4.233978,4.363876,,c
 638004787421245941,P30,s,1,18,f,,RightPupil,4.245728,4.364151,,c
-638004787421315937,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004787421315937,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004787421395938,P30,s,1,18,f,,RightPupil,4.221558,4.360306,,c
 638004787421455939,P30,s,1,18,f,,RightPupil,4.232895,4.35997,,c
 638004787421575939,P30,s,1,18,f,,RightPupil,4.24498,4.353806,,c
@@ -9862,7 +9862,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787441895904,P30,s,1,18,f,,RightPupil,3.898163,4.047119,,c
 638004787442005903,P30,s,1,18,f,,RightPupil,3.926666,4.058044,,c
 638004787442115905,P30,s,1,18,f,,RightPupil,4.029099,4.036118,,c
-638004787442195902,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,11.35376,-0.46,,,,c
+638004787442195902,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,11.35376,-0.46,c
 638004787442255900,P30,s,1,18,f,,RightPupil,4.072388,4.023849,,c
 638004787442335902,P30,s,1,18,f,,RightPupil,3.911865,4.128586,,c
 638004787442445901,P30,s,1,18,f,,RightPupil,3.854156,4.004288,,c
@@ -9938,7 +9938,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787450225890,P30,s,1,18,f,,RightPupil,4.269943,4.487686,,c
 638004787450335888,P30,s,1,18,f,,RightPupil,4.330933,4.477112,,c
 638004787450445892,P30,s,1,18,f,,RightPupil,4.379089,4.470093,,c
-638004787450525889,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004787450525889,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004787450595884,P30,s,1,18,f,,RightPupil,4.289429,4.487198,,c
 638004787450665880,P30,s,1,18,f,,RightPupil,4.289429,4.487198,,c
 638004787450775888,P30,s,1,18,f,,RightPupil,4.311539,4.486893,,c
@@ -10306,7 +10306,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787490995818,P30,s,1,18,f,,RightPupil,3.890671,4.246918,,c
 638004787491105811,P30,s,1,18,f,,RightPupil,3.797638,4.257919,,c
 638004787491205818,P30,s,1,18,f,,RightPupil,3.849884,4.25972,,c
-638004787491285815,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,15.05124,-3.12,,,,c
+638004787491285815,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,15.05124,-3.12,c
 638004787491335816,P30,s,1,18,f,,RightPupil,3.861526,4.257416,,c
 638004787491425821,P30,s,1,18,f,,RightPupil,3.923141,4.252365,,c
 638004787491535816,P30,s,1,18,f,,RightPupil,3.775162,4.244522,,c
@@ -10404,7 +10404,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787501755799,P30,s,1,18,f,,RightPupil,4.29657,4.626816,,c
 638004787501865801,P30,s,1,18,f,,RightPupil,4.368591,4.631912,,c
 638004787501975801,P30,s,1,18,f,,RightPupil,4.314194,4.626633,,c
-638004787502065796,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004787502065796,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004787502125796,P30,s,1,18,f,,RightPupil,4.291534,4.618896,,c
 638004787502205797,P30,s,1,18,f,,RightPupil,4.38504,4.640457,,c
 638004787502315797,P30,s,1,18,f,,RightPupil,4.270859,4.549576,,c
@@ -11074,7 +11074,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787576065670,P30,s,1,18,f,,RightPupil,3.75827,3.990372,,c
 638004787576165670,P30,s,1,18,f,,RightPupil,3.748322,4.000488,,c
 638004787576275664,P30,s,1,18,f,,RightPupil,3.738785,3.98027,,c
-638004787576355667,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,20.18317,-1.813,,,,c
+638004787576355667,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,20.18317,-1.813,c
 638004787576415669,P30,s,1,18,f,,RightPupil,3.738251,3.978867,,c
 638004787576505667,P30,s,1,18,f,,RightPupil,3.737549,4.024048,,c
 638004787576605665,P30,s,1,18,f,,RightPupil,3.737946,4.034088,,c
@@ -11211,7 +11211,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787591155642,P30,s,1,18,f,,RightPupil,4.475113,4.639709,,c
 638004787591265640,P30,s,1,18,f,,RightPupil,4.533295,4.637924,,c
 638004787591375648,P30,s,1,18,f,,RightPupil,4.392426,4.702148,,c
-638004787591455642,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004787591455642,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004787591525639,P30,s,1,18,f,,RightPupil,4.548752,4.492722,,c
 638004787591605639,P30,s,1,18,f,,RightPupil,4.471893,4.611115,,c
 638004787591715642,P30,s,1,18,f,,RightPupil,4.503174,4.754318,,c
@@ -11429,7 +11429,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787615265597,P30,s,1,18,f,,RightPupil,3.521866,3.623428,,c
 638004787615375601,P30,s,1,18,f,,RightPupil,3.552322,3.637543,,c
 638004787615485599,P30,s,1,18,f,,RightPupil,3.537415,3.637878,,c
-638004787615555601,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,20.68222,-1.813,,,,c
+638004787615555601,P30,s,1,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,20.68222,-1.813,c
 638004787615615602,P30,s,1,18,f,,RightPupil,3.55809,3.637817,,c
 638004787615705600,P30,s,1,18,f,,RightPupil,3.566956,3.64888,,c
 638004787615825596,P30,s,1,18,f,,RightPupil,3.801834,3.650421,,c
@@ -11523,7 +11523,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787625585580,P30,s,1,18,f,,RightPupil,4.470261,4.378647,,c
 638004787625725573,P30,s,1,18,f,,RightPupil,4.497589,4.365402,,c
 638004787625815573,P30,s,1,18,f,,RightPupil,4.503265,4.365707,,c
-638004787625895581,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004787625895581,P30,s,1,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004787625975578,P30,s,1,18,f,,RightPupil,4.496246,4.350433,,c
 638004787626045574,P30,s,1,18,f,,RightPupil,4.496246,4.350433,,c
 638004787626145579,P30,s,1,18,f,,RightPupil,4.471664,4.346298,,c
@@ -11709,7 +11709,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787646135548,P30,s,1,18,f,,RightPupil,3.808655,3.989746,,c
 638004787646245547,P30,s,1,18,f,,RightPupil,3.80722,3.989777,,c
 638004787646355538,P30,s,1,18,f,,RightPupil,3.85228,3.989761,,c
-638004787646435545,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,23.6816,-3.12,,,,c
+638004787646435545,P30,s,1,18,f,,Regular Red Cube(Clone) was picked up,1.390015,23.6816,-3.12,c
 638004787646485847,P30,s,1,18,f,,RightPupil,3.825989,3.999344,,c
 638004787646595547,P30,s,1,18,f,,RightPupil,3.846893,3.99028,,c
 638004787646685546,P30,s,1,18,f,,RightPupil,3.848694,3.99173,,c
@@ -11808,7 +11808,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787657015520,P30,s,1,18,f,,RightPupil,4.418182,4.484924,,c
 638004787657135528,P30,s,1,18,f,,RightPupil,4.445618,4.484131,,c
 638004787657245526,P30,s,1,18,f,,RightPupil,4.433426,4.49295,,c
-638004787657315528,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004787657315528,P30,s,1,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004787657385531,P30,s,1,18,f,,RightPupil,4.418793,4.493454,,c
 638004787657485533,P30,s,1,18,f,,RightPupil,4.418182,4.514084,,c
 638004787657575522,P30,s,1,18,f,,RightPupil,4.402512,4.514008,,c
@@ -12002,8 +12002,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004787678465492,P30,s,1,18,f,,RightPupil,4.725693,4.784866,,c
 638004787678565484,P30,s,1,18,f,,RightPupil,4.702866,4.792786,,c
 638004787678685490,P30,s,1,18,f,,RightPupil,4.709976,4.790619,,c
-638004787678755484,P30,s,1,18,f,,Game Over,,,,c
-638004788082809808,P30,s,2,18,f,300,Game Start,,,,c
+638004787678755484,P30,s,1,18,f,,Game Over,c
+638004788082809808,P30,s,2,18,f,300,Game Start,c
 638004788161139668,P30,s,2,18,f,,RightPupil,4.279709,4.77272,,c
 638004788161209663,P30,s,2,18,f,,RightPupil,4.279709,4.77272,,c
 638004788161299665,P30,s,2,18,f,,RightPupil,4.283951,4.777603,,c
@@ -12436,7 +12436,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788208999584,P30,s,2,18,f,,RightPupil,3.301376,3.721619,,c
 638004788209099583,P30,s,2,18,f,,RightPupil,3.639648,3.624649,,c
 638004788209209586,P30,s,2,18,f,,RightPupil,3.531113,3.806381,,c
-638004788209309584,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,15.58586,-3.12,,,,c
+638004788209309584,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,15.58586,-3.12,c
 638004788209379587,P30,s,2,18,f,,RightPupil,3.402451,3.79541,,c
 638004788209469582,P30,s,2,18,f,,RightPupil,3.439148,3.814926,,c
 638004788209559580,P30,s,2,18,f,,RightPupil,3.45488,3.807541,,c
@@ -12524,7 +12524,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788218649571,P30,s,2,18,f,,RightPupil,4.22467,4.267899,,c
 638004788218769566,P30,s,2,18,f,,RightPupil,4.230133,4.264252,,c
 638004788218869567,P30,s,2,18,f,,RightPupil,4.22197,4.260513,,c
-638004788218959559,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004788218959559,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004788219049565,P30,s,2,18,f,,RightPupil,4.137985,4.24469,,c
 638004788219119562,P30,s,2,18,f,,RightPupil,4.137985,4.24469,,c
 638004788219209562,P30,s,2,18,f,,RightPupil,4.345795,4.238098,,c
@@ -12717,7 +12717,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788239979530,P30,s,2,18,f,,RightPupil,4.038437,3.557983,,c
 638004788240089522,P30,s,2,18,f,,RightPupil,4.12323,3.516861,,c
 638004788240199526,P30,s,2,18,f,,RightPupil,-1,3.222321,,c
-638004788240269531,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,21.61589,-1.813,,,,c
+638004788240269531,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,21.61589,-1.813,c
 638004788240329527,P30,s,2,18,f,,RightPupil,-1,3.89151,,c
 638004788240429526,P30,s,2,18,f,,RightPupil,-1,4.062698,,c
 638004788240529522,P30,s,2,18,f,,RightPupil,-1,3.883514,,c
@@ -12810,7 +12810,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788250189511,P30,s,2,18,f,,RightPupil,4.544006,4.26918,,c
 638004788250299515,P30,s,2,18,f,,RightPupil,4.459518,4.381027,,c
 638004788250419505,P30,s,2,18,f,,RightPupil,4.560837,4.411285,,c
-638004788250499512,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788250499512,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788250559508,P30,s,2,18,f,,RightPupil,4.295288,4.357681,,c
 638004788250639809,P30,s,2,18,f,,RightPupil,4.320984,4.377182,,c
 638004788250749512,P30,s,2,18,f,,RightPupil,4.511154,4.312271,,c
@@ -12854,7 +12854,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788254969499,P30,s,2,18,f,,RightPupil,4.449356,4.428452,,c
 638004788255079499,P30,s,2,18,f,,RightPupil,4.447952,4.360611,,c
 638004788255199500,P30,s,2,18,f,,RightPupil,4.237946,4.384644,,c
-638004788255269505,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,14,4.567346,10.41,,,,c
+638004788255269505,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,14,4.567346,10.41,c
 638004788255339501,P30,s,2,18,f,,RightPupil,4.292892,4.381195,,c
 638004788255419497,P30,s,2,18,f,,RightPupil,4.336914,4.402924,,c
 638004788255519502,P30,s,2,18,f,,RightPupil,4.270706,4.436722,,c
@@ -13318,7 +13318,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788309349405,P30,s,2,18,f,,RightPupil,3.796097,3.88208,,c
 638004788309449632,P30,s,2,18,f,,RightPupil,3.735489,3.975876,,c
 638004788309559404,P30,s,2,18,f,,RightPupil,3.721786,4.097565,,c
-638004788309649405,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,22.2646,-3.12,,,,c
+638004788309649405,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,22.2646,-3.12,c
 638004788309709400,P30,s,2,18,f,,RightPupil,3.943237,4.08226,,c
 638004788309789410,P30,s,2,18,f,,RightPupil,3.585861,4.116241,,c
 638004788309899402,P30,s,2,18,f,,RightPupil,3.895859,4.014084,,c
@@ -13408,7 +13408,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788319269389,P30,s,2,18,f,,RightPupil,4.122238,4.252838,,c
 638004788319389670,P30,s,2,18,f,,RightPupil,4.024231,4.250137,,c
 638004788319489387,P30,s,2,18,f,,RightPupil,4.104706,4.246552,,c
-638004788319579389,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788319579389,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788319659384,P30,s,2,18,f,,RightPupil,4.029922,4.228363,,c
 638004788319729387,P30,s,2,18,f,,RightPupil,4.016632,4.224503,,c
 638004788319829636,P30,s,2,18,f,,RightPupil,4.008682,4.220276,,c
@@ -13555,7 +13555,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788335489361,P30,s,2,18,f,,RightPupil,3.469254,3.638779,,c
 638004788335609361,P30,s,2,18,f,,RightPupil,3.489456,3.635742,,c
 638004788335709360,P30,s,2,18,f,,RightPupil,3.489929,3.64476,,c
-638004788335789358,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,20.54933,-3.12,,,,c
+638004788335789358,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,20.54933,-3.12,c
 638004788335839353,P30,s,2,18,f,,RightPupil,3.489456,3.657715,,c
 638004788335929360,P30,s,2,18,f,,RightPupil,3.491547,3.657028,,c
 638004788336049358,P30,s,2,18,f,,RightPupil,3.490311,3.713333,,c
@@ -13691,7 +13691,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788350479336,P30,s,2,18,f,,RightPupil,4.260025,4.263138,,c
 638004788350589338,P30,s,2,18,f,,RightPupil,4.22879,4.254013,,c
 638004788350699330,P30,s,2,18,f,,RightPupil,4.192719,4.228668,,c
-638004788350779331,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788350779331,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788350839330,P30,s,2,18,f,,RightPupil,4.292282,4.229477,,c
 638004788350929329,P30,s,2,18,f,,RightPupil,4.279007,4.220383,,c
 638004788351039335,P30,s,2,18,f,,RightPupil,4.314789,4.230713,,c
@@ -13815,7 +13815,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788364149310,P30,s,2,18,f,,RightPupil,3.437714,3.692322,,c
 638004788364249307,P30,s,2,18,f,,RightPupil,3.577988,3.710159,,c
 638004788364369302,P30,s,2,18,f,,RightPupil,3.483566,3.685638,,c
-638004788364439309,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.1493,0.944,,,,c
+638004788364439309,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,21.1493,0.944,c
 638004788364489311,P30,s,2,18,f,,RightPupil,3.528061,3.690536,,c
 638004788364589310,P30,s,2,18,f,,RightPupil,3.57309,3.690002,,c
 638004788364699313,P30,s,2,18,f,,RightPupil,3.62204,3.720642,,c
@@ -13903,7 +13903,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788373799295,P30,s,2,18,f,,RightPupil,4.366867,4.381958,,c
 638004788373909293,P30,s,2,18,f,,RightPupil,4.351105,4.377197,,c
 638004788374029292,P30,s,2,18,f,,RightPupil,4.348465,4.36853,,c
-638004788374109298,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004788374109298,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004788374169288,P30,s,2,18,f,,RightPupil,4.341888,4.365204,,c
 638004788374249293,P30,s,2,18,f,,RightPupil,4.351868,4.345947,,c
 638004788374359292,P30,s,2,18,f,,RightPupil,4.356216,4.343658,,c
@@ -14164,7 +14164,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788402679236,P30,s,2,18,f,,RightPupil,3.807587,4.255234,,c
 638004788402789250,P30,s,2,18,f,,RightPupil,3.816544,4.038559,,c
 638004788402909236,P30,s,2,18,f,,RightPupil,3.790222,4.098679,,c
-638004788402979241,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,18.78341,-3.12,,,,c
+638004788402979241,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,18.78341,-3.12,c
 638004788403039241,P30,s,2,18,f,,RightPupil,3.731735,4.123474,,c
 638004788403129236,P30,s,2,18,f,,RightPupil,3.69429,4.120941,,c
 638004788403229238,P30,s,2,18,f,,RightPupil,3.567459,4.056946,,c
@@ -14253,7 +14253,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788412449226,P30,s,2,18,f,,RightPupil,4.151047,4.431885,,c
 638004788412559220,P30,s,2,18,f,,RightPupil,4.265717,4.43071,,c
 638004788412669225,P30,s,2,18,f,,RightPupil,4.241119,4.381607,,c
-638004788412749226,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004788412749226,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004788412809229,P30,s,2,18,f,,RightPupil,4.242752,4.38028,,c
 638004788412889223,P30,s,2,18,f,,RightPupil,4.291351,4.372375,,c
 638004788413009219,P30,s,2,18,f,,RightPupil,4.284851,4.356232,,c
@@ -14606,7 +14606,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788451549157,P30,s,2,18,f,,RightPupil,3.353912,3.714386,,c
 638004788451659155,P30,s,2,18,f,,RightPupil,3.327866,3.710037,,c
 638004788451769151,P30,s,2,18,f,,RightPupil,3.30365,3.71965,,c
-638004788451839158,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,16.38468,2.336,,,,c
+638004788451839158,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,16.38468,2.336,c
 638004788451899150,P30,s,2,18,f,,RightPupil,3.311111,3.718353,,c
 638004788451989152,P30,s,2,18,f,,RightPupil,3.305664,3.758469,,c
 638004788452099153,P30,s,2,18,f,,RightPupil,3.298615,3.68869,,c
@@ -14700,7 +14700,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788461869139,P30,s,2,18,f,,RightPupil,4.319183,4.34024,,c
 638004788461999137,P30,s,2,18,f,,RightPupil,4.269592,4.260834,,c
 638004788462099136,P30,s,2,18,f,,RightPupil,4.32019,4.411072,,c
-638004788462179139,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004788462179139,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004788462249142,P30,s,2,18,f,,RightPupil,4.352783,4.466736,,c
 638004788462329137,P30,s,2,18,f,,RightPupil,3.933823,4.344315,,c
 638004788462429134,P30,s,2,18,f,,RightPupil,3.955231,4.38884,,c
@@ -14815,7 +14815,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788474539114,P30,s,2,18,f,,RightPupil,3.605133,3.853271,,c
 638004788474649115,P30,s,2,18,f,,RightPupil,3.598953,3.835205,,c
 638004788474769115,P30,s,2,18,f,,RightPupil,3.584976,3.81987,,c
-638004788474829115,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,15.61847,-1.813,,,,c
+638004788474829115,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,15.61847,-1.813,c
 638004788474889120,P30,s,2,18,f,,RightPupil,3.547028,3.805481,,c
 638004788474989119,P30,s,2,18,f,,RightPupil,3.528809,3.801193,,c
 638004788475089113,P30,s,2,18,f,,RightPupil,3.518677,3.801346,,c
@@ -14896,7 +14896,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788483419102,P30,s,2,18,f,,RightPupil,4.232559,4.581238,,c
 638004788483529093,P30,s,2,18,f,,RightPupil,4.446411,4.397369,,c
 638004788483639102,P30,s,2,18,f,,RightPupil,4.289963,4.452255,,c
-638004788483719099,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004788483719099,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004788483779098,P30,s,2,18,f,,RightPupil,4.358047,4.336945,,c
 638004788483859098,P30,s,2,18,f,,RightPupil,4.362625,4.460236,,c
 638004788483989099,P30,s,2,18,f,,RightPupil,4.353241,4.32074,,c
@@ -15077,7 +15077,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788503419060,P30,s,2,18,f,,RightPupil,3.654907,3.806183,,c
 638004788503519068,P30,s,2,18,f,,RightPupil,3.443314,3.798645,,c
 638004788503629062,P30,s,2,18,f,,RightPupil,3.469162,3.798401,,c
-638004788503719061,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,13.08647,-3.12,,,,c
+638004788503719061,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,13.08647,-3.12,c
 638004788503769065,P30,s,2,18,f,,RightPupil,3.582657,3.647675,,c
 638004788503869057,P30,s,2,18,f,,RightPupil,3.603622,3.86586,,c
 638004788503969056,P30,s,2,18,f,,RightPupil,3.640244,3.538055,,c
@@ -15176,7 +15176,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788514299048,P30,s,2,18,f,,RightPupil,4.331741,4.35585,,c
 638004788514419044,P30,s,2,18,f,,RightPupil,4.331696,4.395752,,c
 638004788514519043,P30,s,2,18,f,,RightPupil,4.323029,4.395081,,c
-638004788514599047,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004788514599047,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004788514659043,P30,s,2,18,f,,RightPupil,4.228104,4.393433,,c
 638004788514749046,P30,s,2,18,f,,RightPupil,4.262405,4.406174,,c
 638004788514849045,P30,s,2,18,f,,RightPupil,4.288666,4.412521,,c
@@ -15280,7 +15280,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788525749024,P30,s,2,18,f,,RightPupil,3.632187,3.937683,,c
 638004788525849024,P30,s,2,18,f,,RightPupil,3.618515,3.93045,,c
 638004788525959023,P30,s,2,18,f,,RightPupil,3.628128,3.922775,,c
-638004788526039026,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,18.65044,2.336,,,,c
+638004788526039026,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,18.65044,2.336,c
 638004788526119022,P30,s,2,18,f,,RightPupil,3.570892,3.922684,,c
 638004788526199019,P30,s,2,18,f,,RightPupil,3.406662,3.915726,,c
 638004788526289019,P30,s,2,18,f,,RightPupil,3.470718,3.903839,,c
@@ -15368,7 +15368,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788535409302,P30,s,2,18,f,,RightPupil,4.371918,4.407913,,c
 638004788535509309,P30,s,2,18,f,,RightPupil,4.338837,4.407745,,c
 638004788535619320,P30,s,2,18,f,,RightPupil,4.420853,4.422455,,c
-638004788535699320,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004788535699320,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004788535779323,P30,s,2,18,f,,RightPupil,4.394226,4.441208,,c
 638004788535839330,P30,s,2,18,f,,RightPupil,4.406494,4.421753,,c
 638004788535949338,P30,s,2,18,f,,RightPupil,4.468964,4.417633,,c
@@ -15461,7 +15461,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788545629941,P30,s,2,18,f,,RightPupil,3.859482,4.213394,,c
 638004788545729945,P30,s,2,18,f,,RightPupil,3.809341,4.195511,,c
 638004788545839949,P30,s,2,18,f,,RightPupil,3.768143,4.173264,,c
-638004788545919958,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,15.75146,0.944,,,,c
+638004788545919958,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,15.75146,0.944,c
 638004788545979957,P30,s,2,18,f,,RightPupil,3.758301,4.15712,,c
 638004788546059963,P30,s,2,18,f,,RightPupil,3.738785,4.096634,,c
 638004788546169975,P30,s,2,18,f,,RightPupil,3.728836,4.05983,,c
@@ -15556,7 +15556,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788556050584,P30,s,2,18,f,,RightPupil,4.435211,4.45015,,c
 638004788556180590,P30,s,2,18,f,,RightPupil,4.451508,4.421738,,c
 638004788556280600,P30,s,2,18,f,,RightPupil,4.451172,4.443161,,c
-638004788556350610,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004788556350610,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004788556410618,P30,s,2,18,f,,RightPupil,4.452148,4.443207,,c
 638004788556500614,P30,s,2,18,f,,RightPupil,4.451767,4.422073,,c
 638004788556620619,P30,s,2,18,f,,RightPupil,4.452362,4.421738,,c
@@ -15722,7 +15722,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788574381733,P30,s,2,18,f,,RightPupil,3.663101,4.002686,,c
 638004788574501739,P30,s,2,18,f,,RightPupil,3.642654,4.00119,,c
 638004788574601746,P30,s,2,18,f,,RightPupil,3.6409,4.0009,,c
-638004788574681748,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,16.31792,-3.12,,,,c
+638004788574681748,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,16.31792,-3.12,c
 638004788574741754,P30,s,2,18,f,,RightPupil,3.640289,4.000412,,c
 638004788574831757,P30,s,2,18,f,,RightPupil,3.640671,3.982925,,c
 638004788574941763,P30,s,2,18,f,,RightPupil,3.640732,3.9944,,c
@@ -15808,7 +15808,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788583822316,P30,s,2,18,f,,RightPupil,4.59787,4.531708,,c
 638004788583932327,P30,s,2,18,f,,RightPupil,4.535004,4.538589,,c
 638004788584052329,P30,s,2,18,f,,RightPupil,4.482513,4.533142,,c
-638004788584132334,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788584132334,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788584192343,P30,s,2,18,f,,RightPupil,4.555481,4.515213,,c
 638004788584262348,P30,s,2,18,f,,RightPupil,4.636414,4.522385,,c
 638004788584382351,P30,s,2,18,f,,RightPupil,4.698013,4.523651,,c
@@ -15960,7 +15960,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788600593360,P30,s,2,18,f,,RightPupil,3.445755,3.630096,,c
 638004788600703373,P30,s,2,18,f,,RightPupil,3.546387,3.656479,,c
 638004788600823379,P30,s,2,18,f,,RightPupil,3.613724,3.581177,,c
-638004788600903381,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,17.6506,0.944,,,,c
+638004788600903381,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,17.6506,0.944,c
 638004788600963386,P30,s,2,18,f,,RightPupil,3.57988,3.664856,,c
 638004788601043390,P30,s,2,18,f,,RightPupil,3.545639,3.620102,,c
 638004788601163394,P30,s,2,18,f,,RightPupil,3.504913,3.577805,,c
@@ -16022,7 +16022,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788610093963,P30,s,2,18,f,,RightPupil,4.327026,4.303879,,c
 638004788610203963,P30,s,2,18,f,,RightPupil,4.215698,4.273849,,c
 638004788610313970,P30,s,2,18,f,,RightPupil,4.30365,4.297226,,c
-638004788610393974,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788610393974,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788610453975,P30,s,2,18,f,,RightPupil,4.004059,4.286575,,c
 638004788610543984,P30,s,2,18,f,,RightPupil,4.144516,4.257736,,c
 638004788610663991,P30,s,2,18,f,,RightPupil,4.224075,4.288986,,c
@@ -16165,7 +16165,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788625924941,P30,s,2,18,f,,RightPupil,3.723999,3.687943,,c
 638004788626044949,P30,s,2,18,f,,RightPupil,3.707291,3.687958,,c
 638004788626144957,P30,s,2,18,f,,RightPupil,3.716568,3.74144,,c
-638004788626214963,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,22.3,-0.46,,,,c
+638004788626214963,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,22.3,-0.46,c
 638004788626284964,P30,s,2,18,f,,RightPupil,3.716721,3.751801,,c
 638004788626364974,P30,s,2,18,f,,RightPupil,3.715759,3.801926,,c
 638004788626484979,P30,s,2,18,f,,RightPupil,3.712143,3.841858,,c
@@ -16263,7 +16263,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788636685618,P30,s,2,18,f,,RightPupil,4.230682,4.443924,,c
 638004788636805625,P30,s,2,18,f,,RightPupil,4.325165,4.49028,,c
 638004788636915631,P30,s,2,18,f,,RightPupil,4.37236,4.489975,,c
-638004788636995639,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788636995639,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788637055647,P30,s,2,18,f,,RightPupil,4.43457,4.491287,,c
 638004788637135646,P30,s,2,18,f,,RightPupil,4.335861,4.491196,,c
 638004788637245665,P30,s,2,18,f,,RightPupil,4.313507,4.488754,,c
@@ -16477,7 +16477,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788660347090,P30,s,2,18,f,,RightPupil,3.916611,4.003494,,c
 638004788660457090,P30,s,2,18,f,,RightPupil,3.785843,4.015442,,c
 638004788660587107,P30,s,2,18,f,,RightPupil,3.932831,4.012848,,c
-638004788660647109,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,24.2147,2.336,,,,c
+638004788660647109,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,24.2147,2.336,c
 638004788660707111,P30,s,2,18,f,,RightPupil,3.974625,4.003677,,c
 638004788660807118,P30,s,2,18,f,,RightPupil,3.724457,4.020401,,c
 638004788660907127,P30,s,2,18,f,,RightPupil,3.852463,4.020309,,c
@@ -16555,7 +16555,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788668907891,P30,s,2,18,f,,RightPupil,4.348068,4.384949,,c
 638004788669017627,P30,s,2,18,f,,RightPupil,4.411179,4.395279,,c
 638004788669117642,P30,s,2,18,f,,RightPupil,4.385651,4.397797,,c
-638004788669207644,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004788669207644,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004788669267644,P30,s,2,18,f,,RightPupil,4.258682,4.396271,,c
 638004788669347649,P30,s,2,18,f,,RightPupil,4.345352,4.397385,,c
 638004788669457657,P30,s,2,18,f,,RightPupil,4.316605,4.394897,,c
@@ -16802,7 +16802,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788696229323,P30,s,2,18,f,,RightPupil,3.963455,4.437256,,c
 638004788696329328,P30,s,2,18,f,,RightPupil,4.054855,4.419296,,c
 638004788696459343,P30,s,2,18,f,,RightPupil,4.13475,4.384048,,c
-638004788696519344,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,19.58299,-0.46,,,,c
+638004788696519344,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,19.58299,-0.46,c
 638004788696579351,P30,s,2,18,f,,RightPupil,4.20578,4.119995,,c
 638004788696669347,P30,s,2,18,f,,RightPupil,4.195663,4.205872,,c
 638004788696779363,P30,s,2,18,f,,RightPupil,4.374557,3.916946,,c
@@ -16910,7 +16910,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788708110064,P30,s,2,18,f,,RightPupil,4.48233,4.332489,,c
 638004788708220072,P30,s,2,18,f,,RightPupil,4.546951,4.370972,,c
 638004788708330079,P30,s,2,18,f,,RightPupil,4.526718,4.374008,,c
-638004788708410084,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004788708410084,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004788708480089,P30,s,2,18,f,,RightPupil,4.388489,4.395966,,c
 638004788708560096,P30,s,2,18,f,,RightPupil,4.417252,4.402817,,c
 638004788708660099,P30,s,2,18,f,,RightPupil,4.441086,4.400589,,c
@@ -17255,7 +17255,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788746312451,P30,s,2,18,f,,RightPupil,3.54158,4.048553,,c
 638004788746432463,P30,s,2,18,f,,RightPupil,3.727646,3.964096,,c
 638004788746542461,P30,s,2,18,f,,RightPupil,3.64061,3.80867,,c
-638004788746612468,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,16.81772,-3.12,,,,c
+638004788746612468,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,16.81772,-3.12,c
 638004788746672467,P30,s,2,18,f,,RightPupil,3.802536,3.937927,,c
 638004788746772478,P30,s,2,18,f,,RightPupil,3.565979,3.952316,,c
 638004788746882484,P30,s,2,18,f,,RightPupil,3.727295,4.035507,,c
@@ -17355,7 +17355,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788757313138,P30,s,2,18,f,,RightPupil,4.39563,4.388916,,c
 638004788757423140,P30,s,2,18,f,,RightPupil,4.483383,4.389526,,c
 638004788757533149,P30,s,2,18,f,,RightPupil,4.498199,4.390244,,c
-638004788757633156,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788757633156,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788757713158,P30,s,2,18,f,,RightPupil,4.496628,4.16861,,c
 638004788757803164,P30,s,2,18,f,,RightPupil,4.585327,4.246094,,c
 638004788757873170,P30,s,2,18,f,,RightPupil,4.458847,4.458557,,c
@@ -17480,7 +17480,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788771083991,P30,s,2,18,f,,RightPupil,3.546463,3.883331,,c
 638004788771194002,P30,s,2,18,f,,RightPupil,3.584442,3.870056,,c
 638004788771304002,P30,s,2,18,f,,RightPupil,3.596909,3.874252,,c
-638004788771404009,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,15.51883,-1.813,,,,c
+638004788771404009,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,15.51883,-1.813,c
 638004788771464020,P30,s,2,18,f,,RightPupil,3.555588,3.853683,,c
 638004788771534021,P30,s,2,18,f,,RightPupil,3.51886,3.838196,,c
 638004788771654028,P30,s,2,18,f,,RightPupil,3.541245,3.827271,,c
@@ -17530,7 +17530,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788776524334,P30,s,2,18,f,,RightPupil,3.846375,4.034012,,c
 638004788776634337,P30,s,2,18,f,,RightPupil,3.855515,4.032837,,c
 638004788776754342,P30,s,2,18,f,,RightPupil,3.855179,4.036453,,c
-638004788776824350,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,1.390015,10.82057,-1.813,,,,c
+638004788776824350,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,1.390015,10.82057,-1.813,c
 638004788776874359,P30,s,2,18,f,,RightPupil,3.867859,4.036682,,c
 638004788776984359,P30,s,2,18,f,,RightPupil,3.868118,4.036179,,c
 638004788777084365,P30,s,2,18,f,,RightPupil,3.872971,4.036423,,c
@@ -17606,7 +17606,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788784854855,P30,s,2,18,f,,RightPupil,4.079651,4.193604,,c
 638004788784974858,P30,s,2,18,f,,RightPupil,4.148209,4.008698,,c
 638004788785074865,P30,s,2,18,f,,RightPupil,4.177155,4.088776,,c
-638004788785174870,P30,s,2,18,f,,Regular Gold Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788785174870,P30,s,2,18,f,,Regular Gold Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788785254875,P30,s,2,18,f,,RightPupil,4.223663,4.040939,,c
 638004788785334878,P30,s,2,18,f,,RightPupil,4.075821,4.057419,,c
 638004788785424885,P30,s,2,18,f,,RightPupil,4.200546,4.061218,,c
@@ -17659,7 +17659,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788790635214,P30,s,2,18,f,,RightPupil,4.420105,4.414444,,c
 638004788790755222,P30,s,2,18,f,,RightPupil,4.418976,4.414108,,c
 638004788790855223,P30,s,2,18,f,,RightPupil,4.302048,4.424393,,c
-638004788790975229,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,12,4.267334,10.41,,,,c
+638004788790975229,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,12,4.267334,10.41,c
 638004788791025239,P30,s,2,18,f,,RightPupil,4.214874,4.446671,,c
 638004788791085235,P30,s,2,18,f,,RightPupil,4.214874,4.446671,,c
 638004788791185556,P30,s,2,18,f,,RightPupil,4.352295,4.444717,,c
@@ -17899,7 +17899,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788817176865,P30,s,2,18,f,,RightPupil,3.410751,3.699112,,c
 638004788817286869,P30,s,2,18,f,,RightPupil,3.618881,3.735489,,c
 638004788817406883,P30,s,2,18,f,,RightPupil,3.548126,3.697586,,c
-638004788817476883,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,17.01765,0.944,,,,c
+638004788817476883,P30,s,2,18,f,,Regular Gold Cube(Clone) was picked up,1.389999,17.01765,0.944,c
 638004788817536888,P30,s,2,18,f,,RightPupil,3.398819,3.651062,,c
 638004788817636899,P30,s,2,18,f,,RightPupil,3.344818,3.648254,,c
 638004788817746901,P30,s,2,18,f,,RightPupil,3.333847,3.649857,,c
@@ -17991,7 +17991,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788827287496,P30,s,2,18,f,,RightPupil,4.042618,4.226852,,c
 638004788827407506,P30,s,2,18,f,,RightPupil,4.035858,4.22522,,c
 638004788827507508,P30,s,2,18,f,,RightPupil,4.03479,4.215683,,c
-638004788827587514,P30,s,2,18,f,,Regular Gold Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004788827587514,P30,s,2,18,f,,Regular Gold Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004788827647523,P30,s,2,18,f,,RightPupil,4.03476,4.225113,,c
 638004788827727523,P30,s,2,18,f,,RightPupil,4.035553,4.224854,,c
 638004788827837532,P30,s,2,18,f,,RightPupil,4.033813,4.224838,,c
@@ -18115,7 +18115,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788840948349,P30,s,2,18,f,,RightPupil,3.522781,4.032944,,c
 638004788841058357,P30,s,2,18,f,,RightPupil,3.602036,4.149048,,c
 638004788841168359,P30,s,2,18,f,,RightPupil,3.713852,4.223145,,c
-638004788841248367,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,19.0836,0.944,,,,c
+638004788841248367,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,19.0836,0.944,c
 638004788841298365,P30,s,2,18,f,,RightPupil,3.783493,4.311356,,c
 638004788841398380,P30,s,2,18,f,,RightPupil,3.777435,4.262527,,c
 638004788841498381,P30,s,2,18,f,,RightPupil,3.846344,4.068085,,c
@@ -18200,7 +18200,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788850278926,P30,s,2,18,f,,RightPupil,4.302856,4.436111,,c
 638004788850388941,P30,s,2,18,f,,RightPupil,4.237686,4.434967,,c
 638004788850498944,P30,s,2,18,f,,RightPupil,4.2603,4.435318,,c
-638004788850568950,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004788850568950,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004788850628958,P30,s,2,18,f,,RightPupil,4.268494,4.429886,,c
 638004788850718957,P30,s,2,18,f,,RightPupil,4.247971,4.428375,,c
 638004788850828962,P30,s,2,18,f,,RightPupil,4.255539,4.428253,,c
@@ -18340,7 +18340,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788865709895,P30,s,2,18,f,,RightPupil,4.003616,3.920303,,c
 638004788865819896,P30,s,2,18,f,,RightPupil,3.928452,4.025345,,c
 638004788865939906,P30,s,2,18,f,,RightPupil,3.848892,3.784943,,c
-638004788866009912,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,17.78454,-3.12,,,,c
+638004788866009912,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.390015,17.78454,-3.12,c
 638004788866069913,P30,s,2,18,f,,RightPupil,3.971466,3.831482,,c
 638004788866159919,P30,s,2,18,f,,RightPupil,4.014633,3.933594,,c
 638004788866269927,P30,s,2,18,f,,RightPupil,4.06163,3.920837,,c
@@ -18431,7 +18431,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788875710517,P30,s,2,18,f,,RightPupil,4.476822,4.419327,,c
 638004788875820520,P30,s,2,18,f,,RightPupil,4.476929,4.42984,,c
 638004788875940530,P30,s,2,18,f,,RightPupil,4.515533,4.430618,,c
-638004788876010542,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788876010542,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788876070540,P30,s,2,18,f,,RightPupil,4.488586,4.435608,,c
 638004788876150540,P30,s,2,18,f,,RightPupil,4.463165,4.431122,,c
 638004788876260547,P30,s,2,18,f,,RightPupil,4.461533,4.439392,,c
@@ -18603,7 +18603,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788894701702,P30,s,2,18,f,,RightPupil,3.981659,4.03653,,c
 638004788894811729,P30,s,2,18,f,,RightPupil,3.973328,4.037659,,c
 638004788894931712,P30,s,2,18,f,,RightPupil,3.989532,4.037537,,c
-638004788895001717,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,24.41429,0.944,,,,c
+638004788895001717,P30,s,2,18,f,,Regular Neutral Cube(Clone) was picked up,1.389999,24.41429,0.944,c
 638004788895061724,P30,s,2,18,f,,RightPupil,3.989746,4.038361,,c
 638004788895151724,P30,s,2,18,f,,RightPupil,3.990372,3.963593,,c
 638004788895251730,P30,s,2,18,f,,RightPupil,4.029953,3.946426,,c
@@ -18686,7 +18686,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788904182301,P30,s,2,18,f,,RightPupil,4.496674,4.468674,,c
 638004788904362295,P30,s,2,18,f,,RightPupil,4.505508,4.468353,,c
 638004788904492310,P30,s,2,18,f,,RightPupil,4.505661,4.46225,,c
-638004788904562317,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788904562317,P30,s,2,18,f,,Regular Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788904662323,P30,s,2,18,f,,RightPupil,4.505707,4.457733,,c
 638004788904812326,P30,s,2,18,f,,RightPupil,4.526596,4.462982,,c
 638004788905012350,P30,s,2,18,f,,RightPupil,4.524307,4.462814,,c
@@ -18919,7 +18919,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788932474048,P30,s,2,18,f,,RightPupil,3.847412,3.843735,,c
 638004788932574057,P30,s,2,18,f,,RightPupil,3.866119,3.908554,,c
 638004788932684068,P30,s,2,18,f,,RightPupil,3.829819,3.933777,,c
-638004788932764070,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,10.02094,0.944,,,,c
+638004788932764070,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,10.02094,0.944,c
 638004788932814086,P30,s,2,18,f,,RightPupil,3.795502,3.906357,,c
 638004788932904083,P30,s,2,18,f,,RightPupil,3.790497,3.909836,,c
 638004788933034092,P30,s,2,18,f,,RightPupil,3.739227,3.800674,,c
@@ -18990,7 +18990,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788940244862,P30,s,2,18,f,,RightPupil,4.113403,4.116241,,c
 638004788940354551,P30,s,2,18,f,,RightPupil,4.114716,4.117447,,c
 638004788940474556,P30,s,2,18,f,,RightPupil,4.119247,4.125519,,c
-638004788940534560,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004788940534560,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004788940614864,P30,s,2,18,f,,RightPupil,4.127151,4.144974,,c
 638004788940694917,P30,s,2,18,f,,RightPupil,4.134308,4.16069,,c
 638004788940794575,P30,s,2,18,f,,RightPupil,4.140976,4.157242,,c
@@ -19244,7 +19244,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788968336291,P30,s,2,18,f,,RightPupil,4.33432,4.15303,,c
 638004788968456297,P30,s,2,18,f,,RightPupil,4.313477,4.176743,,c
 638004788968566305,P30,s,2,18,f,,RightPupil,4.320633,4.167389,,c
-638004788968636309,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,17.65125,-0.46,,,,c
+638004788968636309,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,17.65125,-0.46,c
 638004788968706312,P30,s,2,18,f,,RightPupil,4.289001,4.216599,,c
 638004788968786317,P30,s,2,18,f,,RightPupil,4.283569,4.322495,,c
 638004788968896328,P30,s,2,18,f,,RightPupil,4.280075,4.227097,,c
@@ -19331,7 +19331,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788977896880,P30,s,2,18,f,,RightPupil,4.020447,4.311554,,c
 638004788978006896,P30,s,2,18,f,,RightPupil,4.094833,4.347656,,c
 638004788978126901,P30,s,2,18,f,,RightPupil,4.102982,4.325882,,c
-638004788978186903,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004788978186903,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004788978266913,P30,s,2,18,f,,RightPupil,4.054352,4.340118,,c
 638004788978336910,P30,s,2,18,f,,RightPupil,4.122742,4.337906,,c
 638004788978446917,P30,s,2,18,f,,RightPupil,4.173233,4.338913,,c
@@ -19349,7 +19349,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788979777005,P30,s,2,18,f,,RightPupil,4.089142,4.258286,,c
 638004788979887013,P30,s,2,18,f,,RightPupil,4.09465,4.258148,,c
 638004788979997018,P30,s,2,18,f,,RightPupil,4.069107,4.251663,,c
-638004788980077027,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,12,6,10.41,,,,c
+638004788980077027,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,12,6,10.41,c
 638004788980137029,P30,s,2,18,f,,RightPupil,4.149033,4.303619,,c
 638004788980227033,P30,s,2,18,f,,RightPupil,4.193542,4.177124,,c
 638004788980337036,P30,s,2,18,f,,RightPupil,4.291626,4.478455,,c
@@ -19468,7 +19468,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004788992887816,P30,s,2,18,f,,RightPupil,3.608154,4.081451,,c
 638004788992997828,P30,s,2,18,f,,RightPupil,3.601425,4.081039,,c
 638004788993117831,P30,s,2,18,f,,RightPupil,3.596481,4.083038,,c
-638004788993187841,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,13.35288,-3.12,,,,c
+638004788993187841,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.390015,13.35288,-3.12,c
 638004788993237848,P30,s,2,18,f,,RightPupil,3.601471,4.081818,,c
 638004788993337848,P30,s,2,18,f,,RightPupil,3.635208,4.079941,,c
 638004788993457857,P30,s,2,18,f,,RightPupil,3.579956,4.079117,,c
@@ -19539,7 +19539,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789000658669,P30,s,2,18,f,,RightPupil,4.346802,4.295135,,c
 638004789000778309,P30,s,2,18,f,,RightPupil,4.365372,4.296036,,c
 638004789000878629,P30,s,2,18,f,,RightPupil,4.415359,4.290619,,c
-638004789000988325,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004789000988325,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004789001058324,P30,s,2,18,f,,RightPupil,4.239273,4.278015,,c
 638004789001128336,P30,s,2,18,f,,RightPupil,4.26239,4.287857,,c
 638004789001228335,P30,s,2,18,f,,RightPupil,4.24704,4.277618,,c
@@ -19715,7 +19715,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789020099520,P30,s,2,18,f,,RightPupil,3.769073,3.929474,,c
 638004789020209524,P30,s,2,18,f,,RightPupil,3.672897,3.873566,,c
 638004789020339531,P30,s,2,18,f,,RightPupil,3.591461,3.89682,,c
-638004789020399535,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,14.38555,-0.46,,,,c
+638004789020399535,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.389999,14.38555,-0.46,c
 638004789020459538,P30,s,2,18,f,,RightPupil,3.613693,3.888367,,c
 638004789020549543,P30,s,2,18,f,,RightPupil,3.73349,3.917358,,c
 638004789020659551,P30,s,2,18,f,,RightPupil,3.55545,3.906799,,c
@@ -19777,7 +19777,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789026869936,P30,s,2,18,f,,RightPupil,4.375793,4.285965,,c
 638004789026989945,P30,s,2,18,f,,RightPupil,4.280899,4.275635,,c
 638004789027099950,P30,s,2,18,f,,RightPupil,4.217636,4.286682,,c
-638004789027179958,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004789027179958,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004789027239962,P30,s,2,18,f,,RightPupil,4.235992,4.286545,,c
 638004789027319970,P30,s,2,18,f,,RightPupil,4.215179,4.288635,,c
 638004789027429981,P30,s,2,18,f,,RightPupil,4.269272,4.290985,,c
@@ -19858,7 +19858,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789035770500,P30,s,2,18,f,,RightPupil,4.013229,4.402069,,c
 638004789035870498,P30,s,2,18,f,,RightPupil,4.079208,4.430908,,c
 638004789035980514,P30,s,2,18,f,,RightPupil,3.998871,4.402908,,c
-638004789036060519,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,15.81851,0.944,,,,c
+638004789036060519,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,15.81851,0.944,c
 638004789036130520,P30,s,2,18,f,,RightPupil,3.999191,4.37944,,c
 638004789036210519,P30,s,2,18,f,,RightPupil,3.908768,4.360611,,c
 638004789036310526,P30,s,2,18,f,,RightPupil,3.902786,4.342026,,c
@@ -19930,7 +19930,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789043640981,P30,s,2,18,f,,RightPupil,4.604141,4.556808,,c
 638004789043771256,P30,s,2,18,f,,RightPupil,4.495773,4.55191,,c
 638004789043861004,P30,s,2,18,f,,RightPupil,4.615372,4.556488,,c
-638004789043941001,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004789043941001,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004789044011391,P30,s,2,18,f,,RightPupil,4.480286,4.556229,,c
 638004789044101277,P30,s,2,18,f,,RightPupil,4.544342,4.550842,,c
 638004789044201021,P30,s,2,18,f,,RightPupil,4.553421,4.555725,,c
@@ -20205,7 +20205,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789074072884,P30,s,2,18,f,,RightPupil,3.811234,4.302826,,c
 638004789074202889,P30,s,2,18,f,,RightPupil,3.780136,4.26001,,c
 638004789074302895,P30,s,2,18,f,,RightPupil,3.81427,4.236328,,c
-638004789074372898,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,16.58463,0.944,,,,c
+638004789074372898,P30,s,2,18,f,,Regular Blue Cube(Clone) was picked up,1.389999,16.58463,0.944,c
 638004789074462908,P30,s,2,18,f,,RightPupil,3.752731,4.191391,,c
 638004789074532913,P30,s,2,18,f,,RightPupil,3.78714,4.188721,,c
 638004789074632918,P30,s,2,18,f,,RightPupil,3.926575,4.172607,,c
@@ -20258,7 +20258,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789079853241,P30,s,2,18,f,,RightPupil,4.372559,4.39386,,c
 638004789079963245,P30,s,2,18,f,,RightPupil,4.450287,4.305252,,c
 638004789080073252,P30,s,2,18,f,,RightPupil,4.49321,4.406097,,c
-638004789080153262,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004789080153262,P30,s,2,18,f,,Regular Blue Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004789080213267,P30,s,2,18,f,,RightPupil,4.525208,4.386383,,c
 638004789080293501,P30,s,2,18,f,,RightPupil,4.534973,4.400299,,c
 638004789080403280,P30,s,2,18,f,,RightPupil,4.339996,4.369965,,c
@@ -20805,7 +20805,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789140497020,P30,s,2,18,f,,RightPupil,3.918152,3.86734,,c
 638004789140617031,P30,s,2,18,f,,RightPupil,3.84996,3.85434,,c
 638004789140717040,P30,s,2,18,f,,RightPupil,3.74704,3.854279,,c
-638004789140797041,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,24.24809,-3.12,,,,c
+638004789140797041,P30,s,2,18,f,,Regular Red Cube(Clone) was picked up,1.390015,24.24809,-3.12,c
 638004789140857039,P30,s,2,18,f,,RightPupil,3.807159,3.818619,,c
 638004789140957049,P30,s,2,18,f,,RightPupil,3.817337,3.818298,,c
 638004789141047058,P30,s,2,18,f,,RightPupil,3.811523,3.81572,,c
@@ -20876,7 +20876,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789148267506,P30,s,2,18,f,,RightPupil,4.358231,4.340912,,c
 638004789148377519,P30,s,2,18,f,,RightPupil,4.174805,4.337189,,c
 638004789148487521,P30,s,2,18,f,,RightPupil,4.319366,4.336365,,c
-638004789148577522,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004789148577522,P30,s,2,18,f,,Regular Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004789148647529,P30,s,2,18,f,,RightPupil,4.305313,4.338928,,c
 638004789148717535,P30,s,2,18,f,,RightPupil,4.305313,4.338928,,c
 638004789148827546,P30,s,2,18,f,,RightPupil,4.380493,4.34053,,c
@@ -20987,8 +20987,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004789160498272,P30,s,2,18,f,,RightPupil,4.614685,5.013824,,c
 638004789160598273,P30,s,2,18,f,,RightPupil,4.571335,4.993225,,c
 638004789160708278,P30,s,2,18,f,,RightPupil,4.615982,4.995911,,c
-638004789160788292,P30,s,2,18,f,,Game Over,,,,c
-638004791557887774,P30,tut,2,18,f,300,Game Start,,,,c
+638004789160788292,P30,s,2,18,f,,Game Over,c
+638004791557887774,P30,tut,2,18,f,300,Game Start,c
 638004791636017662,P30,tut,2,18,f,,RightPupil,3.781113,3.893112,,c
 638004791636107658,P30,tut,2,18,f,,RightPupil,3.789063,3.889282,,c
 638004791636187657,P30,tut,2,18,f,,RightPupil,3.84787,3.884781,,c
@@ -22856,7 +22856,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004791846307348,P30,tut,2,18,f,,RightPupil,3.660156,4.067764,,c
 638004791846427348,P30,tut,2,18,f,,RightPupil,3.700165,4.078918,,c
 638004791846537347,P30,tut,2,18,f,,RightPupil,3.720306,4.076248,,c
-638004791846627347,P30,tut,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,12.7863,-0.46,,,,c
+638004791846627347,P30,tut,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,12.7863,-0.46,c
 638004791846697350,P30,tut,2,18,f,,RightPupil,3.697693,4.082703,,c
 638004791846787350,P30,tut,2,18,f,,RightPupil,3.697479,4.083923,,c
 638004791846877363,P30,tut,2,18,f,,RightPupil,3.717392,4.084152,,c
@@ -23059,7 +23059,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004791868747323,P30,tut,2,18,f,,RightPupil,4.665771,4.681976,,c
 638004791868867318,P30,tut,2,18,f,,RightPupil,4.551712,4.650314,,c
 638004791868967317,P30,tut,2,18,f,,RightPupil,4.597809,4.649139,,c
-638004791869047321,P30,tut,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004791869047321,P30,tut,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004791869147312,P30,tut,2,18,f,,RightPupil,4.731293,4.642151,,c
 638004791869217317,P30,tut,2,18,f,,RightPupil,4.672699,4.645447,,c
 638004791869297318,P30,tut,2,18,f,,RightPupil,4.594788,4.642914,,c
@@ -24980,7 +24980,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004792081987007,P30,tut,2,18,f,,RightPupil,4.066315,4.221817,,c
 638004792082097007,P30,tut,2,18,f,,RightPupil,4.057083,4.220886,,c
 638004792082207011,P30,tut,2,18,f,,RightPupil,4.064529,4.221436,,c
-638004792082287011,P30,tut,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004792082287011,P30,tut,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,12,7,10.41,c
 638004792082377002,P30,tut,2,18,f,,RightPupil,4.08197,4.208221,,c
 638004792082457006,P30,tut,2,18,f,,RightPupil,4.08197,4.208221,,c
 638004792082557005,P30,tut,2,18,f,,RightPupil,4.093735,4.190933,,c
@@ -29029,7 +29029,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004792531561599,P30,tut,2,18,f,,RightPupil,3.820877,3.689377,,c
 638004792531661593,P30,tut,2,18,f,,RightPupil,3.787094,3.809525,,c
 638004792531781594,P30,tut,2,18,f,,RightPupil,3.893951,3.840134,,c
-638004793230452097,P30,co,1,18,f,300,Game Start,,,,c
+638004793230452097,P30,co,1,18,f,300,Game Start,c
 638004793308471986,P30,co,1,18,f,,RightPupil,4.866638,4.83757,,c
 638004793308561986,P30,co,1,18,f,,RightPupil,4.643372,4.88063,,c
 638004793308642303,P30,co,1,18,f,,RightPupil,4.822968,4.76535,,c
@@ -29592,7 +29592,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793371281889,P30,co,1,18,f,,RightPupil,4.244461,4.438583,,c
 638004793371391888,P30,co,1,18,f,,RightPupil,4.174957,4.287933,,c
 638004793371511884,P30,co,1,18,f,,RightPupil,4.223343,4.485886,,c
-638004793371601894,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,20.28331,-1.813,,,,c
+638004793371601894,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,20.28331,-1.813,c
 638004793371681897,P30,co,1,18,f,,RightPupil,4.179596,4.417007,,c
 638004793371761893,P30,co,1,18,f,,RightPupil,4.182037,4.443726,,c
 638004793371851886,P30,co,1,18,f,,RightPupil,4.179108,4.418182,,c
@@ -29691,7 +29691,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793382171868,P30,co,1,18,f,,RightPupil,4.246674,4.270996,,c
 638004793382281876,P30,co,1,18,f,,RightPupil,4.023575,4.338989,,c
 638004793382391872,P30,co,1,18,f,,RightPupil,4.170029,4.203903,,c
-638004793382481872,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004793382481872,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004793382571870,P30,co,1,18,f,,RightPupil,4.226334,4.228592,,c
 638004793382631872,P30,co,1,18,f,,RightPupil,4.226334,4.228592,,c
 638004793382741878,P30,co,1,18,f,,RightPupil,4.174179,4.339493,,c
@@ -30137,7 +30137,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793431601801,P30,co,1,18,f,,RightPupil,4.144806,4.210098,,c
 638004793431701799,P30,co,1,18,f,,RightPupil,4.093506,4.155701,,c
 638004793431821800,P30,co,1,18,f,,RightPupil,4.146484,4.332642,,c
-638004793431891802,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,8.321852,-3.12,,,,c
+638004793431891802,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,8.321852,-3.12,c
 638004793431941799,P30,co,1,18,f,,RightPupil,4.011124,4.26889,,c
 638004793432031803,P30,co,1,18,f,,RightPupil,3.994141,4.215469,,c
 638004793432151797,P30,co,1,18,f,,RightPupil,4.142273,4.025177,,c
@@ -30226,7 +30226,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793441361790,P30,co,1,18,f,,RightPupil,4.517914,4.600922,,c
 638004793441481782,P30,co,1,18,f,,RightPupil,4.382477,4.669022,,c
 638004793441591787,P30,co,1,18,f,,RightPupil,4.451767,4.751266,,c
-638004793441661785,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004793441661785,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004793441731785,P30,co,1,18,f,,RightPupil,4.390656,4.53891,,c
 638004793441801788,P30,co,1,18,f,,RightPupil,4.591248,4.698013,,c
 638004793441931786,P30,co,1,18,f,,RightPupil,4.577988,4.59227,,c
@@ -30263,7 +30263,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793445371778,P30,co,1,18,f,,RightPupil,4.358658,4.690857,,c
 638004793445471776,P30,co,1,18,f,,RightPupil,4.385559,4.694824,,c
 638004793445581786,P30,co,1,18,f,,RightPupil,4.406708,4.693115,,c
-638004793445671780,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,11,4.801007,10.41,,,,c
+638004793445671780,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,11,4.801007,10.41,c
 638004793445741784,P30,co,1,18,f,,RightPupil,4.386993,4.68927,,c
 638004793445811779,P30,co,1,18,f,,RightPupil,4.318451,4.674988,,c
 638004793445931778,P30,co,1,18,f,,RightPupil,4.383652,4.660629,,c
@@ -30360,7 +30360,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793456021765,P30,co,1,18,f,,RightPupil,4.284393,4.537308,,c
 638004793456141763,P30,co,1,18,f,,RightPupil,4.036743,4.524719,,c
 638004793456241768,P30,co,1,18,f,,RightPupil,4.162872,4.299011,,c
-638004793456321763,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,13.25374,-1.813,,,,c
+638004793456321763,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,13.25374,-1.813,c
 638004793456381762,P30,co,1,18,f,,RightPupil,4.0672,4.488693,,c
 638004793456481766,P30,co,1,18,f,,RightPupil,4.065247,4.411285,,c
 638004793456581766,P30,co,1,18,f,,RightPupil,4.008987,4.377487,,c
@@ -30424,7 +30424,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793463021749,P30,co,1,18,f,,RightPupil,4.117752,4.299515,,c
 638004793463141759,P30,co,1,18,f,,RightPupil,4.184845,4.380661,,c
 638004793463241758,P30,co,1,18,f,,RightPupil,4.19519,4.39209,,c
-638004793463321755,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004793463321755,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004793463381752,P30,co,1,18,f,,RightPupil,4.153839,4.443893,,c
 638004793463471760,P30,co,1,18,f,,RightPupil,4.154892,4.445679,,c
 638004793463571763,P30,co,1,18,f,,RightPupil,4.190155,4.442139,,c
@@ -30641,7 +30641,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793487011725,P30,co,1,18,f,,RightPupil,3.452698,3.987534,,c
 638004793487131721,P30,co,1,18,f,,RightPupil,3.505798,4.005386,,c
 638004793487231720,P30,co,1,18,f,,RightPupil,3.479004,4.006516,,c
-638004793487311720,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,19.28376,2.336,,,,c
+638004793487311720,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,19.28376,2.336,c
 638004793487371717,P30,co,1,18,f,,RightPupil,3.490112,4.033081,,c
 638004793487451715,P30,co,1,18,f,,RightPupil,3.480301,4.040497,,c
 638004793487561720,P30,co,1,18,f,,RightPupil,3.470306,4.048203,,c
@@ -30723,7 +30723,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793496001700,P30,co,1,18,f,,RightPupil,4.246078,4.32016,,c
 638004793496121707,P30,co,1,18,f,,RightPupil,4.018921,4.319458,,c
 638004793496231709,P30,co,1,18,f,,RightPupil,4.211761,4.33342,,c
-638004793496301704,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004793496301704,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004793496371704,P30,co,1,18,f,,RightPupil,4.175461,4.400803,,c
 638004793496451706,P30,co,1,18,f,,RightPupil,4.038513,4.364914,,c
 638004793496561708,P30,co,1,18,f,,RightPupil,4.269531,4.367096,,c
@@ -30958,7 +30958,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793521991669,P30,co,1,18,f,,RightPupil,4.320572,4.334122,,c
 638004793522121669,P30,co,1,18,f,,RightPupil,4.20723,4.412003,,c
 638004793522221673,P30,co,1,18,f,,RightPupil,4.062195,4.233276,,c
-638004793522291670,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,17.98377,-0.46,,,,c
+638004793522291670,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,17.98377,-0.46,c
 638004793522361669,P30,co,1,18,f,,RightPupil,4.194412,4.352509,,c
 638004793522441670,P30,co,1,18,f,,RightPupil,4.194412,4.352509,,c
 638004793522551667,P30,co,1,18,f,,RightPupil,4.282104,4.462021,,c
@@ -31101,7 +31101,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793537761644,P30,co,1,18,f,,RightPupil,4.370071,4.637283,,c
 638004793537881651,P30,co,1,18,f,,RightPupil,4.367325,4.635956,,c
 638004793537981652,P30,co,1,18,f,,RightPupil,4.359619,4.635574,,c
-638004793538081645,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004793538081645,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004793538141643,P30,co,1,18,f,,RightPupil,4.358582,4.644302,,c
 638004793538201644,P30,co,1,18,f,,RightPupil,4.369476,4.644241,,c
 638004793538321645,P30,co,1,18,f,,RightPupil,4.369064,4.622253,,c
@@ -31405,7 +31405,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793571431596,P30,co,1,18,f,,RightPupil,3.892822,4.15683,,c
 638004793571531597,P30,co,1,18,f,,RightPupil,3.957397,4.164154,,c
 638004793571641599,P30,co,1,18,f,,RightPupil,3.87059,4.164444,,c
-638004793571721599,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,24.61461,-1.813,,,,c
+638004793571721599,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,24.61461,-1.813,c
 638004793571791591,P30,co,1,18,f,,RightPupil,3.850037,4.16394,,c
 638004793571861600,P30,co,1,18,f,,RightPupil,3.930435,4.165726,,c
 638004793571981596,P30,co,1,18,f,,RightPupil,4.008408,4.168442,,c
@@ -31546,7 +31546,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793586961574,P30,co,1,18,f,,RightPupil,4.355438,4.466339,,c
 638004793587091569,P30,co,1,18,f,,RightPupil,4.407532,4.486298,,c
 638004793587181575,P30,co,1,18,f,,RightPupil,4.454407,4.534332,,c
-638004793587261574,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004793587261574,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004793587331572,P30,co,1,18,f,,RightPupil,4.495331,4.402176,,c
 638004793587411575,P30,co,1,18,f,,RightPupil,4.375977,4.540543,,c
 638004793587521571,P30,co,1,18,f,,RightPupil,4.404404,4.321732,,c
@@ -32000,7 +32000,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793637281502,P30,co,1,18,f,,RightPupil,3.845291,3.858734,,c
 638004793637391499,P30,co,1,18,f,,RightPupil,3.830597,3.86412,,c
 638004793637501496,P30,co,1,18,f,,RightPupil,3.852386,3.855286,,c
-638004793637581506,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,17.11793,0.944,,,,c
+638004793637581506,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,17.11793,0.944,c
 638004793637641498,P30,co,1,18,f,,RightPupil,3.827454,3.728836,,c
 638004793637721501,P30,co,1,18,f,,RightPupil,3.856033,3.92897,,c
 638004793637831499,P30,co,1,18,f,,RightPupil,3.872421,3.821274,,c
@@ -32239,7 +32239,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793663831463,P30,co,1,18,f,,RightPupil,4.438202,4.757523,,c
 638004793663931455,P30,co,1,18,f,,RightPupil,4.549011,4.757965,,c
 638004793664051463,P30,co,1,18,f,,RightPupil,4.46048,4.756195,,c
-638004793664131459,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004793664131459,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004793664211458,P30,co,1,18,f,,RightPupil,4.530136,4.748154,,c
 638004793664281466,P30,co,1,18,f,,RightPupil,4.47847,4.729294,,c
 638004793664371465,P30,co,1,18,f,,RightPupil,4.555099,4.730865,,c
@@ -33380,7 +33380,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793790431277,P30,co,1,18,f,,RightPupil,4.223236,4.443741,,c
 638004793790541276,P30,co,1,18,f,,RightPupil,4.204575,4.442337,,c
 638004793790661277,P30,co,1,18,f,,RightPupil,4.171295,4.443039,,c
-638004793790731285,P30,co,1,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004793790731285,P30,co,1,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,c
 638004793790801274,P30,co,1,18,f,,RightPupil,4.156982,4.443466,,c
 638004793790871281,P30,co,1,18,f,,RightPupil,4.152344,4.443359,,c
 638004793790981283,P30,co,1,18,f,,RightPupil,4.153122,4.444077,,c
@@ -33816,7 +33816,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793838711204,P30,co,1,18,f,,RightPupil,3.889648,4.012985,,c
 638004793838801458,P30,co,1,18,f,,RightPupil,4.037094,3.836517,,c
 638004793838921207,P30,co,1,18,f,,RightPupil,3.963684,3.762817,,c
-638004793838991209,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,14.89855,-1.813,,,,c
+638004793838991209,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,14.89855,-1.813,c
 638004793839051208,P30,co,1,18,f,,RightPupil,3.91391,3.991501,,c
 638004793839141209,P30,co,1,18,f,,RightPupil,3.967972,4.188065,,c
 638004793839251208,P30,co,1,18,f,,RightPupil,3.990692,4.028946,,c
@@ -33922,7 +33922,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793850401186,P30,co,1,18,f,,RightPupil,4.195267,4.322876,,c
 638004793850511189,P30,co,1,18,f,,RightPupil,4.163513,4.323456,,c
 638004793850631194,P30,co,1,18,f,,RightPupil,4.199692,4.32486,,c
-638004793850701189,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004793850701189,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004793850761193,P30,co,1,18,f,,RightPupil,4.197495,4.331024,,c
 638004793850841190,P30,co,1,18,f,,RightPupil,4.278351,4.329178,,c
 638004793850961186,P30,co,1,18,f,,RightPupil,4.225555,4.326431,,c
@@ -34307,7 +34307,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793893061127,P30,co,1,18,f,,RightPupil,3.884674,3.950439,,c
 638004793893161125,P30,co,1,18,f,,RightPupil,3.753876,3.906876,,c
 638004793893281126,P30,co,1,18,f,,RightPupil,4.006119,3.90097,,c
-638004793893351128,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,23.06663,0.944,,,,c
+638004793893351128,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,23.06663,0.944,c
 638004793893411123,P30,co,1,18,f,,RightPupil,3.694885,3.895615,,c
 638004793893501127,P30,co,1,18,f,,RightPupil,3.75061,3.769028,,c
 638004793893611125,P30,co,1,18,f,,RightPupil,3.594635,3.978897,,c
@@ -34461,7 +34461,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004793910051106,P30,co,1,18,f,,RightPupil,4.203476,4.302307,,c
 638004793910171101,P30,co,1,18,f,,RightPupil,4.327194,4.295349,,c
 638004793910271112,P30,co,1,18,f,,RightPupil,4.264633,4.30275,,c
-638004793910331103,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004793910331103,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004793910401101,P30,co,1,18,f,,RightPupil,4.285156,4.307419,,c
 638004793910491100,P30,co,1,18,f,,RightPupil,4.25502,4.308929,,c
 638004793910601100,P30,co,1,18,f,,RightPupil,4.2901,4.318054,,c
@@ -35602,7 +35602,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794036660918,P30,co,1,18,f,,RightPupil,3.491577,3.450775,,c
 638004794036760926,P30,co,1,18,f,,RightPupil,3.317963,3.472015,,c
 638004794036870916,P30,co,1,18,f,,RightPupil,3.327576,3.604858,,c
-638004794036950917,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,16.75155,0.944,,,,c
+638004794036950917,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.389999,16.75155,0.944,c
 638004794037020922,P30,co,1,18,f,,RightPupil,3.42807,3.477921,,c
 638004794037100927,P30,co,1,18,f,,RightPupil,3.438202,3.520721,,c
 638004794037210914,P30,co,1,18,f,,RightPupil,3.287842,3.599182,,c
@@ -35671,7 +35671,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794044200905,P30,co,1,18,f,,RightPupil,4.024704,4.165192,,c
 638004794044310909,P30,co,1,18,f,,RightPupil,3.960983,4.164169,,c
 638004794044420909,P30,co,1,18,f,,RightPupil,3.899338,4.157669,,c
-638004794044500907,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004794044500907,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004794044570909,P30,co,1,18,f,,RightPupil,4.068405,4.230484,,c
 638004794044660906,P30,co,1,18,f,,RightPupil,3.823959,4.335846,,c
 638004794044760907,P30,co,1,18,f,,RightPupil,3.968338,4.211731,,c
@@ -35834,7 +35834,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794062190879,P30,co,1,18,f,,RightPupil,3.494583,3.771515,,c
 638004794062310885,P30,co,1,18,f,,RightPupil,3.469086,3.631409,,c
 638004794062430886,P30,co,1,18,f,,RightPupil,3.470078,3.70845,,c
-638004794062510882,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,18.28367,-1.813,,,,c
+638004794062510882,P30,co,1,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,18.28367,-1.813,c
 638004794062580877,P30,co,1,18,f,,RightPupil,3.459732,3.701706,,c
 638004794062670886,P30,co,1,18,f,,RightPupil,3.44931,3.666641,,c
 638004794062760886,P30,co,1,18,f,,RightPupil,3.446289,3.704605,,c
@@ -35914,7 +35914,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794070970871,P30,co,1,18,f,,RightPupil,4.071899,4.128952,,c
 638004794071090873,P30,co,1,18,f,,RightPupil,4.132538,4.128464,,c
 638004794071200874,P30,co,1,18,f,,RightPupil,4.199799,4.131821,,c
-638004794071260866,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,,,,c
+638004794071260866,P30,co,1,18,f,,Network Neutral Cube(Clone)was placed in dropzone,14,7,10.41,c
 638004794071340865,P30,co,1,18,f,,RightPupil,4.134125,4.130142,,c
 638004794071411309,P30,co,1,18,f,,RightPupil,4.228714,4.128235,,c
 638004794071531116,P30,co,1,18,f,,RightPupil,4.129913,4.129227,,c
@@ -36148,7 +36148,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794096850831,P30,co,1,18,f,,RightPupil,3.846405,3.846756,,c
 638004794096960831,P30,co,1,18,f,,RightPupil,4.124008,3.8638,,c
 638004794097080829,P30,co,1,18,f,,RightPupil,3.748169,3.880569,,c
-638004794097140836,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,23.21496,-3.12,,,,c
+638004794097140836,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,23.21496,-3.12,c
 638004794097210825,P30,co,1,18,f,,RightPupil,3.871582,4.143753,,c
 638004794097300831,P30,co,1,18,f,,RightPupil,3.983841,4.051605,,c
 638004794097410831,P30,co,1,18,f,,RightPupil,3.960648,4.187698,,c
@@ -36357,7 +36357,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794119940796,P30,co,1,18,f,,RightPupil,4.299454,4.28363,,c
 638004794120050797,P30,co,1,18,f,,RightPupil,4.24054,4.239212,,c
 638004794120180798,P30,co,1,18,f,,RightPupil,4.371628,4.258835,,c
-638004794120240796,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004794120240796,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004794120320801,P30,co,1,18,f,,RightPupil,4.445419,4.267059,,c
 638004794120400796,P30,co,1,18,f,,RightPupil,4.400696,4.275787,,c
 638004794120510801,P30,co,1,18,f,,RightPupil,4.395187,4.271378,,c
@@ -36577,7 +36577,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794144270766,P30,co,1,18,f,,RightPupil,3.696091,3.84462,,c
 638004794144390759,P30,co,1,18,f,,RightPupil,3.637558,3.845535,,c
 638004794144490760,P30,co,1,18,f,,RightPupil,3.756821,3.834244,,c
-638004794144560760,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,15.11878,-1.813,,,,c
+638004794144560760,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,15.11878,-1.813,c
 638004794144620766,P30,co,1,18,f,,RightPupil,3.759003,3.826172,,c
 638004794144710760,P30,co,1,18,f,,RightPupil,3.750198,3.829865,,c
 638004794144820758,P30,co,1,18,f,,RightPupil,3.710953,3.867188,,c
@@ -36639,7 +36639,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794151040750,P30,co,1,18,f,,RightPupil,4.321655,4.242691,,c
 638004794151150752,P30,co,1,18,f,,RightPupil,4.213135,4.185699,,c
 638004794151260750,P30,co,1,18,f,,RightPupil,4.327515,4.199265,,c
-638004794151350751,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004794151350751,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004794151410749,P30,co,1,18,f,,RightPupil,4.192993,4.214859,,c
 638004794151490753,P30,co,1,18,f,,RightPupil,4.27858,4.324829,,c
 638004794151600750,P30,co,1,18,f,,RightPupil,4.291656,4.144455,,c
@@ -36756,7 +36756,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794163960916,P30,co,1,18,f,,RightPupil,3.832474,4.531967,,c
 638004794164060728,P30,co,1,18,f,,RightPupil,4.000504,4.203979,,c
 638004794164160732,P30,co,1,18,f,,RightPupil,4.112152,4.382858,,c
-638004794164250728,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,6.155395,-1.813,,,,c
+638004794164250728,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.390015,6.155395,-1.813,c
 638004794164310730,P30,co,1,18,f,,RightPupil,4.008118,4.385986,,c
 638004794164390737,P30,co,1,18,f,,RightPupil,4.008118,4.385986,,c
 638004794164480731,P30,co,1,18,f,,RightPupil,4.102859,4.168884,,c
@@ -36900,7 +36900,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794179810708,P30,co,1,18,f,,RightPupil,3.632294,3.685242,,c
 638004794179920703,P30,co,1,18,f,,RightPupil,3.725662,3.72876,,c
 638004794180030712,P30,co,1,18,f,,RightPupil,3.445145,3.732208,,c
-638004794180140705,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,22.84859,0.944,,,,c
+638004794180140705,P30,co,1,18,f,,Network Red Cube(Clone) was picked up,1.389999,22.84859,0.944,c
 638004794180210708,P30,co,1,18,f,,RightPupil,3.62236,3.856598,,c
 638004794180290708,P30,co,1,18,f,,RightPupil,3.632706,3.857071,,c
 638004794180360708,P30,co,1,18,f,,RightPupil,3.729492,3.865555,,c
@@ -36969,7 +36969,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794187360692,P30,co,1,18,f,,RightPupil,4.2034,4.300583,,c
 638004794187480705,P30,co,1,18,f,,RightPupil,4.360336,4.295776,,c
 638004794187580697,P30,co,1,18,f,,RightPupil,4.296661,4.271286,,c
-638004794187660698,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,,,,c
+638004794187660698,P30,co,1,18,f,,Network Red Cube(Clone)was placed in dropzone,15,7,10.41,c
 638004794187720702,P30,co,1,18,f,,RightPupil,4.340393,4.272202,,c
 638004794187810696,P30,co,1,18,f,,RightPupil,4.393738,4.296265,,c
 638004794187930699,P30,co,1,18,f,,RightPupil,4.374771,4.293442,,c
@@ -37173,8 +37173,8 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794210020668,P30,co,1,18,f,,RightPupil,4.504745,5.000519,,c
 638004794210130662,P30,co,1,18,f,,RightPupil,4.550491,4.904449,,c
 638004794210240667,P30,co,1,18,f,,RightPupil,4.436264,5.006683,,c
-638004794210320662,P30,co,1,18,f,,Game Over,,,,c
-638004794881919615,P30,co,2,18,f,300,Game Start,,,,c
+638004794210320662,P30,co,1,18,f,,Game Over,c
+638004794881919615,P30,co,2,18,f,300,Game Start,c
 638004794959891874,P30,co,2,18,f,,RightPupil,-1,-1,,c
 638004794959981632,P30,co,2,18,f,,RightPupil,-1,-1,,c
 638004794960041635,P30,co,2,18,f,,RightPupil,-1,-1,,c
@@ -37363,7 +37363,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794981334386,P30,co,2,18,f,,RightPupil,3.575684,3.776062,,c
 638004794981444387,P30,co,2,18,f,,RightPupil,3.800949,3.776199,,c
 638004794981554387,P30,co,2,18,f,,RightPupil,3.712357,3.781815,,c
-638004794981644385,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,23.48212,-3.12,,,,c
+638004794981644385,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,23.48212,-3.12,c
 638004794981714388,P30,co,2,18,f,,RightPupil,3.63356,3.801041,,c
 638004794981794389,P30,co,2,18,f,,RightPupil,3.628937,3.818878,,c
 638004794981884400,P30,co,2,18,f,,RightPupil,3.634094,3.825058,,c
@@ -37464,7 +37464,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004794992434374,P30,co,2,18,f,,RightPupil,4.693542,4.465851,,c
 638004794992544372,P30,co,2,18,f,,RightPupil,4.432159,4.49144,,c
 638004794992664361,P30,co,2,18,f,,RightPupil,4.483612,4.487869,,c
-638004794992744369,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004794992744369,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004794992834374,P30,co,2,18,f,,RightPupil,4.614304,4.489456,,c
 638004794992904448,P30,co,2,18,f,,RightPupil,4.652512,4.488373,,c
 638004794993004362,P30,co,2,18,f,,RightPupil,4.625763,4.489349,,c
@@ -37874,7 +37874,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795037874293,P30,co,2,18,f,,RightPupil,3.882324,4.156891,,c
 638004795037974293,P30,co,2,18,f,,RightPupil,3.751526,4.175964,,c
 638004795038094295,P30,co,2,18,f,,RightPupil,3.768387,4.179413,,c
-638004795038164292,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,24.9145,-3.12,,,,c
+638004795038164292,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,24.9145,-3.12,c
 638004795038214294,P30,co,2,18,f,,RightPupil,3.901993,4.17984,,c
 638004795038314294,P30,co,2,18,f,,RightPupil,3.903427,4.184998,,c
 638004795038434294,P30,co,2,18,f,,RightPupil,3.817337,4.180527,,c
@@ -37953,7 +37953,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795046524278,P30,co,2,18,f,,RightPupil,4.36322,4.359009,,c
 638004795046634280,P30,co,2,18,f,,RightPupil,4.341583,4.551407,,c
 638004795046754281,P30,co,2,18,f,,RightPupil,4.223541,4.478516,,c
-638004795046824283,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004795046824283,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004795046884283,P30,co,2,18,f,,RightPupil,4.242493,4.545502,,c
 638004795046974277,P30,co,2,18,f,,RightPupil,4.280151,4.549454,,c
 638004795047074280,P30,co,2,18,f,,RightPupil,4.182693,4.545471,,c
@@ -38006,7 +38006,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795052304265,P30,co,2,18,f,,RightPupil,4.426132,4.573425,,c
 638004795052414274,P30,co,2,18,f,,RightPupil,4.416199,4.591217,,c
 638004795052514272,P30,co,2,18,f,,RightPupil,4.512466,4.576691,,c
-638004795052594268,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,12,4.267568,10.41,,,,c
+638004795052594268,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,12,4.267568,10.41,c
 638004795052654266,P30,co,2,18,f,,RightPupil,4.489487,4.599686,,c
 638004795052744274,P30,co,2,18,f,,RightPupil,4.42572,4.599838,,c
 638004795052854273,P30,co,2,18,f,,RightPupil,4.505325,4.600449,,c
@@ -38256,7 +38256,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795079964226,P30,co,2,18,f,,RightPupil,3.707977,4.013138,,c
 638004795080064221,P30,co,2,18,f,,RightPupil,3.670212,4.004639,,c
 638004795080194222,P30,co,2,18,f,,RightPupil,3.572006,3.997757,,c
-638004795080254231,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,24.54805,0.944,,,,c
+638004795080254231,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,24.54805,0.944,c
 638004795080314224,P30,co,2,18,f,,RightPupil,3.669083,3.932587,,c
 638004795080414225,P30,co,2,18,f,,RightPupil,3.495834,3.927795,,c
 638004795080504225,P30,co,2,18,f,,RightPupil,3.62233,3.926849,,c
@@ -38323,7 +38323,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795087284208,P30,co,2,18,f,,RightPupil,4.50386,4.481842,,c
 638004795087394208,P30,co,2,18,f,,RightPupil,4.374695,4.481598,,c
 638004795087514215,P30,co,2,18,f,,RightPupil,4.418472,4.484924,,c
-638004795087584210,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004795087584210,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004795087654214,P30,co,2,18,f,,RightPupil,4.2397,4.498291,,c
 638004795087724208,P30,co,2,18,f,,RightPupil,4.310471,4.502213,,c
 638004795087834211,P30,co,2,18,f,,RightPupil,4.340103,4.535156,,c
@@ -38856,7 +38856,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795146364111,P30,co,2,18,f,,RightPupil,3.386475,3.49556,,c
 638004795146484115,P30,co,2,18,f,,RightPupil,3.41423,3.496979,,c
 638004795146604112,P30,co,2,18,f,,RightPupil,3.510605,3.702789,,c
-638004795146664114,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,19.9488,0.944,,,,c
+638004795146664114,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,19.9488,0.944,c
 638004795146734107,P30,co,2,18,f,,RightPupil,3.521744,3.737473,,c
 638004795146824112,P30,co,2,18,f,,RightPupil,3.729843,3.559464,,c
 638004795146924109,P30,co,2,18,f,,RightPupil,3.655655,3.701874,,c
@@ -38934,7 +38934,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795154924093,P30,co,2,18,f,,RightPupil,4.3255,4.312683,,c
 638004795155034097,P30,co,2,18,f,,RightPupil,4.311966,4.324249,,c
 638004795155134109,P30,co,2,18,f,,RightPupil,4.324066,4.32399,,c
-638004795155224100,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004795155224100,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004795155284107,P30,co,2,18,f,,RightPupil,4.325226,4.323608,,c
 638004795155364100,P30,co,2,18,f,,RightPupil,4.313156,4.323547,,c
 638004795155474095,P30,co,2,18,f,,RightPupil,4.308502,4.334396,,c
@@ -39332,7 +39332,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795199024025,P30,co,2,18,f,,RightPupil,3.385147,3.739304,,c
 638004795199134023,P30,co,2,18,f,,RightPupil,3.397858,3.783432,,c
 638004795199234025,P30,co,2,18,f,,RightPupil,3.409012,3.796661,,c
-638004795199304030,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,19.4444,0.944,,,,c
+638004795199304030,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,19.4444,0.944,c
 638004795199364024,P30,co,2,18,f,,RightPupil,3.516663,3.808929,,c
 638004795199454033,P30,co,2,18,f,,RightPupil,3.580978,3.808304,,c
 638004795199574027,P30,co,2,18,f,,RightPupil,3.576141,3.807541,,c
@@ -39705,7 +39705,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795240323954,P30,co,2,18,f,,RightPupil,4.600739,4.781021,,c
 638004795240433958,P30,co,2,18,f,,RightPupil,4.597916,4.782272,,c
 638004795240543955,P30,co,2,18,f,,RightPupil,4.594391,4.778503,,c
-638004795240623958,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004795240623958,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,c
 638004795240693956,P30,co,2,18,f,,RightPupil,4.594177,4.766083,,c
 638004795240783964,P30,co,2,18,f,,RightPupil,4.596069,4.766525,,c
 638004795240873958,P30,co,2,18,f,,RightPupil,4.598267,4.754944,,c
@@ -39872,7 +39872,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795258764231,P30,co,2,18,f,,RightPupil,3.978668,3.904327,,c
 638004795258873929,P30,co,2,18,f,,RightPupil,3.873428,4.1203,,c
 638004795258983924,P30,co,2,18,f,,RightPupil,3.936569,4.218811,,c
-638004795259063929,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,13.75253,-3.12,,,,c
+638004795259063929,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,13.75253,-3.12,c
 638004795259123920,P30,co,2,18,f,,RightPupil,3.807053,4.211639,,c
 638004795259213925,P30,co,2,18,f,,RightPupil,3.825592,4.218567,,c
 638004795259323925,P30,co,2,18,f,,RightPupil,3.964294,4.233765,,c
@@ -39959,7 +39959,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795268313913,P30,co,2,18,f,,RightPupil,4.763382,4.597519,,c
 638004795268433910,P30,co,2,18,f,,RightPupil,4.671585,4.600311,,c
 638004795268533913,P30,co,2,18,f,,RightPupil,4.703491,4.503311,,c
-638004795268613912,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004795268613912,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004795268683910,P30,co,2,18,f,,RightPupil,4.742645,4.558884,,c
 638004795268773907,P30,co,2,18,f,,RightPupil,4.525024,4.543671,,c
 638004795268873910,P30,co,2,18,f,,RightPupil,4.577423,4.603134,,c
@@ -40159,7 +40159,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795290423873,P30,co,2,18,f,,RightPupil,3.734314,3.830856,,c
 638004795290543875,P30,co,2,18,f,,RightPupil,3.734039,3.830215,,c
 638004795290643874,P30,co,2,18,f,,RightPupil,3.7323,3.860535,,c
-638004795290713877,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,16.51755,-0.46,,,,c
+638004795290713877,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,16.51755,-0.46,c
 638004795290773872,P30,co,2,18,f,,RightPupil,3.728943,3.866516,,c
 638004795290863870,P30,co,2,18,f,,RightPupil,3.721268,3.88002,,c
 638004795290983874,P30,co,2,18,f,,RightPupil,3.631241,3.882675,,c
@@ -40240,7 +40240,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795299303854,P30,co,2,18,f,,RightPupil,4.243973,4.389587,,c
 638004795299423859,P30,co,2,18,f,,RightPupil,4.268539,4.393646,,c
 638004795299533861,P30,co,2,18,f,,RightPupil,4.378006,4.403015,,c
-638004795299603861,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,,,,c
+638004795299603861,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,11,7,10.41,c
 638004795299673857,P30,co,2,18,f,,RightPupil,4.342926,4.447632,,c
 638004795299753854,P30,co,2,18,f,,RightPupil,4.402985,4.467194,,c
 638004795299853858,P30,co,2,18,f,,RightPupil,4.351395,4.465561,,c
@@ -40447,7 +40447,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795322183820,P30,co,2,18,f,,RightPupil,3.392761,3.607513,,c
 638004795322293818,P30,co,2,18,f,,RightPupil,3.370178,3.600342,,c
 638004795322403818,P30,co,2,18,f,,RightPupil,3.448318,3.597076,,c
-638004795322473816,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,22.31506,-3.12,,,,c
+638004795322473816,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,22.31506,-3.12,c
 638004795322543819,P30,co,2,18,f,,RightPupil,3.371841,3.600266,,c
 638004795322633820,P30,co,2,18,f,,RightPupil,3.321121,3.59996,,c
 638004795322743821,P30,co,2,18,f,,RightPupil,3.405975,3.598007,,c
@@ -40539,7 +40539,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795332283803,P30,co,2,18,f,,RightPupil,4.380417,4.478943,,c
 638004795332393801,P30,co,2,18,f,,RightPupil,4.38176,4.474304,,c
 638004795332503805,P30,co,2,18,f,,RightPupil,4.441559,4.446335,,c
-638004795332583804,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004795332583804,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004795332653803,P30,co,2,18,f,,RightPupil,4.555984,4.44783,,c
 638004795332733803,P30,co,2,18,f,,RightPupil,4.567169,4.449051,,c
 638004795332843801,P30,co,2,18,f,,RightPupil,4.553497,4.449615,,c
@@ -41230,7 +41230,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795408923676,P30,co,2,18,f,,RightPupil,4.68866,4.709122,,c
 638004795409023678,P30,co,2,18,f,,RightPupil,4.679413,4.709534,,c
 638004795409133680,P30,co,2,18,f,,RightPupil,4.513306,4.855743,,c
-638004795409213678,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004795409213678,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,12,7,10.41,c
 638004795409283679,P30,co,2,18,f,,RightPupil,4.602478,4.846725,,c
 638004795409373676,P30,co,2,18,f,,RightPupil,4.551147,4.82988,,c
 638004795409473677,P30,co,2,18,f,,RightPupil,4.419632,4.73703,,c
@@ -41693,7 +41693,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795460223596,P30,co,2,18,f,,RightPupil,3.678497,4.117523,,c
 638004795460333594,P30,co,2,18,f,,RightPupil,3.824142,4.043488,,c
 638004795460443592,P30,co,2,18,f,,RightPupil,3.749924,4.050552,,c
-638004795460533592,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,14.61942,-1.813,,,,c
+638004795460533592,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.390015,14.61942,-1.813,c
 638004795460583592,P30,co,2,18,f,,RightPupil,3.662033,3.957184,,c
 638004795460673590,P30,co,2,18,f,,RightPupil,3.746292,4.099564,,c
 638004795460783591,P30,co,2,18,f,,RightPupil,3.594315,4.143158,,c
@@ -41777,7 +41777,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795469443574,P30,co,2,18,f,,RightPupil,4.424683,4.793961,,c
 638004795469553578,P30,co,2,18,f,,RightPupil,4.429626,4.767441,,c
 638004795469663574,P30,co,2,18,f,,RightPupil,4.433273,4.764069,,c
-638004795469743579,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,,,,c
+638004795469743579,P30,co,2,18,f,,Network Red Cube(Clone)was placed in dropzone,12,7,10.41,c
 638004795469823580,P30,co,2,18,f,,RightPupil,4.463455,4.775146,,c
 638004795469903573,P30,co,2,18,f,,RightPupil,4.46788,4.776031,,c
 638004795470003570,P30,co,2,18,f,,RightPupil,4.472809,4.779175,,c
@@ -42163,7 +42163,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795512203504,P30,co,2,18,f,,RightPupil,4.563782,4.583099,,c
 638004795512323509,P30,co,2,18,f,,RightPupil,4.54071,4.428925,,c
 638004795512433506,P30,co,2,18,f,,RightPupil,4.619034,4.302231,,c
-638004795512503502,P30,co,2,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,17.41746,-1.813,,,,c
+638004795512503502,P30,co,2,18,f,,Network Neutral Cube(Clone) was picked up,1.390015,17.41746,-1.813,c
 638004795512553505,P30,co,2,18,f,,RightPupil,4.578064,4.391739,,c
 638004795512643504,P30,co,2,18,f,,RightPupil,4.56543,4.354004,,c
 638004795512753506,P30,co,2,18,f,,RightPupil,4.585007,4.493286,,c
@@ -42269,7 +42269,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795523933485,P30,co,2,18,f,,RightPupil,4.495728,4.617493,,c
 638004795524013485,P30,co,2,18,f,,RightPupil,4.540527,4.61528,,c
 638004795524083487,P30,co,2,18,f,,RightPupil,4.540527,4.61528,,c
-638004795524133487,P30,co,2,18,f,,Network Neutral Cube(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004795524133487,P30,co,2,18,f,,Network Neutral Cube(Clone)was placed in dropzone,13,7,10.41,c
 638004795524193482,P30,co,2,18,f,,RightPupil,4.491974,4.601746,,c
 638004795524273485,P30,co,2,18,f,,RightPupil,4.488388,4.594543,,c
 638004795524383488,P30,co,2,18,f,,RightPupil,4.495438,4.601959,,c
@@ -42577,7 +42577,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795557963425,P30,co,2,18,f,,RightPupil,3.878448,4.098755,,c
 638004795558083438,P30,co,2,18,f,,RightPupil,3.887146,4.080414,,c
 638004795558183427,P30,co,2,18,f,,RightPupil,3.876663,3.951996,,c
-638004795558253430,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,6.755527,2.336,,,,c
+638004795558253430,P30,co,2,18,f,,Network Red Cube(Clone) was picked up,1.389999,6.755527,2.336,c
 638004795558333429,P30,co,2,18,f,,RightPupil,3.836334,3.987778,,c
 638004795558423435,P30,co,2,18,f,,RightPupil,3.975601,4.102844,,c
 638004795558533431,P30,co,2,18,f,,RightPupil,3.928101,3.995758,,c
@@ -43130,7 +43130,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795619263328,P30,co,2,18,f,,RightPupil,4.464905,4.536606,,c
 638004795619373327,P30,co,2,18,f,,RightPupil,4.460831,4.5401,,c
 638004795619483333,P30,co,2,18,f,,RightPupil,4.468399,4.542587,,c
-638004795619573327,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,,,,c
+638004795619573327,P30,co,2,18,f,,Network Gold Left Half(Clone)was placed in dropzone,13,7,10.41,c
 638004795619643326,P30,co,2,18,f,,RightPupil,4.465042,4.552505,,c
 638004795619713321,P30,co,2,18,f,,RightPupil,4.473648,4.577377,,c
 638004795619823328,P30,co,2,18,f,,RightPupil,4.47493,4.584564,,c
@@ -45204,4 +45204,4 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, rightEye, le
 638004795849492945,P30,co,2,18,f,,RightPupil,4.353256,4.608749,,c
 638004795849602946,P30,co,2,18,f,,RightPupil,4.309067,4.60907,,c
 638004795849712947,P30,co,2,18,f,,RightPupil,4.342209,4.610046,,c
-638004795849812944,P30,co,2,18,f,,Game Over,,,,c
+638004795849812944,P30,co,2,18,f,,Game Over,c
