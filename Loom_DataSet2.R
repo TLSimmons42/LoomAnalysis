@@ -2,8 +2,7 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-
-participantDataFile <- "analytics2_P29.csv"
+participantDataFile <- "analytics2_P21.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 #originalDF <- originalDF[originalDF$Condition != "tut",]
 
@@ -14,7 +13,7 @@ startIndexes <- startIndexes[startIndexes$Condition == "s" | startIndexes$Condit
 endIndexes <- endIndexes[endIndexes$Condition == "s" | endIndexes$Condition == "co", ]
 
 #originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
-originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[5,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[6,])):strtoi(rownames(endIndexes[4,])))
+originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
 
 
 
@@ -84,6 +83,13 @@ for(j in 0:1)
   lookingForPlayWall <- FALSE
   lookingForNewSeq <- TRUE
   
+  totalViewWallGazeTime <- 0
+  totalPlayWallGazeTime <- 0
+  totalBuildWallGazeTime <- 0
+  lastRowTime <- 0
+  lastLastRowTime <- 0
+  currentTimeAdd <- 0
+  
   viewWall <- "looking at View wall"
   viewWall <- toString(viewWall)
   
@@ -104,6 +110,14 @@ for(j in 0:1)
     currentCondition <- groupDF[i,3]
     currentCondition <- toString(currentCondition)
     
+    print(lastLastRowTime)
+    if(lastRowTime == 0){
+      lastRowTime = groupDF[i,1] /10000
+    }
+    currentTimeAdd <- groupDF[i,1]/10000 - lastRowTime
+    lastLastRowTime <- lastRowTime
+    lastRowTime = groupDF[i,1]/10000
+    
   
     if(lookingForNewSeq == FALSE){
         if(lookingForPlayWall){
@@ -116,7 +130,7 @@ for(j in 0:1)
             lookingForNewSeq <- TRUE
             
           }else if(currentEvent == playWall){
-            #print("continue looking at blue")
+            totalPlayWallGazeTime <- totalPlayWallGazeTime + currentTimeAdd
           }else{
             #print("bad blue")
             lookingForPlayWall <- FALSE
@@ -133,7 +147,7 @@ for(j in 0:1)
             lookingForNewSeq <- TRUE
             
           }else if(currentEvent == buildWall){
-            #print("continue looking at Red")
+            totalBuildWallGazeTime <- totalBuildWallGazeTime + currentTimeAdd
           }else{
             #print("bad red")
             
@@ -151,7 +165,7 @@ for(j in 0:1)
             lookingForNewSeq <- TRUE
             
           }else if(currentEvent == viewWall){
-            #print("continue looking at Invis")
+            totalViewWallGazeTime <- totalViewWallGazeTime + currentTimeAdd
           }else{
             #print("bad invis")
             
@@ -279,20 +293,45 @@ for(j in 0:1)
   avgPlay2View = totalPlay2View/play2ViewCounter
   
   # 
-  # # 
+  #
+  
+  # newPartData <- data.frame(matrix(ncol = 20, nrow = 0))
+  # np <- c("Participant", "Age", "Gender","AvgTotalTransferTime", "AvgView2Play","AvgBuild2Play", "AvgPlay2Build", "AvgPlay2View",
+  #        "totalView2Play", "totalBuild2Play","totalPlay2Build", "totalPlay2View", "totalBuildWallCount","totalPlayWallCount", "totalViewWallCount",
+  #        "totalPlayWallGazeTime","totalBuildWallGazeTime","totalViewWallGazeTime", "group", "condition")
+  # colnames(newPartData) <- np
+  
+  
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),
-  #                           AvgTotalTransferTime = numeric(),
-  #                           AvgView2Play = numeric(),
-  #                           AvgBuild2Play = numeric(),
-  #                           AvgPlay2Build = numeric(),
-  #                           AvgPlay2View = numeric(),
+  #                           avgTotalTransferTime = numeric(),
+  #                           avgView2Play = numeric(),
+  #                           avgBuild2Play = numeric(),
+  #                           avgPlay2Build = numeric(),
+  #                           avgPlay2View = numeric(),
+  #                           totalView2Play = numeric(),
+  #                           totalBuild2Play = numeric(),
+  #                           totalPlay2Build = numeric(),
+  #                           totalPlay2View = numeric(),
+  #                           totalBuildWallCount = numeric(),
+  #                           totalPlayWallCount = numeric(),
+  #                           totalViewWallCount = numeric(),
+  #                           totalPlayWallGazeTime = numeric(),
+  #                           totalBuildWallGazeTime = numeric(),
+  #                           totalViewWallGazeTime = numeric(),
   #                           group = factor(),
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
 
-  newPartRow <- data.frame(shortGroupDF[5,2], shortGroupDF[5,5], shortGroupDF[5,6], avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, partCondition, partGroup)
+  Participant <- shortGroupDF[5,2]
+  Age <- shortGroupDF[5,5]
+  Gender <- shortGroupDF[5,6]
+  condition <- partCondition
+  group <- partGroup
+  
+  
+  newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount, totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, condition, group)
   newPartData <- rbind(newPartData, newPartRow)
 
   write.csv(newPartData, "AllSubjectGazeData.csv")
