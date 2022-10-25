@@ -75,6 +75,7 @@ for(j in 0:1)
     groupDF <- coDF
     partCondition <- "co"
   }
+  print(partCondition)
 
   
   #Setup Variables
@@ -110,7 +111,6 @@ for(j in 0:1)
     currentCondition <- groupDF[i,3]
     currentCondition <- toString(currentCondition)
     
-    print(lastLastRowTime)
     if(lastRowTime == 0){
       lastRowTime = groupDF[i,1] /10000
     }
@@ -230,8 +230,10 @@ for(j in 0:1)
     
     currentTime <- shortGroupDF[i,1]/10000
     if(previousTime != 0){
-      
       reactionTime <- currentTime - previousTime
+      print(currentTime)
+      print(reactionTime)
+      
     }
     
     if(currentEvent == viewWall){
@@ -281,7 +283,7 @@ for(j in 0:1)
     }
     previousEvent <- currentEvent
     previousTime <- shortGroupDF[i,1]/10000
-    
+
     
   }
   
@@ -331,7 +333,9 @@ for(j in 0:1)
   group <- partGroup
   
   
-  newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount, totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, condition, group)
+  newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
+                           totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, group, condition)
+  
   newPartData <- rbind(newPartData, newPartRow)
 
   write.csv(newPartData, "AllSubjectGazeData.csv")

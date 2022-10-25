@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 
 
-dataFile <- "AllSubjectGazeData.csv"
+dataFile <- "AllSubjectGazeDataFinal.csv"
 df <- read.csv(dataFile, header = TRUE, sep = ",")
 
 
@@ -49,6 +49,20 @@ plot(df$AvgTotalTransferTime ~ factor(df$Group) + factor(df$Condition) , data = 
 plot(df$AvgTotalTransferTime ~ factor(df$Group), data = df)
 plot(df$AvgTotalTransferTime ~ factor(df$Condition), data = df)
 
+plot(df$AvgBuild2Play ~ factor(df$Group), data = df)
+plot(df$AvgBuild2Play ~ factor(df$Condition), data = df)
+
+plot(df$AvgView2Play ~ factor(df$Group), data = df)
+plot(df$AvgView2Play ~ factor(df$Condition), data = df)
+
+plot(df$AvgPlay2Build ~ factor(df$Group), data = df)
+plot(df$AvgPlay2Build ~ factor(df$Condition), data = df)
+
+plot(coDF$AvgTotalTransferTime)
+
+
+
+
 
 
 #ANOVA TESTS
@@ -63,11 +77,15 @@ twoANOVA <- aov(AvgTotalTransferTime ~ factor(Group), data = anovaTTDF)
 summary(twoANOVA)
 
 
+twoANOVA <- aov(df$AvgPlay2Build ~ factor(df$Condition) * factor(df$Group) , data = df)
+summary(twoANOVA)
+
+
 #Regression model
 model <- lm(df$AvgTotalTransferTime ~ factor(df$Group) + factor(df$Condition) + df$Age + factor(df$Gender), data = df)
 summary(model)
 
-model2 <- lm(AvgTotalTransferTime ~ factor(Group), data = anovaTTDF)
+model2 <- lm(AvgTotalTransferTime ~ factor(Group)* factor(Condition), data = anovaTTDF)
 summary(model2)
 
 
