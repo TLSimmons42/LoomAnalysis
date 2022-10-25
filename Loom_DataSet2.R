@@ -2,7 +2,7 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-participantDataFile <- "analytics2_P21.csv"
+participantDataFile <- "analytics2_P2.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 #originalDF <- originalDF[originalDF$Condition != "tut",]
 
@@ -75,8 +75,6 @@ for(j in 0:1)
     groupDF <- coDF
     partCondition <- "co"
   }
-  print(partCondition)
-
   
   #Setup Variables
   lookingForViewWall <- FALSE
@@ -231,8 +229,6 @@ for(j in 0:1)
     currentTime <- shortGroupDF[i,1]/10000
     if(previousTime != 0){
       reactionTime <- currentTime - previousTime
-      print(currentTime)
-      print(reactionTime)
       
     }
     
@@ -293,9 +289,7 @@ for(j in 0:1)
   avgBuild2Play = totalBuild2Play/build2PlayCounter
   avgPlay2Build = totalPlay2Build/play2BuildCounter
   avgPlay2View = totalPlay2View/play2ViewCounter
-  
-  # 
-  #
+
   
   # newPartData <- data.frame(matrix(ncol = 20, nrow = 0))
   # np <- c("Participant", "Age", "Gender","AvgTotalTransferTime", "AvgView2Play","AvgBuild2Play", "AvgPlay2Build", "AvgPlay2View",
@@ -303,7 +297,7 @@ for(j in 0:1)
   #        "totalPlayWallGazeTime","totalBuildWallGazeTime","totalViewWallGazeTime", "group", "condition")
   # colnames(newPartData) <- np
   
-  
+  # 
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),
@@ -325,6 +319,8 @@ for(j in 0:1)
   #                           group = factor(),
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
+  
+  
 
   Participant <- shortGroupDF[5,2]
   Age <- shortGroupDF[5,5]

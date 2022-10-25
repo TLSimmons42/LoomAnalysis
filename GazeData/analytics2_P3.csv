@@ -15329,7 +15329,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637955609272489550,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955609272609579,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955609272719600,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
-637955609298345358,P3,s,1,0,m,,Game Over
+637955609298345358,P3,s,1,0,m,,Game Over,c
 637955609318809954,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955609318919984,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955609319030009,P3,s,1,0,m,,looking at Play wall,1.26,8.46,-0.3
@@ -23008,7 +23008,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637955611043408633,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955611043518657,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955611043628680,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
-637955611056031471,P3,s,2,0,m,,Game Over
+637955611056031471,P3,s,2,0,m,,Game Over,c
 637955611064945562,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955611065065587,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955611065175618,P3,s,2,0,m,,looking at Play wall,1.26,8.46,-0.3
@@ -42237,7 +42237,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637955615128654496,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955615128764521,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955615128874547,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
-637955615147388706,P3,co,1,0,m,,Game Over
+637955615147388706,P3,co,1,0,m,,Game Over,c
 637955615163972430,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955615164082453,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955615164192474,P3,co,1,0,m,,looking at Play wall,1.26,8.46,-0.3
@@ -51462,7 +51462,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637955616910674361,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955616910784386,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955616910894415,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
-637955616935065722,P3,co,2,0,m,,Game Over
+637955616935065722,P3,co,2,0,m,,Game Over,c
 637955616942977490,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955616943097517,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
 637955616943217547,P3,co,2,0,m,,looking at Play wall,1.26,8.46,-0.3
