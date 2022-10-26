@@ -2,7 +2,7 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-participantDataFile <- "analytics2_P29.csv"
+participantDataFile <- "analytics2_P18.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
