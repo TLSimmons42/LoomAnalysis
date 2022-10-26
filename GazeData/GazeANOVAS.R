@@ -3,28 +3,28 @@ library(rgl)
 library(dplyr)
 
 
-dataFile <- "AllSubjectGazeDataFinal.csv"
+dataFile <- "AllSubjectGazeDataFinal2.csv"
 df <- read.csv(dataFile, header = TRUE, sep = ",")
 
 
-soloDF <- df[df$Condition == "s",]
-coDF <- df[df$Condition == "co",]
+soloDF <- df[df$condition == "s",]
+coDF <- df[df$condition == "co",]
 
-CsoloDF <- df[df$Condition == "s" & df$Group == "c",]
-EsoloDF <- df[df$Condition == "s" & df$Group == "e",]
+CsoloDF <- df[df$condition == "s" & df$group == "c",]
+EsoloDF <- df[df$condition == "s" & df$group == "e",]
 
-CcoDF <- df[df$Condition == "co" & df$Group == "c",]
-EcoDF <- df[df$Condition == "co" & df$Group == "e",]
+CcoDF <- df[df$condition == "co" & df$group == "c",]
+EcoDF <- df[df$condition == "co" & df$group == "e",]
 
 
 
-soloAvgTotalTransfer <- mean(soloDF$AvgTotalTransferTime)
-coAvgTotalTransfer <- mean(coDF$AvgTotalTransferTime)
+soloAvgTotalTransfer <- mean(soloDF$avgTotalTransferTime)
+coAvgTotalTransfer <- mean(coDF$avgTotalTransferTime)
 
-CsoloAvgTotalTransfer <- mean(CsoloDF$AvgTotalTransferTime)
-EsoloAvgTotalTransfer <- mean(EsoloDF$AvgTotalTransferTime)
-CcoAvgTotalTransfer <- mean(CcoDF$AvgTotalTransferTime)
-EcoAvgTotalTransfer <- mean(EcoDF$AvgTotalTransferTime)
+CsoloAvgTotalTransfer <- mean(CsoloDF$avgTotalTransferTime)
+EsoloAvgTotalTransfer <- mean(EsoloDF$avgTotalTransferTime)
+CcoAvgTotalTransfer <- mean(CcoDF$avgTotalTransferTime)
+EcoAvgTotalTransfer <- mean(EcoDF$avgTotalTransferTime)
 
 
 barTable <- matrix(c(soloAvgTotalTransfer, coAvgTotalTransfer, CsoloAvgTotalTransfer, EsoloAvgTotalTransfer, CcoAvgTotalTransfer, EcoAvgTotalTransfer), ncol = 6)
@@ -37,28 +37,28 @@ barplot(barTable, main="Gaze Transfer Times",
 
 
 
-anovaTTDF <- data.frame(Group = df$Group,
-                          Condition = df$Condition,
-                          AvgTotalTransferTime = df$AvgTotalTransferTime,
+anovaTTDF <- data.frame(group = df$group,
+                          condition = df$condition,
+                          avgTotalTransferTime = df$avgTotalTransferTime,
                           stringsAsFactors = FALSE)
 
 
-plot(df$AvgTotalTransferTime ~ factor(df$Group) + factor(df$Condition) , data = df)
 
 
-plot(df$AvgTotalTransferTime ~ factor(df$Group), data = df)
-plot(df$AvgTotalTransferTime ~ factor(df$Condition), data = df)
 
-plot(df$AvgBuild2Play ~ factor(df$Group), data = df)
-plot(df$AvgBuild2Play ~ factor(df$Condition), data = df)
+plot(df$avgTotalTransferTime ~ factor(df$group), data = df)
+plot(df$avgTotalTransferTime ~ factor(df$condition), data = df)
 
-plot(df$AvgView2Play ~ factor(df$Group), data = df)
-plot(df$AvgView2Play ~ factor(df$Condition), data = df)
+plot(df$avgBuild2Play ~ factor(df$group), data = df)
+plot(df$avgBuild2Play ~ factor(df$condition), data = df)
 
-plot(df$AvgPlay2Build ~ factor(df$Group), data = df)
-plot(df$AvgPlay2Build ~ factor(df$Condition), data = df)
+plot(df$avgView2Play ~ factor(df$group), data = df)
+plot(df$avgView2Play ~ factor(df$condition), data = df)
 
-plot(coDF$AvgTotalTransferTime)
+plot(df$avgPlay2Build ~ factor(df$group), data = df)
+plot(df$avgPlay2Build ~ factor(df$condition), data = df)
+
+plot(coDF$avgTotalTransferTime)
 
 
 
@@ -66,26 +66,26 @@ plot(coDF$AvgTotalTransferTime)
 
 
 #ANOVA TESTS
-twoANOVA <- aov(AvgTotalTransferTime ~ factor(Condition) * factor(Group) , data = anovaTTDF)
+twoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
 summary(twoANOVA)
 
 
-twoANOVA <- aov(AvgTotalTransferTime ~ factor(Condition), data = anovaTTDF)
+twoANOVA <- aov(avgTotalTransferTime ~ factor(condition), data = anovaTTDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(AvgTotalTransferTime ~ factor(Group), data = anovaTTDF)
+twoANOVA <- aov(avgTotalTransferTime ~ factor(group), data = anovaTTDF)
 summary(twoANOVA)
 
 
-twoANOVA <- aov(df$AvgPlay2Build ~ factor(df$Condition) * factor(df$Group) , data = df)
+twoANOVA <- aov(df$AvgPlay2Build ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 
 #Regression model
-model <- lm(df$AvgTotalTransferTime ~ factor(df$Group) + factor(df$Condition) + df$Age + factor(df$Gender), data = df)
+model <- lm(df$avgTotalTransferTime ~ factor(df$group) + factor(df$condition) + df$Age + factor(df$Gender), data = df)
 summary(model)
 
-model2 <- lm(AvgTotalTransferTime ~ factor(Group)* factor(Condition), data = anovaTTDF)
+model2 <- lm(avgTotalTransferTime ~ factor(group)* factor(condition), data = anovaTTDF)
 summary(model2)
 
 

@@ -1,1 +1,1 @@
-"","Participant","Age","Gender","AvgTotalTransferTime","AvgView2Play","AvgBuild2Play","AvgPlay2Build","AvgPlay2View","group","condition"
+"","Participant","Age","Gender","avgTotalTransferTime","avgView2Play","avgBuild2Play","avgPlay2Build","avgPlay2View","totalView2Play","totalBuild2Play","totalPlay2Build","totalPlay2View","totalBuildWallCount","totalPlayWallCount","totalViewWallCount","totalPlayWallGazeTime","totalBuildWallGazeTime","totalViewWallGazeTime","avgPickUp2GazeFind","group","condition"

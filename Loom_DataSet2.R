@@ -2,9 +2,8 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-participantDataFile <- "analytics2_P2.csv"
+participantDataFile <- "analytics2_P29.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
-#originalDF <- originalDF[originalDF$Condition != "tut",]
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
 endIndexes <- originalDF[originalDF$Event=="Game Over",]
@@ -12,20 +11,21 @@ endIndexes <- originalDF[originalDF$Event=="Game Over",]
 startIndexes <- startIndexes[startIndexes$Condition == "s" | startIndexes$Condition == "co", ]
 endIndexes <- endIndexes[endIndexes$Condition == "s" | endIndexes$Condition == "co", ]
 
-#originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
 originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
 
 
 
 originalDF <-  originalDF[originalDF$xPos != "c",]
 
-soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
-                     
-#soloDF <- originalDF[originalDF$Event == "looking at View wall" | originalDF$Event == "looking at Build wall" | originalDF$Event == "looking at Play wall" ,]
+# soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
+# coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
 
+soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0) 	
+                                                    | originalDF$Event == "Regular Red Cube(Clone) was picked up"| originalDF$Event == "Regular Blue Cube(Clone) was picked up"| originalDF$Event == "Regular Neutral Cube(Clone) was picked up"|originalDF$Event =="Regular Gold Cube(Clone) was picked up"
+                                                   |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
 
-coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
-#coDF <- originalDF[originalDF$Condition == "co" &(originalDF$Event == "looking at View wall" | originalDF$Event == "looking at Build wall" | originalDF$Event == "looking at Play wall"),]
+coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)|originalDF$Event == "Network Red Cube(Clone)was placed in dropzone"
+                                                  | originalDF$Event == "Network Red Cube(Clone) was picked up"| originalDF$Event == "Network Blue Cube(Clone) was picked up"| originalDF$Event == "Network Neutral Cube(Clone) was picked up"| originalDF$Event == "Network Gold Cube(Clone) was picked up"),]
 
 
 xSolo <- soloDF[,9]
@@ -177,17 +177,23 @@ for(j in 0:1)
         first_row_to_add <- groupDF[i,]
         lookingForNewSeq <- FALSE
         lookingForViewWall <- TRUE
-      }
+      }else
       if(currentEvent == playWall){
         first_row_to_add <- groupDF[i,]
         lookingForNewSeq <- FALSE
         lookingForPlayWall <- TRUE
-      }
+      }else
       if(currentEvent == buildWall){
         first_row_to_add <- groupDF[i,]
         lookingForNewSeq <- FALSE
         lookingForBuildWall <- TRUE
+      }else{
+        first_row_to_add <- groupDF[i,]
+        lookingForNewSeq <- TRUE
+        shortGroupDF <- rbind(shortGroupDF, first_row_to_add)
+        print("hi")
       }
+      
     }
     
   }
@@ -290,35 +296,29 @@ for(j in 0:1)
   avgPlay2Build = totalPlay2Build/play2BuildCounter
   avgPlay2View = totalPlay2View/play2ViewCounter
 
-  
-  # newPartData <- data.frame(matrix(ncol = 20, nrow = 0))
-  # np <- c("Participant", "Age", "Gender","AvgTotalTransferTime", "AvgView2Play","AvgBuild2Play", "AvgPlay2Build", "AvgPlay2View",
-  #        "totalView2Play", "totalBuild2Play","totalPlay2Build", "totalPlay2View", "totalBuildWallCount","totalPlayWallCount", "totalViewWallCount",
-  #        "totalPlayWallGazeTime","totalBuildWallGazeTime","totalViewWallGazeTime", "group", "condition")
-  # colnames(newPartData) <- np
-  
-  # 
-  # newPartData <- data.frame(Participant = factor(),
-  #                           Age = numeric(),
-  #                           Gender = factor(),
-  #                           avgTotalTransferTime = numeric(),
-  #                           avgView2Play = numeric(),
-  #                           avgBuild2Play = numeric(),
-  #                           avgPlay2Build = numeric(),
-  #                           avgPlay2View = numeric(),
-  #                           totalView2Play = numeric(),
-  #                           totalBuild2Play = numeric(),
-  #                           totalPlay2Build = numeric(),
-  #                           totalPlay2View = numeric(),
-  #                           totalBuildWallCount = numeric(),
-  #                           totalPlayWallCount = numeric(),
-  #                           totalViewWallCount = numeric(),
-  #                           totalPlayWallGazeTime = numeric(),
-  #                           totalBuildWallGazeTime = numeric(),
-  #                           totalViewWallGazeTime = numeric(),
-  #                           group = factor(),
-  #                           condition = factor(),
-  #                           stringsAsFactors = FALSE)
+
+  newPartData <- data.frame(Participant = factor(),
+                            Age = numeric(),
+                            Gender = factor(),
+                            avgTotalTransferTime = numeric(),
+                            avgView2Play = numeric(),
+                            avgBuild2Play = numeric(),
+                            avgPlay2Build = numeric(),
+                            avgPlay2View = numeric(),
+                            totalView2Play = numeric(),
+                            totalBuild2Play = numeric(),
+                            totalPlay2Build = numeric(),
+                            totalPlay2View = numeric(),
+                            totalBuildWallCount = numeric(),
+                            totalPlayWallCount = numeric(),
+                            totalViewWallCount = numeric(),
+                            totalPlayWallGazeTime = numeric(),
+                            totalBuildWallGazeTime = numeric(),
+                            totalViewWallGazeTime = numeric(),
+                            avgPickUp2GazeFind = numeric(),
+                            group = factor(),
+                            condition = factor(),
+                            stringsAsFactors = FALSE)
   
   
 
@@ -327,10 +327,11 @@ for(j in 0:1)
   Gender <- shortGroupDF[5,6]
   condition <- partCondition
   group <- partGroup
+  avgPickUp2GazeFind <- 0
   
   
   newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                           totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, group, condition)
+                           totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgPickUp2GazeFind, group, condition)
   
   newPartData <- rbind(newPartData, newPartRow)
 
