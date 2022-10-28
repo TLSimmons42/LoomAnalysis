@@ -28,6 +28,25 @@ coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking a
                                                   | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
                                                   |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
 
+soloDF$Event[soloDF$Event == "Regular Red Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF$Event[soloDF$Event == "Regular Blue Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF$Event[soloDF$Event == "Regular Neutral Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF$Event[soloDF$Event == "Regular Gold Cube(Clone) was picked up"] <- 'cube picked up'
+
+coDF$Event[coDF$Event == "Network Red Cube(Clone) was picked up"] <- 'cube picked up'
+coDF$Event[coDF$Event == "Network Blue Cube(Clone) was picked up"] <- 'cube picked up'
+coDF$Event[coDF$Event == "Network Neutral Cube(Clone) was picked up"] <- 'cube picked up'
+
+
+soloDF$Event[soloDF$Event == "Regular Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF$Event[soloDF$Event == "Regular Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF$Event[soloDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF$Event[soloDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"] <- 'cube placed'
+
+coDF$Event[coDF$Event == "Network Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
+coDF$Event[coDF$Event == "Network Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
+coDF$Event[coDF$Event == "Network Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
+
 
 xSolo <- soloDF[,9]
 ySolo <- soloDF[,10]
@@ -98,6 +117,30 @@ for(j in 0:1)
   
   buildWall <- "looking at Build wall"
   buildWall <- toString(buildWall)
+  
+  rCubePickUpR <- "Regular Red Cube(Clone) was picked up"
+  rCubeDropR <- "Regular Red Cube(Clone)was placed in dropzone"
+  
+  bCubePickUpR <- "Regular Blue Cube(Clone) was picked up"
+  bCubeDropR <- "Regular Blue Cube(Clone)was placed in dropzone"
+  
+  nCubePickUpR <- "Regular Neutral Cube(Clone) was picked up"
+  nCubeDropR <- "Regular Neutral Cube(Clone)was placed in dropzone"
+
+  nCubePickUpR <- "Regular Gold Cube(Clone) was picked up"
+  nCubeDropR <- "Regular Gold Cube(Clone)was placed in dropzone"
+  
+  rCubePickUpN <- "Network Red Cube(Clone) was picked up"
+  rCubeDropN <- "Network Red Cube(Clone)was placed in dropzone"
+  
+  bCubePickUpN <- "Network Blue Cube(Clone) was picked up"
+  bCubeDropN <- "Network Blue Cube(Clone)was placed in dropzone"
+  
+  nCubePickUpN <- "Network Neutral Cube(Clone) was picked up"
+  nCubeDropN <- "Network Neutral Cube(Clone)was placed in dropzone"
+  
+  
+  
   
   
   #this loop is picking out all of the row that are needed for analysis and putting them into their DF's
@@ -201,6 +244,7 @@ for(j in 0:1)
   previousEvent <- ""
   
   previousTime <- 0
+  previousViewWallTime <- 0
   counter <- (-1) # -1 because the first iteration doesn't count 
   
   
@@ -219,6 +263,7 @@ for(j in 0:1)
   avgPlay2Build <- 0
   avgBuild2Play <- 0
   avgView2Play <- 0
+  avgTimeBetweenViewWallChecks <- 0
   
   play2ViewCounter <- 0
   play2BuildCounter <- 0
@@ -240,6 +285,11 @@ for(j in 0:1)
     
     if(currentEvent == viewWall){
       if(previousEvent == playWall){
+        if(avgTimeBetweenViewWallChecks == 0){
+          previousViewWallTime <- currentTime
+        }else{
+          avgTimeBetweenViewWallChecks <- avgTimeBetweenViewWallChecks + (currentTime - previousViewWallTime)
+        }
         
         totalViewWallCount <- totalViewWallCount + 1
         totalTime <- totalTime + reactionTime 
@@ -295,6 +345,92 @@ for(j in 0:1)
   avgBuild2Play = totalBuild2Play/build2PlayCounter
   avgPlay2Build = totalPlay2Build/play2BuildCounter
   avgPlay2View = totalPlay2View/play2ViewCounter
+  avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks/totalViewWallCount
+  
+  
+ #----------------------------------------------------
+  
+  cubePickedUp <- "cube picked up"
+  cubePlaced <- "cube placed"
+  
+  avgGrab2Build <- 0
+  grab2BuildCounter <- 0
+  drop2Play <- 0
+  startOfGrab2Build <- 0
+
+  lookingForGrab2Build1 <- FALSE
+  lookingForGrab2Build2 <- FALSE
+  lookingForGrab2Build3 <- FALSE
+  lookingForGrab2Build4 <- FALSE
+  lookingForGrab2Build5 <- FALSE
+  
+  lookingForDrop2Play <- FALSE
+  
+  
+  for (i in 2:nrow(shortGroupDF))
+  {
+    currentEvent <- shortGroupDF[i,8]
+    currentEvent <- toString(currentEvent)
+
+    currentTime <- shortGroupDF[i,1]/10000
+    
+    currentCondition <- shortGroupDF[i,3]
+    currentCondition <- toString(currentCondition)
+    
+    if(lastRowTime == 0){
+      lastRowTime = shortGroupDF[i,1] /10000
+    }
+    currentTimeAdd <- shortGroupDF[i,1]/10000 - lastRowTime
+    lastLastRowTime <- lastRowTime
+    lastRowTime = shortGroupDF[i,1]/10000
+    
+    
+    if(lookingForNewSeq == FALSE){
+      if(lookingForGrab2Build1){
+        if(currentEvent == cubePickedUp){
+          lookingForGrab2Build1 = FALSE
+          lookingForGrab2Build2 = TRUE
+        }
+      }
+      if(lookingForGrab2Build2){
+        if(currentEvent == playWall){
+          lookingForGrab2Build2 = FALSE
+          lookingForGrab2Build3 = TRUE
+        }
+      }
+      if(lookingForGrab2Build3){
+        if(currentEvent == buildWall){
+          lookingForGrab2Build3 = FALSE
+          lookingForGrab2Build4 = TRUE
+        }
+      }
+      if(lookingForGrab2Build1){
+        if(currentEvent == cubePickedUp){
+          lookingForGrab2Build1 = FALSE
+          lookingForGrab2Build2 = TRUE
+        }
+      }
+
+    }
+    if(lookingForNewSeq){
+      if(currentEvent == playWall){
+        lookingForNewSeq = FALSE
+        lookingForGrab2Build1 = TRUE
+        startOfGrab2Build <- currentTime
+        
+      }
+      
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
 
 
   # newPartData <- data.frame(Participant = factor(),

@@ -17,7 +17,6 @@ CcoDF <- df[df$condition == "co" & df$group == "c",]
 EcoDF <- df[df$condition == "co" & df$group == "e",]
 
 
-
 soloAvgTotalTransfer <- mean(soloDF$avgTotalTransferTime)
 coAvgTotalTransfer <- mean(coDF$avgTotalTransferTime)
 
@@ -44,8 +43,6 @@ anovaTTDF <- data.frame(group = df$group,
 
 
 
-
-
 plot(df$avgTotalTransferTime ~ factor(df$group), data = df)
 plot(df$avgTotalTransferTime ~ factor(df$condition), data = df)
 
@@ -59,9 +56,6 @@ plot(df$avgPlay2Build ~ factor(df$group), data = df)
 plot(df$avgPlay2Build ~ factor(df$condition), data = df)
 
 plot(coDF$avgTotalTransferTime)
-
-
-
 
 
 
