@@ -2,7 +2,7 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-participantDataFile <- "analytics2_P18.csv"
+participantDataFile <- "analytics2_P29.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
@@ -21,11 +21,12 @@ originalDF <-  originalDF[originalDF$xPos != "c",]
 # coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
 
 soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0) 	
-                                                    | originalDF$Event == "Regular Red Cube(Clone) was picked up"| originalDF$Event == "Regular Blue Cube(Clone) was picked up"| originalDF$Event == "Regular Neutral Cube(Clone) was picked up"|originalDF$Event =="Regular Gold Cube(Clone) was picked up"
+                                                    | (originalDF$Event == "Regular Red Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event =="Regular Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
                                                    |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
 
-coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)|originalDF$Event == "Network Red Cube(Clone)was placed in dropzone"
-                                                  | originalDF$Event == "Network Red Cube(Clone) was picked up"| originalDF$Event == "Network Blue Cube(Clone) was picked up"| originalDF$Event == "Network Neutral Cube(Clone) was picked up"| originalDF$Event == "Network Gold Cube(Clone) was picked up"),]
+coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)
+                                                  | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+                                                  |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
 
 
 xSolo <- soloDF[,9]
@@ -191,7 +192,6 @@ for(j in 0:1)
         first_row_to_add <- groupDF[i,]
         lookingForNewSeq <- TRUE
         shortGroupDF <- rbind(shortGroupDF, first_row_to_add)
-        print("hi")
       }
       
     }
@@ -297,28 +297,28 @@ for(j in 0:1)
   avgPlay2View = totalPlay2View/play2ViewCounter
 
 
-  newPartData <- data.frame(Participant = factor(),
-                            Age = numeric(),
-                            Gender = factor(),
-                            avgTotalTransferTime = numeric(),
-                            avgView2Play = numeric(),
-                            avgBuild2Play = numeric(),
-                            avgPlay2Build = numeric(),
-                            avgPlay2View = numeric(),
-                            totalView2Play = numeric(),
-                            totalBuild2Play = numeric(),
-                            totalPlay2Build = numeric(),
-                            totalPlay2View = numeric(),
-                            totalBuildWallCount = numeric(),
-                            totalPlayWallCount = numeric(),
-                            totalViewWallCount = numeric(),
-                            totalPlayWallGazeTime = numeric(),
-                            totalBuildWallGazeTime = numeric(),
-                            totalViewWallGazeTime = numeric(),
-                            avgPickUp2GazeFind = numeric(),
-                            group = factor(),
-                            condition = factor(),
-                            stringsAsFactors = FALSE)
+  # newPartData <- data.frame(Participant = factor(),
+  #                           Age = numeric(),
+  #                           Gender = factor(),
+  #                           avgTotalTransferTime = numeric(),
+  #                           avgView2Play = numeric(),
+  #                           avgBuild2Play = numeric(),
+  #                           avgPlay2Build = numeric(),
+  #                           avgPlay2View = numeric(),
+  #                           totalView2Play = numeric(),
+  #                           totalBuild2Play = numeric(),
+  #                           totalPlay2Build = numeric(),
+  #                           totalPlay2View = numeric(),
+  #                           totalBuildWallCount = numeric(),
+  #                           totalPlayWallCount = numeric(),
+  #                           totalViewWallCount = numeric(),
+  #                           totalPlayWallGazeTime = numeric(),
+  #                           totalBuildWallGazeTime = numeric(),
+  #                           totalViewWallGazeTime = numeric(),
+  #                           avgPickUp2GazeFind = numeric(),
+  #                           group = factor(),
+  #                           condition = factor(),
+  #                           stringsAsFactors = FALSE)
   
   
 
