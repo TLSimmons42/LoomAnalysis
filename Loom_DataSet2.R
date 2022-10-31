@@ -2,14 +2,14 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 
-data_files <- list.files(pattern = "analytics2")
+data_files <- list.files(pattern = "analytics29")
 data_files
 
 bob <- length(data_files)
 bob
 
 
-participantDataFile <- "analytics2_P4.csv"
+participantDataFile <- "analytics2_P29.csv"
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
@@ -28,32 +28,32 @@ originalDF <-  originalDF[originalDF$xPos != "c",]
 soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
 coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)),]
 
-# soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0) 	
-#                                                     | (originalDF$Event == "Regular Red Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event =="Regular Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
-#                                                    |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
-# 
-# coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)
-#                                                   | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
-#                                                   |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
+soloDF2 <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)
+                                                    | (originalDF$Event == "Regular Red Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event =="Regular Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+                                                   |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
 
-soloDF$Event[soloDF$Event == "Regular Red Cube(Clone) was picked up"] <- 'cube picked up'
-soloDF$Event[soloDF$Event == "Regular Blue Cube(Clone) was picked up"] <- 'cube picked up'
-soloDF$Event[soloDF$Event == "Regular Neutral Cube(Clone) was picked up"] <- 'cube picked up'
-soloDF$Event[soloDF$Event == "Regular Gold Cube(Clone) was picked up"] <- 'cube picked up'
+coDF2 <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)
+                                                  | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+                                                  |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
 
-coDF$Event[coDF$Event == "Network Red Cube(Clone) was picked up"] <- 'cube picked up'
-coDF$Event[coDF$Event == "Network Blue Cube(Clone) was picked up"] <- 'cube picked up'
-coDF$Event[coDF$Event == "Network Neutral Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF2$Event[soloDF2$Event == "Regular Red Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF2$Event[soloDF2$Event == "Regular Blue Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF2$Event[soloDF2$Event == "Regular Neutral Cube(Clone) was picked up"] <- 'cube picked up'
+soloDF2$Event[soloDF2$Event == "Regular Gold Cube(Clone) was picked up"] <- 'cube picked up'
+
+coDF2$Event[coDF2$Event == "Network Red Cube(Clone) was picked up"] <- 'cube picked up'
+coDF2$Event[coDF2$Event == "Network Blue Cube(Clone) was picked up"] <- 'cube picked up'
+coDF2$Event[coDF2$Event == "Network Neutral Cube(Clone) was picked up"] <- 'cube picked up'
 
 
-soloDF$Event[soloDF$Event == "Regular Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
-soloDF$Event[soloDF$Event == "Regular Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
-soloDF$Event[soloDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
-soloDF$Event[soloDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF2$Event[soloDF2$Event == "Regular Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF2$Event[soloDF2$Event == "Regular Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF2$Event[soloDF2$Event == "Regular Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
+soloDF2$Event[soloDF2$Event == "Regular Gold Cube(Clone)was placed in dropzone"] <- 'cube placed'
 
-coDF$Event[coDF$Event == "Network Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
-coDF$Event[coDF$Event == "Network Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
-coDF$Event[coDF$Event == "Network Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
+coDF2$Event[coDF2$Event == "Network Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
+coDF2$Event[coDF2$Event == "Network Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
+coDF2$Event[coDF2$Event == "Network Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
 
 
 xSolo <- soloDF[,9]
@@ -80,9 +80,24 @@ if(participantDataFile == "analytics2_P2.csv" | participantDataFile == "analytic
 }
 
 groupCounter <- 0
-for(j in 0:1)
+for(j in 0:2)
 {
+  print(j)
   shortGroupDF <- data.frame(TimeStamp = numeric(),
+                             Participant = factor(),
+                             Condition = factor(),
+                             Trial = numeric(),
+                             Age = numeric(),
+                             Gender = factor(),
+                             SessionTime = numeric(),
+                             Event = factor(),
+                             xPos = numeric(),
+                             yPos = numeric(),
+                             zPos = numeric(),
+                             group = factor(),
+                             stringsAsFactors = FALSE)
+  
+  shortGroupDF2 <- data.frame(TimeStamp = numeric(),
                              Participant = factor(),
                              Condition = factor(),
                              Trial = numeric(),
@@ -99,10 +114,17 @@ for(j in 0:1)
   if(j == 0){
     groupDF <- soloDF
     partCondition <- "s"
-  }else{
+  }else if(j == 1){
     groupDF <- coDF
     partCondition <- "co"
+  }else if(j == 2){
+    groupDF <- soloDF2
+    partCondition <- "s"
+  }else if(j == 3){
+    groupDF <- coDF2
+    partCondition <- "co"
   }
+  
   
   #Setup Variables
   lookingForViewWall <- FALSE
@@ -150,9 +172,9 @@ for(j in 0:1)
   
   
   
-  
+
   #this loop is picking out all of the rows that are needed for analysis and putting them into their a short DF
-  for (i in 2:nrow(groupDF))
+  for (i in 3:nrow(groupDF))
   {
     currentEvent <- groupDF[i,8]
     currentEvent <- toString(currentEvent)
@@ -194,7 +216,7 @@ for(j in 0:1)
           }else if(currentEvent == buildWall){
             totalBuildWallGazeTime <- totalBuildWallGazeTime + currentTimeAdd
           }else{
-
+  
             lookingForBuildWall <- FALSE
             lookingForNewSeq <- TRUE
           }
@@ -209,7 +231,7 @@ for(j in 0:1)
           }else if(currentEvent == viewWall){
             totalViewWallGazeTime <- totalViewWallGazeTime + currentTimeAdd
           }else{
-
+  
             lookingForViewWall <- FALSE
             lookingForNewSeq <- TRUE
           }
@@ -232,14 +254,12 @@ for(j in 0:1)
         lookingForNewSeq <- FALSE
         lookingForBuildWall <- TRUE
       }
-      # else{
-      #   # first_row_to_add <- groupDF[i,]
-      #   #lookingForNewSeq <- TRUE
-      #   # shortGroupDF <- rbind(shortGroupDF, first_row_to_add)
-      # }
+      else{
+        first_row_to_add <- groupDF[i,]
+        lookingForNewSeq <- TRUE
+        shortGroupDF <- rbind(shortGroupDF, first_row_to_add)
+      }
       
-    
-    
     }
   }
   
@@ -272,201 +292,203 @@ for(j in 0:1)
   build2PlayCounter <- 0
   view2PlayCounter <- 0
   
-  
-  for (i in 2:nrow(shortGroupDF))
-  {
-    counter <- counter +1
-    currentEvent <- shortGroupDF[i,8]
-    currentEvent <- toString(currentEvent)
+  if(j < 2){
+    for (i in 2:nrow(shortGroupDF))
+    {
+      counter <- counter +1
+      currentEvent <- shortGroupDF[i,8]
+      currentEvent <- toString(currentEvent)
+      
+      currentTime <- shortGroupDF[i,1]/10000
+      if(previousTime != 0){
+        reactionTime <- currentTime - previousTime
+        
+      }
+      
+      if(currentEvent == viewWall){
+        if(previousEvent == playWall){
+          if(avgTimeBetweenViewWallChecks == 0){
+            previousViewWallTime <- currentTime
+          }else{
+            avgTimeBetweenViewWallChecks <- avgTimeBetweenViewWallChecks + (currentTime - previousViewWallTime)
+          }
+          
+          totalViewWallCount <- totalViewWallCount + 1
+          totalTime <- totalTime + reactionTime 
+          totalPlay2View <- totalPlay2View + reactionTime
+          play2ViewCounter <- play2ViewCounter + 1
+          
+          }else{
+          #print("nothin bb")
+        }
+      }
+      
+      if(currentEvent == buildWall){
+        if(previousEvent == playWall){
+          
+          totalBuildWallCount <- totalBuildWallCount + 1
+          totalTime <- totalTime + reactionTime 
+          totalPlay2Build <- totalPlay2Build + reactionTime
+          play2BuildCounter <- play2BuildCounter + 1
     
-    currentTime <- shortGroupDF[i,1]/10000
-    if(previousTime != 0){
-      reactionTime <- currentTime - previousTime
+        }else{
+          #print("nothin bb")
+        }
+      }
+      
+      if(currentEvent == playWall){
+        if(previousEvent == viewWall){
+          
+          totalPlayWallCount <- totalPlayWallCount + 1
+          totalTime <- totalTime + reactionTime 
+          totalView2Play <- totalView2Play + reactionTime
+          view2PlayCounter <- view2PlayCounter + 1
+          
+        }else if(previousEvent == buildWall){
+          
+          totalPlayWallCount <- totalPlayWallCount + 1
+          totalTime <- totalTime + reactionTime 
+          totalBuild2Play <- totalBuild2Play + reactionTime
+          build2PlayCounter <- build2PlayCounter + 1
+          
+        }else{
+          #print("nothin bb")
+        }
+      }
+      previousEvent <- currentEvent
+      previousTime <- shortGroupDF[i,1]/10000
+    
       
     }
     
-    if(currentEvent == viewWall){
-      if(previousEvent == playWall){
-        if(avgTimeBetweenViewWallChecks == 0){
-          previousViewWallTime <- currentTime
-        }else{
-          avgTimeBetweenViewWallChecks <- avgTimeBetweenViewWallChecks + (currentTime - previousViewWallTime)
-        }
-        
-        totalViewWallCount <- totalViewWallCount + 1
-        totalTime <- totalTime + reactionTime 
-        totalPlay2View <- totalPlay2View + reactionTime
-        play2ViewCounter <- play2ViewCounter + 1
-        
-        }else{
-        #print("nothin bb")
-      }
-    }
     
-    if(currentEvent == buildWall){
-      if(previousEvent == playWall){
-        
-        totalBuildWallCount <- totalBuildWallCount + 1
-        totalTime <- totalTime + reactionTime 
-        totalPlay2Build <- totalPlay2Build + reactionTime
-        play2BuildCounter <- play2BuildCounter + 1
-  
-      }else{
-        #print("nothin bb")
-      }
-    }
-    
-    if(currentEvent == playWall){
-      if(previousEvent == viewWall){
-        
-        totalPlayWallCount <- totalPlayWallCount + 1
-        totalTime <- totalTime + reactionTime 
-        totalView2Play <- totalView2Play + reactionTime
-        view2PlayCounter <- view2PlayCounter + 1
-        
-      }else if(previousEvent == buildWall){
-        
-        totalPlayWallCount <- totalPlayWallCount + 1
-        totalTime <- totalTime + reactionTime 
-        totalBuild2Play <- totalBuild2Play + reactionTime
-        build2PlayCounter <- build2PlayCounter + 1
-        
-      }else{
-        #print("nothin bb")
-      }
-    }
-    previousEvent <- currentEvent
-    previousTime <- shortGroupDF[i,1]/10000
-
-    
+    avgTotalTransferTime = totalTime/counter
+    avgView2Play = totalView2Play/view2PlayCounter
+    avgBuild2Play = totalBuild2Play/build2PlayCounter
+    avgPlay2Build = totalPlay2Build/play2BuildCounter
+    avgPlay2View = totalPlay2View/play2ViewCounter
+    avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks/totalViewWallCount
   }
-  
-  
-  avgTotalTransferTime = totalTime/counter
-  avgView2Play = totalView2Play/view2PlayCounter
-  avgBuild2Play = totalBuild2Play/build2PlayCounter
-  avgPlay2Build = totalPlay2Build/play2BuildCounter
-  avgPlay2View = totalPlay2View/play2ViewCounter
-  avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks/totalViewWallCount
-  
-  
+
  #----------------------------------------------------
-  # 
-  # cubePickedUp <- "cube picked up"
-  # cubePlaced <- "cube placed"
-  # 
-  # avgGrab2Build <- 0
-  # grab2BuildCounter <- 0
-  # drop2Play <- 0
-  # startOfGrab2Build <- 0
-  # 
-  # lookingForGrab2Build1 <- FALSE #play
-  # lookingForGrab2Build2 <- FALSE #pick
-  # lookingForGrab2Build3 <- FALSE #play
-  # lookingForGrab2Build4 <- FALSE #build
-  # lookingForGrab2Build5 <- FALSE #place
-  # 
-  # lookingForDrop2Play <- FALSE
-  # 
-  # 
-  # for (i in 2:nrow(shortGroupDF))
-  # {
-  #   currentEvent <- shortGroupDF[i,8]
-  #   currentEvent <- toString(currentEvent)
-  # 
-  #   currentTime <- shortGroupDF[i,1]/10000
-  #   
-  #   currentCondition <- shortGroupDF[i,3]
-  #   currentCondition <- toString(currentCondition)
-  #   
-  #   if(lastRowTime == 0){
-  #     lastRowTime = shortGroupDF[i,1] /10000
-  #   }
-  #   currentTimeAdd <- shortGroupDF[i,1]/10000 - lastRowTime
-  #   lastLastRowTime <- lastRowTime
-  #   lastRowTime = shortGroupDF[i,1]/10000
-  #   
-  #   
-  #   if(lookingForNewSeq == FALSE){
-  #     if(lookingForGrab2Build1){
-  #       if(currentEvent == cubePickedUp){
-  #         lookingForGrab2Build1 = FALSE
-  #         lookingForGrab2Build2 = TRUE
-  #         startOfGrab2Build <- currentTime
-  # 
-  #       }
-  #     } else if(lookingForGrab2Build2){
-  #       if(currentEvent == playWall){
-  #         lookingForGrab2Build2 = FALSE
-  #         lookingForGrab2Build3 = TRUE
-  # 
-  #       }
-  #     } else if(lookingForGrab2Build3){
-  #       if(currentEvent == buildWall){
-  #         lookingForGrab2Build3 = FALSE
-  #         lookingForGrab2Build4 = TRUE
-  # 
-  #       }
-  #     } else if(lookingForGrab2Build4){
-  #       if(currentEvent == cubePlaced){
-  #         lookingForGrab2Build4 = FALSE
-  #         lookingForGrab2Build5 = TRUE
-  #         grab2BuildCounter <- grab2BuildCounter + 1
-  #         print(currentTime - startOfGrab2Build)
-  #         avgGrab2Build <- avgGrab2Build + (currentTime - startOfGrab2Build)
-  #       }
-  #     }else{
-  #       lookingForNewSeq <- TRUE
-  #       lookingForGrab2Build1 = FALSE
-  #       lookingForGrab2Build2 = FALSE
-  #       lookingForGrab2Build3 = FALSE
-  #       lookingForGrab2Build4 = FALSE
-  #       lookingForGrab2Build5 = FALSE
-  #       
-  #     }
-  #   }
-  #    if(lookingForNewSeq){
-  #     if(currentEvent == playWall){
-  #       lookingForNewSeq = FALSE
-  #       lookingForGrab2Build1 = TRUE
-  #     }
-  #   }
-  #   
-  # }
-  # 
-  # avgGrab2Build <- avgGrab2Build/grab2BuildCounter
-  # 
-  # 
-  # 
+
+  cubePickedUp <- "cube picked up"
+  cubePlaced <- "cube placed"
+
+  avgGrab2Build <- 0
+  grab2BuildCounter <- 0
+  drop2Play <- 0
+  startOfGrab2Build <- 0
+
+  lookingForGrab2Build1 <- FALSE #play
+  lookingForGrab2Build2 <- FALSE #pick
+  lookingForGrab2Build3 <- FALSE #play
+  lookingForGrab2Build4 <- FALSE #build
+  lookingForGrab2Build5 <- FALSE #place
+
+  lookingForDrop2Play <- FALSE
+
+  if(j > 2)
+  {
+    for (i in 2:nrow(shortGroupDF))
+    {
+      currentEvent <- shortGroupDF[i,8]
+      currentEvent <- toString(currentEvent)
+  
+      currentTime <- shortGroupDF[i,1]/10000
+  
+      currentCondition <- shortGroupDF[i,3]
+      currentCondition <- toString(currentCondition)
+  
+      print(lastRowTime)
+      if(lastRowTime == 0){
+        lastRowTime = shortGroupDF[i,1] /10000
+      }
+      currentTimeAdd <- shortGroupDF[i,1]/10000 - lastRowTime
+      lastLastRowTime <- lastRowTime
+      lastRowTime = shortGroupDF[i,1]/10000
+  
+  
+      if(lookingForNewSeq == FALSE){
+        if(lookingForGrab2Build1){
+          if(currentEvent == cubePickedUp){
+            lookingForGrab2Build1 = FALSE
+            lookingForGrab2Build2 = TRUE
+            startOfGrab2Build <- currentTime
+  
+          }
+        } else if(lookingForGrab2Build2){
+          if(currentEvent == playWall){
+            lookingForGrab2Build2 = FALSE
+            lookingForGrab2Build3 = TRUE
+  
+          }
+        } else if(lookingForGrab2Build3){
+          if(currentEvent == buildWall){
+            lookingForGrab2Build3 = FALSE
+            lookingForGrab2Build4 = TRUE
+  
+          }
+        } else if(lookingForGrab2Build4){
+          if(currentEvent == cubePlaced){
+            lookingForGrab2Build4 = FALSE
+            lookingForGrab2Build5 = TRUE
+            grab2BuildCounter <- grab2BuildCounter + 1
+            print(currentTime - startOfGrab2Build)
+            avgGrab2Build <- avgGrab2Build + (currentTime - startOfGrab2Build)
+          }
+        }else{
+          lookingForNewSeq <- TRUE
+          lookingForGrab2Build1 = FALSE
+          lookingForGrab2Build2 = FALSE
+          lookingForGrab2Build3 = FALSE
+          lookingForGrab2Build4 = FALSE
+          lookingForGrab2Build5 = FALSE
+  
+        }
+      }
+       if(lookingForNewSeq){
+        if(currentEvent == playWall){
+          lookingForNewSeq = FALSE
+          lookingForGrab2Build1 = TRUE
+        }
+      }
+  
+    }
+  
+    avgGrab2Build <- avgGrab2Build/grab2BuildCounter
+  }
+
+
   
   
   
 
+# 
+# newPartData <- data.frame(Participant = factor(),
+#                           Age = numeric(),
+#                           Gender = factor(),
+#                           avgTotalTransferTime = numeric(),
+#                           avgView2Play = numeric(),
+#                           avgBuild2Play = numeric(),
+#                           avgPlay2Build = numeric(),
+#                           avgPlay2View = numeric(),
+#                           totalView2Play = numeric(),
+#                           totalBuild2Play = numeric(),
+#                           totalPlay2Build = numeric(),
+#                           totalPlay2View = numeric(),
+#                           totalBuildWallCount = numeric(),
+#                           totalPlayWallCount = numeric(),
+#                           totalViewWallCount = numeric(),
+#                           totalPlayWallGazeTime = numeric(),
+#                           totalBuildWallGazeTime = numeric(),
+#                           totalViewWallGazeTime = numeric(),
+#                           avgPickUp2GazeFind = numeric(),
+#                           group = factor(),
+#                           condition = factor(),
+#                           stringsAsFactors = FALSE)
 
-  # newPartData <- data.frame(Participant = factor(),
-  #                           Age = numeric(),
-  #                           Gender = factor(),
-  #                           avgTotalTransferTime = numeric(),
-  #                           avgView2Play = numeric(),
-  #                           avgBuild2Play = numeric(),
-  #                           avgPlay2Build = numeric(),
-  #                           avgPlay2View = numeric(),
-  #                           totalView2Play = numeric(),
-  #                           totalBuild2Play = numeric(),
-  #                           totalPlay2Build = numeric(),
-  #                           totalPlay2View = numeric(),
-  #                           totalBuildWallCount = numeric(),
-  #                           totalPlayWallCount = numeric(),
-  #                           totalViewWallCount = numeric(),
-  #                           totalPlayWallGazeTime = numeric(),
-  #                           totalBuildWallGazeTime = numeric(),
-  #                           totalViewWallGazeTime = numeric(),
-  #                           avgPickUp2GazeFind = numeric(),
-  #                           group = factor(),
-  #                           condition = factor(),
-  #                           stringsAsFactors = FALSE)
-  
-  
+
 
   Participant <- shortGroupDF[5,2]
   Age <- shortGroupDF[5,5]
