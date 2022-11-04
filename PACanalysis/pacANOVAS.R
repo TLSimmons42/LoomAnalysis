@@ -9,7 +9,50 @@ dataFile <- "pacMoving.csv"
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
 
-df <- df[df$Age<24,]
+data_summary <- aggregate(pacMove ~ condition, df,
+                          function(x) c(mean = mean(x),
+                                        se = sd(x)/ sqrt(length(x))))
+
+data_summary <- data.frame(condition = data_summary[,1], data_summary$pacMove)
+data_summary
+
+base_r_plot <- barplot(data_summary$mean ~ condition,
+                       data_summary,
+                       ylab = "Perception Action Coupling Sequence 1(ms)",
+                       ylim = c(0,600))
+
+arrows(x0 = base_r_plot,
+       y0 = data_summary$mean + data_summary$se,
+       y1 = data_summary$mean - data_summary$se,
+       angle = 90,
+       code = 3,
+       length = .1)
+
+
+#------------------------------------------------------------------
+data_summary2 <- aggregate(pacStay ~ condition, df,
+                          function(x) c(mean = mean(x),
+                                        se = sd(x)/ sqrt(length(x))))
+
+data_summary2 <- data.frame(condition = data_summary2[,1], data_summary2$pacStay)
+data_summary2
+
+base_r_plot <- barplot(data_summary2$mean ~ condition,
+                       data_summary2,
+                       ylab = "Perception Action Coupling Sequence 2(ms)",
+                       ylim = c(0,1000))
+
+arrows(x0 = base_r_plot,
+       y0 = data_summary$mean + data_summary$se,
+       y1 = data_summary$mean - data_summary$se,
+       angle = 90,
+       code = 3,
+       length = .1)
+
+#------------------------------------------------------------------
+
+
+#df <- df[df$Age<24,]
 
 
 soloDF <- df[df$condition == "s",]
@@ -100,12 +143,13 @@ EcoAvgTotalTransfer2 <- mean(EcoDF$pacMove)
 
 
 barTable <- matrix(c(CsoloAvgTotalTransfer, EsoloAvgTotalTransfer, CcoAvgTotalTransfer, EcoAvgTotalTransfer, CsoloAvgTotalTransfer2, EsoloAvgTotalTransfer2, CcoAvgTotalTransfer2, EcoAvgTotalTransfer2), ncol = 8)
-colnames(barTable) <- c('sStayC','sStayE','coStayC','coStayE','sMoveC','sMoveE','coMoveC','coMoveE')
+colnames(barTable) <- c('soloPAC2C','soloPAC2E','coPAC2C','coPAC2E','soloPAC1C','soloPAC1E','coPAC1C','coPAC1E')
 barTable <- as.table(barTable)
 
 
-barplot(barTable, main="PACStay",
-        xlab="Number of Gears")
+barplot(barTable, main="Perception Action Coupling Sequences",
+        xlab="(conditions and groups)",
+        ylab = "time (ms)")
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 

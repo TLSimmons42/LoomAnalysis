@@ -10,7 +10,7 @@ bob
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- "analytics2_P20.csv"
+  participantDataFile <- "analytics2_P3.csv"
   #participantDataFile <- data_files[f]
   originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
   
