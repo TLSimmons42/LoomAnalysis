@@ -1,14 +1,17 @@
 library(plot3D)
 library(rgl)
 library(dplyr)
-
+library(ggplot2)
+library(tidyverse)
+library(ggtext)
+library(ggsci)
+library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
 dataFile <- "AllSubjectGazeData.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
-
 
 
 soloDF <- df[df$condition == "s",]
@@ -144,6 +147,9 @@ plot(coDF$avgTotalTransferTime)
 
 #ANOVA TESTS
 twoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$avgPlay2Build ~ factor(df$condition) * factor(df$group) , data = anovaTTDF)
 summary(twoANOVA)
 
 

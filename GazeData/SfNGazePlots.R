@@ -1,0 +1,61 @@
+library(plot3D)
+library(rgl)
+#library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(ggtext)
+library(ggsci)
+library(ggpubr)
+
+# dataFile <- "AllSubjectGazeDataFinal2.csv"
+dataFile <- "AllSubjectGazeData.csv"
+
+
+df <- read.csv(dataFile, header = TRUE, sep = ",")
+df$group[df$group == "e"] <- 'AUT'
+df$group[df$group == "c"] <- 'Non-AUT'
+
+df$condition[df$condition == "s"] <- 'Solo'
+df$condition[df$condition == "co"] <- 'Cooperative'
+
+
+
+gazePlot <- df%>%
+  group_by(condition, group)%>%
+  summarise(mATT = mean(avgTotalTransferTime), sATT = sd(avgTotalTransferTime))%>%
+  ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
+          cex= 2.5, vjust=-2)+
+  labs(title = "Total Gaze Transfer Time",
+       #subtitle = "kitty",
+       x = "Conditions", y = "Time (ms)",
+       #caption = "moo",
+       fill = "Groups")+
+  geom_errorbar(mapping = aes(ymin = mATT-sATT, ymax = mATT + sATT),
+                width = 0.2, position = position_dodge(width = 0.9))+
+  theme_bw()+scale_fill_aaas() 
+
+
+gazePlot
+
+#------------------------------------------------------------------------------------------
+
+gazePlot <- df%>%
+  group_by(condition, group)%>%
+  summarise(mATT = mean(avgPlay2Build), sATT = sd(avgPlay2Build))%>%
+  ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
+            cex= 2.5, vjust=-2)+
+  labs(title = "Total Play Wall to Build Wall Gaze Transfer Time",
+       #subtitle = "kitty",
+       x = "Conditions", y = "Time (ms)",
+       #caption = "moo",
+       fill = "Groups")+
+  geom_errorbar(mapping = aes(ymin = mATT-sATT, ymax = mATT + sATT),
+                width = 0.2, position = position_dodge(width = 0.9))+
+  theme_bw()+scale_fill_aaas() 
+
+
+gazePlot

@@ -1,6 +1,8 @@
 library(plot3D)
 library(rgl)
 library(dplyr)
+library("ggplot2")
+library(tidyverse)
 
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
@@ -8,6 +10,27 @@ dataFile <- "pacMoving.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
+
+
+soloDF <- df[df$condition == "s",]
+coDF <- df[df$condition == "co",]
+
+cDF <- df[df$partGroup == "c",]
+eDF <- df[df$partGroup == "e",]
+
+CsoloDF <- df[df$condition == "s" & df$partGroup == "c",]
+EsoloDF <- df[df$condition == "s" & df$partGroup == "e",]
+
+CcoDF <- df[df$condition == "co" & df$partGroup == "c",]
+EcoDF <- df[df$condition == "co" & df$partGroup == "e",]
+
+
+
+cAge <- mean(cDF$Age)
+cAge
+eAge <- mean(eDF$Age)
+eAge
+#------------------------------------------------------------------
 
 data_summary <- aggregate(pacMove ~ condition, df,
                           function(x) c(mean = mean(x),
@@ -55,24 +78,6 @@ arrows(x0 = base_r_plot,
 #df <- df[df$Age<24,]
 
 
-soloDF <- df[df$condition == "s",]
-coDF <- df[df$condition == "co",]
-
-cDF <- df[df$partGroup == "c",]
-eDF <- df[df$partGroup == "e",]
-
-CsoloDF <- df[df$condition == "s" & df$partGroup == "c",]
-EsoloDF <- df[df$condition == "s" & df$partGroup == "e",]
-
-CcoDF <- df[df$condition == "co" & df$partGroup == "c",]
-EcoDF <- df[df$condition == "co" & df$partGroup == "e",]
-
-
-
-cAge <- mean(cDF$Age)
-cAge
-eAge <- mean(eDF$Age)
-eAge
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 soloAvgTotalTransfer <- mean(soloDF$pacMove)
@@ -158,6 +163,9 @@ twoANOVA <- aov(df$pacMove ~ factor(df$condition) * factor(df$partGroup) , data 
 summary(twoANOVA)
 
 twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$partGroup) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacStay ~ factor(df$condition) , data = df)
 summary(twoANOVA)
 
 twoANOVA <- aov(df$pacMove * df$pacStay ~ factor(df$condition) * factor(df$partGroup) , data = df)
