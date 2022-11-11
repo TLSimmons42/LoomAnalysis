@@ -24,16 +24,16 @@ gazePlot <- df%>%
   summarise(mATT = mean(pacStay), sATT = sd(pacStay))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(partGroup,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-            cex= 2.5, vjust=-2)+
-  labs(title = "PAC2",
+  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
+  #          cex= 2.5, vjust=-2)+
+  labs(title = "",
        #subtitle = "kitty",
-       x = "Conditions", y = "Time (ms)",
+       x = "", y = "",
        #caption = "moo",
-       fill = "Groups")+
+       fill = "")+
   geom_errorbar(mapping = aes(ymin = mATT-sATT, ymax = mATT + sATT),
                 width = 0.2, position = position_dodge(width = 0.9))+
-  theme_bw()+scale_fill_aaas() 
+  theme_pubclean()+scale_fill_startrek() 
 
 
 gazePlot
@@ -47,16 +47,16 @@ gazePlot <- df%>%
   summarise(mATT = mean(pacMove), sATT = sd(pacMove))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(partGroup, -mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-            cex= 2.5, vjust=-2)+
-  labs(title = "PAC1",
+  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
+  #         cex= 2.5, vjust=-2)+
+  labs(title = "",
        #subtitle = "kitty",
-       x = "Conditions", y = "Time (ms)",
+       x = "", y = "",
        #caption = "moo",
-       fill = "Groups")+
+       fill = "")+
   geom_errorbar(mapping = aes(ymin = mATT-sATT, ymax = mATT + sATT),
                 width = 0.2, position = position_dodge(width = 0.9))+
-  theme_bw()+scale_fill_aaas() 
+  theme_pubclean()+scale_fill_startrek() 
 
 
 gazePlot
