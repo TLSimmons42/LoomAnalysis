@@ -146,7 +146,7 @@ plot(coDF$avgTotalTransferTime)
 
 
 #ANOVA TESTS
-twoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
+ ntwoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
 summary(twoANOVA)
 
 twoANOVA <- aov(df$avgPlay2Build ~ factor(df$condition) * factor(df$group) , data = anovaTTDF)
