@@ -6,7 +6,7 @@ library(tidyverse)
 
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-dataFile <- "pacMoving.csv"
+dataFile <- "pacMovingTest.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")

@@ -8,7 +8,8 @@ library(ggsci)
 library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-dataFile <- "AllSubjectGazeData.csv"
+#dataFile <- "AllSubjectGazeData.csv"
+dataFile <- "AllSubjectGazeData12-7.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
@@ -32,7 +33,7 @@ gazePlot
 #avg total Gaze Transfer Time analysis
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(totalPlay2View), sATT = sd(totalPlay2View))%>%
+  summarise(mATT = mean(avgTotalTransferTime), sATT = sd(avgTotalTransferTime))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
@@ -52,7 +53,7 @@ gazePlot
 
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgPlay2Build), sATT = sd(avgPlay2Build))%>%
+  summarise(mATT = mean(avgCoGameTime), sATT = sd(avgCoGameTime))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),

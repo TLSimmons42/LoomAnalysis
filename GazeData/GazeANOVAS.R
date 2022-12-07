@@ -8,7 +8,7 @@ library(ggsci)
 library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-dataFile <- "AllSubjectGazeData.csv"
+dataFile <- "AllSubjectGazeData12-7.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
@@ -146,10 +146,10 @@ plot(coDF$avgTotalTransferTime)
 
 
 #ANOVA TESTS
- ntwoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
+ twoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(df$avgPlay2Build ~ factor(df$condition) * factor(df$group) , data = anovaTTDF)
+twoANOVA <- aov(df$avgCoGameTime ~ factor(df$condition) * factor(df$group) , data = anovaTTDF)
 summary(twoANOVA)
 
 
@@ -160,7 +160,7 @@ twoANOVA <- aov(avgTotalTransferTime ~ factor(group), data = anovaTTDF)
 summary(twoANOVA)
 
 
-twoANOVA <- aov(df$AvgPlay2Build ~ factor(df$condition) * factor(df$group) , data = df)
+twoANOVA <- aov(df$avgPlay2Build ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 twoANOVA <- aov(df$avgGrab2Build ~ factor(df$condition) * factor(df$group) , data = df)
@@ -172,10 +172,13 @@ summary(twoANOVA)
 model <- lm(df$avgTotalTransferTime ~ factor(df$group) + factor(df$condition) + df$Age + factor(df$Gender), data = df)
 summary(model)
 
-model2 <- lm(avgTotalTransferTime ~ factor(group)* factor(condition), data = anovaTTDF)
+model <- lm(df$avgTotalTransferTime ~ factor(df$group) + factor(df$condition) + df$Age + factor(df$Gender), data = df)
+summary(model)
+
+model2 <- lm(df$avgPlay2Build ~ factor(group)+ factor(condition), data = anovaTTDF)
 summary(model2)
 
-model2 <- lm(df$avgGrab2Build ~ factor(df$group)* factor(df$condition), data = anovaTTDF)
+model2 <- lm(df$avgGrab2Build ~ factor(df$group)+ factor(df$condition), data = anovaTTDF)
 summary(model2)
 
 

@@ -10,8 +10,8 @@ bob
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- "analytics2_P3.csv"
-  #participantDataFile <- data_files[f]
+  #participantDataFile <- "analytics2_P14.csv"
+  participantDataFile <- data_files[f]
   originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
   
   startIndexes <- originalDF[originalDF$Event=="Game Start",]
@@ -19,6 +19,31 @@ for(f in 1:length(data_files))
   
   startIndexes <- startIndexes[startIndexes$Condition == "s" | startIndexes$Condition == "co", ]
   endIndexes <- endIndexes[endIndexes$Condition == "s" | endIndexes$Condition == "co", ]
+  
+  totalSoloGameTime <- 0
+  totalCoGameTime <- 0
+  totalCombinedGameTime <- 0
+  
+
+  for(d in 1:nrow(startIndexes))
+  {
+    startTime <- startIndexes[d,1]/10000
+    endTime <- endIndexes[d,1]/10000
+    
+    if(d == 1 || d == 2){
+      print(endTime - startTime)
+      totalSoloGameTime <- totalSoloGameTime +(endTime- startTime)
+      totalCombinedGameTime <- totalCombinedGameTime +(endTime- startTime)
+      
+    }else{
+      print(endTime - startTime)
+      totalCoGameTime <- totalCoGameTime +(endTime- startTime)
+      totalCombinedGameTime <- totalSoloGameTime +(endTime- startTime)
+    }
+
+  }
+  
+  
   
   originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
   #originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
@@ -461,7 +486,7 @@ for(f in 1:length(data_files))
     }
   
   
-   
+# 
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),
@@ -482,9 +507,14 @@ for(f in 1:length(data_files))
   #                           totalViewWallGazeTime = numeric(),
   #                           avgTimeBetweenViewWallChecks = numeric(),
   #                           avgGrab2Build = numeric(),
+  #                           avgSoloGameTime = numeric(),
+  #                           avgCoGameTime = numeric(),
+  #                           avgCombinedGameTime = numeric(),
   #                           group = factor(),
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
+  # 
+  # write.csv(newPartData, "AllSubjectGazeData12-7.csv")
   
   
   
@@ -493,6 +523,10 @@ for(f in 1:length(data_files))
     Gender <- shortGroupDF[5,6]
     condition <- partCondition
     group <- partGroup
+    avgSoloGameTime <- totalSoloGameTime
+    avgCoGameTime <- totalCoGameTime
+    avgCombinedGameTime <- totalCombinedGameTime
+    
     if(j == 0){
       s1avgTotalTransferTime = avgTotalTransferTime
       s1avgView2Play = avgView2Play
@@ -551,11 +585,11 @@ for(f in 1:length(data_files))
       avgTimeBetweenViewWallChecks = s1avgTimeBetweenViewWallChecks
       
       newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, group, condition)
+                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgSoloGameTime, avgCoGameTime, avgCombinedGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
     
-      write.csv(newPartData, "AllSubjectGazeData.csv")
+      write.csv(newPartData, "AllSubjectGazeData12-7.csv")
     }
     if(j == 3){
       
@@ -577,11 +611,11 @@ for(f in 1:length(data_files))
       avgTimeBetweenViewWallChecks = s2avgTimeBetweenViewWallChecks
       
       newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, group, condition)
+                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build,avgSoloGameTime, avgCoGameTime, avgCombinedGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
       
-      write.csv(newPartData, "AllSubjectGazeData.csv")
+      write.csv(newPartData, "AllSubjectGazeData12-7.csv")
     }  
   
   }
