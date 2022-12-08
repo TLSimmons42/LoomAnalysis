@@ -22,7 +22,8 @@ for(f in 1:length(data_files))
   
   totalSoloGameTime <- 0
   totalCoGameTime <- 0
-  totalCombinedGameTime <- 0
+  totalCombinedSoloGameTime <- 0
+  totalCombinedCoGameTime <-
   
 
   for(d in 1:nrow(startIndexes))
@@ -42,6 +43,8 @@ for(f in 1:length(data_files))
     }
 
   }
+  avgSoloGameTime = totalSoloGameTime/2
+  avgCoGameTime = totalCoGameTime/2
   
   
   
@@ -507,9 +510,7 @@ for(f in 1:length(data_files))
   #                           totalViewWallGazeTime = numeric(),
   #                           avgTimeBetweenViewWallChecks = numeric(),
   #                           avgGrab2Build = numeric(),
-  #                           avgSoloGameTime = numeric(),
-  #                           avgCoGameTime = numeric(),
-  #                           avgCombinedGameTime = numeric(),
+  #                           avgGameTime = numeric(),
   #                           group = factor(),
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
@@ -523,9 +524,7 @@ for(f in 1:length(data_files))
     Gender <- shortGroupDF[5,6]
     condition <- partCondition
     group <- partGroup
-    avgSoloGameTime <- totalSoloGameTime
-    avgCoGameTime <- totalCoGameTime
-    avgCombinedGameTime <- totalCombinedGameTime
+    
     
     if(j == 0){
       s1avgTotalTransferTime = avgTotalTransferTime
@@ -583,9 +582,10 @@ for(f in 1:length(data_files))
       totalBuildWallGazeTime = s1totalBuildWallGazeTime
       totalViewWallGazeTime = s1totalViewWallGazeTime
       avgTimeBetweenViewWallChecks = s1avgTimeBetweenViewWallChecks
+      avgGameTime <- avgSoloGameTime
       
       newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgSoloGameTime, avgCoGameTime, avgCombinedGameTime, group, condition)
+                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
     
@@ -609,9 +609,10 @@ for(f in 1:length(data_files))
       totalBuildWallGazeTime = s2totalBuildWallGazeTime
       totalViewWallGazeTime = s2totalViewWallGazeTime
       avgTimeBetweenViewWallChecks = s2avgTimeBetweenViewWallChecks
+      avgGameTime <- avgCoGameTime
       
       newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build,avgSoloGameTime, avgCoGameTime, avgCombinedGameTime, group, condition)
+                               totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build,avgGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
       
