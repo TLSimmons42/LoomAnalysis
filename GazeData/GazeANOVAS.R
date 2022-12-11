@@ -9,9 +9,13 @@ library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
 dataFile <- "AllSubjectGazeData12-7_new.csv"
+dataFile2 <- "pacMoving.csv"
+
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
+df2 <-  read.csv(dataFile2, header = TRUE, sep = ",")
+
 
 
 soloDF <- df[df$condition == "s",]
@@ -146,17 +150,17 @@ plot(coDF$avgTotalTransferTime)
 
 
 #ANOVA TESTS
- twoANOVA <- aov(avgTotalTransferTime ~ factor(condition) * factor(group) , data = anovaTTDF)
+ twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
-twoANOVA <- aov(df$avgGameTime ~ factor(df$condition) * factor(df$group) , data = anovaTTDF)
+twoANOVA <- aov(df$avgGameTime ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 
 twoANOVA <- aov(avgTotalTransferTime ~ factor(condition), data = anovaTTDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(df$avgGameTime ~ factor(df$group), data = anovaTTDF)
+twoANOVA <- aov(coDF$avgGameTime ~ factor(coDF$group), data = coDF)
 summary(twoANOVA)
 
 
@@ -168,11 +172,14 @@ summary(twoANOVA)
 
 
 
-#Regression model
+#Regression models
 model <- lm(df$avgGameTime ~ factor(df$group) + factor(df$condition) + df$Age + factor(df$Gender)+ df$avgPlay2Build, data = df)
 summary(model)
 
-model <- lm(df$avgTotalTransferTime ~ factor(df$group) + factor(df$condition) + df$Age + factor(df$Gender), data = df)
+model <- lm(df$avgTotalTransferTime ~ df$avgGameTime + df$avgBuild2Play + df$avgGrab2Build, data = df)
+summary(model)
+
+model <- lm(cDF$avgTotalTransferTime ~ cDF$avgGameTime + cDF$avgBuild2Play + cDF$avgGrab2Build, data = cDF)
 summary(model)
 
 model2 <- lm(df$avgPlay2Build ~ factor(group)+ factor(condition), data = anovaTTDF)
@@ -180,6 +187,40 @@ summary(model2)
 
 model2 <- lm(df$avgGrab2Build ~ factor(df$group)+ factor(df$condition), data = anovaTTDF)
 summary(model2)
+
+
+#Good Models
+
+#Why is this a thing??????
+model <- lm(soloDF$avgTotalTransferTime ~ soloDF$avgGameTime + soloDF$avgBuild2Play + soloDF$avgGrab2Build, data = soloDF)
+summary(model)
+
+model <- lm(coDF$avgTotalTransferTime ~ coDF$avgGameTime + coDF$avgBuild2Play + coDF$avgGrab2Build, data = coDF)
+summary(model)
+
+
+#Why is this a thing??????
+model <- lm(eDF$avgTotalTransferTime ~ eDF$avgGameTime + eDF$avgBuild2Play + eDF$avgGrab2Build, data = eDF)
+summary(model)
+
+model <- lm(cDF$avgTotalTransferTime ~ cDF$avgGameTime + cDF$avgBuild2Play + cDF$avgGrab2Build, data = cDF)
+summary(model)
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+#combining PAC and Gaze
+
+
+model <- lm(df$pacStay ~  df$avgBuild2Play + df$avgGrab2Build + df$pacMove + df$avgTotalTransferTime, data = df)
+summary(model)
+
+model <- lm(coDF$pacStay ~ coDF$avgGameTime + coDF$avgBuild2Play + coDF$avgGrab2Build + coDF$pacMove + coDF$avgTotalTransferTime, data = coDF)
+summary(model)
+
+model <- lm(soloDF$pacMove ~ soloDF$avgGameTime + soloDF$avgBuild2Play + soloDF$avgGrab2Build + soloDF$pacStay + soloDF$avgTotalTransferTime, data = soloDF)
+summary(model)
+
 
 
 

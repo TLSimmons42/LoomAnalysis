@@ -523,7 +523,7 @@ for(f in 1:length(data_files))
   newPartRow2 <- data.frame(Participant,Age, pacStay, pacMove, condition, partGroup)
   newPartData <- rbind(newPartData, newPartRow2)
   
-  write.csv(newPartData, "pacMoving.csv")
+  write.csv(newPartData, "pacMoving_12-10-22.csv")
 
 
 }
