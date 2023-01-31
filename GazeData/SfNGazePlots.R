@@ -9,7 +9,8 @@ library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
 #dataFile <- "AllSubjectGazeData.csv"
-dataFile <- "AllSubjectGazeData12-7.csv"
+#dataFile <- "AllSubjectGazeData12-7.csv"
+dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")
@@ -53,7 +54,7 @@ gazePlot
 
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgCoGameTime), sATT = sd(avgCoGameTime))%>%
+  summarise(mATT = mean(avgPlay2Build), sATT = sd(avgPlay2Build))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),

@@ -8,7 +8,8 @@ library(ggsci)
 library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-dataFile <- "AllSubjectGazeData12-7_new.csv"
+#dataFile <- "AllSubjectGazeData12-7_new.csv"
+dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
 dataFile2 <- "pacMoving.csv"
 
 
@@ -150,7 +151,7 @@ plot(coDF$avgTotalTransferTime)
 
 
 #ANOVA TESTS
- twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition) * factor(df$group) , data = df)
+twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 twoANOVA <- aov(df$avgGameTime ~ factor(df$condition) * factor(df$group) , data = df)
@@ -160,7 +161,7 @@ summary(twoANOVA)
 twoANOVA <- aov(avgTotalTransferTime ~ factor(condition), data = anovaTTDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(coDF$avgGameTime ~ factor(coDF$group), data = coDF)
+twoANOVA <- aov(coDF$avgTotalTransferTime ~ factor(coDF$group), data = coDF)
 summary(twoANOVA)
 
 
@@ -168,6 +169,9 @@ twoANOVA <- aov(df$avgPlay2Build ~ factor(df$condition) * factor(df$group) , dat
 summary(twoANOVA)
 
 twoANOVA <- aov(df$avgGrab2Build ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 

@@ -10,7 +10,7 @@ bob
 
 for(f in 1:length(data_files))
 {
-  #participantDataFile <- "analytics2_P14.csv"
+  #participantDataFile <- "analytics2_P30.csv"
   participantDataFile <- data_files[f]
   originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
   
@@ -23,13 +23,18 @@ for(f in 1:length(data_files))
   totalSoloGameTime <- 0
   totalCoGameTime <- 0
   totalCombinedSoloGameTime <- 0
-  totalCombinedCoGameTime <-
+  totalCombinedCoGameTime <- 0
+  totalCombinedGameTime <- 0
   
+  oneMinTimeIndexList <- list() #create an empty list
+  oneMinTimeIndex <- 0
 
   for(d in 1:nrow(startIndexes))
   {
     startTime <- startIndexes[d,1]/10000
     endTime <- endIndexes[d,1]/10000
+    oneMinTimeIndex <- startIndexes[d,1] + 600000000
+    oneMinTimeIndexList[[d]] <- oneMinTimeIndex
     
     if(d == 1 || d == 2){
       print(endTime - startTime)
@@ -41,16 +46,21 @@ for(f in 1:length(data_files))
       totalCoGameTime <- totalCoGameTime +(endTime- startTime)
       totalCombinedGameTime <- totalSoloGameTime +(endTime- startTime)
     }
-
   }
   avgSoloGameTime = totalSoloGameTime/2
   avgCoGameTime = totalCoGameTime/2
   
+  oneMinTimeIndexDF <- as.data.frame(oneMinTimeIndexList)
+  oneMinTimeIndexDF[1]
   
   
-  originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
+  #full df slice
   #originalDF <- originalDF %>% slice(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,])))
-  
+
+  # 1 min df slice
+  originalDF <- filter(originalDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
+  #originalDF<-filter(originalDF,(TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2]))
+
   
   
   originalDF <-  originalDF[originalDF$xPos != "c",]
@@ -515,7 +525,7 @@ for(f in 1:length(data_files))
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
   # 
-  # write.csv(newPartData, "AllSubjectGazeData12-7.csv")
+  # write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
   
   
   
@@ -589,7 +599,7 @@ for(f in 1:length(data_files))
       
       newPartData <- rbind(newPartData, newPartRow)
     
-      write.csv(newPartData, "AllSubjectGazeData12-7.csv")
+      write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
     }
     if(j == 3){
       
@@ -616,7 +626,7 @@ for(f in 1:length(data_files))
       
       newPartData <- rbind(newPartData, newPartRow)
       
-      write.csv(newPartData, "AllSubjectGazeData12-7.csv")
+      write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
     }  
   
   }
