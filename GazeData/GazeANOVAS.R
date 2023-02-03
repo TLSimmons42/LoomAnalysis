@@ -8,8 +8,8 @@ library(ggsci)
 library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-#dataFile <- "AllSubjectGazeData12-7_new.csv"
-dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
+dataFile <- "AllSubjectGazeData12-7_new.csv"
+#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
 dataFile2 <- "pacMoving.csv"
 
 
@@ -158,10 +158,16 @@ twoANOVA <- aov(df$avgGameTime ~ factor(df$condition) * factor(df$group) , data 
 summary(twoANOVA)
 
 
-twoANOVA <- aov(avgTotalTransferTime ~ factor(condition), data = anovaTTDF)
+twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$group), data = df)
 summary(twoANOVA)
 
 twoANOVA <- aov(coDF$avgTotalTransferTime ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$avgGrab2Build ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition), data = df)
 summary(twoANOVA)
 
 
@@ -172,6 +178,9 @@ twoANOVA <- aov(df$avgGrab2Build ~ factor(df$condition) * factor(df$group) , dat
 summary(twoANOVA)
 
 twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacMove ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 
@@ -186,11 +195,50 @@ summary(model)
 model <- lm(cDF$avgTotalTransferTime ~ cDF$avgGameTime + cDF$avgBuild2Play + cDF$avgGrab2Build, data = cDF)
 summary(model)
 
-model2 <- lm(df$avgPlay2Build ~ factor(group)+ factor(condition), data = anovaTTDF)
+model <- lm(soloDF$avgTotalTransferTime ~ soloDF$avgGameTime + soloDF$avgBuild2Play + soloDF$avgGrab2Build, data = soloDF)
+summary(model)
+
+model2 <- lm(df$avgTotalTransferTime ~ factor(df$group)+ factor(df$condition), data = df)
 summary(model2)
 
-model2 <- lm(df$avgGrab2Build ~ factor(df$group)+ factor(df$condition), data = anovaTTDF)
+model2 <- lm(df$avgPlay2Build ~ factor(df$group)+ factor(df$condition), data = df)
 summary(model2)
+
+model2 <- lm(soloDF$avgPlay2Build ~ factor(soloDF$group), data = soloDF)
+summary(model2)
+
+model2 <- lm(coDF$avgPlay2Build ~ factor(coDF$group), data = df)
+summary(model2)
+
+
+#--------------------------------------------------------------------------------------------------------------------
+#PAC models\
+
+model2 <- lm(df$pacStay ~ factor(df$group)+ factor(df$condition), data = df)
+summary(model2)
+
+model2 <- lm(soloDF$pacStay ~ factor(soloDF$group), data = soloDF)
+summary(model2)
+
+model2 <- lm(coDF$pacStay ~ factor(coDF$group), data = coDF)
+summary(model2)
+
+model2 <- lm(df$pacMove ~ factor(df$group)+ factor(df$condition), data = df)
+summary(model2)
+
+model2 <- lm(soloDF$pacMove ~ factor(soloDF$group), data = soloDF)
+summary(model2)
+
+model2 <- lm(coDF$pacMove ~ factor(coDF$group), data = coDF)
+summary(model2)
+
+model <- lm(eDF$pacStay ~ eDF$avgGameTime + eDF$avgGrab2Build, data = eDF)
+summary(model)
+
+model <- lm(cDF$pacStay ~ cDF$avgGameTime + cDF$avgGrab2Build, data = cDF)
+summary(model)
+
+
 
 
 #Good Models
@@ -202,6 +250,24 @@ summary(model)
 model <- lm(coDF$avgTotalTransferTime ~ coDF$avgGameTime + coDF$avgBuild2Play + coDF$avgGrab2Build, data = coDF)
 summary(model)
 
+model <- lm(soloDF$avgTotalTransferTime ~ soloDF$avgGameTime + soloDF$avgBuild2Play + soloDF$avgView2Play + soloDF$avgPlay2Build + soloDF$totalPlay2View, data = soloDF)
+summary(model)
+
+model <- lm(coDF$avgTotalTransferTime ~ coDF$avgGameTime + coDF$avgBuild2Play + coDF$avgView2Play + coDF$avgPlay2Build + coDF$totalPlay2View, data = coDF)
+summary(model)
+
+model <- lm(soloDF$avgTotalTransferTime ~ soloDF$avgPlay2Build , data = soloDF)
+summary(model)
+plot(soloDF$avgTotalTransferTime ~ soloDF$avgPlay2Build, data = soloDF)
+abline(model)
+
+
+model <- lm(coDF$avgTotalTransferTime ~ coDF$avgPlay2Build, data = coDF)
+summary(model)
+plot(coDF$avgTotalTransferTime ~ coDF$avgPlay2Build, data = coDF)
+abline(model)
+
+
 
 #Why is this a thing??????
 model <- lm(eDF$avgTotalTransferTime ~ eDF$avgGameTime + eDF$avgBuild2Play + eDF$avgGrab2Build, data = eDF)
@@ -211,21 +277,75 @@ model <- lm(cDF$avgTotalTransferTime ~ cDF$avgGameTime + cDF$avgBuild2Play + cDF
 summary(model)
 
 
+#------------------------------------------------------------------------------------------------------------
+# Dont touch this -  the 1 min vs total is weird
 
-#--------------------------------------------------------------------------------------------------------------------
-#combining PAC and Gaze
 
-
-model <- lm(df$pacStay ~  df$avgBuild2Play + df$avgGrab2Build + df$pacMove + df$avgTotalTransferTime, data = df)
+model <- lm(CcoDF$pacStay ~ CcoDF$pacMove, data = CcoDF)
 summary(model)
+plot(CcoDF$pacStay ~ CcoDF$pacMove, data = CcoDF)
+abline(model)
 
-model <- lm(coDF$pacStay ~ coDF$avgGameTime + coDF$avgBuild2Play + coDF$avgGrab2Build + coDF$pacMove + coDF$avgTotalTransferTime, data = coDF)
+model <- lm(EcoDF$pacStay ~ EcoDF$pacMove, data = EcoDF)
 summary(model)
+plot(EcoDF$pacStay ~ EcoDF$pacMove, data = EcoDF)
+abline(model)
 
-model <- lm(soloDF$pacMove ~ soloDF$avgGameTime + soloDF$avgBuild2Play + soloDF$avgGrab2Build + soloDF$pacStay + soloDF$avgTotalTransferTime, data = soloDF)
+model <- lm(CsoloDF$pacStay ~ CsoloDF$pacMove, data = CsoloDF)
 summary(model)
+plot(CsoloDF$pacStay ~ CsoloDF$pacMove, data = CsoloDF)
+abline(model)
+
+model <- lm(EsoloDF$pacStay ~ EsoloDF$pacMove, data = EsoloDF)
+summary(model)
+plot(EsoloDF$pacStay ~ EsoloDF$pacMove, data = EsoloDF)
+abline(model)
 
 
+#------------------------------------------------------------------------------------------------------------
+# this is validating the DV as a real thing 
+model <- lm(CcoDF$avgTimeBetweenViewWallChecks ~ CcoDF$avgGameTime, data = CcoDF)
+summary(model)
+plot(CcoDF$avgTimeBetweenViewWallChecks ~ CcoDF$avgGameTime, data = CcoDF)
+abline(model)
+
+model <- lm(EcoDF$avgTimeBetweenViewWallChecks ~ EcoDF$avgGameTime, data = EcoDF)
+summary(model)
+plot(EcoDF$avgTimeBetweenViewWallChecks ~ EcoDF$avgGameTime, data = EcoDF)
+abline(model)
+
+model <- lm(CsoloDF$avgTimeBetweenViewWallChecks ~ CsoloDF$avgGameTime, data = CsoloDF)
+summary(model)
+plot(CsoloDF$avgTimeBetweenViewWallChecks ~ CsoloDF$avgGameTime, data = CsoloDF)
+abline(model)
+
+model <- lm(EsoloDF$avgTimeBetweenViewWallChecks ~ EsoloDF$avgGameTime, data = EsoloDF)
+summary(model)
+plot(EsoloDF$avgTimeBetweenViewWallChecks ~ EsoloDF$avgGameTime, data = EsoloDF)
+abline(model)
+
+#------------------------------------------------------------------------------------------------------------
+
+
+model <- lm(CcoDF$avgTimeBetweenViewWallChecks ~ CcoDF$pacStay, data = CcoDF)
+summary(model)
+plot(CcoDF$avgTimeBetweenViewWallChecks ~ CcoDF$pacStay, data = CcoDF)
+abline(model)
+
+model <- lm(EcoDF$avgTimeBetweenViewWallChecks ~ EcoDF$pacStay, data = EcoDF)
+summary(model)
+plot(EcoDF$avgTimeBetweenViewWallChecks ~ EcoDF$pacStay, data = EcoDF)
+abline(model)
+
+model <- lm(CsoloDF$avgTimeBetweenViewWallChecks ~ CsoloDF$pacStay, data = CsoloDF)
+summary(model)
+plot(CsoloDF$avgTimeBetweenViewWallChecks ~ CsoloDF$pacStay, data = CsoloDF)
+abline(model)
+
+model <- lm(EsoloDF$avgTimeBetweenViewWallChecks ~ EsoloDF$pacStay, data = EsoloDF)
+summary(model)
+plot(EsoloDF$avgTimeBetweenViewWallChecks ~ EsoloDF$pacStay, data = EsoloDF)
+abline(model)
 
 
 
