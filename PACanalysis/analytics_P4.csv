@@ -4285,7 +4285,6 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637956624119251234,P4,s,2,22,m,,looking at invis cube,1.389999,3.604822,0.944
 637956624119371267,P4,s,2,22,m,,looking at invis cube,1.389999,3.569843,0.944
 637956624129633572,P4,s,2,22,m,,Game Over
-637956625554233388,P4,co,1,23,m,300,Game Start
 637956625562455222,P4,co,1,23,m,,looking at Drop Zone,-10.93,7,-10.9
 637956625562955339,P4,co,1,23,m,,looking at Drop Zone,-10.93,7,-10.9
 637956625563055369,P4,co,1,23,m,,looking at Drop Zone,-11.93,7,-10.9
@@ -6667,7 +6666,6 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637956628342536014,P4,co,1,23,m,,looking at red cube,1.390015,10.55007,-1.813
 637956628342976113,P4,co,1,23,m,,looking at invis cube,1.389999,4.324568,0.944
 637956628343096142,P4,co,1,23,m,,looking at invis cube,1.389999,4.289089,0.944
-637956629160700247,P4,co,2,23,m,300,Game Start
 637956629180834763,P4,co,2,23,m,,looking at invis cube,1.389999,21.24866,-0.46
 637956629180954792,P4,co,2,23,m,,looking at invis cube,1.389999,21.21461,-0.46
 637956629181074821,P4,co,2,23,m,,looking at invis cube,1.389999,21.17994,-0.46

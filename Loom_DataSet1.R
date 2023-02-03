@@ -1,4 +1,3 @@
-
 library(plot3D)
 library(rgl)
 library(dplyr)
@@ -7,9 +6,11 @@ data_files <- list.files(pattern = "analytics")
 
 for(f in 1:length(data_files))
 {
+ 
   
+   
   
-  #participantDataFile <- "analytics_P29.csv"
+  #participantDataFile <- "analytics_P30.csv"
   
   print(data_files[f])
   participantDataFile <- data_files[f]
@@ -27,6 +28,25 @@ for(f in 1:length(data_files))
   }else{
     partGroup <- "c"
   }
+  
+  startIndexes <- PerceptionActionDF[PerceptionActionDF$Event=="Game Start",]
+  
+  oneMinTimeIndexList <- list() #create an empty list
+  oneMinTimeIndex <- 0
+  
+  for(d in 1:nrow(startIndexes))
+  {
+    oneMinTimeIndex <- startIndexes[d,1] + 600000000
+    oneMinTimeIndexList[[d]] <- oneMinTimeIndex
+  }
+  
+  oneMinTimeIndexDF <- as.data.frame(oneMinTimeIndexList)
+  oneMinTimeIndexDF[1]
+  
+  PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
+  
+  
+  
   
   
   #Set up the new PAC1 and PAC2 DF's

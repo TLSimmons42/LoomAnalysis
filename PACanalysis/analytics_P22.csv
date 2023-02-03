@@ -2391,7 +2391,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637982392122388969,P22,tut,1,32,f,,looking at gold cube,1.390015,15.68484,-1.813,c
 637982392176926629,P22,tut,1,32,f,,looking at gold cube,1.390015,5.456529,-1.813,c
 637982392177036360,P22,tut,1,32,f,,looking at gold cube,1.390015,5.423117,-1.813,c
-637982392820036630,P22,s,1,32,f300,Game Start,c
+637982392820036630,P22,s,1,32,f,300,Game Start,c
 637982392881042725,P22,s,1,32,f,,looking at blue cube,1.389999,8.988493,2.336,c
 637982392881162401,P22,s,1,32,f,,looking at blue cube,1.389999,8.954519,2.336,c
 637982392881491525,P22,s,1,32,f,,looking at blue cube,1.389999,8.854115,2.336,c
@@ -3698,7 +3698,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637982394235042924,P22,s,1,32,f,,Regular Red Cube(Clone) was picked up,1.390015,7.15622,-1.813,c
 637982394253149567,P22,s,1,32,f,,Regular Red Cube(Clone)was placed in dropzone,13,7,10.41,c
 637982394274608294,P22,s,1,32,f,,Game Over,c
-637982394833797846,P22,s,2,32,f300,Game Start,c
+637982394833797846,P22,s,2,32,f,300,Game Start,c
 637982394875696678,P22,s,2,32,f,,looking at gold cube,1.390015,14.71873,-3.12,c
 637982394875806386,P22,s,2,32,f,,looking at gold cube,1.390015,14.68511,-3.12,c
 637982394875916095,P22,s,2,32,f,,looking at gold cube,1.390015,14.65236,-3.12,c
@@ -5066,7 +5066,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637982395994631192,P22,s,2,32,f,,looking at Drop Zone,14,7,10.41,c
 637982395994730920,P22,s,2,32,f,,looking at Drop Zone,14,7,10.41,c
 637982396012493607,P22,s,2,32,f,,Game Over,c
-637982399343375970,P22,tut,2,32,f300,Game Start,c
+637982399343375970,P22,tut,2,32,f,300,Game Start,c
 637982399373953885,P22,tut,2,32,f,,looking at gold cube,1.389999,18.11689,0.944,c
 637982399374063603,P22,tut,2,32,f,,looking at gold cube,1.389999,18.08373,0.944,c
 637982399374173302,P22,tut,2,32,f,,looking at gold cube,1.389999,18.05057,0.944,c
@@ -5818,7 +5818,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637982400981551310,P22,tut,2,32,f,,looking at gold cube,1.390015,7.522383,-1.813,c
 637982400981661015,P22,tut,2,32,f,,looking at gold cube,1.390015,7.488552,-1.813,c
 637982401008208571,P22,tut,2,32,f,,looking at red cube,1.389999,8.721209,-0.46,c
-637982401628338669,P22,co,1,32,f300,Game Start,c
+637982401628338669,P22,co,1,32,f,300,Game Start,c
 637982401641387509,P22,co,1,32,f,,looking at Drop Zone,-7.93,7,-10.9,c
 637982401641586977,P22,co,1,32,f,,looking at Drop Zone,-7.93,7,-10.9,c
 637982401641811440,P22,co,1,32,f,,looking at Drop Zone,-7.93,7,-10.9,c
@@ -7500,7 +7500,7 @@ TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, xPos, yPos, 
 637982402371365848,P22,co,1,32,f,,looking at Drop Zone,13,7,10.41,c
 637982402371475557,P22,co,1,32,f,,looking at Drop Zone,13,7,10.41,c
 637982402390370258,P22,co,1,32,f,,looking at Drop Zone,12,7,10.41,c
-637982403294902079,P22,co,2,32,f300,Game Start,c
+637982403294902079,P22,co,2,32,f,300,Game Start,c
 637982403307849733,P22,co,2,32,f,,looking at Drop Zone,-8.93,7,-10.9,c
 637982403308158909,P22,co,2,32,f,,looking at Drop Zone,-8.93,7,-10.9,c
 637982403308258639,P22,co,2,32,f,,looking at Drop Zone,-8.93,7,-10.9,c
