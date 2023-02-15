@@ -14,8 +14,8 @@ dataFile2 <- "pacMoving.csv"
 
 
 
-df <- read.csv(dataFile, header = TRUE, sep = ",")
-df2 <-  read.csv(dataFile2, header = TRUE, sep = ",")
+df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+df2 <-  read.csv(dataFile2, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
 

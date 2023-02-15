@@ -12,7 +12,8 @@ for(f in 1:length(data_files))
 {
   #participantDataFile <- "analytics2_P30.csv"
   participantDataFile <- data_files[f]
-  originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
+  originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+  print(participantDataFile)
   
   startIndexes <- originalDF[originalDF$Event=="Game Start",]
   endIndexes <- originalDF[originalDF$Event=="Game Over",]
@@ -93,7 +94,7 @@ for(f in 1:length(data_files))
   
   coDF2$Event[coDF2$Event == "Network Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
   coDF2$Event[coDF2$Event == "Network Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
-  coDF2$Event[coDF2$Event == "Network Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
+  coDF2$Event[coDF2$Event == as.character("Network Neutral Cube(Clone)was placed in dropzone")] <- 'cube placed'
   
   
   xSolo <- soloDF[,9]
@@ -217,7 +218,7 @@ for(f in 1:length(data_files))
     {
       currentEvent <- groupDF[i,8]
       currentEvent <- toString(currentEvent)
-      #print(currentEvent)
+      #print(lastRowTime)
       
       currentCondition <- groupDF[i,3]
       currentCondition <- toString(currentCondition)
@@ -228,7 +229,7 @@ for(f in 1:length(data_files))
       currentTimeAdd <- groupDF[i,1]/10000 - lastRowTime
       lastLastRowTime <- lastRowTime
       lastRowTime = groupDF[i,1]/10000
-      
+      #print(groupDF[i+1,1]/10000)
     
       if(lookingForNewSeq == FALSE){
           if(lookingForPlayWall){
@@ -499,7 +500,7 @@ for(f in 1:length(data_files))
     }
   
   
-# 
+# # 
   # newPartData <- data.frame(Participant = factor(),
   #                           Age = numeric(),
   #                           Gender = factor(),
@@ -525,9 +526,9 @@ for(f in 1:length(data_files))
   #                           condition = factor(),
   #                           stringsAsFactors = FALSE)
   # 
-  # write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
+  # write.csv(newPartData, "AllSubjectGazeData2-14-23_firstMin.csv")
   
-  
+    
   
     Participant <- shortGroupDF[5,2]
     Age <- shortGroupDF[5,5]
@@ -594,12 +595,12 @@ for(f in 1:length(data_files))
       avgTimeBetweenViewWallChecks = s1avgTimeBetweenViewWallChecks
       avgGameTime <- avgSoloGameTime
       
-      newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
+      newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
                                totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
     
-      write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
+      write.csv(newPartData, "AllSubjectGazeData2-14-23_firstMin.csv")
     }
     if(j == 3){
       
@@ -621,12 +622,12 @@ for(f in 1:length(data_files))
       avgTimeBetweenViewWallChecks = s2avgTimeBetweenViewWallChecks
       avgGameTime <- avgCoGameTime
       
-      newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
+      newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
                                totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build,avgGameTime, group, condition)
       
       newPartData <- rbind(newPartData, newPartRow)
       
-      write.csv(newPartData, "AllSubjectGazeData1-31-23_firstMin.csv")
+      write.csv(newPartData, "AllSubjectGazeData2-14-23_firstMin.csv")
     }  
   
   }

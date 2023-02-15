@@ -9,11 +9,14 @@ library(ggpubr)
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
 #dataFile <- "AllSubjectGazeData.csv"
-#dataFile <- "AllSubjectGazeData12-7.csv"
+#dataFile <- "AllSubjectGazeData12-7_new.csv"
 dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
+#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed_new.csv"
+#dataFile <- "AllSubjectGazeData1-31-23_firstMin.csv"
+#dataFile <- "AllSubjectGazeData2-14-23_firstMin.csv"
 
 
-df <- read.csv(dataFile, header = TRUE, sep = ",")
+df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df$group[df$group == "e"] <- 'AUT'
 df$group[df$group == "c"] <- 'Non-AUT'
 
@@ -23,13 +26,10 @@ df$condition[df$condition == "co"] <- 'Cooperative'
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #View wall analysis
+use <- df$pacMove
+sd(use)
+boxplot(use)
 
-gazePlot <- df%>%
-  group_by(condition, group)%>%
-  ggplot(aes(condition, avgTimeBetweenViewWallChecks))+
-  geom_boxplot()+
-  geom_point()
-gazePlot
 #-------------------------------------------------------------------------------------------------------------------------------
 #avg total Gaze Transfer Time analysis
 gazePlot <- df%>%
@@ -54,7 +54,7 @@ gazePlot
 
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgPlay2Build), sATT = sd(avgPlay2Build))%>%
+  summarise(mATT = mean(avgBuild2Play), sATT = sd(avgBuild2Play))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
