@@ -10,7 +10,7 @@ bob
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- "analytics2_P11.csv"
+  participantDataFile <- "analytics2_P25.csv"
   #participantDataFile <- data_files[f]
   originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
   print(participantDataFile)
@@ -93,7 +93,7 @@ for(f in 1:length(data_files))
 
   coDF2$Event[coDF2$Event == "Network Red Cube(Clone)was placed in dropzone"] <- 'cube placed'
   coDF2$Event[coDF2$Event == "Network Blue Cube(Clone)was placed in dropzone"] <- 'cube placed'
-  coDF2$Event[coDF2$Event == as.character("Network Neutral Cube(Clone)was placed in dropzone")] <- 'cube placed'
+  coDF2$Event[coDF2$Event == "Network Neutral Cube(Clone)was placed in dropzone"] <- 'cube placed'
 
 
   xSolo <- soloDF[,9]
@@ -118,6 +118,16 @@ for(f in 1:length(data_files))
   }else{
     partGroup <- "c"
   }
+  
+  shortGroupDF2 <- data.frame(Time = numeric(),
+                              Participant = factor(),
+                              Condition = factor(),
+                              Trial = numeric(),
+                              StartTime = numeric(),
+                              EndTime = numeric(),
+                              TrialEvent = factor(),
+                              stringsAsFactors = FALSE)
+  
 
   groupCounter <- 0
   for(j in 0:3)
@@ -136,12 +146,6 @@ for(f in 1:length(data_files))
                                group = factor(),
                                stringsAsFactors = FALSE)
 
-    shortGroupDF2 <- data.frame(Time = numeric(),
-                               Participant = factor(),
-                               Condition = factor(),
-                               Trial = numeric(),
-                               Event = factor(),
-                               stringsAsFactors = FALSE)
 
     if(j == 0){
       groupDF <- soloDF
@@ -299,6 +303,8 @@ for(f in 1:length(data_files))
       previousEvent <- ""
 
       previousTime <- 0
+      previousTimeLong <- 0
+      
       previousViewWallTime <- 0
       counter <- (-1) # -1 because the first iteration doesn't count
       trialCounter <- 0;
@@ -333,6 +339,7 @@ for(f in 1:length(data_files))
         currentEvent <- toString(currentEvent)
 
         currentTime <- shortGroupDF[i,1]/10000
+        currentTimeLong <- shortGroupDF[i,1]
         if(previousTime != 0){
           reactionTime <- currentTime - previousTime
 
@@ -345,9 +352,9 @@ for(f in 1:length(data_files))
             }else{
               avgTimeBetweenViewWallChecks <- avgTimeBetweenViewWallChecks + (currentTime - previousViewWallTime)
             }
-            print("P2V")
             trialCounter <- trialCounter + 1
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter,"P2V")
+            TrialEvent <- "P2V"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
 
             totalViewWallCount <- totalViewWallCount + 1
@@ -362,9 +369,9 @@ for(f in 1:length(data_files))
 
         if(currentEvent == buildWall){
           if(previousEvent == playWall){
-            print("P2B")
             trialCounter <- trialCounter + 1
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter,"P2B")
+            TrialEvent <- "P2B"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
 
 
@@ -380,6 +387,10 @@ for(f in 1:length(data_files))
 
         if(currentEvent == playWall){
           if(previousEvent == viewWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "V2P"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
+            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
 
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
@@ -387,6 +398,10 @@ for(f in 1:length(data_files))
             view2PlayCounter <- view2PlayCounter + 1
 
           }else if(previousEvent == buildWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "B2P"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
+            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
 
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
@@ -399,6 +414,7 @@ for(f in 1:length(data_files))
         }
         previousEvent <- currentEvent
         previousTime <- shortGroupDF[i,1]/10000
+        previousTimeLong <- shortGroupDF[i,1]
 
       }
 

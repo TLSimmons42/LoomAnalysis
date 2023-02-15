@@ -26,7 +26,7 @@ df$condition[df$condition == "co"] <- 'Cooperative'
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #View wall analysis
-use <- df$pacMove
+use <- df$avgPlay2Build
 sd(use)
 boxplot(use)
 
