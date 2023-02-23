@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 
 
-participantDataFile <- "analytics2_P26.csv"
+participantDataFile <- "analytics2_P30.csv"
 #participantDataFile <- data_files[f]
 originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 print(participantDataFile)
@@ -357,6 +357,7 @@ for(j in 0:1)
           trialCounter <- trialCounter + 1
           TrialEvent <- "P2V"
           newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
+          print(newTrialRow)
           shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
           
           totalViewWallCount <- totalViewWallCount + 1
@@ -439,6 +440,8 @@ shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "V2P"] <- 'green'
 shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "B2P"] <- 'blue'
 
 plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, col = shortGroupDF2$TrialEvent)
+
+
   
 #plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, ylim = c(0,15000), col = shortGroupDF2$TrialEvent)
   
