@@ -451,8 +451,15 @@ for (i in 2:nrow(PerceptionActionDF))
       totalCounter <- totalCounter + 1
       
       PACmoveTrailCounter <- PACmoveTrailCounter + 1
-      fullStartValue <- startValue*10000
-      newTrialRow <- data.frame(reactionTime, PAC1[i,2], PAC1[i,3], PACmoveTrailCounter, PAC1[i-1,1], PAC1[i,1], PACmoveString)
+      Time <- reactionTime
+      Participant <- PAC1[i,2]
+      Condition <- PAC1[i,3]
+      Trial <- PACmoveTrailCounter
+      StartTime = PAC1[i-1,1]
+      EndTime <- PAC1[i,1]
+      TrialEvent <- PACmoveString
+      
+      newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
       PACmoveDF <- rbind(PACmoveDF, newTrialRow)
     }
   }
@@ -479,8 +486,15 @@ for (i in 2:nrow(PerceptionActionDF))
       totalCounter <- totalCounter + 1
       
       PACmoveTrailCounter <- PACmoveTrailCounter + 1
-      fullStartValue <- startValue*10000
-      newTrialRow <- data.frame(reactionTime, PAC2[i,2], PAC2[i,3], PACmoveTrailCounter, PAC2[i-1,1], PAC2[i,1], PACstayString)
+      Time <- reactionTime
+      Participant <- PAC2[i,2]
+      Condition <- PAC2[i,3]
+      Trial <- PACmoveTrailCounter
+      StartTime = PAC2[i-1,1]
+      EndTime <- PAC2[i,1]
+      TrialEvent <- PACstayString
+      
+      newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
       PACmoveDF <- rbind(PACmoveDF, newTrialRow)
     }
   }
@@ -510,8 +524,15 @@ for (i in 2:nrow(PerceptionActionDF))
       totalCounter <- totalCounter + 1
       
       PACmoveTrailCounter <- PACmoveTrailCounter + 1
-      fullStartValue <- startValue*10000
-      newTrialRow <- data.frame(reactionTime, PAC1Co[i,2], PAC1Co[i,3], PACmoveTrailCounter, PAC1Co[i-1,1], PAC1Co[i,1], PACmoveString)
+      Time <- reactionTime
+      Participant <- PAC1Co[i,2]
+      Condition <- PAC1Co[i,3]
+      Trial <- PACmoveTrailCounter
+      StartTime = PAC1Co[i-1,1]
+      EndTime <- PAC1Co[i,1]
+      TrialEvent <- PACmoveString
+      
+      newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
       PACmoveDF <- rbind(PACmoveDF, newTrialRow)
     }
   }
@@ -538,13 +559,26 @@ for (i in 2:nrow(PerceptionActionDF))
       totalCounter <- totalCounter + 1
       
       PACmoveTrailCounter <- PACmoveTrailCounter + 1
-      fullStartValue <- startValue*10000
-      newTrialRow <- data.frame(reactionTime, PAC2Co[i,2], PAC2Co[i,3], PACmoveTrailCounter, PAC2Co[i-1,1], PAC2Co[i,1], PACstayString)
+      Time <- reactionTime
+      Participant <- PAC2Co[i,2]
+      Condition <- PAC2Co[i,3]
+      Trial <- PACmoveTrailCounter
+      StartTime = PAC2Co[i-1,1]
+      EndTime <- PAC2Co[i,1]
+      TrialEvent <- PACstayString
+      
+      newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
       PACmoveDF <- rbind(PACmoveDF, newTrialRow)
     }
   }
   
   avgPCA2CoTime <- totalTime/totalCounter
+  
+  plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16, col = PACmoveDF$TrialEvent)
+  
+  
+  
+  #plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, ylim = c(0,15000), col = shortGroupDF2$TrialEvent)
   
   
   
