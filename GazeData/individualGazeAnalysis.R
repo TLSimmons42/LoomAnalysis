@@ -1,11 +1,11 @@
 library(plot3D)
 library(rgl)
 library(dplyr)
-
+library(bit64)
 
 participantDataFile <- "analytics2_P30.csv"
 #participantDataFile <- data_files[f]
-originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+originalDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 print(participantDataFile)
 
 startIndexes <- originalDF[originalDF$Event=="Game Start",]
@@ -357,7 +357,6 @@ for(j in 0:1)
           trialCounter <- trialCounter + 1
           TrialEvent <- "P2V"
           newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
-          print(newTrialRow)
           shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
           
           totalViewWallCount <- totalViewWallCount + 1

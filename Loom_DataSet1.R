@@ -1,6 +1,8 @@
 library(plot3D)
 library(rgl)
 library(dplyr)
+library(bit64)
+
 
 data_files <- list.files(pattern = "analytics")
 
@@ -14,7 +16,7 @@ for(f in 1:length(data_files))
   
   print(data_files[f])
   participantDataFile <- data_files[f]
-  PerceptionActionDF <- read.csv(participantDataFile, header = TRUE, sep = ",")
+  PerceptionActionDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",")
   
 
   PerceptionActionDF <- PerceptionActionDF[(PerceptionActionDF$Condition == "s" | PerceptionActionDF$Condition == "co"),]

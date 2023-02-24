@@ -1,6 +1,8 @@
 library(plot3D)
 library(rgl)
 library(dplyr)
+library(bit64)
+
 
 data_files <- list.files(pattern = "analytics")
 data_files[]
@@ -12,7 +14,7 @@ for(f in 1:length(data_files))
 {
   participantDataFile <- "analytics2_P25.csv"
   #participantDataFile <- data_files[f]
-  originalDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+  originalDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   print(participantDataFile)
 
   startIndexes <- originalDF[originalDF$Event=="Game Start",]
