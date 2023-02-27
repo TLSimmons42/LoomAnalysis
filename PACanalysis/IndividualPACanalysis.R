@@ -3,11 +3,21 @@ library(rgl)
 library(dplyr)
 library(bit64)
 
-participantDataFile <- "analytics_P30.csv"
+participantDataFile <- "analytics_P8.csv"
 #PerceptionActionDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 PerceptionActionDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 PerceptionActionDF <- PerceptionActionDF[(PerceptionActionDF$Condition == "s" | PerceptionActionDF$Condition == "co"),]
+
+
+PACmoveDF <- data.frame(Time = numeric(),
+                        Participant = factor(),
+                        Condition = factor(),
+                        Trial = numeric(),
+                        StartTime = numeric(),
+                        EndTime = numeric(),
+                        TrialEvent = factor(),
+                        stringsAsFactors = FALSE)
 
 
 if(participantDataFile == "analytics_P2.csv" | participantDataFile == "analytics_P3.csv" | participantDataFile == "analytics_P4.csv" | participantDataFile == "analytics_P6.csv" |
@@ -46,14 +56,6 @@ PACstayDF <- data.frame(Time = numeric(),
                             TrialEvent = factor(),
                             stringsAsFactors = FALSE)
 
-PACmoveDF <- data.frame(Time = numeric(),
-                        Participant = factor(),
-                        Condition = factor(),
-                        Trial = numeric(),
-                        StartTime = numeric(),
-                        EndTime = numeric(),
-                        TrialEvent = factor(),
-                        stringsAsFactors = FALSE)
 
 
 #Set up the new PAC1 and PAC2 DF's

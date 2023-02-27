@@ -7,7 +7,9 @@ library(ggtext)
 library(ggsci)
 library(ggpubr)
 
-dataFile <- "pacMovingTest.csv"
+#dataFile <- "pacMovingTest.csv"
+dataFile <- "pacMoving_2-25-23_FullTime.csv"
+
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",")

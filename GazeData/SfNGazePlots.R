@@ -10,15 +10,27 @@ library(ggpubr)
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
 #dataFile <- "AllSubjectGazeData.csv"
 #dataFile <- "AllSubjectGazeData12-7_new.csv"
-dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
+#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
 #dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed_new.csv"
 #dataFile <- "AllSubjectGazeData1-31-23_firstMin.csv"
 #dataFile <- "AllSubjectGazeData2-14-23_firstMin.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
+dataFile <- "pacMoving_2-25-23_FullTime.csv"
+#dataFile <- "pacMoving_2-25-23_FullTime_Trimmed.csv"
+
+
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
-df$group[df$group == "e"] <- 'AUT'
-df$group[df$group == "c"] <- 'Non-AUT'
+# df$group[df$group == "e"] <- 'AUT'
+# df$group[df$group == "c"] <- 'Non-AUT'
+# 
+# df$condition[df$condition == "s"] <- 'Solo'
+# df$condition[df$condition == "co"] <- 'Cooperative'
+
+df$group[df$partGroup == "e"] <- 'AUT'
+df$group[df$partGroup == "c"] <- 'Non-AUT'
 
 df$condition[df$condition == "s"] <- 'Solo'
 df$condition[df$condition == "co"] <- 'Cooperative'
@@ -26,7 +38,7 @@ df$condition[df$condition == "co"] <- 'Cooperative'
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #View wall analysis
-use <- df$avgPlay2Build
+use <- df$pacMove
 sd(use)
 boxplot(use)
 
@@ -34,7 +46,7 @@ boxplot(use)
 #avg total Gaze Transfer Time analysis
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgTotalTransferTime), sATT = sd(avgTotalTransferTime))%>%
+  summarise(mATT = mean(pacStay), sATT = sd(pacStay))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
@@ -54,7 +66,7 @@ gazePlot
 
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgBuild2Play), sATT = sd(avgBuild2Play))%>%
+  summarise(mATT = mean(avgPlay2View), sATT = sd(avgPlay2View))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),

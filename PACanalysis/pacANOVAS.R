@@ -6,8 +6,11 @@ library(tidyverse)
 
 
 # dataFile <- "AllSubjectGazeDataFinal2.csv"
-dataFile <- "pacMovingTest.csv"
+#dataFile <- "pacMovingTest.csv"
 #dataFile <- "pacMoving.csv"
+dataFile <- "pacMoving_2-25-23_FullTime.csv"
+#3dataFile <- "pacMoving_2-25-23_FullTime_Trimmed.csv"
+
 
 
 
@@ -160,9 +163,15 @@ barplot(barTable, main="Perception Action Coupling Sequences",
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# PAC MOVE
+# PAC MAin
 twoANOVA <- aov(df$pacMove ~ factor(df$condition) * factor(df$partGroup) , data = df)
 summary(twoANOVA)
+
+twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$partGroup) , data = df)
+summary(twoANOVA)
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 model <- lm(soloDF$pacMove ~ factor(soloDF$partGroup), data = soloDF)
 summary(model)

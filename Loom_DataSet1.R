@@ -6,6 +6,30 @@ library(bit64)
 
 data_files <- list.files(pattern = "analytics")
 
+
+# 
+# newPartData <- data.frame(Participant = factor(),
+#                           Age = numeric(),
+#                           pacStay = numeric(),
+#                           pacMove = numeric(),
+#                           condition = factor(),
+#                           group = factor(),
+#                           stringsAsFactors = FALSE)
+# write.csv(newPartData, "pacMoving_2-25-23_FullTime.csv")
+
+
+
+PACmoveDF <- data.frame(Time = numeric(),
+                        Participant = factor(),
+                        Condition = factor(),
+                        Trial = numeric(),
+                        StartTime = numeric(),
+                        EndTime = numeric(),
+                        TrialEvent = factor(),
+                        stringsAsFactors = FALSE)
+
+
+
 for(f in 1:length(data_files))
 {
  
@@ -45,9 +69,7 @@ for(f in 1:length(data_files))
   oneMinTimeIndexDF <- as.data.frame(oneMinTimeIndexList)
   oneMinTimeIndexDF[1]
   
-  PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
-  
-  
+  #PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
   
   
   
@@ -419,117 +441,171 @@ for(f in 1:length(data_files))
         #print("looking at Drop Zone")
       }
     }
-    
-    
-    # This will average all of the sequence times for PCA sequence 1
-    avgPCA1Time <- 0
-    counter <- 0
-    totalCounter <- 0
-    totalTime <- 0
-    startValue <- 0
-    
-    for (i in 1:nrow(PAC1))
-    {
-      counter <- counter + 1
-      if(counter == 1) {
-        startValue <- PAC1[i,1]/10000
-      } else {
+  }  
+  
+  # This will average all of the sequence times for PCA sequence 1
+  avgPCA1Time <- 0
+  counter <- 0
+  totalCounter <- 0
+  totalTime <- 0
+  startValue <- 0
+  PACmoveTrailCounter <- 0
+  
+  soloCondition <- "s"
+  coCondition <- "co"
+  PACmoveString <- "PACmove"
+  PACstayString <- "PACstay"
+  
+  for (i in 1:nrow(PAC1))
+  {
+    counter <- counter + 1
+    if(counter == 1) {
+      startValue <- PAC1[i,1]/10000
+    } else {
+      if(((PAC1[i,1]/10000) - startValue) < 5000){
         reactionTime <- (PAC1[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
         counter <- 0
         totalCounter <- totalCounter + 1
+        
+        PACmoveTrailCounter <- PACmoveTrailCounter + 1
+        Time <- reactionTime
+        Participant <- PAC1[i,2]
+        Condition <- PAC1[i,3]
+        Trial <- PACmoveTrailCounter
+        StartTime = PAC1[i-1,1]
+        EndTime <- PAC1[i,1]
+        TrialEvent <- PACmoveString
+        
+        newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
+        PACmoveDF <- rbind(PACmoveDF, newTrialRow)
+      }else{
+        print("bad")
       }
     }
-    
-    avgPCA1Time <- totalTime/totalCounter
+  }
   
-    
-    # This will average all of the sequence times for PCA sequence 2
-    avgPCA2Time <- 0
-    counter <- 0
-    totalCounter <- 0
-    totalTime <- 0
-    startValue <- 0
-    
-    for (i in 1:nrow(PAC2))
-    {
-      counter <- counter + 1
-      if(counter == 1) {
-        startValue <- PAC2[i,1]/10000
-      } else {
+  avgPCA1Time <- totalTime/totalCounter
+  
+  
+  # This will average all of the sequence times for PCA sequence 2
+  avgPCA2Time <- 0
+  counter <- 0
+  totalCounter <- 0
+  totalTime <- 0
+  startValue <- 0
+  
+  for (i in 1:nrow(PAC2))
+  {
+    counter <- counter + 1
+    if(counter == 1) {
+      startValue <- PAC2[i,1]/10000
+    } else {
+      if(((PAC1[i,1]/10000) - startValue) < 5000){
         reactionTime <- (PAC2[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
         counter <- 0
         totalCounter <- totalCounter + 1
+        
+        PACmoveTrailCounter <- PACmoveTrailCounter + 1
+        Time <- reactionTime
+        Participant <- PAC2[i,2]
+        Condition <- PAC2[i,3]
+        Trial <- PACmoveTrailCounter
+        StartTime = PAC2[i-1,1]
+        EndTime <- PAC2[i,1]
+        TrialEvent <- PACstayString
+        
+        newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
+        PACmoveDF <- rbind(PACmoveDF, newTrialRow)
+      }else{
+        print("bad")
       }
     }
-    
-    avgPCA2Time <- totalTime/totalCounter
+  }
   
-    
-    
-    # THIS IS THE COOPERATIVE ANALYSIS
-    
-    # This will average all of the sequence times for PCA sequence 1
-    avgPCA1CoTime <- 0
-    counter <- 0
-    totalCounter <- 0
-    totalTime <- 0
-    startValue <- 0
-    
-    for (i in 1:nrow(PAC1Co))
-    {
-      counter <- counter + 1
-      if(counter == 1) {
-        startValue <- PAC1Co[i,1]/10000
-      } else {
+  avgPCA2Time <- totalTime/totalCounter
+  
+  
+  
+  # THIS IS THE COOPERATIVE ANALYSIS
+  
+  # This will average all of the sequence times for PCA sequence 1
+  avgPCA1CoTime <- 0
+  counter <- 0
+  totalCounter <- 0
+  totalTime <- 0
+  startValue <- 0
+  
+  for (i in 1:nrow(PAC1Co))
+  {
+    counter <- counter + 1
+    if(counter == 1) {
+      startValue <- PAC1Co[i,1]/10000
+    } else {
+      if(((PAC1[i,1]/10000) - startValue) < 5000){
         reactionTime <- (PAC1Co[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
         counter <- 0
         totalCounter <- totalCounter + 1
+        
+        PACmoveTrailCounter <- PACmoveTrailCounter + 1
+        Time <- reactionTime
+        Participant <- PAC1Co[i,2]
+        Condition <- PAC1Co[i,3]
+        Trial <- PACmoveTrailCounter
+        StartTime = PAC1Co[i-1,1]
+        EndTime <- PAC1Co[i,1]
+        TrialEvent <- PACmoveString
+        
+        newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
+        PACmoveDF <- rbind(PACmoveDF, newTrialRow)
+      }else{
+        print("bad")
       }
     }
-    
-    avgPCA1CoTime <- totalTime/totalCounter
+  }
   
-    
-    # This will average all of the sequence times for PCA sequence 2
-    avgPCA2CoTime <- 0
-    counter <- 0
-    totalCounter <- 0
-    totalTime <- 0
-    startValue <- 0
-    
-    for (i in 1:nrow(PAC2Co))
-    {
-      counter <- counter + 1
-      if(counter == 1) {
-        startValue <- PAC2Co[i,1]/10000
-      } else {
+  avgPCA1CoTime <- totalTime/totalCounter
+  
+  
+  # This will average all of the sequence times for PCA sequence 2
+  avgPCA2CoTime <- 0
+  counter <- 0
+  totalCounter <- 0
+  totalTime <- 0
+  startValue <- 0
+  
+  for (i in 1:nrow(PAC2Co))
+  {
+    counter <- counter + 1
+    if(counter == 1) {
+      startValue <- PAC2Co[i,1]/10000
+    } else {
+      if(((PAC1[i,1]/10000) - startValue) < 5000){
         reactionTime <- (PAC2Co[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
         counter <- 0
         totalCounter <- totalCounter + 1
+        
+        PACmoveTrailCounter <- PACmoveTrailCounter + 1
+        Time <- reactionTime
+        Participant <- PAC2Co[i,2]
+        Condition <- PAC2Co[i,3]
+        Trial <- PACmoveTrailCounter
+        StartTime = PAC2Co[i-1,1]
+        EndTime <- PAC2Co[i,1]
+        TrialEvent <- PACstayString
+        
+        newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
+        PACmoveDF <- rbind(PACmoveDF, newTrialRow)
+      }else{
+        print("bad")
       }
     }
-    
-    avgPCA2CoTime <- totalTime/totalCounter
-  
-    
-    
   }
   
-  
-  # 
-  # newPartData <- data.frame(Participant = factor(),
-  #                           Age = numeric(),
-  #                           pacStay = numeric(),
-  #                           pacMove = numeric(),
-  #                           condition = factor(),
-  #                           group = factor(),
-  #                           stringsAsFactors = FALSE)
-  # write.csv(newPartData, "pacMoving_1-31-23_firstMin.csv")
-  
+  avgPCA2CoTime <- totalTime/totalCounter
 
   
   Age <- strtoi(PerceptionActionDF[5,5])
@@ -547,11 +623,12 @@ for(f in 1:length(data_files))
   newPartRow2 <- data.frame(Participant,Age, pacStay, pacMove, condition, partGroup)
   newPartData <- rbind(newPartData, newPartRow2)
   
-  write.csv(newPartData, "pacMoving_1-31-23_firstMin.csv")
+  write.csv(newPartData, "pacMoving_2-25-23_FullTime.csv")
 
 
 }
 
+plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16, col = PACmoveDF$TrialEvent)
 
 
 
