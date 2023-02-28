@@ -15,7 +15,7 @@ data_files <- list.files(pattern = "analytics")
 #                           condition = factor(),
 #                           group = factor(),
 #                           stringsAsFactors = FALSE)
-# write.csv(newPartData, "pacMoving_2-25-23_FullTime.csv")
+# write.csv(newPartData, "pacMoving_2-25-23_OneMin.csv")
 
 
 
@@ -69,7 +69,7 @@ for(f in 1:length(data_files))
   oneMinTimeIndexDF <- as.data.frame(oneMinTimeIndexList)
   oneMinTimeIndexDF[1]
   
-  #PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
+  PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
   
   
   
@@ -462,10 +462,10 @@ for(f in 1:length(data_files))
     if(counter == 1) {
       startValue <- PAC1[i,1]/10000
     } else {
-      if(((PAC1[i,1]/10000) - startValue) < 5000){
+      counter <- 0
+      if(((PAC1[i,1]/10000) - startValue) < 2000){
         reactionTime <- (PAC1[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
-        counter <- 0
         totalCounter <- totalCounter + 1
         
         PACmoveTrailCounter <- PACmoveTrailCounter + 1
@@ -480,7 +480,7 @@ for(f in 1:length(data_files))
         newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
         PACmoveDF <- rbind(PACmoveDF, newTrialRow)
       }else{
-        print("bad")
+        print((PAC1[i,1]/10000) - startValue)
       }
     }
   }
@@ -501,10 +501,10 @@ for(f in 1:length(data_files))
     if(counter == 1) {
       startValue <- PAC2[i,1]/10000
     } else {
-      if(((PAC1[i,1]/10000) - startValue) < 5000){
+      counter <- 0
+      if(((PAC2[i,1]/10000) - startValue) < 2000){
         reactionTime <- (PAC2[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
-        counter <- 0
         totalCounter <- totalCounter + 1
         
         PACmoveTrailCounter <- PACmoveTrailCounter + 1
@@ -519,7 +519,7 @@ for(f in 1:length(data_files))
         newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
         PACmoveDF <- rbind(PACmoveDF, newTrialRow)
       }else{
-        print("bad")
+        print((PAC2[i,1]/10000) - startValue)
       }
     }
   }
@@ -543,10 +543,10 @@ for(f in 1:length(data_files))
     if(counter == 1) {
       startValue <- PAC1Co[i,1]/10000
     } else {
-      if(((PAC1[i,1]/10000) - startValue) < 5000){
+      counter <- 0
+      if(((PAC1Co[i,1]/10000) - startValue) < 2000){
         reactionTime <- (PAC1Co[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
-        counter <- 0
         totalCounter <- totalCounter + 1
         
         PACmoveTrailCounter <- PACmoveTrailCounter + 1
@@ -561,7 +561,7 @@ for(f in 1:length(data_files))
         newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
         PACmoveDF <- rbind(PACmoveDF, newTrialRow)
       }else{
-        print("bad")
+        print((PAC1Co[i,1]/10000) - startValue)
       }
     }
   }
@@ -582,10 +582,10 @@ for(f in 1:length(data_files))
     if(counter == 1) {
       startValue <- PAC2Co[i,1]/10000
     } else {
-      if(((PAC1[i,1]/10000) - startValue) < 5000){
+      counter <- 0
+      if(((PAC2Co[i,1]/10000) - startValue) < 2000){
         reactionTime <- (PAC2Co[i,1]/10000) - startValue
         totalTime <- totalTime + reactionTime
-        counter <- 0
         totalCounter <- totalCounter + 1
         
         PACmoveTrailCounter <- PACmoveTrailCounter + 1
@@ -600,7 +600,7 @@ for(f in 1:length(data_files))
         newTrialRow <- data.frame(Time, Participant, Condition, Trial, StartTime, EndTime, TrialEvent)
         PACmoveDF <- rbind(PACmoveDF, newTrialRow)
       }else{
-        print("bad")
+        print((PAC2Co[i,1]/10000) - startValue)
       }
     }
   }
@@ -623,7 +623,7 @@ for(f in 1:length(data_files))
   newPartRow2 <- data.frame(Participant,Age, pacStay, pacMove, condition, partGroup)
   newPartData <- rbind(newPartData, newPartRow2)
   
-  write.csv(newPartData, "pacMoving_2-25-23_FullTime.csv")
+  write.csv(newPartData, "pacMoving_2-25-23_OneMin.csv")
 
 
 }

@@ -34,8 +34,8 @@ bob
 #                           group = factor(),
 #                           condition = factor(),
 #                           stringsAsFactors = FALSE)
-# 
- write.csv(newPartData, "AllSubjectGazeData2-25-23_FullTime.csv")
+# #
+#  write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
 
 shortGroupDF2 <- data.frame(Time = numeric(),
                             Participant = factor(),
@@ -97,10 +97,10 @@ oneMinTimeIndexDF[1]
 
 
 #full df slice
-originalDF <- originalDF %>% slice(c(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,]))))
+#originalDF <- originalDF %>% slice(c(strtoi(rownames(startIndexes[1,])):strtoi(rownames(endIndexes[1,])), strtoi(rownames(startIndexes[2,])):strtoi(rownames(endIndexes[2,])), strtoi(rownames(startIndexes[3,])):strtoi(rownames(endIndexes[3,])), strtoi(rownames(startIndexes[4,])):strtoi(rownames(endIndexes[4,]))))
 
 # 1 min df slice
-#originalDF <- filter(originalDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
+originalDF <- filter(originalDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
 
 
 
@@ -362,7 +362,7 @@ for(j in 0:3)
     play2BuildCounter <- 0
     build2PlayCounter <- 0
     view2PlayCounter <- 0
-
+    go <- 0
 
     for (i in 2:nrow(shortGroupDF))
     {
@@ -634,7 +634,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
   
-    write.csv(newPartData, "AllSubjectGazeData2-25-23_FullTime.csv")
+    write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
   }
   if(j == 3){
     
@@ -661,7 +661,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
     
-    write.csv(newPartData, "AllSubjectGazeData2-25-23_FullTime.csv")
+    write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
   }  
 
 }

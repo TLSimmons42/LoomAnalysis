@@ -7,12 +7,12 @@ library(ggtext)
 library(ggsci)
 library(ggpubr)
 
-# dataFile <- "AllSubjectGazeDataFinal2.csv"
-#dataFile <- "AllSubjectGazeData12-7_new.csv"
-#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
-#dataFile2 <- "pacMoving.csv"
+
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
-dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
+dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
+
 
 
 

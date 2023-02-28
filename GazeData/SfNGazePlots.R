@@ -7,28 +7,25 @@ library(ggtext)
 library(ggsci)
 library(ggpubr)
 
-# dataFile <- "AllSubjectGazeDataFinal2.csv"
-#dataFile <- "AllSubjectGazeData.csv"
-#dataFile <- "AllSubjectGazeData12-7_new.csv"
-#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed.csv"
-#dataFile <- "AllSubjectGazeData1-31-23_firstMin_Trimed_new.csv"
-#dataFile <- "AllSubjectGazeData1-31-23_firstMin.csv"
-#dataFile <- "AllSubjectGazeData2-14-23_firstMin.csv"
+
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
-dataFile <- "pacMoving_2-25-23_FullTime.csv"
+#dataFile <- "pacMoving_2-25-23_FullTime.csv"
 #dataFile <- "pacMoving_2-25-23_FullTime_Trimmed.csv"
-
-
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
+dataFile <- "pacMoving_2-25-23_OneMin.csv"
+#dataFile <- "pacMoving_2-25-23_OneMin_Trimmed.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+# 
 # df$group[df$group == "e"] <- 'AUT'
 # df$group[df$group == "c"] <- 'Non-AUT'
 # 
 # df$condition[df$condition == "s"] <- 'Solo'
 # df$condition[df$condition == "co"] <- 'Cooperative'
-
+# # 
 df$group[df$partGroup == "e"] <- 'AUT'
 df$group[df$partGroup == "c"] <- 'Non-AUT'
 
@@ -51,9 +48,9 @@ gazePlot <- df%>%
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
   #        cex= 2.5, vjust=-2)+
-  labs(title = "",
-       #subtitle = "kitty",
-       x = "", y = "",
+  labs(title = "PAC Cube Placement Sequence",
+       subtitle = "",
+       x = "Trial Condition", y = "Time (ms)",
        #caption = "moo",
        fill = "")+
   geom_errorbar(mapping = aes(ymin = mATT-sATT, ymax = mATT + sATT),
