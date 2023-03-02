@@ -10,8 +10,8 @@ library(ggpubr)
 
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
-#dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
-dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
+dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
 
 
 
@@ -81,6 +81,9 @@ arrows(x0 = base_r_plot,
        angle = 90,
        code = 3,
        length = .1)
+
+
+boxplot(df$group,df$totalPlayWallGazeTime)
 
 
 
@@ -179,10 +182,10 @@ summary(twoANOVA)
 twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$group), data = df)
 summary(twoANOVA)
 
-twoANOVA <- aov(coDF$avgTotalTransferTime ~ factor(coDF$group), data = coDF)
+twoANOVA <- aov(coDF$totalPlayWallGazeTime ~ factor(coDF$group), data = coDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(soloDF$avgGrab2Build ~ factor(soloDF$group), data = soloDF)
+twoANOVA <- aov(soloDF$totalPlayWallGazeTime ~ factor(soloDF$group), data = soloDF)
 summary(twoANOVA)
 
 twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition), data = df)

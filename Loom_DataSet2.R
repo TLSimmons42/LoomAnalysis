@@ -35,7 +35,7 @@ bob
 #                           condition = factor(),
 #                           stringsAsFactors = FALSE)
 # #
-#  write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
+#  write.csv(newPartData, "test1.csv")
 
 shortGroupDF2 <- data.frame(Time = numeric(),
                             Participant = factor(),
@@ -634,7 +634,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
   
-    write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
+    write.csv(newPartData, "test1.csv")
   }
   if(j == 3){
     
@@ -661,7 +661,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
     
-    write.csv(newPartData, "AllSubjectGazeData2-25-23_OneMin.csv")
+    write.csv(newPartData, "test1.csv")
   }  
 
 }
