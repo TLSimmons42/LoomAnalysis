@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 library(bit64)
 
-participantDataFile <- "analytics2_P4.csv"
+participantDataFile <- "analytics2_P28.csv"
 #participantDataFile <- data_files[f]
 originalDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 print(participantDataFile)
@@ -364,6 +364,7 @@ for(j in 0:1)
             }
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2V"
+            TrialEvent <- "red"
             newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
             
@@ -381,6 +382,7 @@ for(j in 0:1)
           if(previousEvent == playWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2B"
+            TrialEvent <- "blue"
             newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
             
@@ -399,6 +401,7 @@ for(j in 0:1)
           if(previousEvent == viewWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "V2P"
+            TrialEvent <- "green"
             newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
             
@@ -410,6 +413,7 @@ for(j in 0:1)
           }else if(previousEvent == buildWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "B2P"
+            TrialEvent <- "black"
             newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
             shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
             
@@ -443,7 +447,7 @@ for(j in 0:1)
 }
 
 
-#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "P2B"] <- 'lol'
+#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "P2B"] <- 'red'
 #shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "P2V"] <- 'black'
 #shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "V2P"] <- 'green'
 #shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "B2P"] <- 'blue'
