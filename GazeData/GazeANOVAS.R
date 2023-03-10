@@ -10,8 +10,10 @@ library(ggpubr)
 
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
 #dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
-dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
 #dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
+
+dataFile <- "AllSubjectGazeData3-9-23_OneMin.csv"
 
 
 

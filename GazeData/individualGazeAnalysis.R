@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 library(bit64)
 
-participantDataFile <- "analytics2_P28.csv"
+participantDataFile <- "analytics2_P2.csv"
 #participantDataFile <- data_files[f]
 originalDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 print(participantDataFile)
@@ -31,12 +31,10 @@ for(d in 1:nrow(startIndexes))
   oneMinTimeIndexList[[d]] <- oneMinTimeIndex
   
   if(d == 1 || d == 2){
-    print(endTime - startTime)
     totalSoloGameTime <- totalSoloGameTime +(endTime - startTime)
     totalCombinedGameTime <- totalCombinedGameTime +(endTime - startTime)
     
   }else{
-    print(endTime - startTime)
     totalCoGameTime <- totalCoGameTime +(endTime- startTime)
     totalCombinedGameTime <- totalSoloGameTime +(endTime- startTime)
   }
@@ -112,12 +110,23 @@ if(participantDataFile == "analytics2_P2.csv" | participantDataFile == "analytic
   partGroup <- "c"
 }
 
-shortGroupDF2 <- data.frame(Time = numeric(),
+TransferTimesDF <- data.frame(Time = numeric(),
                             Participant = factor(),
                             Condition = factor(),
                             Trial = numeric(),
                             StartTime = numeric(),
                             EndTime = numeric(),
+                            Color = factor(),
+                            TrialEvent = factor(),
+                            stringsAsFactors = TRUE)
+
+FixationTimesDF <- data.frame(Time = numeric(),
+                            Participant = factor(),
+                            Condition = factor(),
+                            Trial = numeric(),
+                            StartTime = numeric(),
+                            EndTime = numeric(),
+                            Color = factor(),
                             TrialEvent = factor(),
                             stringsAsFactors = TRUE)
 
@@ -232,6 +241,8 @@ for(j in 0:1)
     if(lookingForNewSeq == FALSE){
       if(lookingForPlayWall){
         if(currentEvent == viewWall | currentEvent == buildWall){
+          second_row_to_add <- groupDF[i-1,]
+          shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           second_row_to_add <- groupDF[i,]
           shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           lookingForPlayWall <- FALSE
@@ -246,6 +257,8 @@ for(j in 0:1)
       }
       if(lookingForBuildWall){
         if(currentEvent == viewWall | currentEvent == playWall){
+          second_row_to_add <- groupDF[i-1,]
+          shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           second_row_to_add <- groupDF[i,]
           shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           lookingForBuildWall <- FALSE
@@ -261,6 +274,8 @@ for(j in 0:1)
       }
       if(lookingForViewWall){
         if(currentEvent == buildWall | currentEvent == playWall){
+          second_row_to_add <- groupDF[i-1,]
+          shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           second_row_to_add <- groupDF[i,]
           shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
           lookingForViewWall <- FALSE
@@ -343,7 +358,6 @@ for(j in 0:1)
       currentTime <- shortGroupDF[i,1]/10000
       currentTimeLong <- shortGroupDF[i,1]
       if(previousTime != 0){
-        print(currentTime - previousTime)
         if((currentTime - previousTime) < 10000){
           reactionTime <- currentTime - previousTime
           go <- 1
@@ -364,9 +378,9 @@ for(j in 0:1)
             }
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2V"
-            TrialEvent <- "red"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "red"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color, TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
             totalViewWallCount <- totalViewWallCount + 1
             totalTime <- totalTime + reactionTime
@@ -382,9 +396,9 @@ for(j in 0:1)
           if(previousEvent == playWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2B"
-            TrialEvent <- "blue"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "blue"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
             
             totalBuildWallCount <- totalBuildWallCount + 1
@@ -401,9 +415,9 @@ for(j in 0:1)
           if(previousEvent == viewWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "V2P"
-            TrialEvent <- "green"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "green"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
@@ -413,9 +427,9 @@ for(j in 0:1)
           }else if(previousEvent == buildWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "B2P"
-            TrialEvent <- "black"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "black"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
@@ -447,16 +461,20 @@ for(j in 0:1)
 }
 
 
-#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "P2B"] <- 'red'
-#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "P2V"] <- 'black'
-#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "V2P"] <- 'green'
-#shortGroupDF2$TrialEvent[shortGroupDF2$TrialEvent == "B2P"] <- 'blue'
+#TransferTimesDF$TrialEvent[TransferTimesDF$TrialEvent == "P2B"] <- 'blue'
+#TransferTimesDF$TrialEvent[TransferTimesDF$TrialEvent == "P2V"] <- 'red'
+#TransferTimesDF$TrialEvent[TransferTimesDF$TrialEvent == "V2P"] <- 'green'
+#TransferTimesDF$TrialEvent[TransferTimesDF$TrialEvent == "B2P"] <- 'black'
 
-plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, col = shortGroupDF2$TrialEvent)
+plot(TransferTimesDF$trialCounter,TransferTimesDF$reactionTime,pch=16, col = TransferTimesDF$Color)
 
-
+avgTotalTransferTime
+avgView2Play 
+avgBuild2Play 
+avgPlay2Build 
+avgPlay2View 
   
-#plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, ylim = c(0,15000), col = shortGroupDF2$TrialEvent)
+#plot(TransferTimesDF$trialCounter,TransferTimesDF$reactionTime,pch=16, ylim = c(0,15000), col = TransferTimesDF$TrialEvent)
   
   
   

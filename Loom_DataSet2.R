@@ -35,7 +35,7 @@ bob
 #                           condition = factor(),
 #                           stringsAsFactors = FALSE)
 # #
-#  write.csv(newPartData, "test1.csv")
+#  write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
 
 shortGroupDF2 <- data.frame(Time = numeric(),
                             Participant = factor(),
@@ -47,7 +47,7 @@ shortGroupDF2 <- data.frame(Time = numeric(),
                             stringsAsFactors = FALSE)
 
 
-write.csv(newPartData, "AllSubjectIndividualPoints2-25-23_FullTime.csv")
+write.csv(newPartData, "AllSubjectIndividualPoints3-9-23_FullTime.csv")
 
 for(f in 1:length(data_files))
 {
@@ -262,6 +262,9 @@ for(j in 0:3)
     if(lookingForNewSeq == FALSE){
         if(lookingForPlayWall){
           if(currentEvent == viewWall | currentEvent == buildWall){
+            
+            second_row_to_add <- groupDF[i-1,]
+            shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             second_row_to_add <- groupDF[i,]
             shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             lookingForPlayWall <- FALSE
@@ -276,6 +279,9 @@ for(j in 0:3)
         }
         if(lookingForBuildWall){
           if(currentEvent == viewWall | currentEvent == playWall){
+            
+            second_row_to_add <- groupDF[i-1,]
+            shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             second_row_to_add <- groupDF[i,]
             shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             lookingForBuildWall <- FALSE
@@ -291,6 +297,9 @@ for(j in 0:3)
         }
         if(lookingForViewWall){
           if(currentEvent == buildWall | currentEvent == playWall){
+            
+            second_row_to_add <- groupDF[i-1,]
+            shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             second_row_to_add <- groupDF[i,]
             shortGroupDF <- rbind(shortGroupDF, second_row_to_add)
             lookingForViewWall <- FALSE
@@ -634,7 +643,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
   
-    write.csv(newPartData, "test1.csv")
+    write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
   }
   if(j == 3){
     
@@ -661,7 +670,7 @@ for(j in 0:3)
     
     newPartData <- rbind(newPartData, newPartRow)
     
-    write.csv(newPartData, "test1.csv")
+    write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
   }  
 
 }

@@ -8,14 +8,12 @@ library(ggsci)
 library(ggpubr)
 
 
-#dataFile <- "AllSubjectGazeData2-25-23_FullTime_Trimmed.csv"
-#dataFile <- "AllSubjectGazeData2-25-23_FullTime.csv"
-#dataFile <- "pacMoving_2-25-23_FullTime.csv"
-#dataFile <- "pacMoving_2-25-23_FullTime_Trimmed.csv"
-dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
-#dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
+
+#dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
 #dataFile <- "pacMoving_2-25-23_OneMin.csv"
-#dataFile <- "pacMoving_2-25-23_OneMin_Trimmed.csv"
+
+dataFile <- "AllSubjectGazeData3-9-23_OneMin.csv"
+
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -104,19 +102,19 @@ gazePlot
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #TESTING CODE
-gazePlot <- df%>%
-  group_by(condition, group)%>%
-  summarise(mATT = mean(pacStay), sATT = sd(pacStay))%>%
-  ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
-  geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
-  labs(title = "PAC Cube Placement Sequence",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
-       #caption = "moo",
-       fill = "")+
-  geom_errorbar(aes(ymin = lower, ymax = upper))+
-  theme_pubclean()+scale_fill_startrek() 
+dat.avg <-
+  read.table("AllSubjectGazeData3-9-23_OneMin.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("s", "co")) %>%
+                  fct_recode(Solo="s", Cooperative="co")) %>%
+  dplyr::mutate(Group = as.factor(group) %>%
+                  fct_recode(ASD="e", Ctrl="c"))
 
-gazePlot
+dat.avg %>%
+  ggplot(aes(x=Condition, y=avgView2Play, color=Group)) +
+  geom_boxplot() +
+  scale_color_brewer(palette = "Set1") +
+  xlab("") +
+  ylab("Grasp Duration (ms)") +
+  theme_bw()
