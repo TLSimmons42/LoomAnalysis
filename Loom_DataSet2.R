@@ -145,9 +145,16 @@ xCo <- coDF[,9]
 yCo <- coDF[,10]
 zCo <- coDF[ ,11]
 
+xFull <- originalDF[,9]
+yFull <- originalDF[,10]
+zFull <- originalDF[ ,11]
+
+
+
 
 #plot3d(xSolo, ySolo, zSolo)
 #plot3d(xCo, yCo, zCo)
+plot3d(xFull, yFull, zFull)
 
 
 
@@ -410,6 +417,7 @@ for(j in 0:3)
             totalTime <- totalTime + reactionTime
             totalPlay2View <- totalPlay2View + reactionTime
             play2ViewCounter <- play2ViewCounter + 1
+            
             
           }else{
             #print("nothin bb")
