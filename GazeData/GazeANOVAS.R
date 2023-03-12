@@ -13,7 +13,7 @@ library(ggpubr)
 #dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
 #dataFile <- "AllSubjectGazeData2-25-23_OneMin_Trimmed.csv"
 
-dataFile <- "AllSubjectGazeData3-9-23_OneMin.csv"
+dataFile <- "AllSubjectGazeData3-11-23_OneMin.csv"
 
 
 
@@ -21,7 +21,7 @@ dataFile <- "AllSubjectGazeData3-9-23_OneMin.csv"
 
 
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
-df2 <-  read.csv(dataFile2, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+#df2 <-  read.csv(dataFile2, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
 
@@ -177,7 +177,7 @@ twoANOVA <- aov(df$avgPlay2View ~ factor(df$condition) * factor(df$group) , data
 summary(twoANOVA)
 #__________________________________________________________________________________________________________________________________
 
-twoANOVA <- aov(df$avgGameTime ~ factor(df$condition) * factor(df$group) , data = df)
+twoANOVA <- aov(df$avgBuildFix ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
 

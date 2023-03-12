@@ -6,13 +6,14 @@ library(tidyverse)
 library(ggtext)
 library(ggsci)
 library(ggpubr)
+library(ez)
 
 
 
 #dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
 #dataFile <- "pacMoving_2-25-23_OneMin.csv"
 
-dataFile <- "AllSubjectGazeData3-9-23_OneMin.csv"
+dataFile <- "AllSubjectGazeData3-11-23_OneMin.csv"
 
 
 
@@ -63,7 +64,7 @@ boxplot(use)
 #avg total Gaze Transfer Time analysis
 gazePlot <- df%>%
   group_by(condition, group)%>%
-  summarise(mATT = mean(avgTotalTransferTime), sATT = sd(avgTotalTransferTime))%>%
+  summarise(mATT = mean(avgBuild2Play), sATT = sd(avgBuild2Play))%>%
   ggplot(aes(reorder(condition,mATT),mATT, fill = reorder(group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
@@ -103,7 +104,7 @@ gazePlot
 #-------------------------------------------------------------------------------------------------------------------------------
 #TESTING CODE
 dat.avg <-
-  read.table("AllSubjectGazeData3-9-23_OneMin.csv",
+  read.table("AllSubjectGazeData3-11-23_OneMin.csv",
              header=T, sep=",") %>%
   dplyr::mutate(Participant = as.factor(Participant)) %>%
   dplyr::mutate(Condition = factor(condition, levels=c("s", "co")) %>%
@@ -112,9 +113,13 @@ dat.avg <-
                   fct_recode(ASD="e", Ctrl="c"))
 
 dat.avg %>%
-  ggplot(aes(x=Condition, y=avgView2Play, color=Group)) +
+  ggplot(aes(x=Condition, y= avgViewFix, color=Group)) +
   geom_boxplot() +
   scale_color_brewer(palette = "Set1") +
   xlab("") +
   ylab("Grasp Duration (ms)") +
   theme_bw()
+
+ezANOVA(dat.avg, dv = avgViewFix, wid = Participant, 
+        within = c(Condition), between = c(Group), type=2)
+
