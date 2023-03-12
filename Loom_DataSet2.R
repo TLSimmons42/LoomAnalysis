@@ -14,14 +14,15 @@ bob
 #                           Age = numeric(),
 #                           Gender = factor(),
 #                           avgTotalTransferTime = numeric(),
+#                           avgTotalTransferTimeReal = numeric(),
 #                           avgView2Play = numeric(),
 #                           avgBuild2Play = numeric(),
 #                           avgPlay2Build = numeric(),
 #                           avgPlay2View = numeric(),
-#                           totalView2Play = numeric(),
-#                           totalBuild2Play = numeric(),
-#                           totalPlay2Build = numeric(),
-#                           totalPlay2View = numeric(),
+#                           avgTotalFix = numeric(),
+#                           avgViewFix = numeric(),
+#                           avgBuildFix = numeric(),
+#                           avgPlayFix = numeric(),
 #                           totalBuildWallCount = numeric(),
 #                           totalPlayWallCount = numeric(),
 #                           totalViewWallCount = numeric(),
@@ -35,16 +36,41 @@ bob
 #                           condition = factor(),
 #                           stringsAsFactors = FALSE)
 # #
-#  write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
+#  write.csv(newPartData, "AllSubjectGazeData3-11-23_OneMin.csv")
 
-shortGroupDF2 <- data.frame(Time = numeric(),
-                            Participant = factor(),
-                            Condition = factor(),
-                            Trial = numeric(),
-                            StartTime = numeric(),
-                            EndTime = numeric(),
-                            TrialEvent = factor(),
-                            stringsAsFactors = FALSE)
+fullShortGroupDF <- data.frame(TimeStamp = numeric(),
+                               Participant = factor(),
+                               Condition = factor(),
+                               Trial = numeric(),
+                               Age = numeric(),
+                               Gender = factor(),
+                               SessionTime = numeric(),
+                               Event = factor(),
+                               xPos = numeric(),
+                               yPos = numeric(),
+                               zPos = numeric(),
+                               group = factor(),
+                               stringsAsFactors = FALSE)
+
+TransferTimesDF <- data.frame(Time = numeric(),
+                              Participant = factor(),
+                              Condition = factor(),
+                              Trial = numeric(),
+                              StartTime = numeric(),
+                              EndTime = numeric(),
+                              Color = factor(),
+                              TrialEvent = factor(),
+                              stringsAsFactors = TRUE)
+
+FixationTimesDF <- data.frame(Time = numeric(),
+                              Participant = factor(),
+                              Condition = factor(),
+                              Trial = numeric(),
+                              StartTime = numeric(),
+                              EndTime = numeric(),
+                              Color = factor(),
+                              TrialEvent = factor(),
+                              stringsAsFactors = TRUE)
 
 
 write.csv(newPartData, "AllSubjectIndividualPoints3-9-23_FullTime.csv")
@@ -349,48 +375,72 @@ for(j in 0:3)
 
   if(j < 2){
     previousEvent <- ""
-
+    
     previousTime <- 0
     previousTimeLong <- 0
     
     previousViewWallTime <- 0
-    counter <- (-1) # -1 because the first iteration doesn't count
-    trialCounter <- 0;
-
+    counter <- (0) # -1 because the first iteration doesn't count
+    fixationCounter <- 0
+    trialCounter <- 0
+    
     totalViewWallCount <- 0
     totalPlayWallCount <- 0
     totalBuildWallCount <- 0
-
+    
     totalTime <- 0
+    totalFixationTime <- 0
+    
     totalPlay2View <- 0
     totalPlay2Build <- 0
     totalBuild2Play <- 0
     totalView2Play <- 0
-
+    totalBuild2View <- 0
+    totalView2Build <- 0
+    
+    totalPlayFixationTime <- 0
+    totalViewFixationTime <- 0
+    totalBuildFixationTime <- 0
+    
     avgTotalTransferTime <- 0
     avgPlay2View <- 0
     avgPlay2Build <- 0
     avgBuild2Play <- 0
     avgView2Play <- 0
+    avgBuild2View <- 0
+    avgView2Build <- 0
+    
+    avgTotalWallFixation <- 0
+    avgPlayWallFixation <- 0
+    avgBuildWallFixation <- 0
+    avgViewWallFixation <- 0
+    
+    
+    
     avgTimeBetweenViewWallChecks <- 0
-
+    
     play2ViewCounter <- 0
     play2BuildCounter <- 0
     build2PlayCounter <- 0
     view2PlayCounter <- 0
+    view2BuildCounter <- 0 
+    build2ViewCounter <- 0
+    
+    viewFixationCounter <- 0
+    buildFixationCounter <- 0
+    playFixationCounter <- 0
+    
     go <- 0
-
+    
     for (i in 2:nrow(shortGroupDF))
     {
-      counter <- counter +1
       currentEvent <- shortGroupDF[i,8]
       currentEvent <- toString(currentEvent)
       
       currentTime <- shortGroupDF[i,1]/10000
       currentTimeLong <- shortGroupDF[i,1]
       if(previousTime != 0){
-        print(currentTime - previousTime)
-        if((currentTime - previousTime) < 10000 && (currentTime - previousTime) > 0){
+        if((currentTime - previousTime) < 10000){
           reactionTime <- currentTime - previousTime
           go <- 1
         }else{
@@ -410,33 +460,82 @@ for(j in 0:3)
             }
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2V"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong, TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "red"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color, TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
+            counter <- counter +1
             totalViewWallCount <- totalViewWallCount + 1
             totalTime <- totalTime + reactionTime
             totalPlay2View <- totalPlay2View + reactionTime
             play2ViewCounter <- play2ViewCounter + 1
             
+          }else if(previousEvent == buildWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "B2V"
+            Color <- "yellow"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
+            counter <- counter +1
+            totalBuildWallCount <- totalBuildWallCount + 1
+            totalTime <- totalTime + reactionTime
+            totalView2Build <- totalView2Build + reactionTime
+            view2BuildCounter <- view2BuildCounter + 1
+          }else if(previousEvent == viewWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "Vfix"
+            Color <- "yellow"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            FixationTimesDF <- rbind(FixationTimesDF, newTrialRow)
+            
+            fixationCounter <- fixationCounter +1
+            totalFixationTime <- totalFixationTime + reactionTime
+            totalViewFixationTime <- totalViewFixationTime + reactionTime
+            viewFixationCounter <- viewFixationCounter + 1
           }else{
             #print("nothin bb")
           }
+          
         }
         
         if(currentEvent == buildWall){
           if(previousEvent == playWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "P2B"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "blue"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
-            
+            counter <- counter +1
             totalBuildWallCount <- totalBuildWallCount + 1
             totalTime <- totalTime + reactionTime
             totalPlay2Build <- totalPlay2Build + reactionTime
             play2BuildCounter <- play2BuildCounter + 1
             
+          }else if(previousEvent == viewWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "V2B"
+            Color <- "orange"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
+            
+            counter <- counter +1
+            totalViewWallCount <- totalViewWallCount + 1
+            totalTime <- totalTime + reactionTime
+            totalBuild2View <- totalBuild2View + reactionTime
+            build2ViewCounter <- build2ViewCounter + 1
+          }else if(previousEvent == buildWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "Bfix"
+            Color <- "blue"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            FixationTimesDF <- rbind(FixationTimesDF, newTrialRow)
+            
+            fixationCounter <- fixationCounter +1
+            totalFixationTime <- totalFixationTime + reactionTime
+            totalBuildFixationTime <- totalBuildFixationTime + reactionTime
+            buildFixationCounter <- buildFixationCounter + 1
           }else{
             #print("nothin bb")
           }
@@ -446,9 +545,11 @@ for(j in 0:3)
           if(previousEvent == viewWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "V2P"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "green"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
+            counter <- counter +1
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
             totalView2Play <- totalView2Play + reactionTime
@@ -457,14 +558,27 @@ for(j in 0:3)
           }else if(previousEvent == buildWall){
             trialCounter <- trialCounter + 1
             TrialEvent <- "B2P"
-            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,TrialEvent)
-            shortGroupDF2 <- rbind(shortGroupDF2, newTrialRow)
+            Color <- "black"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            TransferTimesDF <- rbind(TransferTimesDF, newTrialRow)
             
+            counter <- counter +1
             totalPlayWallCount <- totalPlayWallCount + 1
             totalTime <- totalTime + reactionTime
             totalBuild2Play <- totalBuild2Play + reactionTime
             build2PlayCounter <- build2PlayCounter + 1
             
+          }else if(previousEvent == playWall){
+            trialCounter <- trialCounter + 1
+            TrialEvent <- "Pfix"
+            Color <- "red"
+            newTrialRow <- data.frame(reactionTime, shortGroupDF[i,2], partCondition, trialCounter, previousTimeLong, currentTimeLong,Color,TrialEvent)
+            FixationTimesDF <- rbind(FixationTimesDF, newTrialRow)
+            
+            fixationCounter <- fixationCounter +1
+            totalFixationTime <- totalFixationTime + reactionTime
+            totalPlayFixationTime <- totalPlayFixationTime + reactionTime
+            playFixationCounter <- playFixationCounter + 1
           }else{
             #print("nothin bb")
           }
@@ -483,10 +597,18 @@ for(j in 0:3)
     avgBuild2Play = totalBuild2Play/build2PlayCounter
     avgPlay2Build = totalPlay2Build/play2BuildCounter
     avgPlay2View = totalPlay2View/play2ViewCounter
+    avgView2Build = totalView2Build/view2BuildCounter
+    avgBuild2View = totalBuild2View/build2ViewCounter
+    avgTotalTransferTimeReal = (avgView2Play + avgBuild2Play + avgPlay2Build + avgPlay2View)/4
+    
+    avgTotalWallFixation = totalFixationTime/fixationCounter
+    avgBuildWallFixation = totalBuildFixationTime/buildFixationCounter
+    avgViewWallFixation = totalViewFixationTime/viewFixationCounter
+    avgPlayWallFixation = totalPlayFixationTime/playFixationCounter
+    
     avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks/totalViewWallCount
     
     
-
   }
 
  #----------------------------------------------------
@@ -578,7 +700,6 @@ for(j in 0:3)
 
 # # 
 
-
   
 
   Participant <- shortGroupDF[5,2]
@@ -590,98 +711,101 @@ for(j in 0:3)
   
   if(j == 0){
     s1avgTotalTransferTime = avgTotalTransferTime
+    s1avgTotalTransferTimeReal = avgTotalTransferTimeReal
     s1avgView2Play = avgView2Play
     s1avgBuild2Play = avgBuild2Play
     s1avgPlay2Build = avgPlay2Build
     s1avgPlay2View = avgPlay2View
-    s1totalView2Play = totalView2Play
-    s1totalBuild2Play = totalBuild2Play
-    s1totalPlay2Build = totalPlay2Build
-    s1totalPlay2View = totalPlay2View
+    s1avgTotalFix = avgTotalWallFixation
+    s1avgViewFix = avgViewWallFixation
+    s1avgBuildFix = avgBuildWallFixation
+    s1avgPlayFix = avgPlayWallFixation
     s1totalBuildWallCount = totalBuildWallCount
     s1totalPlayWallCount = totalPlayWallCount
     s1totalViewWallCount = totalViewWallCount
-    s1totalPlayWallGazeTime = totalPlayWallGazeTime
-    s1totalBuildWallGazeTime = totalBuildWallGazeTime
-    s1totalViewWallGazeTime = totalViewWallGazeTime
+    s1totalPlayFixationTime = totalPlayFixationTime
+    s1totalBuildFixationTime = totalBuildFixationTime
+    s1totalViewFixationTime = totalViewFixationTime
     s1avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks
     
   }
   if(j ==1){
     s2avgTotalTransferTime = avgTotalTransferTime
+    s2avgTotalTransferTimeReal = avgTotalTransferTimeReal
     s2avgView2Play = avgView2Play
     s2avgBuild2Play = avgBuild2Play
     s2avgPlay2Build = avgPlay2Build
     s2avgPlay2View = avgPlay2View
-    s2totalView2Play = totalView2Play
-    s2totalBuild2Play = totalBuild2Play
-    s2totalPlay2Build = totalPlay2Build
-    s2totalPlay2View = totalPlay2View
+    s2avgTotalFix = avgTotalWallFixation
+    s2avgViewFix = avgViewWallFixation
+    s2avgBuildFix = avgBuildWallFixation
+    s2avgPlayFix = avgPlayWallFixation
     s2totalBuildWallCount = totalBuildWallCount
     s2totalPlayWallCount = totalPlayWallCount
     s2totalViewWallCount = totalViewWallCount
-    s2totalPlayWallGazeTime = totalPlayWallGazeTime
-    s2totalBuildWallGazeTime = totalBuildWallGazeTime
-    s2totalViewWallGazeTime = totalViewWallGazeTime
+    s2totalPlayFixationTime = totalPlayFixationTime
+    s2totalBuildFixationTime = totalBuildFixationTime
+    s2totalViewFixationTime = totalViewFixationTime
     s2avgTimeBetweenViewWallChecks = avgTimeBetweenViewWallChecks
   }
   
   if(j == 2){
     
     avgTotalTransferTime = s1avgTotalTransferTime
+    avgTotalTransferTimeReal = s1avgTotalTransferTimeReal
     avgView2Play = s1avgView2Play
     avgBuild2Play = s1avgBuild2Play
     avgPlay2Build = s1avgPlay2Build
     avgPlay2View = s1avgPlay2View
-    totalView2Play = s1totalView2Play
-    totalBuild2Play = s1totalBuild2Play
-    totalPlay2Build = s1totalPlay2Build
-    totalPlay2View = s1totalPlay2View
+    avgTotalFix = s1avgTotalFix
+    avgViewFix = s1avgViewFix
+    avgBuildFix = s1avgBuildFix
+    avgPlayFix = s1avgPlayFix
     totalBuildWallCount = s1totalBuildWallCount
     totalPlayWallCount = s1totalPlayWallCount
     totalViewWallCount = s1totalViewWallCount
-    totalPlayWallGazeTime = s1totalPlayWallGazeTime
-    totalBuildWallGazeTime = s1totalBuildWallGazeTime
-    totalViewWallGazeTime = s1totalViewWallGazeTime
+    totalPlayWallGazeTime = s1totalPlayFixationTime
+    totalBuildWallGazeTime = s1totalBuildFixationTime
+    totalViewWallGazeTime = s1totalViewFixationTime
     avgTimeBetweenViewWallChecks = s1avgTimeBetweenViewWallChecks
     avgGameTime <- avgSoloGameTime
     
-    newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
+    newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime,avgTotalTransferTimeReal, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, avgTotalFix,avgViewFix,avgBuildFix,avgPlayFix, totalBuildWallCount, totalPlayWallCount,
                              totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgGameTime, group, condition)
     
     newPartData <- rbind(newPartData, newPartRow)
   
-    write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
+    write.csv(newPartData, "AllSubjectGazeData3-11-23_OneMin.csv")
   }
   if(j == 3){
     
     avgTotalTransferTime = s2avgTotalTransferTime
+    avgTotalTransferTimeReal = s2avgTotalTransferTimeReal
     avgView2Play = s2avgView2Play
     avgBuild2Play = s2avgBuild2Play
     avgPlay2Build = s2avgPlay2Build
     avgPlay2View = s2avgPlay2View
-    totalView2Play = s2totalView2Play
-    totalBuild2Play = s2totalBuild2Play
-    totalPlay2Build = s2totalPlay2Build
-    totalPlay2View = s2totalPlay2View
+    avgTotalFix = s2avgTotalFix
+    avgViewFix = s2avgViewFix
+    avgBuildFix = s2avgBuildFix
+    avgPlayFix = s2avgPlayFix
     totalBuildWallCount = s2totalBuildWallCount
     totalPlayWallCount = s2totalPlayWallCount
     totalViewWallCount = s2totalViewWallCount
-    totalPlayWallGazeTime = s2totalPlayWallGazeTime
-    totalBuildWallGazeTime = s2totalBuildWallGazeTime
-    totalViewWallGazeTime = s2totalViewWallGazeTime
+    totalPlayWallGazeTime = s2totalPlayFixationTime
+    totalBuildWallGazeTime = s2totalBuildFixationTime
+    totalViewWallGazeTime = s2totalViewFixationTime
     avgTimeBetweenViewWallChecks = s2avgTimeBetweenViewWallChecks
     avgGameTime <- avgCoGameTime
     
-    newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, totalView2Play,totalBuild2Play, totalPlay2Build, totalPlay2View, totalBuildWallCount, totalPlayWallCount,
-                             totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build,avgGameTime, group, condition)
-    
+    newPartRow <- data.frame(Participant, Age, Gender, avgTotalTransferTime,avgTotalTransferTimeReal, avgView2Play, avgBuild2Play, avgPlay2Build, avgPlay2View, avgTotalFix,avgViewFix,avgBuildFix,avgPlayFix, totalBuildWallCount, totalPlayWallCount,
+                             totalViewWallCount,totalPlayWallGazeTime,totalBuildWallGazeTime,totalViewWallGazeTime, avgTimeBetweenViewWallChecks,avgGrab2Build, avgGameTime, group, condition)
     newPartData <- rbind(newPartData, newPartRow)
     
-    write.csv(newPartData, "AllSubjectGazeData3-9-23_OneMin.csv")
+    write.csv(newPartData, "AllSubjectGazeData3-11-23_OneMin.csv")
   }  
 
 }
 }
-plot(shortGroupDF2$trialCounter,shortGroupDF2$reactionTime,pch=16, col = shortGroupDF2$TrialEvent)
-
+plot(FixationTimesDF$trialCounter,FixationTimesDF$reactionTime,pch=16, col = FixationTimesDF$Color)
+plot(TransferTimesDF$trialCounter,TransferTimesDF$reactionTime,pch=16, col = TransferTimesDF$Color)
