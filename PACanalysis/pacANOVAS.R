@@ -167,6 +167,35 @@ summary(twoANOVA)
 
 twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$partGroup) , data = df)
 summary(twoANOVA)
+
+
+twoANOVA <- aov(coDF$pacStay ~ factor(coDF$partGroup), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$pacStay ~ factor(soloDF$partGroup), data = soloDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$pacMove ~ factor(coDF$partGroup), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$pacMove ~ factor(soloDF$partGroup), data = soloDF)
+summary(twoANOVA)
+
+
+twoANOVA <- aov(df$pacMove ~ factor(df$partGroup) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacMove ~ factor(df$condition), data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacStay ~ factor(df$partGroup) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(df$pacStay ~ factor(df$condition), data = df)
+summary(twoANOVA)
+
+
+
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

@@ -159,7 +159,9 @@ plot(coDF$avgTotalTransferTime)
 
 
 
-#MAIN ANOVA TESTS
+#MAIN ANOVA Transfer TESTS
+#__________________________________________________________________________________________________________________________________
+
 twoANOVA <- aov(df$avgTotalTransferTime ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
 
@@ -175,7 +177,62 @@ summary(twoANOVA)
 
 twoANOVA <- aov(df$avgPlay2View ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
+
+#MAIN ANOVA Fixation TESTS
 #__________________________________________________________________________________________________________________________________
+
+twoANOVA <- aov(df$avgBuildFix ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+twoANOVA <- aov(df$avgPlayFix ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+twoANOVA <- aov(df$avgViewFix ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$avgPlayFix ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$avgPlayFix ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$avgBuildFix ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$avgBuildFix ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$avgViewFix ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$avgViewFix ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+#__________________________________________________________________________________________________________________________________
+#MAIN ANOVA PAC TESTS
+
+twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$pacStay ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$pacStay ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+
+twoANOVA <- aov(df$pacMove ~ factor(df$condition) * factor(df$group) , data = df)
+summary(twoANOVA)
+
+twoANOVA <- aov(coDF$pacMove ~ factor(coDF$group), data = coDF)
+summary(twoANOVA)
+
+twoANOVA <- aov(soloDF$pacMove ~ factor(soloDF$group), data = soloDF)
+summary(twoANOVA)
+
+
+#__________________________________________________________________________________________________________________________________
+
+
+
 
 twoANOVA <- aov(df$avgBuildFix ~ factor(df$condition) * factor(df$group) , data = df)
 summary(twoANOVA)
