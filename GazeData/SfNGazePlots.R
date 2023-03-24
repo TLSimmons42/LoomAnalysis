@@ -252,6 +252,76 @@ p
 
 
 
-ezANOVA(dat.avg, dv = avgPlayFix, wid = Participant, 
+#-----------------------------------------------------------------------------------------------------------
+
+dat.avg <-
+  read.table("coDF.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("s", "Cooperative")) %>%
+                  fct_recode(Solo="s", Cooperative="Cooperative")) %>%
+  dplyr::mutate(Group = as.factor(group) %>%
+                  fct_recode(Autistic="AUT", "Non-Autistic"="Non-AUT"))
+
+ezANOVA(dat.avg, dv = avgViewFix, wid = Participant, 
+        between = c(Group), type=2)
+#-----------------------------------------------------------------------------------------------------------
+
+dat.avg <-
+  read.table("solooDF.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("Solo", "Cooperative")) %>%
+                  fct_recode(Solo="Solo", Cooperative="Cooperative")) %>%
+  dplyr::mutate(Group = as.factor(group) %>%
+                  fct_recode(Autistic="AUT", "Non-Autistic"="Non-AUT"))
+
+ezANOVA(dat.avg, dv = avgViewFix, wid = Participant, 
+        between = c(Group), type=2)
+
+#-----------------------------------------------------------------------------------------------------------
+
+
+dat.avg <-
+  read.table("AllSubjectGazeData3-11-23_OneMin.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("s", "co")) %>%
+                  fct_recode(Solo="s", Cooperative="co")) %>%
+  dplyr::mutate(Group = as.factor(group) %>%
+                  fct_recode(Autistic="e", "Non-Autistic"="c"))
+
+ezANOVA(dat.avg, dv = avgViewFix, wid = Participant, 
+        within = c(Condition), between = c(Group), type=2)
+
+#-----------------------------------------------------------------------------------------------------------
+
+dat.avg <-
+  read.table("pacMoving_2-25-23_OneMin.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("s", "co")) %>%
+                  fct_recode(Solo="s", Cooperative="co")) %>%
+  dplyr::mutate(Group = as.factor(partGroup) %>%
+                  fct_recode(Autistic="e", "Non-Autistic"="c"))
+
+ezANOVA(dat.avg, dv = pacStay, wid = Participant, 
+        within = c(Condition), between = c(Group), type=2)
+
+
+
+
+#-----------------------------------------------------------------------------------------------------------
+
+dat.avg <-
+  read.table("pacMoving_2-25-23_OneMin.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Condition = factor(condition, levels=c("s", "co")) %>%
+                  fct_recode(Solo="s", Cooperative="co")) %>%
+  dplyr::mutate(Group = as.factor(partGroup) %>%
+                  fct_recode(Autistic="e", "Non-Autistic"="c"))
+
+ezANOVA(dat.avg, dv = pacMove, wid = Participant, 
         within = c(Condition), between = c(Group), type=2)
 
