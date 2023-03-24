@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 library(bit64)
 
-participantDataFile <- "analytics_P8.csv"
+participantDataFile <- "analytics_P24.csv"
 #PerceptionActionDF <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 PerceptionActionDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
@@ -43,7 +43,7 @@ for(d in 1:nrow(startIndexes))
 oneMinTimeIndexDF <- as.data.frame(oneMinTimeIndexList)
 oneMinTimeIndexDF[1]
 
-PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
+#PerceptionActionDF <- filter(PerceptionActionDF, ((TimeStamp >= startIndexes[1,1]) & (TimeStamp <= oneMinTimeIndexDF[1,1])) | ((TimeStamp >= startIndexes[2,1]) & (TimeStamp <= oneMinTimeIndexDF[1,2])) | ((TimeStamp >= startIndexes[3,1]) & (TimeStamp <= oneMinTimeIndexDF[1,3]))| ((TimeStamp >= startIndexes[4,1]) & (TimeStamp <= oneMinTimeIndexDF[1,4])))
 
 
 
@@ -575,8 +575,23 @@ for (i in 2:nrow(PerceptionActionDF))
   }
   
   avgPCA2CoTime <- totalTime/totalCounter
+  avgPCA1Time
+  avgPCA2Time
+  avgPCA1CoTime
+  avgPCA2CoTime
   
-  plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16, col = PACmoveDF$TrialEvent)
+  
+  soloDF <- PACmoveDF[PACmoveDF$Condition == "s",]
+  coDF <- PACmoveDF[PACmoveDF$Condition == "co",]
+  
+  mean(coDF$Time)
+  
+  
+  
+  #PACmoveDF[PACmoveDF$TrialEvent == "PACmove"] <- "blue"
+  #PACmoveDF[PACmoveDF$TrialEvent == "PACstay"] <- "red"
+  
+  #plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16, col = PACmoveDF$TrialEvent)
   
   
   

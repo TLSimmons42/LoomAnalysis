@@ -113,6 +113,34 @@ dat.avg <-
   dplyr::mutate(Group = as.factor(group) %>%
                   fct_recode(ASD="e", Ctrl="c"))
 
+write.csv(coDF, "coDF.csv")
+write.csv(soloDF, "solooDF.csv")
+
+dat.avg2 <-
+  read.table("coDF.csv",
+             header=T, sep=",") %>%
+  dplyr::mutate(Participant = as.factor(Participant)) %>%
+  dplyr::mutate(Group = as.factor(group,levels=c("AUT", "Non-AUT")) %>%
+                  fct_recode(ASD="AUT", Ctrl="Non-AUT"))%>%
+  dplyr::mutate(Condition = as.factor(condition) %>%
+                  fct_recode( Cooperative="Cooperative"))
+
+
+
+ezANOVA(dat.avg, dv = avgViewFix, wid = Participant, 
+        within = c(Condition), between = c(Group), type=2)
+
+
+ezANOVA(dat.avg2, dv = avgViewFix, wid = Participant, 
+        within = c(Condition), type=2)
+
+
+ezANOVA(data = coDF, dv = coDF$avgBuildFix, wid = coDF$Participant, 
+        within = c(coDF$group), type=2)
+
+
+
+
 v <- dat.avg %>%
   ggplot(aes(x=Condition, y= avgViewFix, color=Group, fill=Group)) +
   geom_boxplot() +
@@ -133,7 +161,7 @@ p <- dat.avg %>%
   ylim(0, 2250)+
   theme_pubr()
 ggsave("Play Wall Fixation.PNG", width = 9, height = 6, units = "cm", dpi = 320 )  
-
+p
 
 b <- dat.avg %>%
   ggplot(aes(x=Condition, y= avgBuildFix, color=Group, fill=Group)) +
@@ -143,6 +171,7 @@ b <- dat.avg %>%
   ylab("Build Wall Fixation Time (ms)") +
   ylim(0, 2250)+
   theme_pubr()
+b
 
 ggsave("Build Wall Fixation.PNG", width = 9, height = 6, units = "cm", dpi = 320 )  
 
@@ -155,6 +184,5 @@ ggarrange(v,p,b,
 
 ggsave("Gaze Durration Figure.PNG", width = 15, height = 8, units = "cm", dpi = 320 )  
 
-ezANOVA(dat.avg, dv = avgPlayFix, wid = Participant, 
-        within = c(Condition), between = c(Group), type=2)
+
 
