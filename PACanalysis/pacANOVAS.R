@@ -6,8 +6,8 @@ library(tidyverse)
 
 #dataFile <- "pacMoving_2-25-23_FullTime.csv"
 #dataFile <- "pacMoving_2-25-23_FullTime_Trimmed.csv"
-#dataFile <- "pacMoving_2-25-23_OneMin.csv"
-dataFile <- "pacMoving_2-25-23_OneMin_Trimmed.csv"
+dataFile <- "pacMoving_2-25-23_OneMin.csv"
+#dataFile <- "pacMoving_2-25-23_OneMin_Trimmed.csv"
 
 
 
@@ -33,6 +33,10 @@ cAge <- mean(cDF$Age)
 cAge
 eAge <- mean(eDF$Age)
 eAge
+cCount <- length((cDF$Age))
+cCount
+eCount <- length((eDF$Age))
+eCount
 #------------------------------------------------------------------
 
 data_summary <- aggregate(pacMove ~ condition, df,
@@ -168,41 +172,19 @@ summary(twoANOVA)
 twoANOVA <- aov(df$pacStay ~ factor(df$condition) * factor(df$partGroup) , data = df)
 summary(twoANOVA)
 
-
-twoANOVA <- aov(coDF$pacStay ~ factor(coDF$partGroup), data = coDF)
+twoANOVA <- aov(soloDF$pacStay ~ factor(soloDF$partGroup) , data = soloDF)
 summary(twoANOVA)
 
-twoANOVA <- aov(soloDF$pacStay ~ factor(soloDF$partGroup), data = soloDF)
+twoANOVA <- aov(coDF$pacStay ~  factor(coDF$partGroup) , data = coDF)
 summary(twoANOVA)
-
-twoANOVA <- aov(coDF$pacMove ~ factor(coDF$partGroup), data = coDF)
-summary(twoANOVA)
-
-twoANOVA <- aov(soloDF$pacMove ~ factor(soloDF$partGroup), data = soloDF)
-summary(twoANOVA)
-
-
-twoANOVA <- aov(df$pacMove ~ factor(df$partGroup) , data = df)
-summary(twoANOVA)
-
-twoANOVA <- aov(df$pacMove ~ factor(df$condition), data = df)
-summary(twoANOVA)
-
-twoANOVA <- aov(df$pacStay ~ factor(df$partGroup) , data = df)
-summary(twoANOVA)
-
-twoANOVA <- aov(df$pacStay ~ factor(df$condition), data = df)
-summary(twoANOVA)
-
-
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-model <- lm(soloDF$pacMove ~ factor(soloDF$partGroup), data = soloDF)
+model <- lm(soloDF$pacStay ~ factor(soloDF$partGroup), data = soloDF)
 summary(model)
 
-model <- lm(coDF$pacMove ~ factor(coDF$partGroup), data = coDF)
+model <- lm(coDF$pacStay ~ factor(coDF$partGroup), data = coDF)
 summary(model)
 
 # PAC Stay
