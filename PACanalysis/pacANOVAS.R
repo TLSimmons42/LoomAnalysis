@@ -37,6 +37,9 @@ cCount <- length((cDF$Age))
 cCount
 eCount <- length((eDF$Age))
 eCount
+
+write.csv(soloDF, "pacSolo.csv")
+write.csv(coDF, "pacCo.csv")
 #------------------------------------------------------------------
 
 data_summary <- aggregate(pacMove ~ condition, df,
