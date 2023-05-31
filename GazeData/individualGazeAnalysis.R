@@ -3,7 +3,7 @@ library(rgl)
 library(dplyr)
 library(bit64)
 
-participantDataFile <- "analytics2_P25.csv"
+participantDataFile <- "analytics2_P29.csv"
 #participantDataFile <- data_files[f]
 originalDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 print(participantDataFile)
@@ -56,15 +56,23 @@ originalDF <- originalDF %>% slice(c(strtoi(rownames(startIndexes[1,])):strtoi(r
 
 #originalDF <-  originalDF[originalDF$xPos != "c",]
 
-soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0) | (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")),]
-coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")),]
+soloDF <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" ) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" ) | (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")),]
+coDF <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall") | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" )| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")),]
 
-soloDF2 <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
-                                                    | (originalDF$Event == "Regular Red Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event =="Regular Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+# soloDF2 <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
+#                                                     | (originalDF$Event == "Regular Red Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" & originalDF$xPos < 5)| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event =="Regular Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+#                                                     |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
+# 
+# coDF2 <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
+#                                                    | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+#                                                    |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
+
+soloDF2 <- originalDF[originalDF$Condition == "s" &((originalDF$Event =="looking at View wall" ) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" )| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
+                                                    | (originalDF$Event == "Regular Red Cube(Clone) was picked up" )| (originalDF$Event == "Regular Blue Cube(Clone) was picked up" )| (originalDF$Event == "Regular Neutral Cube(Clone) was picked up")| (originalDF$Event =="Regular Gold Cube(Clone) was picked up")
                                                     |originalDF$Event == "Regular Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Regular Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Regular Gold Cube(Clone)was placed in dropzone"),]
 
-coDF2 <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" & originalDF$zPos < 0) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" &originalDF$zPos > 0)| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
-                                                   | (originalDF$Event == "Network Red Cube(Clone) was picked up" & originalDF$xPos < 1.9) | (originalDF$Event == "Network Blue Cube(Clone) was picked up"& originalDF$xPos < 5)| (originalDF$Event == "Network Neutral Cube(Clone) was picked up"& originalDF$xPos < 5) | (originalDF$Event == "Network Gold Cube(Clone) was picked up"& originalDF$xPos < 5)
+coDF2 <- originalDF[originalDF$Condition == "co" &((originalDF$Event =="looking at View wall" ) | (originalDF$Event == "looking at Play wall") | (originalDF$Event == "looking at Build wall" )| (originalDF$Event == "Game Start") | (originalDF$Event == "Game Over")
+                                                   | (originalDF$Event == "Network Red Cube(Clone) was picked up") | (originalDF$Event == "Network Blue Cube(Clone) was picked up")| (originalDF$Event == "Network Neutral Cube(Clone) was picked up") | (originalDF$Event == "Network Gold Cube(Clone) was picked up")
                                                    |originalDF$Event == "Network Red Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Blue Cube(Clone)was placed in dropzone" | originalDF$Event == "Network Neutral Cube(Clone)was placed in dropzone" |originalDF$Event == "Network Gold Cube(Clone)was placed in dropzone"),]
 
 soloDF2$Event[soloDF2$Event == "Regular Red Cube(Clone) was picked up"] <- 'cube picked up'
@@ -99,8 +107,8 @@ xFull <- originalDF[,9]
 yFull <- originalDF[,10]
 zFull <- originalDF[ ,11]
 
-plot3d(xSolo, ySolo, zSolo)
-#plot3d(xCo, yCo, zCo)
+#plot3d(xSolo, ySolo, zSolo)
+plot3d(xCo, yCo, zCo)
 #plot3d(xFull, yFull, zFull)
 
 

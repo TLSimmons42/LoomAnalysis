@@ -591,7 +591,7 @@ for (i in 2:nrow(PerceptionActionDF))
   #PACmoveDF[PACmoveDF$TrialEvent == "PACmove"] <- "blue"
   #PACmoveDF[PACmoveDF$TrialEvent == "PACstay"] <- "red"
   
-  #plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16, col = PACmoveDF$TrialEvent)
+  plot(PACmoveDF$Trial,PACmoveDF$Time,pch=16)
   
   
   
