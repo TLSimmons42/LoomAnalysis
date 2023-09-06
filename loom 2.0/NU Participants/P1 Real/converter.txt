@@ -1,0 +1,24 @@
+import pyxdf
+import csv
+
+# Specify the input and output file paths
+input_file = "C:/Users/ReGame-XR Lab/Desktop/Data/Loom 2.0/Loom 2.0/P1 Real/P1.xdf"
+#input_file = "C:/Unreal Projects/recordings/loomtest1.xdf"
+output_file = "C:/Users/ReGame-XR Lab/Desktop/Data/Loom 2.0/Loom 2.0/P1 Real/loomtest1.csv"
+
+# Load the .xdf file using pyxdf library
+xdf_data, _ = pyxdf.load_xdf(input_file)
+
+    # Open the output .txt file
+with open(output_file, 'w') as f_out:
+    
+    f_out.write("TimeStamp,participant,Condition,Tiral,Age,Gender,SessionTime,Event, eyePosX, eyePosY, eyePosZ, headPosX, HeadPosY, HeadPosZ, HeadRotX, HeadRotY, HeadRotZ, HandPosX, HandPosY, HandPosZ, HandRotX, HandRotY, HandRotZ, currentGazeTarget, EnvironmentGazeTarget, Handedness, RightPupil, LeftPupil, Group\n")
+        # Loop through all the streams in the .xdf file
+    for stream in xdf_data:
+
+    
+
+        # Loop through all the samples in the stream and write them to the output .txt file
+        for sample in stream['time_series']:
+            f_out.write(sample[0] + "\n")
+            
