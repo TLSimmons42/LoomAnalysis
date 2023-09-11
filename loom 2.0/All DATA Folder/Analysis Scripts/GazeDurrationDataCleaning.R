@@ -7,7 +7,7 @@ library(bit64)
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = "sdP")
+data_files <- list.files(pattern = "P9_old5")
 data_files[]
 
 gazeDurrationTimes <- data.frame(Time = numeric(),
