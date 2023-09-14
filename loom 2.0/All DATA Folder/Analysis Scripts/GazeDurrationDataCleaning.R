@@ -7,7 +7,7 @@ library(bit64)
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = "P9_old5")
+data_files <- list.files(pattern = "sdP10_old4")
 data_files[]
 
 gazeDurrationTimes <- data.frame(Time = numeric(),
@@ -59,6 +59,8 @@ for(f in 1:length(data_files))
   #shortDF <- df[(df$CurrentGazeArea == "play_wall" |df$CurrentGazeArea == "background_wall" | df$CurrentGazeArea == "view_wall"| df$CurrentGazeArea == "build_wall"), ]
   
   df$EyePos_X <- as.numeric(df$EyePos_X)
+  df$EyePos_Y <- as.numeric(df$EyePos_Y)
+  df$EyePos_Z <- as.numeric(df$EyePos_Z)
   #shortDF <- df[(df$CurrentGazeArea == "play_wall" & df$EyePos_X > (0)),]
   trimedDF <- df %>% filter((round(EyePos_X, 2) > -5 & CurrentGazeArea == "play_wall" & round(EyePos_X, 2) < 2.5 ) | CurrentGazeArea == "build_wall"| CurrentGazeArea == "view_wall" | CurrentGazeArea == "background_wall")
   

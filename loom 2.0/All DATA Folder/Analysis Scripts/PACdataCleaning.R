@@ -5,7 +5,24 @@ library(bit64)
 
 
 
-data_files <- list.files(pattern = "sdP8_old1")
+data_files <- list.files(pattern = "P10")
+
+PACdf <- data.frame(Time = numeric(),
+                   Participant = factor(),
+                   Condition = factor(),
+                   Trial = numeric(),
+                   grabPACcount = numeric(),
+                   avgGrabPAC = numeric(),
+                   stringsAsFactors = FALSE)
+
+individualPACdf <- data.frame(Time = numeric(),
+                    Participant = factor(),
+                    Condition = factor(),
+                    Trial = numeric(),
+                    PACtype = factor(),
+                    PACtime = numeric(),
+                    stringsAsFactors = FALSE)
+
 
 for(f in 1:length(data_files))
 {
@@ -19,11 +36,30 @@ for(f in 1:length(data_files))
   # Find all of the Picked events
   trimedGrabDF <- df[grep("picked", df$Event), ]
   trimedGrabDF <- trimedGrabDF %>% filter(CurrentGazeArea == "play_wall")
+  trimedGrabDF <- trimedGrabDF %>% filter(!grepl("by", Event))
+ 
+  #trimedGrabDF <- trimedGrabDF %>% filter(grepl("Red", Event))
+  
+  
+  grabPACcount <- 0
+  placePACcount <- 0
+  
+  totalGrabPAC <- 0
+  totalPlacePAC <- 0
+  
+  avgGrabPAC <- 0
+  avgPlacePAC <- 0
+  
+  
   
   for(i in 1:length(trimedGrabDF))
   {
     currentTime <- trimedGrabDF[i,1]
     subDF <- df %>% filter(Time < (10000000+currentTime) & Time > (currentTime-10000000) )
+    
+    Participant <- trimedGrabDF[2,2]
+    Condition <- trimedGrabDF[8,8]
+    Trial <- trimedGrabDF[9,9]
     
     
     input_string <- trimedGrabDF[i,10]
@@ -35,18 +71,37 @@ for(f in 1:length(data_files))
     result <- substr(input_string, 1, pos - 1)
     
     # Print the result
-    print(result)
 
-    
+
     first_instance <- which(subDF$CurrentGazeTarget == result)[1]
-    first_instance_row <- subDF[first_instance, ]
-    print((currentTime - first_instance_row[1,1])/10000)
     
-    
+    if (!is.na(first_instance)) {
+      first_instance_row <- subDF[first_instance, ]
+      if((currentTime - first_instance_row[1,1])/10000 > 0)
+      {
+        grabPACcount <- grabPACcount + 1
+        totalGrabPAC <- totalGrabPAC + (currentTime - first_instance_row[1,1])/10000
+        
+        PACtype <- "grab"
+        PACtime <- (currentTime - first_instance_row[1,1])/10000
+        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime)
+        individualPACdf <- rbind(individualPACdf, newPartRow)
+        
+        
+      }
+    }
+
     
     
   }
-  
+   avgGrabPAC <- totalGrabPAC/grabPACcount
+   
+   
+
+   
+   newPartRow <- data.frame(Participant, Condition, Trial, grabPACcount, avgGrabPAC)
+   
+   PACdf <- rbind(PACdf, newPartRow)
 
 }
 
