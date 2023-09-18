@@ -2,10 +2,11 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 library(bit64)
+library(stringr)
 
 
 
-data_files <- list.files(pattern = "P12")
+data_files <- list.files(pattern = "P10_old6")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
@@ -25,6 +26,7 @@ individualPACdf <- data.frame(Time = numeric(),
                     PACtime = numeric(),
                     PACstartTime = numeric(),
                     PACendTime = numeric(),
+                    Event = factor(),
                     stringsAsFactors = FALSE)
 
 
@@ -42,10 +44,34 @@ for(f in 1:length(data_files))
   trimedGrabDF <- trimedGrabDF %>% filter(CurrentGazeArea == "play_wall")
   trimedGrabDF <- trimedGrabDF %>% filter(!grepl("by", Event))
   
+  trimedP2GrabDF <- df[grep("picked", df$Event), ]
+  trimedP2GrabDF <- trimedP2GrabDF %>% filter(grepl("P2", Event))
+  
+  
   trimedPlaceDF <- df[grep("placed", df$Event), ]
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("HB", Event))
   trimedPlaceDF <- trimedPlaceDF[!duplicated(trimedPlaceDF$Event), ]
+  
+  for(b in 1:length(trimedP2GrabDF))
+  {
+    input_string <- trimedP2GrabDF[b,10]
+    
+    # Find the position of " was picked up"
+    pos <- regexpr(" was picked up by P2", input_string)
+    
+    # Extract the substring before the target text
+    result <- substr(input_string, 1, pos - 1)
+    result <- paste(result, "was", sep = "")
+    result <- gsub("(Clone)", "Clone", result)
+    
+    print(result)
+    
+    trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
+    
+  }
+  
+  
   
  
   #trimedGrabDF <- trimedGrabDF %>% filter(grepl("Red", Event))
@@ -68,7 +94,7 @@ for(f in 1:length(data_files))
   for(i in 1:length(trimedGrabDF))
   {
     currentTime <- trimedGrabDF[i,1]
-    subDF <- df %>% filter(Time < (10000000+currentTime) & Time > (currentTime-10000000) )
+    subDF <- df %>% filter(Time < (20000000+currentTime) & Time > (currentTime-20000000) )
     
     Participant <- trimedGrabDF[2,2]
     Condition <- trimedGrabDF[8,8]
@@ -78,7 +104,7 @@ for(f in 1:length(data_files))
     input_string <- trimedGrabDF[i,10]
     
     # Find the position of " was picked up"
-    pos <- regexpr(" was picked up", input_string)
+    pos <- regexpr("was picked up", input_string)
     
     # Extract the substring before the target text
     result <- substr(input_string, 1, pos - 1)
@@ -102,7 +128,7 @@ for(f in 1:length(data_files))
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
         
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime)
+        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, input_string)
         individualPACdf <- rbind(individualPACdf, newPartRow)
         
         
@@ -115,7 +141,7 @@ for(f in 1:length(data_files))
   for(i in 1:length(trimedPlaceDF))
   {
     currentTime <- trimedPlaceDF[i,1]
-    subDF1 <- df %>% filter(Time < (10000000+currentTime) & Time > (currentTime-10000000) )
+    subDF1 <- df %>% filter(Time < (20000000+currentTime) & Time > (currentTime-20000000) )
     
     Participant <- trimedPlaceDF[2,2]
     Condition <- trimedPlaceDF[8,8]
@@ -149,7 +175,7 @@ for(f in 1:length(data_files))
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
         
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime)
+        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, input_string)
         individualPACdf <- rbind(individualPACdf, newPartRow)
         
         
