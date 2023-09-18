@@ -29,8 +29,8 @@ df$condition[df$condition == "co"] <- 'Cooperative'
 soloDF <- df[df$condition == "Solo",]
 coDF <- df[df$condition == "Cooperative",]
 
-cDF <- df[df$group == "AUT",]
-eDF <- df[df$group == "Non-AUT",]
+cDF <- df[df$group == "Non-AUT",]
+eDF <- df[df$group == "AUT",]
 
 CsoloDF <- df[df$condition == "Solo" & df$group == "Non-AUT",]
 EsoloDF <- df[df$condition == "Solo" & df$group == "AUT",]
