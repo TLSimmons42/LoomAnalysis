@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "P10_old1")
+data_files <- list.files(pattern = ".csv")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
@@ -16,7 +16,21 @@ PACdf <- data.frame(Time = numeric(),
                    placePACcount = numeric(),
                    avgGrabPAC = numeric(),
                    avgPlacePAC = numeric(),
+                   grabAreaPACcount = numeric(),
+                   placeAreaPACcount = numeric(),
+                   avgGrabAreaPAC = numeric(),
+                   avgPlaceAreaPAC = numeric(),
                    stringsAsFactors = FALSE)
+
+PACAreadf <- data.frame(Time = numeric(),
+                    Participant = factor(),
+                    Condition = factor(),
+                    Trial = numeric(),
+                    grabAreaPACcount = numeric(),
+                    placeAreaPACcount = numeric(),
+                    avgGrabAreaPAC = numeric(),
+                    avgPlaceAreaPAC = numeric(),
+                    stringsAsFactors = FALSE)
 
 individualPACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
@@ -51,6 +65,11 @@ for(f in 1:length(data_files))
   df <- df[!duplicated(df$Time), ]
   df$Event <- gsub("\\(|\\)", "", df$Event)
   df$CurrentGazeTarget <- gsub("\\(|\\)", "", df$CurrentGazeTarget)
+  gameOverTime <- df[df$Event == "Game Over",]
+  df <- df %>% filter(df$Time <= gameOverTime[1,1])
+  
+  
+  
 
 
   
@@ -58,33 +77,35 @@ for(f in 1:length(data_files))
   trimedGrabDF <- df[grep("picked", df$Event), ]
   trimedGrabDF <- trimedGrabDF %>% filter(CurrentGazeArea == "play_wall")
   trimedGrabDF <- trimedGrabDF %>% filter(!grepl("by", Event))
-  
-  trimedP2GrabDF <- df[grep("picked", df$Event), ]
-  trimedP2GrabDF <- trimedP2GrabDF %>% filter(grepl("P2", Event))
-  
+
   
   trimedPlaceDF <- df[grep("placed", df$Event), ]
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("HB", Event))
   trimedPlaceDF <- trimedPlaceDF[!duplicated(trimedPlaceDF$Event), ]
-  #trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
-  print("hello1")
+  trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
   
-  for(b in 1:nrow(trimedP2GrabDF))
-  {
-    input_string <- trimedP2GrabDF[b,10]
+  
+  if(df[1,8] != "solo"){
+    trimedP2GrabDF <- df[grep("picked", df$Event), ]
+    trimedP2GrabDF <- trimedP2GrabDF %>% filter(grepl("P2", Event))
     
-    # Find the position of " was picked up"
-    pos <- regexpr(" was picked up by P2", input_string)
+    for(b in 1:nrow(trimedP2GrabDF))
+    {
+      input_string <- trimedP2GrabDF[b,10]
+      
+      # Find the position of " was picked up"
+      pos <- regexpr(" was picked up by P2", input_string)
+      
+      # Extract the substring before the target text
+      result <- substr(input_string, 1, pos - 1)
+      result <- paste(result, "was", sep = "")
+      #result <- gsub("(Clone)", "Clone", result)
+      
     
-    # Extract the substring before the target text
-    result <- substr(input_string, 1, pos - 1)
-    result <- paste(result, "was", sep = "")
-    #result <- gsub("(Clone)", "Clone", result)
-    
-
-    trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
-    
+      trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
+      
+    }
   }
   
   
@@ -95,27 +116,56 @@ for(f in 1:length(data_files))
   
   grabPACcount <- 0
   placePACcount <- 0
+  grabAreaPACcount <- 0
+  placeAreaPACcount <- 0
   
   totalGrabPAC <- 0
   totalPlacePAC <- 0
+  totalGrabAreaPAC <- 0
+  totalPlaceAreaPAC <- 0
   
   avgGrabPAC <- 0
   avgPlacePAC <- 0
+  avgGrabAreaPAC <- 0
+  avgPlaceAreaPAC <- 0
+
+  
   
   PACstartTime <- 0
   PACendTime <- 0
-  
-  print("hello2")
   
   
   for(i in 1:nrow(trimedGrabDF))
   {
     currentTime <- trimedGrabDF[i,1]
-    subDF <- df %>% filter(Time < (20000000+currentTime) & Time > (currentTime-20000000) )
+    currentGazeArea <- trimedGrabDF[i,12]
+    currentEvent <- trimedGrabDF[i,10]
+    
+    subDF <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
     
     Participant <- trimedGrabDF[2,2]
     Condition <- trimedGrabDF[8,8]
     Trial <- trimedGrabDF[9,9]
+    
+    
+    for(m in nrow(subDF):1)
+    {
+      if(subDF[m,12] != "play_wall")
+      {
+        PACtype <- "grab"
+        PACendTime <- currentTime
+        PACstartTime <- subDF[m,1]
+        PACtime <- (PACendTime - PACstartTime)/10000
+        
+        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
+        individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
+        
+        grabAreaPACcount <- grabAreaPACcount + 1
+        totalGrabAreaPAC <- totalGrabAreaPAC + PACtime
+        break
+      }
+    }
+    
     
     
     input_string <- trimedGrabDF[i,10]
@@ -167,7 +217,25 @@ for(f in 1:length(data_files))
     Condition <- trimedPlaceDF[8,8]
     Trial <- trimedPlaceDF[9,9]
     
-/
+
+    
+    for(v in nrow(subDF1):1)
+    {
+      if(subDF1[v,12] != "build_wall")
+      {
+        PACtype <- "place"
+        PACendTime <- currentTime
+        PACstartTime <- subDF1[v,1]
+        PACtime <- (PACendTime - PACstartTime)/10000
+        
+        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
+        individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
+        
+        placeAreaPACcount <- placeAreaPACcount + 1
+        totalPlaceAreaPAC <- totalPlaceAreaPAC + PACtime
+        break
+      }
+    }
     
     
     # dfLength <- length(subDF1)
@@ -222,11 +290,11 @@ for(f in 1:length(data_files))
   
    avgGrabPAC <- totalGrabPAC/grabPACcount
    avgPlacePAC <- totalPlacePAC/placePACcount
+   avgPlaceAreaPAC <- totalPlaceAreaPAC/placeAreaPACcount
+   avgGrabAreaPAC <- totalGrabAreaPAC/grabAreaPACcount
    
    
-
-   
-   newPartRow <- data.frame(Participant, Condition, Trial, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC)
+   newPartRow <- data.frame(Participant, Condition, Trial, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC)
    
    PACdf <- rbind(PACdf, newPartRow)
 
