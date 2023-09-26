@@ -91,10 +91,27 @@ for(f in 1:length(data_files))
       currentTime <- trimedGrabDF[i,1]
       currentGazeArea <- trimedGrabDF[i,12]
       currentEvent <- trimedGrabDF[i,10]
+      currentArousal <- (trimedGrabDF[i,55] + trimedGrabDF[i,56])/2
       
 
       subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
       subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
+      subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
+      subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
+      
+      
+      subDFFull <- subDFFull %>%
+        mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
+      
+      subDFFull <- subDFFull %>%
+        mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
+      
+      subDFFull <- subDFFull %>%
+        mutate(TimeEpoch = round((Time/10000000 - currentTime/10000000),1))
+      
+      
+      
+      
       
       
       Participant <- trimedGrabDF[2,2]
