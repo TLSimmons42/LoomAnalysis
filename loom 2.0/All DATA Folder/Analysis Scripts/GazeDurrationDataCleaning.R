@@ -43,7 +43,7 @@ durationEventDF <- data.frame(Participant = factor(),
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
   
   

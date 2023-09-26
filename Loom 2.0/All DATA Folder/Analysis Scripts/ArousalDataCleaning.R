@@ -5,8 +5,7 @@ library(bit64)
 library(stringr)
 
 
-
-data_files <- list.files(pattern = "P10_old6")
+data_files <- list.files(pattern = "nuP9_old3")
 
 PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
@@ -35,7 +34,7 @@ individualPACdf <- data.frame(Time = numeric(),
                               stringsAsFactors = FALSE)
 
 
-
+combined_Arousaldf <- data.frame()
 
 for(f in 1:length(data_files))
 {
@@ -63,7 +62,8 @@ for(f in 1:length(data_files))
   #trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
   
   
-  if(df[1,8] != "solo"){
+  if(df[1,8] != "solo")
+  {
     trimedP2GrabDF <- df[grep("picked", df$Event), ]
     trimedP2GrabDF <- trimedP2GrabDF %>% filter(grepl("P2", Event))
     
@@ -83,23 +83,27 @@ for(f in 1:length(data_files))
       trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
       
     }
+  }
+  combined_df <- data.frame()
+  
+  for(i in 1:nrow(trimedGrabDF))
+  {
+    trimedGrabDF <- trimedGrabDF %>% filter(LeftPupil != -1 & RightPupil != -1)
     
+    currentTime <- trimedGrabDF[i,1]
+    currentGazeArea <- trimedGrabDF[i,12]
+    currentEvent <- trimedGrabDF[i,10]
+    currentArousal <- (trimedGrabDF[i,55] + trimedGrabDF[i,56])/2
     
+    print(currentArousal)
     
-    for(i in 1:nrow(trimedGrabDF))
-    {
-      currentTime <- trimedGrabDF[i,1]
-      currentGazeArea <- trimedGrabDF[i,12]
-      currentEvent <- trimedGrabDF[i,10]
-      currentArousal <- (trimedGrabDF[i,55] + trimedGrabDF[i,56])/2
-      
 
-      subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
-      subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
-      subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
-      subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
-      
-      
+    subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+    subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
+    subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
+    subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
+    
+    if(nrow(subDFFull) != 0){
       subDFFull <- subDFFull %>%
         mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
       
@@ -109,24 +113,50 @@ for(f in 1:length(data_files))
       subDFFull <- subDFFull %>%
         mutate(TimeEpoch = round((Time/10000000 - currentTime/10000000),1))
       
+      #group_mean <- aggregate(subDFFull$PercentChange, list(subDFFull$TimeEpoch), mean)
+      
+      group_mean <- subDFFull  %>%
+        group_by(TimeEpoch) %>%
+        summarize(
+          MeanPercentChange = mean(PercentChange),
+          Meanpupil = mean(pupilAverage))
       
       
-      
-      
-      
-      Participant <- trimedGrabDF[2,2]
-      Condition <- trimedGrabDF[8,8]
-      Trial <- trimedGrabDF[9,9]
-      
-      
+      combined_df <- rbind(combined_df, group_mean)
     }
-    
-    
   }
   
+  #total_group_mean <- aggregate(combined_df$x, list(combined_df$Group.1), mean)
   
+  total_group_mean <- combined_df  %>%
+    group_by(TimeEpoch) %>%
+    summarize(
+      MeanPercentChange = mean(MeanPercentChange),
+      Meanpupil = mean(Meanpupil))
   
+  total_group_mean <- total_group_mean %>%
+    mutate(condition = trimedGrabDF$Condition[1])
+  total_group_mean <- total_group_mean %>%
+    mutate(group = trimedGrabDF$Group[1])
+  total_group_mean <- total_group_mean %>%
+    mutate(Participant = trimedGrabDF$Participant[1])
   
+    
+    
+  
+  combined_Arousaldf <- rbind(combined_Arousaldf, total_group_mean)
   
   
 }
+
+#combined_Arousaldf <- aggregate(combined_Arousaldf$x, list(combined_Arousaldf$Group.1), mean)
+
+combined_Arousaldf <- combined_Arousaldf  %>%
+       group_by(TimeEpoch, condition, Participant) %>%
+       summarize(
+             MeanPercent = mean(MeanPercentChange),
+             MeanPupilSize = mean(Meanpupil))
+
+plot(combined_Arousaldf$TimeEpoch,combined_Arousaldf$MeanPercent, col = as.factor(combined_Arousaldf$condition))
+
+

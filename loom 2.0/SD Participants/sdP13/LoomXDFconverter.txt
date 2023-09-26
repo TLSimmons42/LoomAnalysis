@@ -2,12 +2,12 @@ import pyxdf
 import csv
 
 # Specify the input and output file paths
-input_file = "C:/Users/trent/Desktop/Trent/Data/R Code/GitLoomAnalysis/LoomAnalysis/loom 2.0/sdP13/sdP13.xdf"
+input_file = "C:/Users/trent/Desktop/Trent/Data/R Code/GitLoomAnalysis/LoomAnalysis/loom 2.0/SD Participants/sdP13/sdP13.xdf"
 
 with open('loomtest1.csv', mode='w', newline='') as csv_file:
     writer = csv.writer(csv_file)
 
-output_file = "C:/Users/trent/Desktop/Trent/Data/R Code/GitLoomAnalysis/LoomAnalysis/loom 2.0/sdP13/sdP13.csv"
+output_file = "C:/Users/trent/Desktop/Trent/Data/R Code/GitLoomAnalysis/LoomAnalysis/loom 2.0/SD Participants/sdP13/sdP13.csv"
 
 # Load the .xdf file using pyxdf library
 xdf_data, _ = pyxdf.load_xdf(input_file)
