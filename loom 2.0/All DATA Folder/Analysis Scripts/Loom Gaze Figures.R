@@ -9,15 +9,17 @@ library(ez)
 library(cowplot)
 
 #dataFile <- "gazeDurationTimes 9-6.csv"
-dataFile <- "PACdf 9-20-23.csv"
+dataFile <- "gazeDurationTimes 9-27-23.csv"
 
 
 
 #df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
+df <- df %>% filter(df$Condition != "solo")
 
-ggplot(df, aes(x = Condition, y = avgPlaceAreaPAC)) +
+
+ggplot(df, aes(x = Condition, y = avgViewWAllDurration)) +
   geom_boxplot() +
   geom_jitter(width = 0.2, alpha = 0.5) +  # Add jittered points
   labs(title = "Box Plot with Individual Points for Three Conditions",
@@ -25,10 +27,10 @@ ggplot(df, aes(x = Condition, y = avgPlaceAreaPAC)) +
        y = "Value")
 
 
-data_excluded <- subset(df, Condition != "solo")
+#data_excluded <- subset(df, Condition != "solo")
 
 
-anova_result <- aov(avgPlaceAreaPAC ~ Condition, data = data_excluded)
+anova_result <- aov(avgViewWAllDurration ~ Condition, data = df)
 summary(anova_result)
   
 # gazePlot <- df%>%

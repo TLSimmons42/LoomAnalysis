@@ -5,7 +5,7 @@ library(bit64)
 library(stringr)
 
 
-data_files <- list.files(pattern = "nuP9_old3")
+data_files <- list.files(pattern = ".csv")
 
 PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
@@ -95,8 +95,7 @@ for(f in 1:length(data_files))
     currentEvent <- trimedGrabDF[i,10]
     currentArousal <- (trimedGrabDF[i,55] + trimedGrabDF[i,56])/2
     
-    print(currentArousal)
-    
+
 
     subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
     subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
@@ -157,6 +156,14 @@ combined_Arousaldf <- combined_Arousaldf  %>%
              MeanPercent = mean(MeanPercentChange),
              MeanPupilSize = mean(Meanpupil))
 
+# combined_Arousaldfmean <- combined_Arousaldf  %>%
+#   group_by(TimeEpoch, condition) %>%
+#   summarize(
+#     MeanPercent = mean(MeanPercent),
+#     MeanPupilSize = mean(MeanPupilSize))
+
+
 plot(combined_Arousaldf$TimeEpoch,combined_Arousaldf$MeanPercent, col = as.factor(combined_Arousaldf$condition))
 
+# plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = as.factor(combined_Arousaldfmean$condition))
 
