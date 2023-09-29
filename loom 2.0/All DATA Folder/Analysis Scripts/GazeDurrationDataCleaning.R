@@ -140,7 +140,6 @@ for(f in 1:length(data_files))
           lookingForPlayer = TRUE
           lookingForNewGazeDurration = FALSE
         }else{
-
           lookingForNewGazeDurration = TRUE
         }
       }
