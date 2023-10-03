@@ -6,12 +6,13 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP15.csv")
+data_files <- list.files(pattern = "nuP2_old1.csv")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
                    Condition = factor(),
                    Trial = numeric(),
+                   Group = factor(),
                    grabPACcount = numeric(),
                    placePACcount = numeric(),
                    avgGrabPAC = numeric(),
@@ -26,6 +27,7 @@ PACAreadf <- data.frame(Time = numeric(),
                     Participant = factor(),
                     Condition = factor(),
                     Trial = numeric(),
+                    Group = factor(),
                     grabAreaPACcount = numeric(),
                     placeAreaPACcount = numeric(),
                     avgGrabAreaPAC = numeric(),
@@ -36,6 +38,7 @@ individualPACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
                     Condition = factor(),
                     Trial = numeric(),
+                    Group = factor(),
                     PACtype = factor(),
                     PACtime = numeric(),
                     PACstartTime = numeric(),
@@ -47,6 +50,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
                               Participant = factor(),
                               Condition = factor(),
                               Trial = numeric(),
+                              Group = factor(),
                               PACtype = factor(),
                               PACtime = numeric(),
                               PACstartTime = numeric(),
@@ -58,7 +62,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -146,6 +150,7 @@ for(f in 1:length(data_files))
     Participant <- trimedGrabDF[2,2]
     Condition <- trimedGrabDF[8,8]
     Trial <- trimedGrabDF[9,9]
+    Group <- trimedGrabDF[7,7]
     
     
     for(m in nrow(subDF):1)
@@ -157,7 +162,7 @@ for(f in 1:length(data_files))
         PACstartTime <- subDF[m,1]
         PACtime <- (PACendTime - PACstartTime)/10000
         
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
         individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
         
         grabAreaPACcount <- grabAreaPACcount + 1
@@ -195,7 +200,7 @@ for(f in 1:length(data_files))
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
         
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, input_string)
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
         individualPACdf <- rbind(individualPACdf, newPartRow)
         
         
@@ -216,6 +221,7 @@ for(f in 1:length(data_files))
     Participant <- trimedPlaceDF[2,2]
     Condition <- trimedPlaceDF[8,8]
     Trial <- trimedPlaceDF[9,9]
+    Group <-trimedPlaceDF[7,7]
     
 
     
@@ -228,7 +234,7 @@ for(f in 1:length(data_files))
         PACstartTime <- subDF1[v,1]
         PACtime <- (PACendTime - PACstartTime)/10000
         
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
+        newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
         individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
         
         placeAreaPACcount <- placeAreaPACcount + 1
@@ -294,7 +300,7 @@ for(f in 1:length(data_files))
    avgGrabAreaPAC <- totalGrabAreaPAC/grabAreaPACcount
    
    
-   newPartRow <- data.frame(Participant, Condition, Trial, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC)
+   newPartRow <- data.frame(Participant, Condition, Trial, Group, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC)
    
    PACdf <- rbind(PACdf, newPartRow)
 

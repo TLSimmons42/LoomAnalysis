@@ -9,7 +9,8 @@ library(ez)
 library(cowplot)
 
 #dataFile <- "gazeDurationTimes 9-6.csv"
-dataFile <- "gazeDurationTimes 9-27-23.csv"
+#dataFile <- "gazeDurationTimes 9-27-23.csv"
+dataFile <- "PACdf 9-20-23.csv"
 
 
 
