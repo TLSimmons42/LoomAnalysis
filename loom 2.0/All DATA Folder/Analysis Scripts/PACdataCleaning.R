@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "nuP2_old1.csv")
+data_files <- list.files(pattern = ".csv")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
@@ -62,7 +62,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[1]
+  participantDataFile <- data_files[f]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -71,9 +71,6 @@ for(f in 1:length(data_files))
   df$CurrentGazeTarget <- gsub("\\(|\\)", "", df$CurrentGazeTarget)
   gameOverTime <- df[df$Event == "Game Over",]
   df <- df %>% filter(df$Time <= gameOverTime[1,1])
-  
-  
-  
 
 
   
@@ -170,9 +167,7 @@ for(f in 1:length(data_files))
         break
       }
     }
-    
-    
-    
+  
     input_string <- trimedGrabDF[i,10]
     
     # Find the position of " was picked up"
@@ -208,90 +203,75 @@ for(f in 1:length(data_files))
     }
 
   }
-  
-  
-  for(i in 1:nrow(trimedPlaceDF))
-  {
-    currentTime <- trimedPlaceDF[i,1]
-    currentGazeArea <- trimedPlaceDF[i,12]
-    currentEvent <- trimedPlaceDF[i,10]
-    
-    subDF1 <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
-    
-    Participant <- trimedPlaceDF[2,2]
-    Condition <- trimedPlaceDF[8,8]
-    Trial <- trimedPlaceDF[9,9]
-    Group <-trimedPlaceDF[7,7]
-    
-
-    
-    for(v in nrow(subDF1):1)
+  if(nrow(trimedPlaceDF ) != 0){
+    for(i in 1:nrow(trimedPlaceDF))
     {
-      if(subDF1[v,12] != "build_wall")
+      currentTime <- trimedPlaceDF[i,1]
+      currentGazeArea <- trimedPlaceDF[i,12]
+      currentEvent <- trimedPlaceDF[i,10]
+      
+      subDF1 <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+      
+      Participant <- trimedPlaceDF[2,2]
+      Condition <- trimedPlaceDF[8,8]
+      Trial <- trimedPlaceDF[9,9]
+      Group <-trimedPlaceDF[7,7]
+      
+  
+      
+      for(v in nrow(subDF1):1)
       {
-        PACtype <- "place"
-        PACendTime <- currentTime
-        PACstartTime <- subDF1[v,1]
-        PACtime <- (PACendTime - PACstartTime)/10000
-        
-        newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
-        individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
-        
-        placeAreaPACcount <- placeAreaPACcount + 1
-        totalPlaceAreaPAC <- totalPlaceAreaPAC + PACtime
-        break
+        if(subDF1[v,12] != "build_wall")
+        {
+          PACtype <- "place"
+          PACendTime <- currentTime
+          PACstartTime <- subDF1[v,1]
+          PACtime <- (PACendTime - PACstartTime)/10000
+          
+          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
+          individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
+          
+          placeAreaPACcount <- placeAreaPACcount + 1
+          totalPlaceAreaPAC <- totalPlaceAreaPAC + PACtime
+          break
+        }
       }
-    }
-    
-    
-    # dfLength <- length(subDF1)
-    # areaCheck <- subDF1[dfLength,12]
-    # print(areaCheck)
-    # while(areaCheck == currentGazeArea)
-    # {
-    #   dfLength <- dfLength - 1
-    #   areaCheck <- subDF1[dfLength,12]
-    #   print(dfLength)
-    #   print(subDF1[dfLength,10])
-    #   #print(areaCheck)
-    # }
-    # 
-    # print("hmmmmmmmmm")
-    
-    input_string <- trimedPlaceDF[i,10]
-    
-    # Find the position of " was picked up"
-    pos <- regexpr("was placed in dropzone", input_string)
-    
-    # Extract the substring before the target text
-    result <- substr(input_string, 1, pos - 1)
-    
-    # Print the result
-    
-    
-    first_instance <- which(subDF1$CurrentGazeTarget == "GameObject")[1]
-    
-    if (!is.na(first_instance)) {
-      first_instance_row <- subDF1[first_instance, ]
-      if((currentTime - first_instance_row[1,1])/10000 > 0)
-      {
-        placePACcount <- placePACcount + 1
-        totalPlacePAC <- totalPlacePAC + (currentTime - first_instance_row[1,1])/10000
-        
-        PACtype <- "place"
-        PACtime <- (currentTime - first_instance_row[1,1])/10000
-        
-        
-        PACstartTime <- first_instance_row[1,1]
-        PACendTime <- currentTime
-        
-        newPartRow <- data.frame(Participant, Condition, Trial, PACtype, PACtime, PACstartTime, PACendTime, input_string)
-        individualPACdf <- rbind(individualPACdf, newPartRow)
-        
-        
+      
+      
+      input_string <- trimedPlaceDF[i,10]
+      
+      # Find the position of " was picked up"
+      pos <- regexpr("was placed in dropzone", input_string)
+      
+      # Extract the substring before the target text
+      result <- substr(input_string, 1, pos - 1)
+      
+      # Print the result
+      
+      
+      first_instance <- which(subDF1$CurrentGazeTarget == "GameObject")[1]
+      
+      if (!is.na(first_instance)) {
+        first_instance_row <- subDF1[first_instance, ]
+        if((currentTime - first_instance_row[1,1])/10000 > 0)
+        {
+          placePACcount <- placePACcount + 1
+          totalPlacePAC <- totalPlacePAC + (currentTime - first_instance_row[1,1])/10000
+          
+          PACtype <- "place"
+          PACtime <- (currentTime - first_instance_row[1,1])/10000
+          
+          
+          PACstartTime <- first_instance_row[1,1]
+          PACendTime <- currentTime
+          
+          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
+          individualPACdf <- rbind(individualPACdf, newPartRow)
+          
+        }
       }
+      
     }
-    
   }
   
    avgGrabPAC <- totalGrabPAC/grabPACcount
