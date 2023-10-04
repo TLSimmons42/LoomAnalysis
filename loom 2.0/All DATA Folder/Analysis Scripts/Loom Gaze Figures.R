@@ -9,9 +9,8 @@ library(ez)
 library(cowplot)
 library(ggsci)
 
-#dataFile <- "gazeDurationTimes 9-6.csv"
-#dataFile <- "gazeDurationTimes 9-27-23.csv"
-dataFile <- "PACdf 10-3-23.csv"
+dataFile <- "gazeDurationTimes 10-4-23.csv"
+#dataFile <- "PACdf 10-3-23.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -43,12 +42,12 @@ for(i in 1:nrow(df))
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-df <- df %>% filter(!is.na(df$avgGrabPAC))
+df <- df %>% filter(!is.na(df$viewWallCounter))
   
 
 gazePlot <- df%>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgGrabPAC), sATT = sd(avgGrabPAC))%>%
+  summarise(mATT = mean(viewWallCounter), sATT = sd(viewWallCounter))%>%
   ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
@@ -64,7 +63,7 @@ gazePlot <- df%>%
 
 gazePlot
 
-twoANOVA <- aov(df$avgGrabPAC ~ factor(df$Condition) * factor(df$Group) , data = df)
+twoANOVA <- aov(df$viewWallCounter ~ factor(df$Condition) * factor(df$Group) , data = df)
 summary(twoANOVA)
   
 # gazePlot <- df%>%

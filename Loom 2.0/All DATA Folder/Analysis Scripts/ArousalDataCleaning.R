@@ -11,6 +11,7 @@ PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
                     Condition = factor(),
                     Trial = numeric(),
+                    Group = factor(),
                     grabPACcount = numeric(),
                     placePACcount = numeric(),
                     avgGrabPAC = numeric(),
@@ -26,6 +27,7 @@ individualPACdf <- data.frame(Time = numeric(),
                               Participant = factor(),
                               Condition = factor(),
                               Trial = numeric(),
+                              Group = factor(),
                               PACtype = factor(),
                               PACtime = numeric(),
                               PACstartTime = numeric(),
@@ -35,6 +37,10 @@ individualPACdf <- data.frame(Time = numeric(),
 
 
 combined_Arousaldf <- data.frame()
+rawCombined_Arousaldf <- data.frame()
+
+combined_ArousaldfPlace <- data.frame()
+rawCombined_ArousaldfPlace <- data.frame()
 
 for(f in 1:length(data_files))
 {
@@ -62,6 +68,10 @@ for(f in 1:length(data_files))
   #trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
   
   
+  combined_df <- data.frame()
+  combined_dfPlace <- data.frame()
+  
+  
   if(df[1,8] != "solo")
   {
     trimedP2GrabDF <- df[grep("picked", df$Event), ]
@@ -84,8 +94,7 @@ for(f in 1:length(data_files))
       
     }
   }
-  combined_df <- data.frame()
-  
+
   for(i in 1:nrow(trimedGrabDF))
   {
     trimedGrabDF <- trimedGrabDF %>% filter(LeftPupil != -1 & RightPupil != -1)
@@ -102,12 +111,17 @@ for(f in 1:length(data_files))
     subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
     subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
     
+    firstArousal <- (subDFFull[1,55] + subDFFull[1,56])/2
+    
+    
     if(nrow(subDFFull) != 0){
       subDFFull <- subDFFull %>%
         mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
       
       subDFFull <- subDFFull %>%
-        mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
+        #mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
+        mutate(PercentChange = (pupilAverage - firstArousal) / firstArousal * 100)
+      
       
       subDFFull <- subDFFull %>%
         mutate(TimeEpoch = round((Time/10000000 - currentTime/10000000),1))
@@ -125,6 +139,51 @@ for(f in 1:length(data_files))
     }
   }
   
+  if(nrow(trimedPlaceDF) != 0){
+    for(i in 1:nrow(trimedPlaceDF))
+    {
+      trimedPlaceDF <- trimedPlaceDF %>% filter(LeftPupil != -1 & RightPupil != -1)
+      
+      currentTime <- trimedPlaceDF[i,1]
+      currentGazeArea <- trimedPlaceDF[i,12]
+      currentEvent <- trimedPlaceDF[i,10]
+      currentArousal <- (trimedPlaceDF[i,55] + trimedPlaceDF[i,56])/2
+      
+      
+      
+      subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+      subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
+      subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
+      subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
+      
+      firstArousal <- (subDFFull[1,55] + subDFFull[1,56])/2
+      
+      
+      if(nrow(subDFFull) != 0){
+        subDFFull <- subDFFull %>%
+          mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
+        
+        subDFFull <- subDFFull %>%
+          #mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
+          mutate(PercentChange = (pupilAverage - firstArousal) / firstArousal * 100)
+        
+        
+        subDFFull <- subDFFull %>%
+          mutate(TimeEpoch = round((Time/10000000 - currentTime/10000000),1))
+        
+        #group_mean <- aggregate(subDFFull$PercentChange, list(subDFFull$TimeEpoch), mean)
+        
+        group_mean <- subDFFull  %>%
+          group_by(TimeEpoch) %>%
+          summarize(
+            MeanPercentChange = mean(PercentChange),
+            Meanpupil = mean(pupilAverage))
+        
+        
+        combined_dfPlace <- rbind(combined_dfPlace, group_mean)
+      }
+    }
+  }
   #total_group_mean <- aggregate(combined_df$x, list(combined_df$Group.1), mean)
   
   total_group_mean <- combined_df  %>%
@@ -134,36 +193,127 @@ for(f in 1:length(data_files))
       Meanpupil = mean(Meanpupil))
   
   total_group_mean <- total_group_mean %>%
-    mutate(condition = trimedGrabDF$Condition[1])
+    mutate(condition = trimedPlaceDF$Condition[1])
   total_group_mean <- total_group_mean %>%
-    mutate(group = trimedGrabDF$Group[1])
+    mutate(group = trimedPlaceDF$Group[1])
   total_group_mean <- total_group_mean %>%
-    mutate(Participant = trimedGrabDF$Participant[1])
+    mutate(Participant = trimedPlaceDF$Participant[1])
   
+  rawCombined_Arousaldf <- rbind(rawCombined_Arousaldf, total_group_mean)
+  
+  
+  if(nrow(trimedPlaceDF) != 0){
     
+    total_group_mean <- combined_dfPlace  %>%
+      group_by(TimeEpoch) %>%
+      summarize(
+        MeanPercentChange = mean(MeanPercentChange),
+        Meanpupil = mean(Meanpupil))
     
-  
-  combined_Arousaldf <- rbind(combined_Arousaldf, total_group_mean)
-  
+    total_group_mean <- total_group_mean %>%
+      mutate(condition = trimedPlaceDF$Condition[1])
+    total_group_mean <- total_group_mean %>%
+      mutate(group = trimedPlaceDF$Group[1])
+    total_group_mean <- total_group_mean %>%
+      mutate(Participant = trimedPlaceDF$Participant[1])
+    
+      
+    
+    rawCombined_ArousaldfPlace <- rbind(rawCombined_ArousaldfPlace, total_group_mean)
+  }
   
 }
 
 #combined_Arousaldf <- aggregate(combined_Arousaldf$x, list(combined_Arousaldf$Group.1), mean)
 
-combined_Arousaldf <- combined_Arousaldf  %>%
-       group_by(TimeEpoch, condition, Participant) %>%
+combined_Arousaldf <- rawCombined_Arousaldf  %>%
+       group_by(TimeEpoch, condition, Participant, group) %>%
        summarize(
              MeanPercent = mean(MeanPercentChange),
              MeanPupilSize = mean(Meanpupil))
 
-# combined_Arousaldfmean <- combined_Arousaldf  %>%
-#   group_by(TimeEpoch, condition) %>%
-#   summarize(
-#     MeanPercent = mean(MeanPercent),
-#     MeanPupilSize = mean(MeanPupilSize))
+combined_Arousaldfmean <- combined_Arousaldf  %>%
+  group_by(TimeEpoch, condition, group) %>%
+  summarize(
+    MeanPercent = mean(MeanPercent),
+    MeanPupilSize = mean(MeanPupilSize))
 
 
-plot(combined_Arousaldf$TimeEpoch,combined_Arousaldf$MeanPercent, col = as.factor(combined_Arousaldf$condition))
+for(i in 1:nrow(combined_Arousaldf))
+{
+  print(combined_Arousaldf$group[i])
+  if(combined_Arousaldf$group[i] == "1" | combined_Arousaldf$group[i] == "f" | is.na(combined_Arousaldf$group[i]))
+  {
+    combined_Arousaldf$group[i] <- "e"
+  }
+}
 
-# plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = as.factor(combined_Arousaldfmean$condition))
+combined_ArousaldfPlace <- rawCombined_ArousaldfPlace  %>%
+  group_by(TimeEpoch, condition, Participant, group) %>%
+  summarize(
+    MeanPercent = mean(MeanPercentChange),
+    MeanPupilSize = mean(Meanpupil))
+
+combined_ArousaldfmeanPlace <- combined_ArousaldfPlace  %>%
+  group_by(TimeEpoch, condition, group) %>%
+  summarize(
+    MeanPercent = mean(MeanPercent),
+    MeanPupilSize = mean(MeanPupilSize))
+
+
+for(i in 1:nrow(combined_ArousaldfPlace))
+{
+  if(combined_ArousaldfPlace$group[i] == "1" | combined_ArousaldfPlace$group[i] == "f"){
+    combined_ArousaldfPlace$group[i] <- "e"
+  }
+}
+
+
+
+combined_Arousaldfmean <- combined_Arousaldfmean %>%
+  mutate(GroupColor = ifelse(group == "e" & condition == "solo", "red",
+                             ifelse(group == "e" & condition == "co", "blue",
+                                    ifelse(group == "e" & condition == "comp", "green",
+                                           ifelse(group == "c" & condition == "solo", "yellow",
+                                                  ifelse(group == "c" & condition == "co", "orange",
+                                                         ifelse(group == "c" & condition == "comp", "purple",NA)))))))
+
+
+combined_ArousaldfmeanPlace <- combined_ArousaldfmeanPlace %>%
+  mutate(GroupColor = ifelse(group == "e" & condition == "solo", "red",
+                             ifelse(group == "e" & condition == "co", "blue",
+                                    ifelse(group == "e" & condition == "comp", "green",
+                                           ifelse(group == "c" & condition == "solo", "yellow",
+                                                  ifelse(group == "c" & condition == "co", "orange",
+                                                         ifelse(group == "c" & condition == "comp", "purple",NA)))))))
+
+
+#plot(combined_Arousaldf$TimeEpoch,combined_Arousaldf$MeanPercent, col = as.factor(combined_Arousaldf$condition))
+
+ plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = as.factor(combined_Arousaldfmean$condition))
+ plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = combined_Arousaldfmean$GroupColor)
+ 
+ plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPercent, col = combined_ArousaldfmeanPlace$GroupColor)
+ 
+ 
+ combined_ArousaldfmeanPlace <- combined_ArousaldfPlace  %>%
+   group_by(group, TimeEpoch) %>%
+   summarize(
+     MeanPercent = mean(MeanPercent),
+     MeanPupilSize = mean(MeanPupilSize))
+ 
+ plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPupilSize, col = as.factor(combined_ArousaldfmeanPlace$group))
+ 
+ 
+ 
+ combined_Arousaldfmean <- combined_Arousaldf  %>%
+   group_by(group, TimeEpoch) %>%
+   summarize(
+     MeanPercent = mean(MeanPercent),
+     MeanPupilSize = mean(MeanPupilSize))
+ 
+ plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = as.factor(combined_Arousaldfmean$group))
+ 
+ 
+ 
 

@@ -14,6 +14,7 @@ gazeDurrationTimes <- data.frame(Time = numeric(),
                                  Participant = factor(),
                                  Condition = factor(),
                                  Trial = numeric(),
+                                 Group = factor(),
                                  avgPlayWallDurration = numeric(),
                                  avgViewWAllDurration = numeric(),
                                  avgBuildWallDurration = numeric(),
@@ -32,6 +33,7 @@ gazeDurrationTimes <- data.frame(Time = numeric(),
 durationEventDF <- data.frame(Participant = factor(),
                                  Condition = factor(),
                                  Trial = numeric(),
+                                 Group = factor(),
                                  Event = factor(),
                                  viewSwitchCounter = numeric(),
                                  startTime = numeric(),
@@ -254,9 +256,10 @@ for(f in 1:length(data_files))
   Participant <- trimedDF[2,2]
   Condition <- trimedDF[8,8]
   Trial <- trimedDF[9,9]
+  Group <- trimedDF[7,7]
   
   
-  newPartRow <- data.frame(Participant, Condition, Trial, avgPlayWallDurration, avgViewWAllDurration, 
+  newPartRow <- data.frame(Participant, Condition, Trial, Group, avgPlayWallDurration, avgViewWAllDurration, 
                            avgBuildWallDurration,avgPlayerDurration, playWallCounter, viewWallCounter, buildWallCounter,playerCounter, playWallTotalTime, viewWallTotalTime, buildWallTotalTime,playerTotalTime)
   
   gazeDurrationTimes <- rbind(gazeDurrationTimes, newPartRow)
@@ -267,11 +270,12 @@ AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
   Participant <- df2[2,2]
   Condition <- df2[8,8]
   Trial <- df2[9,9]
+  Group <- df2[7,7]
   viewSwitchCounter <<- viewSwitchCounter + 1
 
   
   
-  newRow <- data.frame(Participant, Condition, Trial, Event, viewSwitchCounter, startTime, endTime, eventDuration)
+  newRow <- data.frame(Participant, Condition, Trial, Group, Event, viewSwitchCounter, startTime, endTime, eventDuration)
   durationEventDF <<- rbind(durationEventDF, newRow)
 }
 
