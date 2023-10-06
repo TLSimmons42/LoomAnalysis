@@ -5,7 +5,7 @@ library(bit64)
 library(stringr)
 
 
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "P10.csv")
 
 PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),

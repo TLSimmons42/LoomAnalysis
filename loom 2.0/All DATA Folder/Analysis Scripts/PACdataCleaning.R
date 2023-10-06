@@ -21,6 +21,14 @@ PACdf <- data.frame(Time = numeric(),
                    placeAreaPACcount = numeric(),
                    avgGrabAreaPAC = numeric(),
                    avgPlaceAreaPAC = numeric(),
+                   avgGoldCubeGrab = numeric(),
+                   totalGoldCubeGrabCount = numeric(),
+                   avgBlueCubeGrab = numeric(),
+                   totalBlueCubeGrabCount = numeric(),
+                   avgRedCubeGrab = numeric(),
+                   totalRedCubeGrabCount = numeric(),
+                   avgWhiteCubeGrab = numeric(),
+                   totalWhiteCubeGrabCount = numeric(),
                    stringsAsFactors = FALSE)
 
 PACAreadf <- data.frame(Time = numeric(),
@@ -75,12 +83,14 @@ for(f in 1:length(data_files))
 
   
   # Find all of the Picked events
-  trimedGrabDF <- df[grep("picked", df$Event), ]
+  #trimedGrabDF <- df[grep("picked", df$Event), ]
+  trimedGrabDF <- df %>% filter(grepl("picked", Event) | grepl("Player 1 hits", Event))
   trimedGrabDF <- trimedGrabDF %>% filter(CurrentGazeArea == "play_wall")
   trimedGrabDF <- trimedGrabDF %>% filter(!grepl("by", Event))
 
   
   trimedPlaceDF <- df[grep("placed", df$Event), ]
+  trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
   trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("HB", Event))
   trimedPlaceDF <- trimedPlaceDF[!duplicated(trimedPlaceDF$Event), ]
@@ -136,6 +146,27 @@ for(f in 1:length(data_files))
   PACendTime <- 0
   
   
+  avgGoldCubeGrab <- 0
+  totalGoldCubeGrabCount <- 0
+  totalGoldCubeGrabTime <- 0
+  
+  avgBlueCubeGrab <- 0
+  totalBlueCubeGrabCount <- 0
+  totalBlueCubeGrabTime <- 0
+  
+  avgRedCubeGrab <- 0
+  totalRedCubeGrabCount <- 0
+  totalRedCubeGrabTime <- 0
+  
+  avgWhiteCubeGrab <- 0
+  totalWhiteCubeGrabCount <- 0
+  totalWhiteCubeGrabTime <- 0
+  
+  
+
+  
+  
+  
   for(i in 1:nrow(trimedGrabDF))
   {
     currentTime <- trimedGrabDF[i,1]
@@ -150,6 +181,7 @@ for(f in 1:length(data_files))
     Group <- trimedGrabDF[7,7]
     
     
+
     for(m in nrow(subDF):1)
     {
       if(subDF[m,12] != "play_wall")
@@ -158,6 +190,8 @@ for(f in 1:length(data_files))
         PACendTime <- currentTime
         PACstartTime <- subDF[m,1]
         PACtime <- (PACendTime - PACstartTime)/10000
+        ColorCubeAnalysis(currentEvent, PACtime)
+        
         
         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
         individualAreaPACdf <- rbind(individualAreaPACdf, newPartRow)
@@ -191,6 +225,7 @@ for(f in 1:length(data_files))
         PACtype <- "grab"
         PACtime <- (currentTime - first_instance_row[1,1])/10000
         
+        ColorCubeAnalysis(currentEvent, PACtime)
         
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
@@ -279,12 +314,74 @@ for(f in 1:length(data_files))
    avgPlaceAreaPAC <- totalPlaceAreaPAC/placeAreaPACcount
    avgGrabAreaPAC <- totalGrabAreaPAC/grabAreaPACcount
    
+   avgGoldCubeGrab <- totalGoldCubeGrabTime/totalGoldCubeGrabCount
+   avgBlueCubeGrab <- totalBlueCubeGrabTime/totalBlueCubeGrabCount
+   avgRedCubeGrab <- totalRedCubeGrabTime/totalRedCubeGrabCount
+   avgWhiteCubeGrab <- totalWhiteCubeGrabTime/totalWhiteCubeGrabCount
+
    
-   newPartRow <- data.frame(Participant, Condition, Trial, Group, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC)
+   
+   
+   
+   
+   newPartRow <- data.frame(Participant, Condition, Trial, Group, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC,
+                            avgGoldCubeGrab, totalGoldCubeGrabCount,avgBlueCubeGrab, totalBlueCubeGrabCount, avgRedCubeGrab, totalRedCubeGrabCount, avgWhiteCubeGrab, totalWhiteCubeGrabCount)
    
    PACdf <- rbind(PACdf, newPartRow)
 
 }
+
+
+ColorCubeAnalysis <- function(colorName, eventDuration){
+  print(colorName)
+  result1 <- regexpr("Red", colorName)
+  result2 <- regexpr("Blue", colorName)
+  result3 <- regexpr("Gold", colorName)
+  result4 <- regexpr("Neutral", colorName)
+  
+  if (result1 != -1) {
+    colorName <- "Red"
+  } 
+  if (result2 != -1) {
+    colorName <- "Blue"
+  }   
+  if (result3 != -1) {
+    colorName <- "Gold"
+  }   
+  if (result4 != -1) {
+    colorName <- "White"
+  } 
+  
+  print(colorName)
+  
+  if(colorName == "Blue")
+  {
+    totalBlueCubeGrabCount <<- totalBlueCubeGrabCount + 1
+    totalBlueCubeGrabTime <<- totalBlueCubeGrabTime + eventDuration
+
+  }
+  if(colorName == "Red")
+  {
+    totalRedCubeGrabCount <<- totalRedCubeGrabCount + 1
+    totalRedCubeGrabTime <<- totalRedCubeGrabTime + eventDuration
+    
+  }
+  if(colorName == "Gold")
+  {
+    totalGoldCubeGrabCount <<- totalGoldCubeGrabCount + 1
+    totalGoldCubeGrabTime <<- totalGoldCubeGrabTime + eventDuration
+    
+  }
+  if(colorName == "White")
+  {
+    totalWhiteCubeGrabCount <<- totalWhiteCubeGrabCount + 1
+    totalWhiteCubeGrabTime <<- totalWhiteCubeGrabTime + eventDuration
+    
+  }
+  
+  
+}
+
 
 
 

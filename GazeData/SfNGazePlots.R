@@ -14,7 +14,8 @@ library(cowplot)
 #dataFile <- "AllSubjectGazeData2-25-23_OneMin.csv"
 #dataFile <- "pacMoving_2-25-23_OneMin.csv"
 
-dataFile <- "AllSubjectGazeData3-11-23_OneMin.csv"
+#dataFile <- "AllSubjectGazeData3-11-23_OneMin.csv"
+
 
 
 
