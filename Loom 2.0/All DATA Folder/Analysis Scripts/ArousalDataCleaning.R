@@ -44,7 +44,7 @@ rawCombined_ArousaldfPlace <- data.frame()
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -97,6 +97,7 @@ for(f in 1:length(data_files))
 
   for(i in 1:nrow(trimedGrabDF))
   {
+    i <- 1
     trimedGrabDF <- trimedGrabDF %>% filter(LeftPupil != -1 & RightPupil != -1)
     
     currentTime <- trimedGrabDF[i,1]

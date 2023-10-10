@@ -50,7 +50,7 @@ df <- df %>% filter(!is.na(df$avgWhiteCubeGrab))
 
 
 newDF <-df%>% group_by(Group)%>%
-  filter(Condition == "co") %>%
+  filter(Condition == "comp") %>%
   group_by(Group)%>%
   summarise(Gold = mean(avgGoldCubeGrab),
             Red = mean(avgRedCubeGrab),
@@ -87,6 +87,47 @@ gazePlot <- colorDF%>%
   theme_pubclean()+scale_fill_startrek()
 
 gazePlot
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+newDF <-df%>% group_by(Group)%>%
+  filter(Condition == "comp") %>%
+  group_by(Group)%>%
+  summarise(Gold = mean(avgGoldCubeGrab),
+            Red = mean(avgRedCubeGrab),
+            Blue = mean(avgBlueCubeGrab),
+            White = mean(avgWhiteCubeGrab),
+            gold_lower = Gold - 1.96 * sd(avgGoldCubeGrab) / sqrt(n()),
+            gold_upper = Gold + 1.96 * sd(avgGoldCubeGrab) / sqrt(n()),
+            red_lower = Red - 1.96 * sd(avgRedCubeGrab) / sqrt(n()),
+            red_upper = Red + 1.96 * sd(avgRedCubeGrab) / sqrt(n()),
+            blue_lower = Blue - 1.96 * sd(avgBlueCubeGrab) / sqrt(n()),
+            blue_upper = Blue + 1.96 * sd(avgBlueCubeGrab) / sqrt(n()),
+            white_lower = White - 1.96 * sd(avgWhiteCubeGrab) / sqrt(n()),
+            white_upper = White + 1.96 * sd(avgWhiteCubeGrab) / sqrt(n()))
+
+colorDF <- data.frame(Color =c("Gold", "Gold","White","White","Red","Red","Blue","Blue"),
+                      Means = c(newDF$Gold[1],newDF$Gold[2],newDF$White[1],newDF$White[2],newDF$Red[1],newDF$Red[2],newDF$Blue[1],newDF$Blue[2]),
+                      ci_upper = c(newDF$gold_upper[1],newDF$gold_upper[2],newDF$white_upper[1],newDF$white_upper[2],newDF$red_upper[1],newDF$red_upper[2],newDF$blue_upper[1],newDF$blue_upper[2]),
+                      ci_lower = c(newDF$gold_lower[1],newDF$gold_lower[2],newDF$white_lower[1],newDF$white_lower[2],newDF$red_lower[1],newDF$red_lower[2],newDF$blue_lower[1],newDF$blue_lower[2]),
+                      Group = c(newDF$Group[1],newDF$Group[2],newDF$Group[1],newDF$Group[2],newDF$Group[1],newDF$Group[2],newDF$Group[1],newDF$Group[2]))
+
+gazePlot <- colorDF%>%
+  group_by(Group,Color)%>%
+  ggplot(aes(Color,Means, fill = reorder(Group,Means)))+
+  geom_bar(stat = "identity", position = "dodge")+
+  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
+  #        cex= 2.5, vjust=-2)+
+  labs(title = "PAC Cube Placement Sequence",
+       subtitle = "",
+       x = "Trial Condition", y = "Time (ms)",
+       #caption = "moo",
+       fill = "")+
+  geom_errorbar(mapping = aes(ymin = ci_lower, ymax = ci_upper),
+                width = 0.2, position = position_dodge(width = 0.9))+
+  theme_pubclean()+scale_fill_startrek()
+
+gazePlot
+
 
 twoANOVA <- aov(df$avgBlueCubeGrab ~ factor(df$Condition) * factor(df$Group) , data = df)
 summary(twoANOVA)
