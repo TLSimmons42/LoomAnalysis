@@ -5,7 +5,7 @@ library(bit64)
 library(stringr)
 
 
-data_files <- list.files(pattern = "P10.csv")
+data_files <- list.files(pattern = ".csv")
 
 PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
@@ -44,7 +44,7 @@ rawCombined_ArousaldfPlace <- data.frame()
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[1]
+  participantDataFile <- data_files[f]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -225,6 +225,14 @@ for(f in 1:length(data_files))
   
 }
 
+
+# dataFile <- "combined_arousaldfmean 1-27-23.csv"
+# #dataFile <- "PACdf 10-5-23.csv"
+# 
+# 
+# df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
+# df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
 #combined_Arousaldf <- aggregate(combined_Arousaldf$x, list(combined_Arousaldf$Group.1), mean)
 
 combined_Arousaldf <- rawCombined_Arousaldf  %>%
@@ -242,11 +250,16 @@ combined_Arousaldfmean <- combined_Arousaldf  %>%
 
 for(i in 1:nrow(combined_Arousaldf))
 {
-  print(combined_Arousaldf$group[i])
+  print(combined_Arousaldf$Participant[i])
   if(combined_Arousaldf$group[i] == "1" | combined_Arousaldf$group[i] == "f" | is.na(combined_Arousaldf$group[i]))
   {
     combined_Arousaldf$group[i] <- "e"
   }
+  if(combined_Arousaldf$Participant[i] == "sdP13" & !is.na(combined_Arousaldf$Participant[i])){
+    combined_Arousaldf$group[i] <- "c"
+
+  }
+
 }
 
 combined_ArousaldfPlace <- rawCombined_ArousaldfPlace  %>%
@@ -262,11 +275,19 @@ combined_ArousaldfmeanPlace <- combined_ArousaldfPlace  %>%
     MeanPupilSize = mean(MeanPupilSize))
 
 
+
 for(i in 1:nrow(combined_ArousaldfPlace))
 {
-  if(combined_ArousaldfPlace$group[i] == "1" | combined_ArousaldfPlace$group[i] == "f"){
+  print(combined_ArousaldfPlace$Participant[i])
+  if(combined_ArousaldfPlace$group[i] == "1" | combined_ArousaldfPlace$group[i] == "f" | is.na(combined_ArousaldfPlace$group[i]))
+  {
     combined_ArousaldfPlace$group[i] <- "e"
   }
+  if(combined_ArousaldfPlace$Participant[i] == "sdP13" & !is.na(combined_ArousaldfPlace$Participant[i])){
+    combined_ArousaldfPlace$group[i] <- "c"
+    
+  }
+  
 }
 
 
@@ -303,7 +324,7 @@ combined_ArousaldfmeanPlace <- combined_ArousaldfmeanPlace %>%
      MeanPercent = mean(MeanPercent),
      MeanPupilSize = mean(MeanPupilSize))
  
- plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPupilSize, col = as.factor(combined_ArousaldfmeanPlace$group))
+ plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPercent, col = as.factor(combined_ArousaldfmeanPlace$group))
  
  
  
