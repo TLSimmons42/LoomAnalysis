@@ -281,5 +281,6 @@ AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
 
 
 
+#write.csv(df, newString, row.names = FALSE)
 
 

@@ -382,6 +382,7 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
   
 }
 
+#write.csv(df, newString, row.names = FALSE)
 
 
 

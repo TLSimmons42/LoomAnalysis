@@ -10,8 +10,8 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-dataFile <- "gazeDurationTimes 10-4-23.csv"
-#dataFile <- "PACdf 10-5-23.csv"
+#dataFile <- "gazeDurationTimes 10-24-23.csv"
+dataFile <- "PACdf 10-24-23.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -30,11 +30,11 @@ for(i in 1:nrow(df))
 #df <- df %>% filter(df$Condition != "comp")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tempdf <- df %>% filter(!is.na(df$playerCounter))
+tempdf <- df %>% filter(!is.na(df$avgPlaceAreaPAC))
 
 standardPlot <- tempdf %>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(playerCounter), sATT = sd(playerCounter),
+  summarise(mATT = mean(avgPlaceAreaPAC), sATT = sd(avgPlaceAreaPAC),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
   ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
@@ -52,7 +52,7 @@ standardPlot <- tempdf %>%
   theme_pubclean()+scale_fill_startrek()
 standardPlot
 
-twoANOVA <- aov(tempdf$avgWhiteCubeGrab ~ factor(tempdf$Condition) * factor(tempdf$Group) , data = tempdf)
+twoANOVA <- aov(tempdf$avgPlayWallDurration ~ factor(tempdf$Condition) * factor(tempdf$Group) , data = tempdf)
 summary(twoANOVA)
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
