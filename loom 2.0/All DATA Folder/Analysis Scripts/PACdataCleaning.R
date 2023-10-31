@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "sdP10")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
@@ -70,7 +70,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -172,6 +172,9 @@ for(f in 1:length(data_files))
     currentTime <- trimedGrabDF[i,1]
     currentGazeArea <- trimedGrabDF[i,12]
     currentEvent <- trimedGrabDF[i,10]
+    currentHandX <- trimedGrabDF[i,25]
+    currentHandY <- trimedGrabDF[i,26]
+    currentHandZ <- trimedGrabDF[i,27]
     
     subDF <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
     
@@ -215,10 +218,13 @@ for(f in 1:length(data_files))
 
     first_instance <- which(subDF$CurrentGazeTarget == result)[1]
     
+    
+    
     if (!is.na(first_instance)) {
       first_instance_row <- subDF[first_instance, ]
       if((currentTime - first_instance_row[1,1])/10000 > 0)
       {
+        
         grabPACcount <- grabPACcount + 1
         totalGrabPAC <- totalGrabPAC + (currentTime - first_instance_row[1,1])/10000
         
@@ -229,6 +235,17 @@ for(f in 1:length(data_files))
         
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
+        
+        endHandX <- first_instance_row[1,25]
+        endHandY <- first_instance_row[1,26]
+        endHandY <- first_instance_row[1,27]
+        distance <- sqrt((endHandX - currentHandX)^2 + (endHandY - currentHandY)^2 + (endHandY - currentHandZ)^2)
+        velocity <- distance/PACtime
+        acceleration <- velocity/PACtime
+        
+        
+        #print(distance)
+        print(acceleration)
         
         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
         individualPACdf <- rbind(individualPACdf, newPartRow)
@@ -333,7 +350,7 @@ for(f in 1:length(data_files))
 
 
 ColorCubeAnalysis <- function(colorName, eventDuration){
-  print(colorName)
+  #print(colorName)
   result1 <- regexpr("Red", colorName)
   result2 <- regexpr("Blue", colorName)
   result3 <- regexpr("Gold", colorName)
@@ -352,7 +369,7 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
     colorName <- "White"
   } 
   
-  print(colorName)
+  #print(colorName)
   
   if(colorName == "Blue")
   {

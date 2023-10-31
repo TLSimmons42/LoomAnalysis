@@ -5,7 +5,7 @@ library(bit64)
 library(stringr)
 
 
-data_files <- list.files(pattern = "P10.csv")
+data_files <- list.files(pattern = "sdP10")
 
 PACdf <- data.frame(Time = numeric(),
                     Participant = factor(),
@@ -107,6 +107,8 @@ for(f in 1:length(data_files))
 
 
     subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+    baseline <- (mean(subDFpre$RightPupil)+ mean(subDFpre$LeftPupil))/2
+    
     subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
     subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
     subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
@@ -120,7 +122,7 @@ for(f in 1:length(data_files))
       
       subDFFull <- subDFFull %>%
         #mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
-        mutate(PercentChange = (pupilAverage - firstArousal) / firstArousal * 100)
+        mutate(PercentChange = (pupilAverage - baseline) / baseline * 100)
       
       
       subDFFull <- subDFFull %>%
@@ -132,7 +134,8 @@ for(f in 1:length(data_files))
         group_by(TimeEpoch) %>%
         summarize(
           MeanPercentChange = mean(PercentChange),
-          Meanpupil = mean(pupilAverage))
+          Meanpupil = mean(pupilAverage),
+          Baseline = baseline)
       
       
       combined_df <- rbind(combined_df, group_mean)
@@ -152,21 +155,25 @@ for(f in 1:length(data_files))
       
       
       subDFpre <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+      baseline <- (mean(subDFpre$RightPupil)+ mean(subDFpre$LeftPupil))/2
+      print(baseline)
+      
       subDFpost <- df %>% filter(Time < (currentTime+20000000) & Time >= currentTime)
       subDFFull <- df %>% filter(Time < (currentTime+20000000) & Time > (currentTime-20000000))
       subDFFull <- subDFFull %>% filter(LeftPupil != -1 & RightPupil != -1)
       
       firstArousal <- (subDFFull[1,55] + subDFFull[1,56])/2
-      
-      
+
       if(nrow(subDFFull) != 0){
         subDFFull <- subDFFull %>%
           mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
         
         subDFFull <- subDFFull %>%
           #mutate(PercentChange = (pupilAverage - currentArousal) / currentArousal * 100)
-          mutate(PercentChange = (pupilAverage - firstArousal) / firstArousal * 100)
+          mutate(PercentChange = (pupilAverage - baseline) / baseline * 100)
         
+        subDFFull <- subDFFull %>%
+          mutate(pupilAverage = (RightPupil + LeftPupil) / 2)
         
         subDFFull <- subDFFull %>%
           mutate(TimeEpoch = round((Time/10000000 - currentTime/10000000),1))
@@ -177,7 +184,8 @@ for(f in 1:length(data_files))
           group_by(TimeEpoch) %>%
           summarize(
             MeanPercentChange = mean(PercentChange),
-            Meanpupil = mean(pupilAverage))
+            Meanpupil = mean(pupilAverage),
+            Baseline = baseline)
         
         
         combined_dfPlace <- rbind(combined_dfPlace, group_mean)
@@ -198,6 +206,8 @@ for(f in 1:length(data_files))
     mutate(group = trimedPlaceDF$Group[1])
   total_group_mean <- total_group_mean %>%
     mutate(Participant = trimedPlaceDF$Participant[1])
+  total_group_mean <- total_group_mean %>%
+    mutate(Baseline = baseline)
   
   rawCombined_Arousaldf <- rbind(rawCombined_Arousaldf, total_group_mean)
   
@@ -293,7 +303,7 @@ combined_ArousaldfmeanPlace <- combined_ArousaldfmeanPlace %>%
  plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = as.factor(combined_Arousaldfmean$condition))
  plot(combined_Arousaldfmean$TimeEpoch,combined_Arousaldfmean$MeanPercent, col = combined_Arousaldfmean$GroupColor)
  
- plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPercent, col = combined_ArousaldfmeanPlace$GroupColor)
+ plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPupilSize, col = combined_ArousaldfmeanPlace$GroupColor)
  
  
  combined_ArousaldfmeanPlace <- combined_ArousaldfPlace  %>%
@@ -302,7 +312,7 @@ combined_ArousaldfmeanPlace <- combined_ArousaldfmeanPlace %>%
      MeanPercent = mean(MeanPercent),
      MeanPupilSize = mean(MeanPupilSize))
  
- plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPupilSize, col = as.factor(combined_ArousaldfmeanPlace$group))
+ plot(combined_ArousaldfmeanPlace$TimeEpoch,combined_ArousaldfmeanPlace$MeanPercent, col = as.factor(combined_ArousaldfmeanPlace$group))
  
  
  
