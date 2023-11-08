@@ -236,11 +236,7 @@ for(f in 1:length(data_files))
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
         
-        endHandX <- first_instance_row[1,25]
-        endHandY <- first_instance_row[1,26]
-        endHandY <- first_instance_row[1,27]
-        distance <- sqrt((endHandX - currentHandX)^2 + (endHandY - currentHandY)^2 + (endHandY - currentHandZ)^2)
-        velocity <- distance/PACtime
+  
         acceleration <- velocity/PACtime
         
         
