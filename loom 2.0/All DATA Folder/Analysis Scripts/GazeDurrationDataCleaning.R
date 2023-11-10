@@ -36,6 +36,7 @@ durationEventDF <- data.frame(Participant = factor(),
                                  Group = factor(),
                                  Event = factor(),
                                  viewSwitchCounter = numeric(),
+                              
                                  startTime = numeric(),
                                  endTime = numeric(),
                                  eventDuration = numeric(),

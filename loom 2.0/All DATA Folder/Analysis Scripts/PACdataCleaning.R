@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP10")
+data_files <- list.files(pattern = ".csv")
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
@@ -70,7 +70,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[1]
+  participantDataFile <- data_files[f]
   print(participantDataFile)
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)

@@ -10,8 +10,8 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-#dataFile <- "gazeDurationTimes 10-24-23.csv"
-dataFile <- "PACdf 10-24-23.csv"
+dataFile <- "gazeDurationTimes 11-10-23.csv"
+#dataFile <- "PACdf 11-9-24.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -30,17 +30,22 @@ for(i in 1:nrow(df))
 #df <- df %>% filter(df$Condition != "comp")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tempdf <- df %>% filter(!is.na(df$avgPlaceAreaPAC))
+tempdf <- df %>% filter(!is.na(df$avgBuildWallDurration))
+
+#tempdf <- tempdf %>%   mutate(pointColor = ifelse(Group == "e", "orange", "purple"))
 
 standardPlot <- tempdf %>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgPlaceAreaPAC), sATT = sd(avgPlaceAreaPAC),
+  mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
+  summarise(individualPoints = avgBuildWallDurration,
+            pointColor = pointColor,
+            mATT = mean(avgBuildWallDurration), sATT = sd(avgBuildWallDurration),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
+  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,-mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
+  geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
+             position = position_dodge(width = 1.2), size = 3) +
   labs(title = "Build Wall",
        subtitle = "",
        x = "Trial Condition", y = "Time (ms)",
@@ -48,11 +53,12 @@ standardPlot <- tempdf %>%
        fill = "")+
   #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.2, position = position_dodge(width = 0.9))+
+                width = 0.2, position = position_dodge(width = 0.9), size = 1)+
   theme_pubclean()+scale_fill_startrek()
 standardPlot
 
-twoANOVA <- aov(tempdf$avgPlayWallDurration ~ factor(tempdf$Condition) * factor(tempdf$Group) , data = tempdf)
+tempdf <- tempdf %>% filter(Condition == "solo")
+twoANOVA <- aov(tempdf$avgBuildWallDurration ~ factor(tempdf$Group) , data = tempdf)
 summary(twoANOVA)
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -63,7 +69,7 @@ df <- df %>% filter(!is.na(df$avgWhiteCubeGrab))
 
 
 newDF <-df%>% group_by(Group)%>%
-  filter(Condition == "solo") %>%
+  filter(Condition == "co") %>%
   group_by(Group)%>%
   summarise(Gold = mean(avgGoldCubeGrab),
             Red = mean(avgRedCubeGrab),
