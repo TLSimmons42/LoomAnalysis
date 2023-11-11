@@ -10,13 +10,12 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-dataFile <- "gazeDurationSFNfinal.csv"
+dataFile <- "gazeTimesReal.csv"
 #dataFile <- "PACsfnREAL.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
-
 
 
 for(i in 1:nrow(df))
@@ -26,7 +25,7 @@ for(i in 1:nrow(df))
       
     df$Group[i] <- "e"
   }
-  if(df$Participant[i] == "sdP13"){
+  if(df$Participant[i] == "sdP13"| df$Participant[i] == "sdP2"){
     df$Group[i] <- "c"
 
   }
@@ -37,35 +36,39 @@ dfNonAut <- df %>% filter(df$Group != "e")
 #df <- df %>% filter(df$Condition != "comp")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tempdf <- df %>% filter(!is.na(df$avgBuildWallDurration))
+tempdf <- df %>% filter(!is.na(avgPlayerDurration))
+tempdf <- tempdf %>% filter(avgPlayerDurration > 100)
+tempdf <- tempdf %>% filter(Condition != "solo")
 #tempdf <- tempdf %>% filter(Group != "solo")
 #tempdf <- tempdf %>%   mutate(pointColor = ifelse(Group == "e", "orange", "purple"))
 
 standardPlot <- tempdf %>%
   group_by(Condition, Group)%>%
   mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
-  summarise(individualPoints = avgBuildWallDurration,
+  summarise(individualPoints = avgPlayerDurration,
             pointColor = pointColor,
-            mATT = mean(avgBuildWallDurration), sATT = sd(avgBuildWallDurration),
+            mATT = mean(avgPlayerDurration), sATT = sd(avgPlayerDurration),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
+  ggplot(aes(Condition,mATT, fill = reorder(Group,-mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
              position = position_dodge(width = 1.2), size = 3) +
-  labs(title = "Build Wall",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
+  labs(title = "Partner Gaze Duration",
+       x = "", y = "Time (ms)",
        #caption = "moo",
        fill = "")+
   #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
                 width = 0.2, position = position_dodge(width = 0.9), size = 1)+
   theme_pubclean()+scale_fill_startrek()
+
+#standardPlot <- standardPlot + scale_y_continuous(limits = c(0, 1750))
 standardPlot
+standardPlot+ theme(legend.position = "none")
 
 tempdf <- tempdf %>% filter(Condition == "solo")
-twoANOVA <- aov(tempdf$avgGoldCubeGrab ~ factor(tempdf$Group) , data = tempdf)
+twoANOVA <- aov(tempdf$avgPlayWallDurration ~ factor(tempdf$Group) , data = tempdf)
 summary(twoANOVA)
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -160,92 +163,112 @@ gazePlot
 twoANOVA <- aov(newDF$avgWhiteCubeGrab ~ factor(newDF$Group) , data = newDF)
 summary(twoANOVA)
 #-------------------------------------------------------------------------------------------------------------------- 
-dfBlue <- df %>% filter(!is.na(df$avgBlueCubeGrab))
+dfBlue <- df %>% mutate(newBlue = ifelse(is.na(df$avgBlueCubeGrab),avgRedCubeGrab,avgBlueCubeGrab))
+dfBlue <- dfBlue %>% filter(Condition == "solo")
+twoANOVA <- aov(dfBlue$newBlue ~ factor(dfBlue$Group) , data = dfBlue)
+summary(twoANOVA)
+
+dfWhite <- df %>% filter(!is.na(df$avgWhiteCubeGrab))
+dfWhite <- dfWhite %>% filter(Condition == "comp")
+twoANOVA <- aov(dfWhite$avgWhiteCubeGrab ~ factor(dfWhite$Group) , data = dfWhite)
+summary(twoANOVA)
+
+dfGold <- df %>% filter(!is.na(df$avgGoldCubeGrab))
+dfGold <- dfGold %>% filter(Condition == "solo")
+twoANOVA <- aov(dfGold$avgGoldCubeGrab ~ factor(dfGold$Group) , data = dfGold)
+summary(twoANOVA)
+
+
+# dfBlue <- df %>% filter(!is.na(df$avgBlueCubeGrab))
 dfRed <- df %>% filter(!is.na(df$avgRedCubeGrab))
 dfGold <- df %>% filter(!is.na(df$avgGoldCubeGrab))
 dfWhite <- df %>% filter(!is.na(df$avgWhiteCubeGrab))
 
+dfBlue <- df %>% mutate(newBlue = ifelse(is.na(df$avgBlueCubeGrab),avgRedCubeGrab,avgBlueCubeGrab))
 
-bluePACplot <- dfBlue%>%
+
+
+bluePACplot <- dfBlue %>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgBlueCubeGrab), sATT = sd(avgBlueCubeGrab),
+  mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
+  summarise(pointColor = pointColor,
+            newPoints = (newBlue + avgRedCubeGrab)/2,
+            individualPoints = newPoints,
+            mATT = mean(newPoints), sATT = sd(newPoints),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
+  ggplot(aes(Condition,mATT, fill = reorder(Group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
-  labs(title = "Blue Grab",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
+  geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
+             position = position_dodge(width = 1.2), size = 2) +
+  labs(title = "Blue and Red Cube Grab Times",
+       x = "", y = "",
        #caption = "moo",
        fill = "")+
   #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.2, position = position_dodge(width = 0.9))+
+                width = 0.2, position = position_dodge(width = 0.9), size = 1)+
   theme_pubclean()+scale_fill_startrek()
+
+bluePACplot <- bluePACplot + scale_y_continuous(limits = c(0, 1500))+ theme(legend.position = "none")
 
 bluePACplot
 
-redPACplot <- dfRed%>%
+
+
+
+whitePACplot <- dfWhite %>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgRedCubeGrab), sATT = sd(avgRedCubeGrab),
+  mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
+  summarise(individualPoints = avgWhiteCubeGrab,
+            pointColor = pointColor,
+            mATT = mean(avgWhiteCubeGrab), sATT = sd(avgWhiteCubeGrab),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
+  ggplot(aes(Condition,mATT, fill = reorder(Group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
-  labs(title = "Red Grab",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
+  geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
+             position = position_dodge(width = 1.2), size = 2) +
+  labs(title = "White Cube Grab Times",
+       x = "", y = "",
        #caption = "moo",
        fill = "")+
   #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.2, position = position_dodge(width = 0.9))+
+                width = 0.2, position = position_dodge(width = 0.9), size = 1)+
   theme_pubclean()+scale_fill_startrek()
 
-redPACplot
+whitePACplot <- whitePACplot + scale_y_continuous(limits = c(0, 1500))+ theme(legend.position = "none")
 
-whitePACplot <- dfWhite%>%
+whitePACplot
+
+
+goldPACplot <- dfGold %>%
   group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgWhiteCubeGrab), sATT = sd(avgWhiteCubeGrab),
+  mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
+  summarise(individualPoints = avgGoldCubeGrab,
+            pointColor = pointColor,
+            mATT = mean(avgGoldCubeGrab), sATT = sd(avgGoldCubeGrab),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
+  ggplot(aes(Condition,mATT, fill = reorder(Group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
-  labs(title = "White Grab",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
+  geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
+             position = position_dodge(width = 1.2), size = 2) +
+  labs(title = "Gold Cube Grab Times",
+       x = "", y = "Time (ms)",
        #caption = "moo",
        fill = "")+
   #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.2, position = position_dodge(width = 0.9))+
+                width = 0.2, position = position_dodge(width = 0.9), size = 1)+
   theme_pubclean()+scale_fill_startrek()
 
-goldPACplot <- dfGold%>%
-  group_by(Condition, Group)%>%
-  summarise(mATT = mean(avgGoldCubeGrab), sATT = sd(avgGoldCubeGrab),
-            CI_lower = mATT - 1.96 * sATT / sqrt(n()),
-            CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
-  geom_bar(stat = "identity", position = "dodge")+
-  #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
-  #        cex= 2.5, vjust=-2)+
-  labs(title = "Gold Grab",
-       subtitle = "",
-       x = "Trial Condition", y = "Time (ms)",
-       #caption = "moo",
-       fill = "")+
-  #scale_y_continuous(limits = c(0, 1000))+  # Set y-axis limits
-  geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.2, position = position_dodge(width = 0.9))+
-  theme_pubclean()+scale_fill_startrek()
+goldPACplot <- goldPACplot + scale_y_continuous(limits = c(0, 1500))+ theme(legend.position = "none")
 
-combined_plot <- plot_grid(goldPACplot, bluePACplot, redPACplot, whitePACplot, nrow = 1, ncol = 4)
+goldPACplot
+
+
+combined_plot <- plot_grid(goldPACplot, bluePACplot, whitePACplot, nrow = 1, ncol = 3)
 
 combined_plot

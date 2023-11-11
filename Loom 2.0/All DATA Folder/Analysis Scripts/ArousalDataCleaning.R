@@ -219,26 +219,26 @@ for(f in 1:length(data_files))
   
   rawCombined_Arousaldf <- rbind(rawCombined_Arousaldf, total_group_mean)
   
-  # 
-  # if(nrow(trimedPlaceDF) != 0){
-  #   
-  #   total_group_mean <- combined_dfPlace  %>%
-  #     group_by(TimeEpoch) %>%
-  #     summarize(
-  #       MeanPercentChange = mean(MeanPercentChange),
-  #       Meanpupil = mean(Meanpupil))
-  #   
-  #   total_group_mean <- total_group_mean %>%
-  #     mutate(condition = trimedPlaceDF$Condition[1])
-  #   total_group_mean <- total_group_mean %>%
-  #     mutate(group = trimedPlaceDF$Group[1])
-  #   total_group_mean <- total_group_mean %>%
-  #     mutate(Participant = trimedPlaceDF$Participant[1])
-  #   
-  #     
-  #   
-  #   rawCombined_ArousaldfPlace <- rbind(rawCombined_ArousaldfPlace, total_group_mean)
-  # }
+
+  if(nrow(trimedPlaceDF) != 0){
+
+    total_group_mean <- combined_dfPlace  %>%
+      group_by(TimeEpoch) %>%
+      summarize(
+        MeanPercentChange = mean(MeanPercentChange),
+        Meanpupil = mean(Meanpupil))
+
+    total_group_mean <- total_group_mean %>%
+      mutate(condition = trimedPlaceDF$Condition[1])
+    total_group_mean <- total_group_mean %>%
+      mutate(group = trimedPlaceDF$Group[1])
+    total_group_mean <- total_group_mean %>%
+      mutate(Participant = trimedPlaceDF$Participant[1])
+
+
+
+    rawCombined_ArousaldfPlace <- rbind(rawCombined_ArousaldfPlace, total_group_mean)
+  }
   
 }
 

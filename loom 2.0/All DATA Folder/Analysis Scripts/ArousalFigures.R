@@ -13,9 +13,9 @@ library(gridExtra)
 
 
 # grabDataFile <- "grabArousalSFNreal2.csv"
-grabDataFile <- "testgrab.csv"
+grabDataFile <- "grabArousalReal.csv"
 
-placeDataFile <- "placeArousalSFNreal2.csv"
+placeDataFile <- "placeArousalReal.csv"
 
 
 

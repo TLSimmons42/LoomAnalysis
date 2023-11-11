@@ -36,7 +36,6 @@ durationEventDF <- data.frame(Participant = factor(),
                                  Group = factor(),
                                  Event = factor(),
                                  viewSwitchCounter = numeric(),
-                              
                                  startTime = numeric(),
                                  endTime = numeric(),
                                  eventDuration = numeric(),
@@ -224,9 +223,10 @@ for(f in 1:length(data_files))
          if(durationCounter > 1){
            playerCounter <- playerCounter + 1
            newTime <- currentTime - firstRowTime
-           playerTotalTime <- playerTotalTime + newTime
-           AddRow(firstRowTime, currentTime, newTime, viewSwitchCounter,"Partner", durationEventDF, trimedDF)
-           
+           if(newTime/10000 > 100){
+             playerTotalTime <- playerTotalTime + newTime
+             AddRow(firstRowTime, currentTime, newTime, viewSwitchCounter,"Partner", durationEventDF, trimedDF)
+           }
            
          }
          durationCounter <- 0
