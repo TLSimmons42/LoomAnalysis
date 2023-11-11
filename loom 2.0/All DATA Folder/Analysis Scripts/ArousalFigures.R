@@ -12,8 +12,11 @@ library(gridExtra)
 
 
 
-grabDataFile <- "grabDF.csv"
-placeDataFile <- "placeDF.csv"
+# grabDataFile <- "grabArousalSFNreal2.csv"
+grabDataFile <- "testgrab.csv"
+
+placeDataFile <- "placeArousalSFNreal2.csv"
+
 
 
 dfGrab <- read.csv(grabDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -21,24 +24,6 @@ dfPlace <- read.csv(placeDataFile, colClasses=c("Time" = "integer64"), header = 
 
 dfGrab <- dfGrab %>% filter(!is.na(dfGrab$Participant) | !dfGrab$Participant == "sdP18")
 dfPlace <- dfPlace %>% filter(!is.na(dfPlace$Participant) | !dfPlace$Participant == "sdP18")
-
-
-
-
-dfGrab$condition <- str_replace(dfGrab$condition , "solo", "Solo")
-dfGrab$condition <- str_replace(dfGrab$condition , "co", "Cooperative")
-dfGrab$condition <- str_replace(dfGrab$condition , "comp", "Competitive")
-dfGrab$group <- str_replace(dfGrab$group , "e", "Autistic")
-dfGrab$group <- str_replace(dfGrab$group , "c", "Non-Autistic")
-
-
-
-dfPlace$condition <- str_replace(dfPlace$condition , "solo", "Solo")
-dfPlace$condition <- str_replace(dfPlace$condition , "co", "Cooperative")
-dfPlace$condition <- str_replace(dfPlace$condition , "comp", "Competitive")
-dfPlace$group <- str_replace(dfPlace$group , "e", "Autistic")
-dfPlace$group <- str_replace(dfPlace$group , "c", "Non-Autistic")
-
 
 
 for(i in 1:nrow(dfGrab))
@@ -76,6 +61,20 @@ dfGrab <- dfGrab %>%
   mutate(group = ifelse(group == "e", "Autistic", group))
 dfGrab <- dfGrab %>%
   mutate(group = ifelse(group == "c", "Non-Autistic", group))
+
+
+
+dfPlace <- dfPlace %>%
+  mutate(condition = ifelse(condition == "solo", "Solo", condition))
+dfPlace <- dfPlace %>%
+  mutate(condition = ifelse(condition == "co", "Cooperative", condition))
+dfPlace <- dfPlace %>%
+  mutate(condition = ifelse(condition == "comp", "Competitive", condition))
+dfPlace <- dfPlace %>%
+  mutate(group = ifelse(group == "e", "Autistic", group))
+dfPlace <- dfPlace %>%
+  mutate(group = ifelse(group == "c", "Non-Autistic", group))
+
 
 
 
@@ -171,6 +170,7 @@ placeDFmean <- dfPlace  %>%
 #                                                          ifelse(group == "c" & condition == "comp", "c-comp",NA)))))))
 
 
+
 p <- ggplot(placeDFmean, aes(x=TimeEpoch, y=MeanPercent,  color=group)) + 
   geom_line() +
   geom_point()+
@@ -179,10 +179,16 @@ p <- ggplot(placeDFmean, aes(x=TimeEpoch, y=MeanPercent,  color=group)) +
   labs(
     #title = ,
     x = "Time Since Cube Place Event (s)",
-    y = "Pupil Response (% Change)"
+    y = "Pupil Response (% Change)",
+    color = "Group"
   )+
-  facet_wrap(~ condition)
-  #+theme_pubclean()+scale_fill_startrek()
+  facet_wrap(~ condition)+
+  theme(strip.text = element_text(face = "bold"), 
+        strip.background = element_rect(fill = "gray", color = "black"))+
+  theme_bw()
+
+#+theme_pubclean()+scale_fill_startrek()
+
 print(p)
 
 

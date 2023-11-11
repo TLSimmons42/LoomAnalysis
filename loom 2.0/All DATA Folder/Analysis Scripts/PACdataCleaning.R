@@ -8,6 +8,11 @@ library(stringr)
 
 data_files <- list.files(pattern = ".csv")
 
+strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
+data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
+
+ 
+
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
                    Condition = factor(),
@@ -29,6 +34,8 @@ PACdf <- data.frame(Time = numeric(),
                    totalRedCubeGrabCount = numeric(),
                    avgWhiteCubeGrab = numeric(),
                    totalWhiteCubeGrabCount = numeric(),
+                   grab2PlaceTime = numeric(),
+                   grab2PlaceCount = numeric(),
                    stringsAsFactors = FALSE)
 
 PACAreadf <- data.frame(Time = numeric(),
@@ -68,10 +75,13 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
 
 
+
 for(f in 1:length(data_files))
 {
   participantDataFile <- data_files[f]
   print(participantDataFile)
+  
+
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- df[!duplicated(df$Time), ]
@@ -87,6 +97,8 @@ for(f in 1:length(data_files))
   trimedGrabDF <- df %>% filter(grepl("picked", Event) | grepl("Player 1 hits", Event))
   trimedGrabDF <- trimedGrabDF %>% filter(CurrentGazeArea == "play_wall")
   trimedGrabDF <- trimedGrabDF %>% filter(!grepl("by", Event))
+  trimedGrabDF <- trimedGrabDF %>% filter(!grepl("HB", Event))
+  
 
   
   trimedPlaceDF <- df[grep("placed", df$Event), ]
@@ -114,7 +126,7 @@ for(f in 1:length(data_files))
       #result <- gsub("(Clone)", "Clone", result)
       
     
-      trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
+      #trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl(result, Event))
       
     }
   }
@@ -124,6 +136,7 @@ for(f in 1:length(data_files))
  
   #trimedGrabDF <- trimedGrabDF %>% filter(grepl("Red", Event))
   
+  SequenceOrder <- 0
   
   grabPACcount <- 0
   placePACcount <- 0
@@ -237,11 +250,11 @@ for(f in 1:length(data_files))
         PACendTime <- currentTime
         
   
-        acceleration <- velocity/PACtime
+        #acceleration <- velocity/PACtime
         
         
         #print(distance)
-        print(acceleration)
+        #print(acceleration)
         
         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
         individualPACdf <- rbind(individualPACdf, newPartRow)
@@ -334,11 +347,35 @@ for(f in 1:length(data_files))
 
    
    
+   individualGrab2Placedf <- data.frame(SequenceOrder = numeric(),
+                                        Participant = factor(),
+                                        Condition = factor(),
+                                        Trial = numeric(),
+                                        Group = factor(),
+                                        GrabTime = numeric(),
+                                        PlaceTime = numeric(),
+                                        GrabEvent = factor(),
+                                        PlaceEvent = factor(),
+                                        stringsAsFactors = FALSE)
    
+   Grab2PlaceAnalysis(trimedGrabDF, trimedPlaceDF)
+   grab2PlaceCount <- nrow(individualGrab2Placedf)
+   totalGrab2PlaceTime <- 0
    
+   for (b in 1:nrow(individualGrab2Placedf)) {
+     place <- individualGrab2Placedf$PlaceTime[b]/ 10000
+     grab <- individualGrab2Placedf$GrabTime[b]/ 10000
+     
+     if((place - grab)> 0){
+       
+     
+      totalGrab2PlaceTime <- totalGrab2PlaceTime + (place - grab)
+     }
+   }
+   grab2PlaceTime <- totalGrab2PlaceTime/grab2PlaceCount
    
    newPartRow <- data.frame(Participant, Condition, Trial, Group, grabPACcount,placePACcount, avgGrabPAC, avgPlacePAC, grabAreaPACcount, placeAreaPACcount, avgGrabAreaPAC, avgPlaceAreaPAC,
-                            avgGoldCubeGrab, totalGoldCubeGrabCount,avgBlueCubeGrab, totalBlueCubeGrabCount, avgRedCubeGrab, totalRedCubeGrabCount, avgWhiteCubeGrab, totalWhiteCubeGrabCount)
+                            avgGoldCubeGrab, totalGoldCubeGrabCount,avgBlueCubeGrab, totalBlueCubeGrabCount, avgRedCubeGrab, totalRedCubeGrabCount, avgWhiteCubeGrab, totalWhiteCubeGrabCount, grab2PlaceTime, grab2PlaceCount)
    
    PACdf <- rbind(PACdf, newPartRow)
 
@@ -395,7 +432,66 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
   
 }
 
+
+
+
+
+#Grab2PlaceAnalysis(trimedGrabDF, trimedPlaceDF)
+
+Grab2PlaceAnalysis <- function(grabDF, placeDF){
+  Participant <- grabDF[2,2]
+  Condition <- grabDF[8,8]
+  Trial <- grabDF[9,9]
+  Group <- grabDF[7,7]
+  if(nrow(placeDF)== 0 | nrow(grabDF) == 0){
+    
+  }else{
+  
+    for(i in 1:nrow(grabDF))
+    {
+      currentEvent <- grabDF[i,10]
+      # print(currentEvent)
+  
+      # Your string
+      input_string <- currentEvent
+      
+      result <- str_extract(input_string, "CubeClone(\\d+)\\swas")
+      #print(result)
+      # Extracted number
+      if (!is.na(result)) {
+        extracted_Grabnumber <- str_match(result, "CubeClone(\\d+)\\swas")[, 2]
+        #print(extracted_Grabnumber)
+        for(f in 1:nrow(placeDF))
+        {
+          currentPlaceEvent <- placeDF[f,10]
+          # print(currentPlaceEvent)
+          
+          input_string <- currentPlaceEvent
+          
+          result <- str_extract(input_string, "CubeClone(\\d+)\\was")
+          #print(result)
+          if (!is.na(result)){
+            extracted_number <- str_match(result, "CubeClone(\\d+)\\was")[, 2]
+            # print(extracted_number)
+            if(extracted_number == extracted_Grabnumber){
+              SequenceOrder <<- SequenceOrder + 1
+              
+              GrabTime <- grabDF[i,1]
+              PlaceTime <- placeDF[f,1]
+              GrabEvent <- currentEvent
+              PlaceEvent <- currentPlaceEvent
+              newRow <- data.frame(SequenceOrder, Participant, Condition, Trial, Group, GrabTime,PlaceTime, GrabEvent, PlaceEvent)
+              individualGrab2Placedf <<- rbind(individualGrab2Placedf, newRow)
+              break
+            }
+          }else{}
+        }
+      } else{}
+    }
+  }
+}
+
 #write.csv(df, newString, row.names = FALSE)
 
 
-
+individualGrab2Placedf <- individualGrab2Placedf  %>% mutate(EventTime = (PlaceTime/ 10000) - (GrabTime/ 10000))

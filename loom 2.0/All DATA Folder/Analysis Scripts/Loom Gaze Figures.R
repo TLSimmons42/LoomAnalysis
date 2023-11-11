@@ -10,16 +10,20 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-dataFile <- "gazeDurationTimes 11-10-23.csv"
-#dataFile <- "PACdf 11-9-24.csv"
+dataFile <- "gazeDurationSFNfinal.csv"
+#dataFile <- "PACsfnREAL.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
+
+
 for(i in 1:nrow(df))
 {
+  #if(df$Group[i] == "1" | df$Group[i] == "f"| is.na(df$Group[i]) | df$Participant[i] == "nuP20"| df$Participant[i] == "nuP17"){
   if(df$Group[i] == "1" | df$Group[i] == "f"| is.na(df$Group[i])){
+      
     df$Group[i] <- "e"
   }
   if(df$Participant[i] == "sdP13"){
@@ -27,11 +31,14 @@ for(i in 1:nrow(df))
 
   }
 }
+
+dfAut <- df %>% filter(df$Group == "e")
+dfNonAut <- df %>% filter(df$Group != "e")
 #df <- df %>% filter(df$Condition != "comp")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 tempdf <- df %>% filter(!is.na(df$avgBuildWallDurration))
-
+#tempdf <- tempdf %>% filter(Group != "solo")
 #tempdf <- tempdf %>%   mutate(pointColor = ifelse(Group == "e", "orange", "purple"))
 
 standardPlot <- tempdf %>%
@@ -42,7 +49,7 @@ standardPlot <- tempdf %>%
             mATT = mean(avgBuildWallDurration), sATT = sd(avgBuildWallDurration),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
-  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,-mATT)))+
+  ggplot(aes(reorder(Condition,mATT),mATT, fill = reorder(Group,mATT)))+
   geom_bar(stat = "identity", position = "dodge")+
   geom_point(aes(x = Condition, y = individualPoints, color = pointColor),
              position = position_dodge(width = 1.2), size = 3) +
@@ -58,7 +65,7 @@ standardPlot <- tempdf %>%
 standardPlot
 
 tempdf <- tempdf %>% filter(Condition == "solo")
-twoANOVA <- aov(tempdf$avgBuildWallDurration ~ factor(tempdf$Group) , data = tempdf)
+twoANOVA <- aov(tempdf$avgGoldCubeGrab ~ factor(tempdf$Group) , data = tempdf)
 summary(twoANOVA)
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -168,7 +175,7 @@ bluePACplot <- dfBlue%>%
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
   #        cex= 2.5, vjust=-2)+
-  labs(title = "Red Grab",
+  labs(title = "Blue Grab",
        subtitle = "",
        x = "Trial Condition", y = "Time (ms)",
        #caption = "moo",
@@ -189,7 +196,7 @@ redPACplot <- dfRed%>%
   geom_bar(stat = "identity", position = "dodge")+
   #geom_text(mapping=aes(label=round(mATT,2)), position = position_dodge(width = 0.9),
   #        cex= 2.5, vjust=-2)+
-  labs(title = "Blue Grab",
+  labs(title = "Red Grab",
        subtitle = "",
        x = "Trial Condition", y = "Time (ms)",
        #caption = "moo",
