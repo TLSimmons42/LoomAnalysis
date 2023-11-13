@@ -10,8 +10,8 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-dataFile <- "gazeTimesReal.csv"
-#dataFile <- "PACsfnREAL.csv"
+#dataFile <- "gazeTimesReal.csv"
+dataFile <- "PACsfnREAL.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
