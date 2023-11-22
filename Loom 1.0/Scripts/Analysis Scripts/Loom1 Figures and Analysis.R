@@ -10,8 +10,9 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 
-#dataFile <- "gazeTimesReal.csv"
-dataFile <- "singleGazeTransferDF.csv"
+#dataFile <- "singleGazeTransferDF.csv"
+dataFile <- "singleGrab2PlaceMTdf.csv"
+
 
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -37,13 +38,13 @@ dfNonAut <- df %>% filter(df$Group != "e")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-tempdf <- df %>% filter(!is.na(B2P))
+# tempdf <- df %>% filter(!is.na(B2P))
 #tempdf <- df %>% filter(P2V > 0)
 
-
-sd <-sd(tempdf$B2P)
-tempdf <- df %>% filter(B2P < sd*3)
-tempdf <- tempdf %>% filter(Participant != "P22")
+sd <-sd(df$MovementTime)
+tempdf <- df %>% filter(MovementTime < sd*3)
+# tempdf <- tempdf %>% filter(Participant != "P22")
+#tempdf <- tempdf %>% filter(currentColor == "red")
 
 # 
 # tempdf <- tempdf %>% filter(avgPlayerDurration > 100)
@@ -54,9 +55,9 @@ tempdf <- tempdf %>% filter(Participant != "P22")
 standardPlot <- tempdf %>%
   group_by(Condition, Group)%>%
   mutate(pointColor = ifelse(Group == "c", "orange", "purple"))%>%
-  summarise(individualPoints = B2P,
+  summarise(individualPoints = MovementTime,
             pointColor = pointColor,
-            mATT = mean(B2P), sATT = sd(B2P),
+            mATT = mean(MovementTime), sATT = sd(MovementTime),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
   ggplot(aes(Condition,mATT, fill = reorder(Group,-mATT)))+
@@ -77,8 +78,8 @@ standardPlot
 #standardPlot+ theme(legend.position = "none")
 
 #tempdf <- tempdf %>% filter(Group == "c")
-tempdf <- tempdf %>% filter(Condition == "s")
-t_test_result <- t.test(B2P ~ Group, data = tempdf , var.equal = FALSE)
+tempdf <- tempdf %>% filter(Condition == "co")
+t_test_result <- t.test(MovementTime ~ Group, data = tempdf , var.equal = FALSE)
 print(t_test_result)
 
 

@@ -10,10 +10,12 @@ singleGrab2PlaceMTdf <- data.frame(Participant = factor(),
                                    Age = numeric(),
                                    Gender = factor(),
                                    Group = factor(),
-                                   MovementTime = factor(),
-                                   StartTime = factor(),
-                                   EndTime = numeric(), 
+                                   MovementTime = numeric(),
+                                   GrabTime = numeric(),
+                                   PlaceTime = numeric(),
+                                   Color = factor(),
                                    stringsAsFactors = FALSE)
+
 
 avgGazeTranferTimes <- data.frame(TimeStamp = numeric(),
                                   Participant = factor(),
@@ -33,7 +35,7 @@ avgGazeTranferTimes <- data.frame(TimeStamp = numeric(),
                                   stringsAsFactors = FALSE)
 
 
-data_files <- list.files(pattern = "26.csv")
+data_files <- list.files(pattern = ".csv")
 
 # combindedDataFile <- "combindedDataFile P4.csv"
 # data_files <- combindedDataFile
@@ -42,7 +44,7 @@ movementEventDF <- ""
 
 for(f in 1:length(data_files))
 {
-  combindedDataFile <- data_files[1]
+  combindedDataFile <- data_files[f]
   print(combindedDataFile)
   
   
@@ -77,11 +79,9 @@ for(f in 1:length(data_files))
   
   
   for(j in 1:4){
-    if(combindedDataFile == "combindedDataFile P4.csv"){
-      j <-2
-    }
+
     if(j == 1){
-      trialDF <- df %>% filter(Condition == "s" & Trial == 1)
+      trialDF <- df %>% filter(Condition == "s" & Trial == 1 )
       print(nrow(trialDF))
     }else if(j == 2){
       trialDF <- df %>% filter(Condition == "s" & Trial == 2)
@@ -92,6 +92,9 @@ for(f in 1:length(data_files))
     }else if(j == 4){
       trialDF <- df %>% filter(Condition == "co" & Trial == 2)
       print(nrow(trialDF))
+    }
+    if(nrow(trialDF) < 1){
+      next
     }
     
     lookingForGrab <- TRUE
@@ -104,14 +107,13 @@ for(f in 1:length(data_files))
     StartPosX = ""
     StartPosY = ""
     StartPosZ = ""
+    grabColor <- ""
+    grabTime <- ""
     
     for (i in 1:nrow(trialDF)) {
       currentEvent <- trialDF$MovementEvent[i]
+      currentColor <- trialDF$CubeColor[i]
       TimeStamp <- trialDF$TimeStamp[i]
-      
-      currentXpos <- trialDF$xAreaPos[i]
-      currentYpos <- trialDF$yAreaPos[i]
-      currentZpos <- trialDF$zAreaPos[i]
       
       Participant <- trialDF$Participant[i]
       Condition <- trialDF$Condition[i]
@@ -122,145 +124,53 @@ for(f in 1:length(data_files))
       
       
       if(!lookingForGrab){
-        
-        if(lookingForPlayWall){
-          if(currentEvent == "looking at Play wall"){
-            sequenceCounter <- sequenceCounter + 1
-          }else if(currentEvent != "looking at Play wall" & sequenceCounter > 1){
-            lookingForSequenceStart <- TRUE
-            lookingForPlayWall <- FALSE
-            sequenceCounter <- 0
+        lookingForGrab <- TRUE
+        if(currentEvent == "place"){
+          if(currentColor == grabColor){
             
-            if(currentEvent == "looking at View wall"){
-              TransferEvent <- "P2V"
-            }else if(currentEvent == "looking at Build wall"){
-              TransferEvent <- "P2B"
-            }
-            StartTime <- trialDF$TimeStamp[i-1]
-            EndTime <- trialDF$TimeStamp[i]
-            EndPosX <- currentXpos
-            EndPosY <- currentYpos
-            EndPosZ <- currentZpos
-            
-            
-            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
-                                     TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
-                                     StartPosZ,EndPosX, EndPosY, EndPosZ)
-            singleGazeTransferDF <- rbind(singleGazeTransferDF, newPartRow)
-            
+            MovementTime <- (TimeStamp - grabTime)/10000
+            newPartRow <- data.frame(Participant, Condition, Trial, Age, Gender, Group,
+                                     MovementTime, grabTime, TimeStamp, currentColor)
+            singleGrab2PlaceMTdf <- rbind(singleGrab2PlaceMTdf, newPartRow)
           }else{
-            lookingForSequenceStart <- TRUE
-            lookingForPlayWall <- FALSE
-            sequenceCounter <- 0
+            # print("bad")
+            # print(currentColor)
+            # print(grabColor)
           }
-        }
-        if(lookingForBuildWall){
-          if(currentEvent == "looking at Build wall"){
-            sequenceCounter <- sequenceCounter + 1
-          }else if(currentEvent != "looking at Build wall" & sequenceCounter > 1){
-            lookingForSequenceStart <- TRUE
-            lookingForBuildWall <- FALSE
-            sequenceCounter <- 0
-            
-            if(currentEvent == "looking at View wall"){
-              TransferEvent <- "B2V"
-            }else if(currentEvent == "looking at Play wall"){
-              TransferEvent <- "B2P"
-            }
-            StartTime <- trialDF$TimeStamp[i-1]
-            EndTime <- trialDF$TimeStamp[i]
-            EndPosX <- currentXpos
-            EndPosY <- currentYpos
-            EndPosZ <- currentZpos
-            
-            
-            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
-                                     TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
-                                     StartPosZ,EndPosX, EndPosY, EndPosZ)
-            singleGazeTransferDF <- rbind(singleGazeTransferDF, newPartRow)
-            
-          }else{
-            lookingForSequenceStart <- TRUE
-            lookingForBuildWall <- FALSE
-            sequenceCounter <- 0
-          }
-        }
-        
-        if(lookingForGrab){
-          if(currentEvent == "looking at View wall"){
-            sequenceCounter <- sequenceCounter + 1
-          }else if(currentEvent != "looking at View wall" & sequenceCounter > 1){
-            lookingForSequenceStart <- TRUE
-            lookingForViewWall <- FALSE
-            sequenceCounter <- 0
-            
-            if(currentEvent == "looking at Build wall"){
-              TransferEvent <- "V2B"
-            }else if(currentEvent == "looking at Play wall"){
-              TransferEvent <- "V2P"
-            }
-            StartTime <- trialDF$TimeStamp[i-1]
-            EndTime <- trialDF$TimeStamp[i]
-            EndPosX <- currentXpos
-            EndPosY <- currentYpos
-            EndPosZ <- currentZpos
-            
-            
-            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
-                                     TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
-                                     StartPosZ,EndPosX, EndPosY, EndPosZ)
-            singleGazeTransferDF <- rbind(singleGazeTransferDF, newPartRow)
-            
-          }else{
-            lookingForSequenceStart <- TRUE
-            lookingForBuildWall <- FALSE
-            sequenceCounter <- 0
-          }
+        }else{
+          # print("Not a place")
+          # print(currentColor)
+          # print(grabColor)
         }
       }
       
       
-      if(lookingForSequenceStart){
-        if(currentEvent == "looking at Play wall"){
-          lookingForSequenceStart <- FALSE
+      if(lookingForGrab){
+        if(currentEvent == "grab"){
+          lookingForGrab <- FALSE
+          grabTime <- TimeStamp
+          # lookingForPlace <- TRUE
           
-          lookingForPlayWall <- TRUE
-          startOfSequence <- trialDF$TimeStamp[i]
-          StartPosX <- trialDF$xAreaPos[i]
-          StartPosY <- trialDF$yAreaPos[i]
-          StartPosZ <- trialDF$zAreaPos[i]
-          
+          if(currentColor == "red"){
+            grabColor <- "red"
+          }
+          if(currentColor == "blue"){
+            grabColor <- "blue"
+          }
+          if(currentColor == "gray"){
+            grabColor <- "gray"
+          }
+          if(currentColor == "gold"){
+            grabColor <- "gold"
+          }
         }
-        if(currentEvent == "looking at Build wall"){
-          lookingForSequenceStart <- FALSE
-          
-          lookingForBuildWall <- TRUE
-          startOfSequence <- trialDF$TimeStamp[i]
-        }
-        if(currentEvent == "looking at View wall"){
-          lookingForSequenceStart <- FALSE
-          
-          lookingForViewWall <- TRUE
-          startOfSequence <- trialDF$TimeStamp[i]
-        }
+        
       }
-      
-      
     }
-    
-    
   }
-  
-}  
+}
 
+singleGrab2PlaceMTdf <- singleGrab2PlaceMTdf %>% filter(MovementTime > 50)
 
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(B2P = ifelse(TransferEvent == "B2P",(EndTime - StartTime)/10000, NA))
-
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(B2V = ifelse(TransferEvent == "B2V",(EndTime - StartTime)/10000, NA))
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(P2V = ifelse(TransferEvent == "P2V",(EndTime - StartTime)/10000, NA))
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(P2B = ifelse(TransferEvent == "P2B",(EndTime - StartTime)/10000, NA))
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2P = ifelse(TransferEvent == "V2P",(EndTime - StartTime)/10000, NA))
-singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2B = ifelse(TransferEvent == "V2B",(EndTime - StartTime)/10000, NA))
-
-write.csv(singleGazeTransferDF, "singleGazeTransferDF.csv", row.names = FALSE)
+# write.csv(singleGrab2PlaceMTdf, "singleGrab2PlaceMTdf.csv", row.names = FALSE)
 
