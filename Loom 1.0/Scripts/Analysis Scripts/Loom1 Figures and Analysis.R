@@ -16,7 +16,7 @@ dataFile <- "singleGrab2PlaceMTdf.csv"
 
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
-df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+# df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
 # for(i in 1:nrow(df))
