@@ -70,4 +70,4 @@ for (j in 1:length(data_files)) {
 
 
 
-#write.csv(df, "grab2PlaceTimes.csv", row.names = FALSE)
+write.csv(newArousalDF, "arousalGrab2PlaceDF.csv", row.names = FALSE)
