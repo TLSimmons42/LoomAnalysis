@@ -23,6 +23,9 @@ df <- df %>% mutate(Group = ifelse(participant == "P2" | participant == "P4" |pa
                                      participant == "P7" | participant == "P8" | participant == "P10" | participant == "P12" |
                                      participant == "P14" | participant == "P16", "e", "c" ))
 
+df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
+                                   ifelse(Group == "c", "Non-Aut", "nothing")))
+
 placeDFmean <- df  %>%
   #filter(condition == "co")%>%
   #group_by(TimeEpoch, group, condition) %>%
@@ -52,7 +55,7 @@ p <- ggplot(placeDFmean, aes(x=TimeEpoch, y=MeanPercent,  color=Group)) +
                 width = .1, position = position_dodge(width = 0))+
   labs(
     #title = ,
-    x = "Time Since Cube Place Event (s)",
+    x = "Percent of Movement Compleated",
     y = "Pupil Response (% Change)",
     color = "Group"
   )+

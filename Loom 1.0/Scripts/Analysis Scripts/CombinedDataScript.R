@@ -21,7 +21,7 @@ areaDF <- areaDF %>% filter(Condition != "tut")
 targetDF <- targetDF %>% filter(Condition != "tut")
 # pupilDF <- pupilDF %>% filter(Condition != "tut")
 # headDF <- headDF %>% filter(Condition != "tut")
-# 
+ 
 
 areaStartIndexes <- areaDF[areaDF$Event=="Game Start",]
 areaEndIndexes <- areaDF[areaDF$Event=="Game Over",]
