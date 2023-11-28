@@ -37,8 +37,11 @@ for (j in 1:length(data_files)) {
   tempGrabDF <- grab2PlaceDF %>% filter(Participant == currentParticipant)  
   
   for(i in 1:nrow(tempGrabDF)){
-    baselineDF <- arousalDF %>% filter(TimeStamp <= tempGrabDF$grabTime[i] & TimeStamp >= tempGrabDF$grabTime[i] - 20000000)
-    shortDF <- arousalDF %>% filter(TimeStamp >= tempGrabDF$grabTime[i] & TimeStamp <= tempGrabDF$TimeStamp[i])
+    # baselineDF <- arousalDF %>% filter(TimeStamp <= tempGrabDF$grabTime[i] & TimeStamp >= tempGrabDF$grabTime[i] - 20000000)
+    # shortDF <- arousalDF %>% filter(TimeStamp >= tempGrabDF$grabTime[i] & TimeStamp <= tempGrabDF$TimeStamp[i])
+    
+    baselineDF <- arousalDF %>% filter(TimeStamp >= tempGrabDF$grabTime[i] & TimeStamp <= tempGrabDF$TimeStamp[i])
+    shortDF <- arousalDF %>% filter(TimeStamp >= tempGrabDF$grabTime[i] & TimeStamp <= tempGrabDF$TimeStamp[i] + 10000000)
     
     currentTime <- shortDF$TimeStamp
     baseline <- mean(baselineDF$leftEye)
@@ -65,4 +68,4 @@ for (j in 1:length(data_files)) {
 
 
 
-write.csv(newArousalDF, "arousalGrab2PlaceDF.csv", row.names = FALSE)
+# write.csv(newArousalDF, "arousalGrab2PlaceDF.csv", row.names = FALSE)

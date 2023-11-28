@@ -10,15 +10,20 @@ library(cowplot)
 library(ggsci)
 library(gridExtra)
 library(ggsignif)
+library(bit64)
 
 
-dataFile <- "singleGazeTransferDF.csv"
-#dataFile <- "singleGrab2PlaceMTdf.csv"
+
+#dataFile <- "singleGazeTransferDF.csv"
+# dataFile <- "singleGraBlinkCountlaceMTdf.csv"
+dataFile <- "singleBlinkDF.csv"
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
-                                   ifelse(Group == "c", "Non-Aut", "nothing")))
+                                   ifelse(Group == "c", "Non-Aut", 
+                                          ifelse(Condition == "s","Solo",
+                                                 ifelse(Condition == "co", "Cooperative", "whatever")))))
 # df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
@@ -40,14 +45,14 @@ dfNonAut <- df %>% filter(df$Group != "e")
 #df <- df %>% filter(df$Condition != "comp")
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-tempdf <- df %>% filter(!is.na(B2P))
-sd <-sd(tempdf$B2P)
-upperLimit <- mean(tempdf$B2P + (sd*3))
-lowerLimit <- mean(tempdf$B2P - (sd*3))
+tempdf <- df %>% filter(!is.na(BlinkCount))
+sd <-sd(tempdf$BlinkCount)
+upperLimit <- mean(tempdf$BlinkCount + (sd*3))
+lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
 
 
 
-tempdf <- tempdf %>% filter(B2P > lowerLimit & B2P < upperLimit)
+tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
 
 
 # tempdf <- tempdf %>% filter(Participant != "P22")
@@ -62,9 +67,9 @@ tempdf <- tempdf %>% filter(B2P > lowerLimit & B2P < upperLimit)
 standardPlot <- tempdf %>%
   group_by(Condition, Group)%>%
   mutate(pointColor = ifelse(Group == "Aut", "orange", "purple"))%>%
-  summarise(individualPoints = B2P,
+  summarise(individualPoints = BlinkCount,
             pointColor = pointColor,
-            mATT = mean(B2P), sATT = sd(B2P),
+            mATT = mean(BlinkCount), sATT = sd(BlinkCount),
             CI_lower = mATT - 1.96 * sATT / sqrt(n()),
             CI_upper = mATT + 1.96 * sATT / sqrt(n()))%>%
   ggplot(aes(Condition,mATT, fill = reorder(Group,mATT)))+
@@ -86,7 +91,7 @@ standardPlot
 
 #tempdf <- tempdf %>% filter(Group == "c")
 tempdf <- tempdf %>% filter(Condition == "s")
-t_test_result <- t.test(B2P ~ Group, data = tempdf , var.equal = FALSE)
+t_test_result <- t.test(BlinkCount ~ Group, data = tempdf , var.equal = FALSE)
 print(t_test_result)
 
 
@@ -98,14 +103,14 @@ print(t_test_result)
 
 
 
-tempdf <- df %>% filter(!is.na(B2P))
-sd <-sd(tempdf$B2P)
-upperLimit <- mean(tempdf$B2P + (sd*3))
-lowerLimit <- mean(tempdf$B2P - (sd*3))
+tempdf <- df %>% filter(!is.na(BlinkCount))
+sd <-sd(tempdf$BlinkCount)
+upperLimit <- mean(tempdf$BlinkCount + (sd*3))
+lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
 
 
 
-tempdf <- tempdf %>% filter(B2P > lowerLimit & B2P < upperLimit)
+tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
 
 
 # tempdf <- tempdf %>% filter(Participant != "P22")
@@ -116,32 +121,70 @@ tempdf <- tempdf %>% filter(B2P > lowerLimit & B2P < upperLimit)
 # tempdf <- tempdf %>% filter(Condition != "solo")
 #tempdf <- tempdf %>% filter(Group != "solo")
 #tempdf <- tempdf %>%   mutate(pointColor = ifelse(Group == "e", "orange", "purple"))
-tempdf <- df %>% filter(!is.na(B2P))
-sd <-sd(tempdf$B2P)
-upperLimit <- mean(tempdf$B2P + (sd*3))
-lowerLimit <- mean(tempdf$B2P - (sd*3))
+
+blinkDF <- df %>% filter(BlinkTime >= 100 & BlinkTime <= 400)
+blinkDF <- blinkDF %>% filter(Condition != "tut") 
+
+
+blinkDF <- blinkDF  %>%
+  group_by(Participant, Group, Condition, Trial) %>%
+  summarize(BlinkCount = sum(df$Participant == Participant & df$Condition == Condition & df$Trial == Trial))
+
+blinkDF <- blinkDF %>% filter(Participant != "P9")
+
+# blinkDF <- blinkDF %>% filter(Participant != "P9")
+
+
+tempdf <- blinkDF %>% filter(!is.na(BlinkCount)) 
+sd <-sd(tempdf$BlinkCount)
+upperLimit <- mean(tempdf$BlinkCount + (sd*3))
+lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
+tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
+
+
+# tempdf <- tempdf %>% filter(!is.na(P2B))%>%
+#   group_by(Condition, Group, Participant)%>%
+#   summarise(individualMeans = mean(P2B))
+
+
+statsdf <- tempdf %>% filter(Group == "Non-Aut")
+t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
+print(t_test_result)
+
+statsdf <- tempdf %>% filter(Group == "Aut")
+t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
+print(t_test_result)
+
+statsdf <- tempdf %>% filter(Condition == "s")
+t_test_result <- t.test(BlinkCount ~ Group, data = statsdf , var.equal = FALSE)
+print(t_test_result)
+
+statsdf <- tempdf %>% filter(Condition == "co")
+t_test_result <- t.test(BlinkCount ~ Group, data = statsdf , var.equal = FALSE)
+print(t_test_result)
+
+
+tempdf <- tempdf %>% filter(Participant != "P9" | Participant != "P10")
+ezANOVA(tempdf,dv = BlinkCount, wid = Participant,within = Condition, between = Group,type = 3)
 
 
 
-tempdf <- tempdf %>% filter(B2P > lowerLimit & B2P < upperLimit)
 
 standardPlot <- tempdf %>%
-  group_by(Condition, Group, Participant)%>%
-  mutate(pointColor = ifelse(Group == "Aut", "orange", "purple"))%>%
-  summarise(pointColor = pointColor,
-            mATT = mean(B2P), sATT = sd(B2P))%>%
-  ggplot(aes(Condition,B2P, fill = reorder(Group,B2P)))+
+  group_by(Condition, Group)%>%
+  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
+  ggplot(aes(Condition,BlinkCount, fill = reorder(Group,BlinkCount)))+
   geom_boxplot() +
-  labs(title = "Box-and-Whisker Plot", x = "Number of Cylinders", y = "Miles Per Gallon")
+  # geom_boxplot(outlier.shape = NA) +
+  labs(title = "Blink Rate", x = "Game Conditions", y = "# of Blinks")+
+  theme_bw()
+
 
 # Add significance bars
-standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
+#standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
 standardPlot
 
 #tempdf <- tempdf %>% filter(Group == "c")
-tempdf <- tempdf %>% filter(Condition == "s")
-t_test_result <- t.test(B2P ~ Group, data = tempdf , var.equal = FALSE)
-print(t_test_result)
 
 
 # tempdf <- tempdf %>% filter(Condition == "solo")

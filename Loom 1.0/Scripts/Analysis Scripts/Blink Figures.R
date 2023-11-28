@@ -29,8 +29,8 @@ df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
 # count
 
 blinkDF <- df  %>%
-  group_by(Participant, Group, Condition) %>%
-  summarize(BlinkCount = sum(df$Participant == Participant & df$Condition == Condition))
+  group_by(Participant, Group, Condition, Trial) %>%
+  summarize(BlinkCount = sum(df$Participant == Participant & df$Condition == Condition & df$Trial == Trial))
 
 blinkDF <- blinkDF %>% filter(Participant != "P9")
 

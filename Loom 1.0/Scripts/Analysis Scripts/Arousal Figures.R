@@ -26,6 +26,24 @@ df <- df %>% mutate(Group = ifelse(participant == "P2" | participant == "P4" |pa
 df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
                                    ifelse(Group == "c", "Non-Aut", "nothing")))
 
+# statsdf <- df %>% filter(Group == "Non-Aut")
+# t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
+# print(t_test_result)
+# 
+# statsdf <- df %>% filter(Group == "Aut")
+# t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
+# print(t_test_result)
+# 
+# statsdf <- df %>% filter(Condition == "s" & TimeEpoch == .5)
+# t_test_result <- t.test(PercentChange ~ Group, data = statsdf , var.equal = FALSE)
+# print(t_test_result)
+# 
+# statsdf <- df %>% filter(Condition == "co" & TimeEpoch == .5)
+# t_test_result <- t.test(PercentChange ~ Group, data = statsdf , var.equal = FALSE)
+# print(t_test_result)
+
+
+
 placeDFmean <- df  %>%
   #filter(condition == "co")%>%
   #group_by(TimeEpoch, group, condition) %>%
@@ -59,8 +77,7 @@ p <- ggplot(placeDFmean, aes(x=TimeEpoch, y=MeanPercent,  color=Group)) +
     y = "Pupil Response (% Change)",
     color = "Group"
   )+
-  facet_wrap(~ Condition
-             )+
+  facet_wrap(~ Condition)+
   theme(strip.text = element_text(face = "bold"), 
         strip.background = element_rect(fill = "gray", color = "black"))+
   theme_bw()

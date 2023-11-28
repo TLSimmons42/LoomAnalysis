@@ -7,7 +7,7 @@ library(bit64)
 #dataFile <- "singleGazeTransferDF.csv"
 
 
-data_files <- list.files(pattern = "analytics3_P10")
+data_files <- list.files(pattern = "analytics3")
 data_files[]
 
 
@@ -30,7 +30,7 @@ singleBlinkDF <- data.frame(Participant = factor(),
 
 
 for (j in 1:length(data_files)){
-  participantDataFile <- data_files[1]
+  participantDataFile <- data_files[j]
   print(participantDataFile)
   pupilDF <- read.csv(participantDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   
@@ -44,7 +44,6 @@ for (j in 1:length(data_files)){
 
 
   for(k in 1:4){
-    k <- 2
     if(k == 1){
       tempDF <- individualCombinedData %>% filter(Condition == "s" & Trial == 1)
       print(nrow(tempDF))
@@ -66,7 +65,7 @@ for (j in 1:length(data_files)){
 
     
 
-    trialDF <- pupilDF %>% filter(TimeStamp >= tempDF$TimeStamp[1] & TimeStamp <= tempDF$TimeStamp[nrow(tempDF)])
+    trialDF <- pupilDF %>% filter(TimeStamp >= tempDF$TimeStamp[1] & TimeStamp <= tempDF$TimeStamp[1] + 600000000)
     trialDF <- trialDF %>% filter(!is.na(leftEye))
     
     if(nrow(trialDF) == 0){
@@ -124,6 +123,6 @@ for (j in 1:length(data_files)){
 
 singleBlinkDF <- singleBlinkDF %>% mutate(Group = ifelse(Participant == "P4", "e", Group))
 
-
-# write.csv(singleBlinkDF, "singleBlinkDF.csv", row.names = FALSE)
+checkDF <- singleBlinkDF %>% filter(Condition == "co")
+write.csv(singleBlinkDF, "singleBlinkDF.csv", row.names = FALSE)
 
