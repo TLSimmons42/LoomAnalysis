@@ -13,7 +13,7 @@ singleGazeTransferDF <- data.frame(TimeStamp = numeric(),
                           Gender = factor(),
                           Group = factor(),
                           TransferEvent = factor(),
-                          StartTime = factor(),
+                          StartTime = numeric(),
                           EndTime = numeric(), 
                           StartPosX = numeric(),
                           StartPosY = numeric(),
@@ -22,6 +22,19 @@ singleGazeTransferDF <- data.frame(TimeStamp = numeric(),
                           EndPosY = numeric(),
                           EndPosZ = numeric(),
                           stringsAsFactors = FALSE)
+
+singleGazeDurationDF <- data.frame(TimeStamp = numeric(),
+                                   Participant = factor(),
+                                   Condition = factor(),
+                                   Trial = numeric(),
+                                   Age = numeric(),
+                                   Gender = factor(),
+                                   Group = factor(),
+                                   DurationEvent = factor(),
+                                   DurationTime = numeric(),
+                                   StartTime = numeric(),
+                                   EndTime = numeric(), 
+                                   stringsAsFactors = FALSE)
 
 avgGazeTranferTimes <- data.frame(TimeStamp = numeric(),
                                   Participant = factor(),
@@ -118,6 +131,8 @@ for(f in 1:length(data_files))
     StartPosY = ""
     StartPosZ = ""
     
+    durationStartTime <- 0
+    
     for (i in 2:nrow(trialDF)) {
       currentEvent <- trialDF$GazeEvents[i]
       previousEvent <- trialDF$GazeEvents[i-1]
@@ -150,12 +165,22 @@ for(f in 1:length(data_files))
             }else if(currentEvent == "looking at Build wall"){
               TransferEvent <- "P2B"
             }
+            StartTime <- durationStartTime
+            EndTime <- TimeStamp
+            
+            DurationEvent <- "Play"
+            
+            DurationTime <- (EndTime - StartTime)/10000
+            
+            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
+                                     DurationEvent,DurationTime, StartTime, EndTime)
+            singleGazeDurationDF <- rbind(singleGazeDurationDF, newPartRow)
+            
             StartTime <- trialDF$TimeStamp[i-1]
             EndTime <- trialDF$TimeStamp[i]
             EndPosX <- currentXpos
             EndPosY <- currentYpos
             EndPosZ <- currentZpos
-            
             
             newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
                                      TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
@@ -181,12 +206,21 @@ for(f in 1:length(data_files))
             }else if(currentEvent == "looking at Play wall"){
               TransferEvent <- "B2P"
             }
+            StartTime <- durationStartTime
+            EndTime <- TimeStamp
+            
+            DurationEvent <- "Build"
+            DurationTime <- (EndTime - StartTime)/10000
+            
+            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
+                                     DurationEvent,DurationTime, StartTime, EndTime)
+            singleGazeDurationDF <- rbind(singleGazeDurationDF, newPartRow)
+            
             StartTime <- trialDF$TimeStamp[i-1]
             EndTime <- trialDF$TimeStamp[i]
             EndPosX <- currentXpos
             EndPosY <- currentYpos
             EndPosZ <- currentZpos
-            
             
             newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
                                      TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
@@ -213,12 +247,21 @@ for(f in 1:length(data_files))
             }else if(currentEvent == "looking at Play wall"){
               TransferEvent <- "V2P"
             }
+            StartTime <- durationStartTime
+            EndTime <- TimeStamp
+            
+            DurationEvent <- "View"
+            DurationTime <- (EndTime - StartTime)/10000
+            
+            newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
+                                     DurationEvent,DurationTime, StartTime, EndTime)
+            singleGazeDurationDF <- rbind(singleGazeDurationDF, newPartRow)
+            
             StartTime <- trialDF$TimeStamp[i-1]
             EndTime <- trialDF$TimeStamp[i]
             EndPosX <- currentXpos
             EndPosY <- currentYpos
             EndPosZ <- currentZpos
-            
             
             newPartRow <- data.frame(TimeStamp, Participant, Condition, Trial, Age, Gender, Group,
                                      TransferEvent, StartTime, EndTime, StartPosX, StartPosY,
@@ -244,18 +287,26 @@ for(f in 1:length(data_files))
           StartPosY <- trialDF$yAreaPos[i]
           StartPosZ <- trialDF$zAreaPos[i]
           
+          durationStartTime <- TimeStamp
+          
         }
         if(currentEvent == "looking at Build wall"){
           lookingForSequenceStart <- FALSE
           
           lookingForBuildWall <- TRUE
           startOfSequence <- trialDF$TimeStamp[i]
+          
+          durationStartTime <- TimeStamp
+          
         }
         if(currentEvent == "looking at View wall"){
           lookingForSequenceStart <- FALSE
           
           lookingForViewWall <- TRUE
           startOfSequence <- trialDF$TimeStamp[i]
+          
+          durationStartTime <- TimeStamp
+          
         }
       }
       
@@ -276,5 +327,7 @@ singleGazeTransferDF <- singleGazeTransferDF %>% mutate(P2B = ifelse(TransferEve
 singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2P = ifelse(TransferEvent == "V2P",(EndTime - StartTime)/10000, NA))
 singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2B = ifelse(TransferEvent == "V2B",(EndTime - StartTime)/10000, NA))
 
-write.csv(singleGazeTransferDF, "singleGazeTransferDF.csv", row.names = FALSE)
+# write.csv(singleGazeTransferDF, "singleGazeTransferDF.csv", row.names = FALSE)
+write.csv(singleGazeDurationDF, "singleGazeDurationDF.csv", row.names = FALSE)
+
 

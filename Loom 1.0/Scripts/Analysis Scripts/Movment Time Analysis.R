@@ -17,6 +17,31 @@ singleGrab2PlaceMTdf <- data.frame(Participant = factor(),
                                    stringsAsFactors = FALSE)
 
 
+singlePlacedf <- data.frame(Participant = factor(),
+                                   Condition = factor(),
+                                   Trial = numeric(),
+                                   Age = numeric(),
+                                   Gender = factor(),
+                                   Group = factor(),
+                                   MovementTime = numeric(),
+                                   GrabTime = numeric(),
+                                   PlaceTime = numeric(),
+                                   Color = factor(),
+                                   stringsAsFactors = FALSE)
+
+singleGrabedf <- data.frame(Participant = factor(),
+                            Condition = factor(),
+                            Trial = numeric(),
+                            Age = numeric(),
+                            Gender = factor(),
+                            Group = factor(),
+                            MovementTime = numeric(),
+                            GrabTime = numeric(),
+                            PlaceTime = numeric(),
+                            Color = factor(),
+                            stringsAsFactors = FALSE)
+
+
 avgGazeTranferTimes <- data.frame(TimeStamp = numeric(),
                                   Participant = factor(),
                                   Condition = factor(),
@@ -35,7 +60,7 @@ avgGazeTranferTimes <- data.frame(TimeStamp = numeric(),
                                   stringsAsFactors = FALSE)
 
 
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "P13.csv")
 
 # combindedDataFile <- "combindedDataFile P4.csv"
 # data_files <- combindedDataFile
@@ -44,7 +69,7 @@ movementEventDF <- ""
 
 for(f in 1:length(data_files))
 {
-  combindedDataFile <- data_files[f]
+  combindedDataFile <- data_files[1]
   print(combindedDataFile)
   
   
@@ -68,8 +93,9 @@ for(f in 1:length(data_files))
                                                          targetEvent == "Regular Gold Cube(Clone)was placed in dropzone", "place", NA))))
   
   
-  df <- df %>% filter(!is.na(MovementEvent))
-  
+  grab2placeDF <- df %>% filter(!is.na(MovementEvent))
+  grabDF <- df %>% filter(MovementEvent == "grab")
+  placeDF <- df %>% filter(MovementEvent == "place")
   
   # xFull <- as.numeric(df$xAreaPos)
   # yFull <-as.numeric(df$yAreaPos)
@@ -78,19 +104,51 @@ for(f in 1:length(data_files))
   # plot3d(xFull, yFull, zFull)
   
   
+  #grab movement loop
+  #__________________________________
+  temp <- nrow(grabDF)- 37
+  for(i in 1:temp){
+    currentTime <- grabDF$TimeStamp[i]
+    currentColor <- grabDF$CubeColor[i]
+    shortDF <- df %>% filter(TimeStamp <= currentTime & TimeStamp >= currentTime - 10000000)
+    
+    
+    print(i)
+    temp2 <- nrow(shortDF)-1
+    for(b in temp2:1){
+      print(currentColor)
+      if(currentColor == "blue"){
+        counter<- 0
+        print(shortDF$targetEvent[b])
+        if(shortDF$targetEvent[b] == "looking at blue cube"){
+          counter <- counter + 1
+        }else{
+          #print(counter)
+          counter <- 0
+        }
+      }
+      
+      
+    }
+    
+  }
+  
+  
+  
+  
   for(j in 1:4){
 
     if(j == 1){
-      trialDF <- df %>% filter(Condition == "s" & Trial == 1 )
+      trialDF <- grab2placeDF %>% filter(Condition == "s" & Trial == 1 )
       print(nrow(trialDF))
     }else if(j == 2){
-      trialDF <- df %>% filter(Condition == "s" & Trial == 2)
+      trialDF <- grab2placeDF %>% filter(Condition == "s" & Trial == 2)
       print(nrow(trialDF))
     }else if(j == 3){
-      trialDF <- df %>% filter(Condition == "co" & Trial == 1)
+      trialDF <- grab2placeDF %>% filter(Condition == "co" & Trial == 1)
       print(nrow(trialDF))
     }else if(j == 4){
-      trialDF <- df %>% filter(Condition == "co" & Trial == 2)
+      trialDF <- grab2placeDF %>% filter(Condition == "co" & Trial == 2)
       print(nrow(trialDF))
     }
     if(nrow(trialDF) < 1){
@@ -110,6 +168,11 @@ for(f in 1:length(data_files))
     grabColor <- ""
     grabTime <- ""
     
+    
+   
+    
+    #grab to place movement loop
+    #__________________________________
     for (i in 1:nrow(trialDF)) {
       currentEvent <- trialDF$MovementEvent[i]
       currentColor <- trialDF$CubeColor[i]

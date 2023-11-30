@@ -16,7 +16,7 @@ library(bit64)
 
 #dataFile <- "singleGazeTransferDF.csv"
 # dataFile <- "singleGraBlinkCountlaceMTdf.csv"
-dataFile <- "singleBlinkDF.csv"
+dataFile <- "singleGazeDurationDF.csv"
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
@@ -147,25 +147,11 @@ tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
 #   summarise(individualMeans = mean(P2B))
 
 
-statsdf <- tempdf %>% filter(Group == "Non-Aut")
-t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
-print(t_test_result)
-
-statsdf <- tempdf %>% filter(Group == "Aut")
-t_test_result <- t.test(BlinkCount ~ Condition, data = statsdf , var.equal = FALSE)
-print(t_test_result)
-
-statsdf <- tempdf %>% filter(Condition == "s")
-t_test_result <- t.test(BlinkCount ~ Group, data = statsdf , var.equal = FALSE)
-print(t_test_result)
-
-statsdf <- tempdf %>% filter(Condition == "co")
-t_test_result <- t.test(BlinkCount ~ Group, data = statsdf , var.equal = FALSE)
-print(t_test_result)
+ 
 
 
 tempdf <- tempdf %>% filter(Participant != "P9" | Participant != "P10")
-ezANOVA(tempdf,dv = BlinkCount, wid = Participant,within = Condition, between = Group,type = 3)
+ezANOVA(tempdf,dv = DurationTime, wid = Participant,within = Condition, between = Group,type = 3)
 
 
 
@@ -179,6 +165,29 @@ standardPlot <- tempdf %>%
   labs(title = "Blink Rate", x = "Game Conditions", y = "# of Blinks")+
   theme_bw()
 
+
+# Add significance bars
+#standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
+standardPlot
+
+#Gaze Duration
+#--------------------------------------------------------------------------------------
+tempdf <- df %>% filter(DurationEvent == "View") 
+sd <-sd(tempdf$DurationTime)
+upperLimit <- mean(tempdf$DurationTime + (sd*3))
+lowerLimit <- mean(tempdf$DurationTime - (sd*3))
+tempdf <- tempdf %>% filter(DurationTime > lowerLimit & DurationTime < upperLimit)
+
+standardPlot <- tempdf %>%
+  group_by(Condition, Group)%>%
+  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
+  ggplot(aes(Condition,DurationTime, fill = reorder(Group,DurationTime)))+
+  geom_boxplot() +
+  # geom_boxplot(outlier.shape = NA) +
+  labs(title = "Blink Rate", x = "Game Conditions", y = "# of Blinks")+
+  theme_bw()
+
+standardPlot <- standardPlot + scale_y_continuous(limits = c(0, 1750))
 
 # Add significance bars
 #standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
