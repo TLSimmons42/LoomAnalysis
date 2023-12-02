@@ -71,6 +71,7 @@ for(f in 1:length(data_files))
   
   df <- read.csv(combindedDataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- df[!duplicated(df), ]
+  #df <- df %>% mutate(areaEvent = ifelse(is.na(areaEvent),"none",areaEvent))
   df <- df %>% filter(!(areaEvent == "looking at View wall" & zAreaPos > 0))
   df <- df %>% filter(!(areaEvent == "looking at Build wall" & zAreaPos < 0))
   
@@ -327,7 +328,7 @@ singleGazeTransferDF <- singleGazeTransferDF %>% mutate(P2B = ifelse(TransferEve
 singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2P = ifelse(TransferEvent == "V2P",(EndTime - StartTime)/10000, NA))
 singleGazeTransferDF <- singleGazeTransferDF %>% mutate(V2B = ifelse(TransferEvent == "V2B",(EndTime - StartTime)/10000, NA))
 
-# write.csv(singleGazeTransferDF, "singleGazeTransferDF.csv", row.names = FALSE)
-write.csv(singleGazeDurationDF, "singleGazeDurationDF.csv", row.names = FALSE)
+write.csv(singleGazeTransferDF, "singleGazeTransferDFold.csv", row.names = FALSE)
+write.csv(singleGazeDurationDF, "singleGazeDurationDFold.csv", row.names = FALSE)
 
 

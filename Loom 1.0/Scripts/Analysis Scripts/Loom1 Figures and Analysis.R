@@ -15,15 +15,20 @@ library(bit64)
 
 
 #dataFile <- "singleGazeTransferDF.csv"
-# dataFile <- "singleGraBlinkCountlaceMTdf.csv"
-dataFile <- "singleGazeDurationDF.csv"
+dataFile <- "singleBlinkDF.csv"
+#dataFile <- "singleGazeDurationDF.csv"
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
-                                   ifelse(Group == "c", "Non-Aut", 
-                                          ifelse(Condition == "s","Solo",
-                                                 ifelse(Condition == "co", "Cooperative", "whatever")))))
+                                   ifelse(Group == "c", "Non-Aut", "whatever")))
+
+df <- df %>% mutate(Condition = ifelse(Condition == "s","Solo",
+                                       ifelse(Condition == "co", "Cooperative", "whatever")))                                      
+
+df <- df %>% mutate(Group = ifelse(Group == "whatever","Non-Aut", Group))
+
+
 # df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
@@ -142,33 +147,46 @@ lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
 tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
 
 
-# tempdf <- tempdf %>% filter(!is.na(P2B))%>%
-#   group_by(Condition, Group, Participant)%>%
-#   summarise(individualMeans = mean(P2B))
+sd <-sd(tempdf$BlinkCount)
+upperLimit <- mean(tempdf$BlinkCount + (sd*3))
+lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
+tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
 
-
- 
-
-
-tempdf <- tempdf %>% filter(Participant != "P9" | Participant != "P10")
-ezANOVA(tempdf,dv = DurationTime, wid = Participant,within = Condition, between = Group,type = 3)
-
-
-
-
-standardPlot <- tempdf %>%
-  group_by(Condition, Group)%>%
+viewPlot <- tempdf %>%
+  group_by(Condition, Group, Participant)%>%
   #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
-  ggplot(aes(Condition,BlinkCount, fill = reorder(Group,BlinkCount)))+
+  ggplot(aes(Condition,BlinkCount, fill = reorder(Group,-BlinkCount)))+
   geom_boxplot() +
   # geom_boxplot(outlier.shape = NA) +
-  labs(title = "Blink Rate", x = "Game Conditions", y = "# of Blinks")+
+  labs(title = "Blink Rate", x = "", y = "Blinks per Minute", color = "Group")+
   theme_bw()
 
+viewPlot <- viewPlot + scale_y_continuous(limits = c(0, 100))
+viewPlot <- viewPlot + guides(fill=guide_legend(title="Group"))
+viewPlot
 
-# Add significance bars
-#standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
-standardPlot
+
+
+resultDF <- tempdf %>% filter(Group == "Aut")
+result <- t.test(resultDF$BlinkCount ~ resultDF$Condition, var.equal = FALSE)
+print(result)
+
+resultDF <- tempdf %>% filter(Group == "Non-Aut")
+result <- t.test(resultDF$BlinkCount ~ resultDF$Condition, var.equal = FALSE)
+print(result)
+
+resultDF <- tempdf %>% filter(Condition == "Solo")
+result <- t.test(resultDF$BlinkCount ~ resultDF$Group, var.equal = FALSE)
+print(result)
+
+resultDF <- tempdf %>% filter(Condition == "Cooperative")
+result <- t.test(resultDF$BlinkCount ~ resultDF$Group, var.equal = FALSE)
+print(result)
+
+
+model <- aov(tempdf$BlinkCount ~ tempdf$Group * tempdf$Condition, data = tempdf)
+summary(model)
+#viewPlot+ theme(legend.position = "none")
 
 #Gaze Duration
 #--------------------------------------------------------------------------------------

@@ -13,38 +13,20 @@ library(ggsignif)
 library(bit64)
 
 
-
-
 dataFile <- "singleGrabDF.csv"
-#dataFile <-"singlePlaceDF.csv"
+dataFile <-"singlePlaceDF.csv"
+dataFile <- "singleGrab2PlaceMTdf.csv"
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
-df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
+placeDF <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
                                    ifelse(Group == "c", "Non-Aut", 
                                           ifelse(Condition == "s","Solo",
-                                                 ifelse(Condition == "co", "Cooperative", "whatever")))))
-tempdf <- df
-# tempdf <- tempdf %>% filter(Color == "gray")
-sd <-sd(tempdf$MovementTime)
-upperLimit <- mean(tempdf$MovementTime + (sd*3))
-lowerLimit <- mean(tempdf$MovementTime - (sd*3))
-tempdf <- tempdf %>% filter(MovementTime > lowerLimit & MovementTime < upperLimit)
+                                                ifelse(Condition == "co", "Cooperative", "whatever")))))
 
-standardPlot <- tempdf %>%
-  group_by(Condition, Group)%>%
-  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
-  ggplot(aes(Condition,MovementTime, fill = reorder(Group,MovementTime)))+
-  geom_boxplot() +
-  # geom_boxplot(outlier.shape = NA) +
-  labs(title = "Blink Rate", x = "Game Conditions", y = "# of Blinks")+
-  theme_bw()
+placeDF <- placeDF %>% mutate(Condition = ifelse(Condition == "s","Solo",
+                                       ifelse(Condition == "co", "Cooperative", "whatever")))   
 
-standardPlot <- standardPlot + scale_y_continuous(limits = c(0, 1000))
-
-# Add significance bars
-#standardPlot + geom_signif(comparisons = list(c("4", "6"), c("4", "8"), c("6", "8")), map_signif_level = TRUE)
-standardPlot
 
 
 resultDF <- tempdf %>% filter(Group == "Aut")
@@ -55,16 +37,87 @@ resultDF <- tempdf %>% filter(Group == "Non-Aut")
 result <- t.test(resultDF$MovementTime ~ resultDF$Condition, var.equal = FALSE)
 print(result)
 
-resultDF <- tempdf %>% filter(Condition == "s")
+resultDF <- tempdf %>% filter(Condition == "Solo")
 result <- t.test(resultDF$MovementTime ~ resultDF$Group, var.equal = FALSE)
 print(result)
 
-resultDF <- tempdf %>% filter(Condition == "co")
+resultDF <- tempdf %>% filter(Condition == "Cooperative")
 result <- t.test(resultDF$MovementTime ~ resultDF$Group, var.equal = FALSE)
 print(result)
 
 
+model <- aov(tempdf$MovementTime ~ tempdf$Group * tempdf$Condition, data = tempdf)
+summary(model)
+
+
+tempdf <- grabDF
+# tempdf <- tempdf %>% filter(DurationEvent == "View")
+sd <-sd(tempdf$MovementTime)
+upperLimit <- mean(tempdf$MovementTime + (sd*3))
+lowerLimit <- mean(tempdf$MovementTime - (sd*3))
+tempdf <- tempdf %>% filter(MovementTime > lowerLimit & MovementTime < upperLimit)
+
+grabFig <- tempdf %>%
+  group_by(Condition, Group)%>%
+  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
+  ggplot(aes(Condition,MovementTime, fill = reorder(Group,-MovementTime)))+
+  geom_boxplot() +
+  # geom_boxplot(outlier.shape = NA) +
+  labs(title = "Grab Movement Time", x = "", y = "", color = "Group")+
+  theme_bw()
+
+grabFig <- grabFig + scale_y_continuous(limits = c(0, 2000))
+grabFig <- grabFig + guides(fill=guide_legend(title="Group"))
+grabFig <- grabFig + theme(legend.position = "none")
+
+
+tempdf <- placeDF
+# tempdf <- tempdf %>% filter(DurationEvent == "View")
+sd <-sd(tempdf$MovementTime)
+upperLimit <- mean(tempdf$MovementTime + (sd*3))
+lowerLimit <- mean(tempdf$MovementTime - (sd*3))
+tempdf <- tempdf %>% filter(MovementTime > lowerLimit & MovementTime < upperLimit)
+
+placeFig <- tempdf %>%
+  group_by(Condition, Group)%>%
+  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
+  ggplot(aes(Condition,MovementTime, fill = reorder(Group,MovementTime)))+
+  geom_boxplot() +
+  # geom_boxplot(outlier.shape = NA) +
+  labs(title = "Place Movement Time", x = "", y = "", color = "Group")+
+  theme_bw()
+
+placeFig <- placeFig + scale_y_continuous(limits = c(0, 2000))
+placeFig <- placeFig + guides(fill=guide_legend(title="Group"))
+placeFig <- placeFig + theme(legend.position = "none")
 
 
 
+tempdf <- grab2placeDF
+# tempdf <- tempdf %>% filter(DurationEvent == "View")
+sd <-sd(tempdf$MovementTime)
+upperLimit <- mean(tempdf$MovementTime + (sd*3))
+lowerLimit <- mean(tempdf$MovementTime - (sd*3))
+tempdf <- tempdf %>% filter(MovementTime > lowerLimit & MovementTime < upperLimit)
+
+grab2placeFig <- tempdf %>%
+  group_by(Condition, Group)%>%
+  #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
+  ggplot(aes(Condition,MovementTime, fill = reorder(Group,MovementTime)))+
+  geom_boxplot() +
+  # geom_boxplot(outlier.shape = NA) +
+  labs(title = "Grab to Place Movement Time", x = "", y = "", color = "Group")+
+  theme_bw()
+
+grab2placeFig <- grab2placeFig + scale_y_continuous(limits = c(0, 2000))
+grab2placeFig <- grab2placeFig + guides(fill=guide_legend(title="Group"))
+# placeFig <- placeFig + theme(legend.position = "none")
+
+combined_plot <- plot_grid(
+  grabFig, placeFig, grab2placeFig,
+  labels = c('A', 'B', 'C'),  # Optional labels for each plot
+  nrow = 1,
+  rel_widths = c(1,1,1.28)
+)
+print(combined_plot)
 
