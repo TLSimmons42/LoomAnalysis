@@ -15,7 +15,9 @@ library(bit64)
 
 
 #dataFile <- "singleGazeTransferDF.csv"
-dataFile <- "singleBlinkDF.csv"
+#dataFile <- "singleBlinkDF.csv"
+dataFile <- "blinkRateDF2.csv"
+
 #dataFile <- "singleGazeDurationDF.csv"
 
 df <- read.csv(dataFile, colClasses=c("TimeStamp" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -139,52 +141,47 @@ blinkDF <- blinkDF %>% filter(Participant != "P9")
 
 # blinkDF <- blinkDF %>% filter(Participant != "P9")
 
-
-tempdf <- blinkDF %>% filter(!is.na(BlinkCount)) 
-sd <-sd(tempdf$BlinkCount)
-upperLimit <- mean(tempdf$BlinkCount + (sd*3))
-lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
-tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
-
-
-sd <-sd(tempdf$BlinkCount)
-upperLimit <- mean(tempdf$BlinkCount + (sd*3))
-lowerLimit <- mean(tempdf$BlinkCount - (sd*3))
-tempdf <- tempdf %>% filter(BlinkCount > lowerLimit & BlinkCount < upperLimit)
+tempDF <- df
+tempdf <- df %>% filter(Participant != "P9")
+tempdf <- tempdf %>% filter(Participant != "P4")
+sd <-sd(tempdf$BlinkRate)
+upperLimit <- mean(tempdf$BlinkRate + (sd*3))
+lowerLimit <- mean(tempdf$BlinkRate - (sd*3))
+tempdf <- tempdf %>% filter(BlinkRate > lowerLimit & BlinkRate < upperLimit)
 
 viewPlot <- tempdf %>%
   group_by(Condition, Group, Participant)%>%
   #summarise(mATT = mean(P2B), sATT = sd(P2B))%>%
-  ggplot(aes(Condition,BlinkCount, fill = reorder(Group,-BlinkCount)))+
+  ggplot(aes(Condition,BlinkRate, fill = reorder(Group,-BlinkRate)))+
   geom_boxplot() +
   # geom_boxplot(outlier.shape = NA) +
-  labs(title = "Blink Rate", x = "", y = "Blinks per Minute", color = "Group")+
+  labs(title = "Blink Rate", x = "", y = "Blinks per Second", color = "Group")+
   theme_bw()
 
-viewPlot <- viewPlot + scale_y_continuous(limits = c(0, 100))
+#viewPlot <- viewPlot + scale_y_continuous(limits = c(0, 100))
 viewPlot <- viewPlot + guides(fill=guide_legend(title="Group"))
 viewPlot
 
 
 
 resultDF <- tempdf %>% filter(Group == "Aut")
-result <- t.test(resultDF$BlinkCount ~ resultDF$Condition, var.equal = FALSE)
+result <- t.test(resultDF$BlinkRate ~ resultDF$Condition, var.equal = FALSE)
 print(result)
 
 resultDF <- tempdf %>% filter(Group == "Non-Aut")
-result <- t.test(resultDF$BlinkCount ~ resultDF$Condition, var.equal = FALSE)
+result <- t.test(resultDF$BlinkRate ~ resultDF$Condition, var.equal = FALSE)
 print(result)
 
 resultDF <- tempdf %>% filter(Condition == "Solo")
-result <- t.test(resultDF$BlinkCount ~ resultDF$Group, var.equal = FALSE)
+result <- t.test(resultDF$BlinkRate ~ resultDF$Group, var.equal = FALSE)
 print(result)
 
 resultDF <- tempdf %>% filter(Condition == "Cooperative")
-result <- t.test(resultDF$BlinkCount ~ resultDF$Group, var.equal = FALSE)
+result <- t.test(resultDF$BlinkRate ~ resultDF$Group, var.equal = FALSE)
 print(result)
 
 
-model <- aov(tempdf$BlinkCount ~ tempdf$Group * tempdf$Condition, data = tempdf)
+model <- aov(tempdf$BlinkRate ~ tempdf$Group * tempdf$Condition, data = tempdf)
 summary(model)
 #viewPlot+ theme(legend.position = "none")
 

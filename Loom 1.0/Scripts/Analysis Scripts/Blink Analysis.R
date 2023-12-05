@@ -27,6 +27,19 @@ singleBlinkDF <- data.frame(Participant = factor(),
                              blinkRowCounter = numeric(),
                              stringsAsFactors = FALSE)
 
+BlinRatekDF <- data.frame(Participant = factor(),
+                            Condition = factor(),
+                            Trial = numeric(),
+                            Age = numeric(),
+                            Gender = factor(),
+                            Group = factor(),
+                            BlinkRate = numeric(),
+                            BlinkCount = numeric(),
+                            TotalTime = numeric(),
+                            stringsAsFactors = FALSE)
+
+
+
 
 
 for (j in 1:length(data_files)){
@@ -41,8 +54,8 @@ for (j in 1:length(data_files)){
   # StartIndexes <- individualCombinedData %>% filter(areaEvent == "Game Start")
   # EndIndexes <- individualCombinedData %>% filter(targetEvent == "Game Over")
   # 
-
-
+  
+  blinkCounter <- 0
   for(k in 1:4){
     if(k == 1){
       tempDF <- individualCombinedData %>% filter(Condition == "s" & Trial == 1)
@@ -64,8 +77,11 @@ for (j in 1:length(data_files)){
     }
 
     
+    blinkCounter <- 0
 
-    trialDF <- pupilDF %>% filter(TimeStamp >= tempDF$TimeStamp[1] & TimeStamp <= tempDF$TimeStamp[1] + 600000000)
+    totalTime <- (tempDF$TimeStamp[nrow(tempDF)] - tempDF$TimeStamp[1])/10000000
+    print(totalTime)
+    trialDF <- pupilDF %>% filter(TimeStamp >= tempDF$TimeStamp[1] & TimeStamp <= tempDF$TimeStamp[nrow(tempDF)])
     trialDF <- trialDF %>% filter(!is.na(leftEye))
     
     if(nrow(trialDF) == 0){
@@ -103,6 +119,10 @@ for (j in 1:length(data_files)){
             newPartRow <- data.frame(Participant, Condition, Trial, Age, Gender, Group,
                                      BlinkTime, BlinkStartTime, BlinkEndTime, blinkRowCounter)
             singleBlinkDF <- rbind(singleBlinkDF, newPartRow)
+            
+            if(BlinkTime >= 70 & BlinkTime <= 300){
+              blinkCounter <- blinkCounter + 1
+            }
           }
           looking4Blink <- TRUE
           blinkRowCounter <- 0
@@ -117,12 +137,44 @@ for (j in 1:length(data_files)){
         }
       }
     }
+    BlinkCount <- blinkCounter
+    TotalTime <- totalTime
+    BlinkRate <- BlinkCount/TotalTime
     
+    newPartRow <- data.frame(Participant, Condition, Trial, Age, Gender, Group,
+                             BlinkRate, BlinkCount, TotalTime)
+    BlinRatekDF <- rbind(BlinRatekDF, newPartRow)
   }
+
+  
 }
 
-singleBlinkDF <- singleBlinkDF %>% mutate(Group = ifelse(Participant == "P4", "e", Group))
+# df <- read.csv(DataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
+# 
+# df <- df %>% filter(BlinkTime >= 100 & BlinkTime <= 400)
+# 
+# df <- df %>% mutate(Group = ifelse(Group == "e", "Aut",
+#                                    ifelse(Group == "c", "Non-Aut", "nothing")))
 
-checkDF <- singleBlinkDF %>% filter(Condition == "co")
-write.csv(singleBlinkDF, "singleBlinkDF.csv", row.names = FALSE)
+# Specify the value you want to count
+# value_to_count <- "P8"
+# 
+# # Count the number of rows with the specified value in the 'Value' column
+# count <- sum(df$Participant == value_to_count)
+# count
+
+# blinkDF <- df  %>%
+#   group_by(Participant, Group, Condition, Trial) %>%
+#   summarize(BlinkCount = sum(df$Participant == Participant & df$Condition == Condition & df$Trial == Trial))
+# 
+# blinkDF <- blinkDF %>% filter(Participant != "P9")
+
+
+
+
+# singleBlinkDF <- singleBlinkDF %>% mutate(Group = ifelse(Participant == "P4", "e", Group))
+# 
+# checkDF <- singleBlinkDF %>% filter(Condition == "co")
+# write.csv(singleBlinkDF, "singleBlinkDF.csv", row.names = FALSE)
+write.csv(BlinRatekDF, "blinkRateDF2.csv", row.names = FALSE)
 
