@@ -95,10 +95,18 @@ individualAreaPACdf <- data.frame(Time = numeric(),
     mutate(Time = (Time - Time[1])/10000000) 
   
   trimDF <- trimDF %>%
-    filter(Time <= 25)
+    filter(Time <= 19 & Time >=12)
   xHand <- trimDF$HandPos_X
   yHand <- trimDF$HandPos_Y
   zHand <- trimDF$HandPos_Z
+  
+  xHead <- trimDF$HeadPos_X
+  yHead <- trimDF$HeadPos_Y
+  zHead <- trimDF$HeadPos_Z
+  
+  xRay <- trimDF$RayCast_EndPos_X
+  yRay <- trimDF$RayCast_EndPos_Y
+  zRay <- trimDF$RayCast_EndPos_Z
   
   trimDF <- trimDF %>%
     mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
@@ -127,10 +135,24 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   # 
    
   
+  x <- xHand
+  y <- yHand
+  z <- zHand
+  
+  x <- xHead
+  y <- yHead
+  z <- zHead
+  
+  x <- xRay
+  y <- yRay
+  z <- zRay
+  
+  plot3d(x, y, z)
+  
 
   
   p <- trimDF %>%
-    ggplot(aes(x = Time, y = xHand, color = ActionEvent)) +
+    ggplot(aes(x = Time, y = zHand, color = ActionEvent)) +
     geom_line()+
     geom_point(size = .05)+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
