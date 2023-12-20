@@ -11,6 +11,8 @@ library(ggsci)
 library(gridExtra)
 library(ggsignif)
 library(bit64)
+# library(signal)
+
 
 data_files <- list.files(pattern = "sdP10.csv")
 
@@ -95,7 +97,8 @@ individualAreaPACdf <- data.frame(Time = numeric(),
     mutate(Time = (Time - Time[1])/10000000) 
   
   trimDF <- trimDF %>%
-    filter(Time <= 19 & Time >=12)
+    dplyr :: filter(Time <= 25 & Time >=24)
+  
   xHand <- trimDF$HandPos_X
   yHand <- trimDF$HandPos_Y
   zHand <- trimDF$HandPos_Z
@@ -151,13 +154,15 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   
 
   
+  
+  
   p <- trimDF %>%
-    ggplot(aes(x = Time, y = zHand, color = ActionEvent)) +
+    ggplot(aes(x = Time, y = xHand, color = ActionEvent)) +
     geom_line()+
-    geom_point(size = .05)+
+    geom_point(size = .2)+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
     # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-    labs(title = "Multiple Columns Line Plot", x = "X-axis label", y = "Y-axis label") +
+    labs(title = "", x = "Time (S)", y = "x axis hand pos") +
     theme_minimal()
   
   
@@ -167,21 +172,6 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   
   p
   
-  
-  p <- trimDF %>%
-    ggplot(aes(x = Time)) +
-    geom_line(aes(y = xHand), color = "blue", linetype = "solid") +
-    # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
-    # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-    labs(title = "Multiple Columns Line Plot", x = "X-axis label", y = "Y-axis label") +
-    theme_minimal()
-  
-  
-  #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
-  # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)
-  # p + geom_point(aes (y = zHand),(color = factor(ActionEvent)), size = 3)
-  
-  p
   # plot3d(x, y, z)
   
 # }
