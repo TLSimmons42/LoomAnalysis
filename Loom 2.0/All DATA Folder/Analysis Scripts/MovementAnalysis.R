@@ -11,7 +11,7 @@ library(ggsci)
 library(gridExtra)
 library(ggsignif)
 library(bit64)
-# library(signal)
+library(signal)
 
 
 data_files <- list.files(pattern = "sdP10.csv")
@@ -154,10 +154,20 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   
 
   
+  # Example: Design a low-pass Butterworth filter
+  order <- 4  # Filter order
+  cutoff_freq <- 20 / (0.5 * 90)  # Normalized cutoff frequency
+  
+  butterworth_filter <- butter(order, cutoff_freq, type = "low")
+  
+
+  testCol <- trimDF$HandPos_X
+  
+  filtered_signal <- as.numeric(filter(butterworth_filter, testCol))
   
   
   p <- trimDF %>%
-    ggplot(aes(x = Time, y = xHand, color = ActionEvent)) +
+    ggplot(aes(x = Time, y = filtered_signal, color = ActionEvent)) +
     geom_line()+
     geom_point(size = .2)+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +

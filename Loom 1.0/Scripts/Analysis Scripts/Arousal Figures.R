@@ -13,8 +13,11 @@ library(gridExtra)
 
 
 # grabDataFile <- "grabArousalSFNreal2.csv"
-DataFile <- "arousalGrab2PlaceDF.csv"
 
+ 
+# DataFile <- "arousalGrab2PlaceDF.csv"
+# DataFile <- "arousalGrab2PlaceDF2.csv"
+DataFile <- "arousalGrab2PlaceDF2diffBasline.csv"
 
 
 df <- read.csv(DataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
