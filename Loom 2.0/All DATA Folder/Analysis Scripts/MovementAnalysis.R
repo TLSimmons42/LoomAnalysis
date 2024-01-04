@@ -96,8 +96,8 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   trimDF <- df %>%
     mutate(Time = (Time - Time[1])/10000000) 
   
-  trimDF <- trimDF %>%
-    dplyr :: filter(Time <= 25 & Time >=24)
+  # trimDF <- trimDF %>%
+  #   dplyr :: filter(Time <= 25 & Time >=24)
   
   xHand <- trimDF$HandPos_X
   yHand <- trimDF$HandPos_Y
@@ -155,8 +155,8 @@ individualAreaPACdf <- data.frame(Time = numeric(),
 
   
   # Example: Design a low-pass Butterworth filter
-  order <- 4  # Filter order
-  cutoff_freq <- 20 / (0.5 * 90)  # Normalized cutoff frequency
+  order <- 3  # Filter order
+  cutoff_freq <- 6 / (0.5 * 90)  # Normalized cutoff frequency
   
   butterworth_filter <- butter(order, cutoff_freq, type = "low")
   
@@ -167,7 +167,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   
   
   p <- trimDF %>%
-    ggplot(aes(x = Time, y = filtered_signal, color = ActionEvent)) +
+    ggplot(aes(x = Time, y = xHand, color = ActionEvent)) +
     geom_line()+
     geom_point(size = .2)+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
