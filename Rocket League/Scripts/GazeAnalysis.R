@@ -142,9 +142,12 @@ p <- filteredGazeDurationTimes %>%
   geom_bar(stat = "identity", position = "dodge")+
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
                 width = .3, position = position_dodge(width = 1))+
-  labs(title = "Build Wall", x = "", y = "")+
+  labs(title = "Gaze Duration Time", x = "", y = "Time (ms)")+
   theme_bw()
 p
+p <- p + guides(fill=guide_legend(title="Group"))
+p
+ggsave("Gaze Duration Time.pdf")
 
 objectDF <- gazeDurationTimes %>% dplyr:: filter(gazeObject == "Teammate")
 result <- t.test(gazeTime ~ Group, data = objectDF, var.equal = FALSE)
@@ -251,9 +254,11 @@ p <- filteredgazeTransferTimes %>%
   geom_bar(stat = "identity", position = "dodge")+
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
                 width = .3, position = position_dodge(width = 1))+
-  labs(title = "Build Wall", x = "", y = "")+
+  labs(title = "Gaze Transfer Between Gameobjects", x = "", y = "Time (ms)")+
   theme_bw()
+p <- p + guides(fill=guide_legend(title="Group"))
 p
+ggsave("Object Transfer Time.pdf")
 
 
 p <- filteredgazeTransferTimes %>%
@@ -267,9 +272,11 @@ p <- filteredgazeTransferTimes %>%
   geom_bar(stat = "identity", position = "dodge")+
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
                 width = .3, position = position_dodge(width = 1))+
-  labs(title = "Build Wall", x = "", y = "")+
+  labs(title = "Overall Gaze Transfer Time", x = "", y = "Time (ms)")+
   theme_bw()
+p <- p + guides(fill=guide_legend(title="Group"))
 p
+ggsave("Overall Gaze Transfer Time.pdf")
 
 objectDF <- filteredgazeTransferTimes %>% dplyr:: filter(gazeObject == "Teammate")
 result <- t.test(transfert ~ Group, data = filteredgazeTransferTimes, var.equal = FALSE)
