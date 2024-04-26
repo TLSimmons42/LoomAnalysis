@@ -28,6 +28,18 @@ gazeDurationTimes <- data.frame(Participant = factor(),
                         frameEnd = numeric(),
                         stringsAsFactors = FALSE)
 
+gazeTransferTimes <- data.frame(Participant = factor(),
+                                Trial = numeric(),
+                                Group = factor(),
+                                gazeTransfer = factor(),
+                                transferTime = numeric(),
+                                transferStartTime = numeric(),
+                                transferEndTime = numeric(),
+                                frameStart = numeric(),
+                                frameEnd = numeric(),
+                                stringsAsFactors = FALSE)
+
+
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
@@ -40,7 +52,6 @@ df <- dplyr:: filter(df, df$GazeInsideBox != "")
 # df <- df %>% mutate(GazeInsideBox = ifelse(GazeInsideBox != "False" & GazeInsideBox != "True", "False", "moop"))
 
 #finding the gaze duration times
-
 participantList <- unique(df$participant)
 for(f in 1:length(participantList)){
   print(participantList[f])
@@ -108,22 +119,164 @@ for(f in 1:length(participantList)){
 
 
 # gazeDurationTimes <- gazeDurationTimes %>% dplyr :: filter(gazeTime < 2000)
-gazeDurationTimes <- gazeDurationTimes %>% dplyr :: filter(gazeTime > 100)
+filteredGazeDurationTimes <- gazeDurationTimes %>% dplyr :: filter(gazeTime > 100)
 
-avg_Time <- aggregate(gazeTime ~ gazeObject, data = gazeDurationTimes, FUN = mean)
+# avg_Time <- aggregate(gazeTime ~ gazeObject, data = gazeDurationTimes, FUN = mean)
+# 
+# testDF <- gazeDurationTimes %>%
+#   group_by(gazeObject)%>%
+#   summarize(
+#     MeanPercent = mean(gazeTime),
+#     sd = sd(gazeTime),
+#     CI_lower = MeanPercent - 1.96 * sd / sqrt(n()),
+#     CI_upper = MeanPercent + 1.96 * sd / sqrt(n()))
 
-p <- gazeDurationTimes %>%
-  group_by(gazeObject)%>%
+p <- filteredGazeDurationTimes %>%
+  group_by(Group, gazeObject)%>%
   summarize(
-    MeanPercent = mean(gazeTime),
+    avgGazeTime = mean(gazeTime),
     sd = sd(gazeTime),
-    CI_lower = MeanPercent - 1.96 * sd / sqrt(n()),
-    CI_upper = MeanPercent + 1.96 * sd / sqrt(n())) %>%
-  ggplot(aes(gazeObject, gazeTime, fill = gazeObject))+
-  geom_bar(stat = "identity")+
+    CI_lower = avgGazeTime - 1.96 * sd / sqrt(n()),
+    CI_upper = avgGazeTime + 1.96 * sd / sqrt(n())) %>%
+  ggplot(aes(reorder(gazeObject,avgGazeTime),avgGazeTime, fill = reorder(Group,avgGazeTime)))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
+                width = .3, position = position_dodge(width = 1))+
   labs(title = "Build Wall", x = "", y = "")+
   theme_bw()
 p
+
+objectDF <- gazeDurationTimes %>% dplyr:: filter(gazeObject == "Teammate")
+result <- t.test(gazeTime ~ Group, data = objectDF, var.equal = FALSE)
+print(result)
+
+
+
+
+#finding the gaze duration times
+participantList <- unique(gazeDurationTimes$Participant)
+for(f in 1:length(participantList)){
+  print(participantList[f])
+  dfTrimmed <- gazeDurationTimes %>% dplyr:: filter(Participant == participantList[f])
+  print(nrow(dfTrimmed))
+  
+  trialNumbers <- unique(dfTrimmed$Trial)
+  for (t in 1:length(trialNumbers)){
+    print(length(trialNumbers))
+    transferStartTime <- 0
+    transferEndTime <- 0
+    totalTime <- 0
+    
+    endObj <- ""
+    firstObj <- ""
+    looking4New <- TRUE
+    frameStart <- 0
+    frameEnd <- 0
+    
+    dfTrimmed2 <- dfTrimmed %>% dplyr:: filter(Trial == trialNumbers[t])
+    if(nrow(dfTrimmed) == 0){
+      break
+    }
+    for (i in 1:nrow(dfTrimmed2)){
+      if(looking4New){
+        firstObj <- dfTrimmed2$gazeObject[i]
+        transferStartTime <- dfTrimmed2$gazeEndTime[i]
+        frameStart <- dfTrimmed2$frameEnd[i]
+        
+        looking4New <- FALSE
+      }else{
+        if(firstObj != dfTrimmed2$gazeObject[i]){
+          
+          endObj <- dfTrimmed2$gazeObject[i]
+          gazeTransfer <- paste(firstObj, endObj, sep = "-")
+          transferEndTime<- dfTrimmed2$gazeStartTime[i]
+          transferTime <- transferEndTime - transferStartTime
+          
+          Participant <- dfTrimmed2$Participant[i]
+          Trial <- t
+          Group <- dfTrimmed2$Group[i]
+          frameEnd <- dfTrimmed2$frameStart[i]
+          
+          newRow <- data.frame(Participant, Trial, Group, gazeTransfer,transferTime, 
+                               transferStartTime, transferEndTime, frameStart, frameEnd)
+          gazeTransferTimes <<- rbind(gazeTransferTimes, newRow)
+          
+          
+          firstObj <- endObj
+          transferStartTime <- dfTrimmed2$gazeEndTime[i]
+          frameStart <- dfTrimmed2$frameEnd[i]
+          
+          
+        }else{
+          looking4New <- TRUE
+        }
+
+      }
+      
+    }
+  }
+}
+
+
+filteredgazeTransferTimes <- gazeTransferTimes %>% dplyr :: filter(transferTime > 20)
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% dplyr :: filter(transferTime < 2000)
+
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Self-Ball", "Ball-Self", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Goal Post-Ball", "Ball-Goal Post", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Teammate-Ball", "Ball-Teammate", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Opponent-Ball", "Ball-Opponent", gazeTransfer))
+
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Goal Post-Self", "Self-Goal Post", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Teammate-Self", "Self-Teammate", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Opponent-Self", "Self-Opponent", gazeTransfer))
+
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Teammate-Goal Post", "Goal Post-Teammate", gazeTransfer))
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% mutate(gazeTransfer = ifelse(gazeTransfer == "Opponent-Goal Post", "Goal Post-Opponent", gazeTransfer))
+
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>%
+  filter(!grepl("Boost", filteredgazeTransferTimes$gazeTransfer))
+
+filteredgazeTransferTimes <- filteredgazeTransferTimes %>% dplyr :: filter(gazeTransfer == "Ball-Opponent" | gazeTransfer == "Self-Opponent" |
+                                                                             gazeTransfer == "Self-Teammate" |gazeTransfer == "Ball-Goal Post" )
+
+
+p <- filteredgazeTransferTimes %>%
+  group_by(Group, gazeTransfer)%>%
+  summarize(
+    avgGazeTime = mean(transferTime),
+    sd = sd(transferTime),
+    CI_lower = avgGazeTime - 1.96 * sd / sqrt(n()),
+    CI_upper = avgGazeTime + 1.96 * sd / sqrt(n())) %>%
+  ggplot(aes(reorder(gazeTransfer,avgGazeTime),avgGazeTime, fill = reorder(Group,avgGazeTime)))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
+                width = .3, position = position_dodge(width = 1))+
+  labs(title = "Build Wall", x = "", y = "")+
+  theme_bw()
+p
+
+
+p <- filteredgazeTransferTimes %>%
+  group_by(Group)%>%
+  summarize(
+    avgGazeTime = mean(transferTime),
+    sd = sd(transferTime),
+    CI_lower = avgGazeTime - 1.96 * sd / sqrt(n()),
+    CI_upper = avgGazeTime + 1.96 * sd / sqrt(n())) %>%
+  ggplot(aes(Group ,avgGazeTime, fill = Group))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
+                width = .3, position = position_dodge(width = 1))+
+  labs(title = "Build Wall", x = "", y = "")+
+  theme_bw()
+p
+
+objectDF <- filteredgazeTransferTimes %>% dplyr:: filter(gazeObject == "Teammate")
+result <- t.test(transfert ~ Group, data = filteredgazeTransferTimes, var.equal = FALSE)
+print(result)
+
+
+
 
 # p <- gazeDurationTimes %>%
 #   group_by(gazeObject)%>%
