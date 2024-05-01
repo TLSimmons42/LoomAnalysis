@@ -53,3 +53,7 @@ plot_ly(combindedMovementDF, x = ~x, y = ~y, z = ~z, color = ~area, type = "scat
 # p
 # ggplotly(p)
 
+yAxis <- as.numeric(df$HeadRot_Z)
+
+plot(df$Time, yAxis)
+
