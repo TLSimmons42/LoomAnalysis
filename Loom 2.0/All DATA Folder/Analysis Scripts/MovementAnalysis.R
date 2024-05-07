@@ -99,17 +99,6 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   # trimDF <- trimDF %>%
   #   dplyr :: filter(Time <= 25 & Time >=24)
   
-  xHand <- trimDF$HandPos_X
-  yHand <- trimDF$HandPos_Y
-  zHand <- trimDF$HandPos_Z
-  
-  xHead <- trimDF$HeadPos_X
-  yHead <- trimDF$HeadPos_Y
-  zHead <- trimDF$HeadPos_Z
-  
-  xRay <- trimDF$RayCast_EndPos_X
-  yRay <- trimDF$RayCast_EndPos_Y
-  zRay <- trimDF$RayCast_EndPos_Z
   
   trimDF <- trimDF %>%
     mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
@@ -137,6 +126,18 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   # 
   # 
    
+  
+  xHand <- trimDF$HandPos_X
+  yHand <- trimDF$HandPos_Y
+  zHand <- trimDF$HandPos_Z
+  
+  xHead <- trimDF$HeadPos_X
+  yHead <- trimDF$HeadPos_Y
+  zHead <- trimDF$HeadPos_Z
+  
+  xRay <- trimDF$RayCast_EndPos_X
+  yRay <- trimDF$RayCast_EndPos_Y
+  zRay <- trimDF$RayCast_EndPos_Z
   
   x <- xHand
   y <- yHand
