@@ -13,7 +13,7 @@ library(ggsignif)
 library(bit64)
 library(signal)
 library(plotly)
-
+library(pracma)
 
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
@@ -67,7 +67,7 @@ trimDF <- trimDF %>%
 
 
 
-# # 3D figure plot
+# 3D figure plot
 # gazeData <- data.frame(
 #   x = as.numeric(df$EyePos_X),
 #   y = as.numeric(df$EyePos_Y),
@@ -90,8 +90,8 @@ trimDF <- trimDF %>%
 # 
 # combindedMovementDF <- rbind(gazeData, handData)
 # 
-# plot_ly(combindedMovementDF, x = ~x, y = ~y, z = ~z, color = ~area, type = "scatter3d", mode = "markers")
-# 
+# plot_ly(combindedMovementDF, x = ~x, y = ~y, z = ~z, color = ~ area, type = "scatter3d", mode = "markers")
+
 
 
 # This will plot the individual movements for hand, head and gaze
@@ -121,9 +121,30 @@ zEye <- as.numeric(subTrimDF$EyePos_Z)
 
 
 
+subTrimDF <- subTrimDF %>% mutate(EularAngle = asin(2 * (sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*yHeadRot - (xHeadRot * zHeadRot))))
+subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle * (180 / pi))
+
+
+# quaternion_to_euler <- function(xHeadRot, yHeadRot, zHeadRot) {
+#   # Calculate w assuming the quaternion is normalized
+#   w <- sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))
+#   
+#   # Convert quaternion to Euler angles
+#   euler <- QuatToEuler(c(xHeadRot, yHeadRot, zHeadRot, w))
+#   
+#   # Convert radians to degrees
+#   euler_degrees <- euler * (180 / pi)
+#   
+#   return(euler_degrees)
+# }
+# 
+# euler_angles <- apply(data, 1, function(row) {
+#   quaternion_to_euler(xHeadRot, row['y'], row['z'])
+# })
+
 
 p <- subTrimDF %>%
-  ggplot(aes(x = Time, y = zEye, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = Time, y = EularAngle, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
