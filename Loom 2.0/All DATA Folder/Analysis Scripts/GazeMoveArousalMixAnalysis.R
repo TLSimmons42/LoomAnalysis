@@ -13,25 +13,29 @@ library(ggsignif)
 library(bit64)
 library(signal)
 library(plotly)
-library(pracma)
 
+
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf 5_9_24.csv"
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
-
+PACdf <- read.csv(PACdataFile, colClasses=c("PACstartTime" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- df[!duplicated(df$Time), ]
 
+df$Time[is.na(df$Time)] <- 0
+df$Time <- as.integer64(df$Time)
+
+
+participantID <- df$Participant[1]
+PACdf <- PACdf %>% filter(Participant == participantID)
+
+
+
+
 
 trimDF <- df %>%
-  mutate(Time = (Time - Time[1])/10000000) 
-
-# trimDF <- trimDF %>%
-#   dplyr :: filter(Time <= 25 & Time >=24)
-
-
-trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
 
 trimDF <- trimDF %>%
@@ -55,16 +59,31 @@ trimDF <- trimDF %>%
 trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", ActionEvent, CurrentGazeArea))
 
-trimDF <- trimDF %>% 
-  mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", 3, 1))
 
-trimDF <- trimDF %>% dplyr :: filter(EyePos_X != "N/A")
+
+
+for (g in 1:nrow(PACdf)) {
+  currentPACstartTime <- PACdf$PACstartTime[g]
+  currentEvent <- PACdf$PACtype[g]
+  trimDF <- trimDF %>% mutate(ActionEvent = ifelse(currentPACstartTime == Time & currentEvent == "grab", "grabLook",ActionEvent))
+  trimDF <- trimDF %>% mutate(ActionEvent = ifelse(currentPACstartTime == Time & currentEvent == "place", "placeLook",ActionEvent))
+  
+}
+
+trimDF <- trimDF %>% 
+  mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook", 3, 1))
 
 
 trimDF <- trimDF %>%
-  filter(as.numeric(EyePos_X) > -1)
+  mutate(Time = (Time - Time[1])/10000000) 
 
+trimDF <- trimDF %>% dplyr :: filter(EyePos_X != "N/A")
 
+# 
+# trimDF <- trimDF %>%
+#   filter(as.numeric(EyePos_X) > -1)
+# 
+# 
 
 
 # 3D figure plot
@@ -96,8 +115,8 @@ trimDF <- trimDF %>%
 
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
-subTrimDF <- trimDF %>%
-  dplyr :: filter(Time <= 50 & Time >=20)
+# subTrimDF <- trimDF %>%
+#   dplyr :: filter(Time >= 208 & Time <=212)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -144,7 +163,7 @@ subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle * (180 / pi))
 
 
 p <- subTrimDF %>%
-  ggplot(aes(x = Time, y = EularAngle, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = Time, y = xHand, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
@@ -158,3 +177,7 @@ p <- subTrimDF %>%
 p
 # p + scale_y_continuous(limits = c(-1.5,1.5))
  
+
+
+plot_ly(subTrimDF, x = ~xEye, y = ~yEye, z = ~zEye, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
+

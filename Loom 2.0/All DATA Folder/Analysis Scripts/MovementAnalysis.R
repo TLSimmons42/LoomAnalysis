@@ -161,7 +161,7 @@ individualAreaPACdf <- data.frame(Time = numeric(),
   
   butterworth_filter <- butter(order, cutoff_freq, type = "low")
   
-
+  
   testCol <- trimDF$HandPos_X
   
   filtered_signal <- as.numeric(filter(butterworth_filter, testCol))
