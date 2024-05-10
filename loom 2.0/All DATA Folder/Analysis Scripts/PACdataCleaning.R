@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "sdP11_old1.csv")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -100,13 +100,15 @@ for(f in 1:length(data_files))
   trimedGrabDF <- trimedGrabDF %>% filter(!grepl("HB", Event))
   
 
+  trimedPlaceDF <- df[grep("DropzonePlaceHolderClone", df$Event), ]
   
-  trimedPlaceDF <- df[grep("placed", df$Event), ]
-  trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
-  trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
-  trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("HB", Event))
-  trimedPlaceDF <- trimedPlaceDF[!duplicated(trimedPlaceDF$Event), ]
-  trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
+  # 
+  # trimedPlaceDF <- df[grep("placed", df$Event), ]
+  # trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
+  # trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("Hit", Event))
+  # trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("HB", Event))
+  # trimedPlaceDF <- trimedPlaceDF[!duplicated(trimedPlaceDF$Event), ]
+  # trimedPlaceDF <- trimedPlaceDF %>% filter(CurrentGazeArea == "build_wall")
   
   
   if(df[1,8] != "solo"){
@@ -278,7 +280,6 @@ for(f in 1:length(data_files))
       Trial <- trimedPlaceDF[9,9]
       Group <-trimedPlaceDF[7,7]
       
-  
       
       for(v in nrow(subDF1):1)
       {
