@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11_old1.csv")
+data_files <- list.files(pattern = "sdP11")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -101,6 +101,7 @@ for(f in 1:length(data_files))
   
 
   trimedPlaceDF <- df[grep("DropzonePlaceHolderClone", df$Event), ]
+  trimedPlaceDF <- trimedPlaceDF %>% filter(!grepl("by", Event))
   
   # 
   # trimedPlaceDF <- df[grep("placed", df$Event), ]
@@ -250,7 +251,7 @@ for(f in 1:length(data_files))
         
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
-        
+        Event <- input_string
   
         #acceleration <- velocity/PACtime
         
@@ -258,7 +259,7 @@ for(f in 1:length(data_files))
         #print(distance)
         #print(acceleration)
         
-        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
         individualPACdf <- rbind(individualPACdf, newPartRow)
         
         
@@ -266,6 +267,8 @@ for(f in 1:length(data_files))
     }
 
   }
+  
+  
   if(nrow(trimedPlaceDF ) != 0){
     for(i in 1:nrow(trimedPlaceDF))
     {
@@ -273,12 +276,17 @@ for(f in 1:length(data_files))
       currentGazeArea <- trimedPlaceDF[i,12]
       currentEvent <- trimedPlaceDF[i,10]
       
-      subDF1 <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+      subDF1 <- df %>% filter(Time > (currentTime-10000000) & Time <= currentTime)
+      subDF1 <- subDF1 %>% filter(EyePos_X != "N/A")
       
       Participant <- trimedPlaceDF[2,2]
       Condition <- trimedPlaceDF[8,8]
       Trial <- trimedPlaceDF[9,9]
       Group <-trimedPlaceDF[7,7]
+      
+      dropZoneLocation <- as.numeric(sub(".*DropzonePlaceHolderClone", "", trimedPlaceDF$Event[i]))
+      print(dropZoneLocation)
+      
       
       
       for(v in nrow(subDF1):1)
@@ -299,43 +307,73 @@ for(f in 1:length(data_files))
         }
       }
       
+      for(t in 1:nrow(subDF1)){
+        
+        currentPlaceTime <- subDF1$Time[t]
+        currentXPos <- subDF$EyePos_X[t]
+        currentYPos <- subDF$EyePos_Z[t]
+        
+        minX <- dropZoneLocation + 9.5
+        maxX <- dropZoneLocation + 10.5
+        minY <- 6.5
+        
       
-      input_string <- trimedPlaceDF[i,10]
-      
-      # Find the position of " was picked up"
-      pos <- regexpr("was placed in dropzone", input_string)
-      
-      # Extract the substring before the target text
-      result <- substr(input_string, 1, pos - 1)
-      
-      # Print the result
-      
-      
-      first_instance <- which(subDF1$CurrentGazeTarget == "GameObject")[1]
-      
-      if (!is.na(first_instance)) {
-        first_instance_row <- subDF1[first_instance, ]
-        if((currentTime - first_instance_row[1,1])/10000 > 0)
-        {
+        if(as.numeric(subDF1$EyePos_X[t]) > minX & as.numeric(subDF1$EyePos_X[t]) < maxX & as.numeric(subDF1$EyePos_Y[t]) > minY){
           placePACcount <- placePACcount + 1
-          totalPlacePAC <- totalPlacePAC + (currentTime - first_instance_row[1,1])/10000
+          totalPlacePAC <- totalPlacePAC + (currentTime - currentPlaceTime)/10000
           
           PACtype <- "place"
-          PACtime <- (currentTime - first_instance_row[1,1])/10000
+          PACtime <- (currentTime - currentPlaceTime)/10000
+          Event <- currentEvent
           
-          
-          PACstartTime <- first_instance_row[1,1]
+          PACstartTime <- currentPlaceTime
           PACendTime <- currentTime
-          
-          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
+
+          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
           individualPACdf <- rbind(individualPACdf, newPartRow)
-          
+
+          break
         }
       }
       
+      
+      
+# 
+#       input_string <- trimedPlaceDF[i,10]
+# 
+#       # Find the position of " was picked up"
+#       pos <- regexpr("was placed in dropzone", input_string)
+# 
+#       # Extract the substring before the target text
+#       result <- substr(input_string, 1, pos - 1)
+# 
+#       # Print the result
+# 
+# 
+#       first_instance <- which(subDF1$CurrentGazeTarget == "GameObject")[1]
+# 
+#       if (!is.na(first_instance)) {
+#         first_instance_row <- subDF1[first_instance, ]
+#         if((currentTime - first_instance_row[1,1])/10000 > 0)
+#         {
+#           placePACcount <- placePACcount + 1
+#           totalPlacePAC <- totalPlacePAC + (currentTime - first_instance_row[1,1])/10000
+# 
+#           PACtype <- "place"
+#           PACtime <- (currentTime - first_instance_row[1,1])/10000
+# 
+# 
+#           PACstartTime <- first_instance_row[1,1]
+#           PACendTime <- currentTime
+# 
+#           newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, input_string)
+#           individualPACdf <- rbind(individualPACdf, newPartRow)
+# 
+#         }
+#       }
+      
     }
   }
-  
    avgGrabPAC <- totalGrabPAC/grabPACcount
    avgPlacePAC <- totalPlacePAC/placePACcount
    avgPlaceAreaPAC <- totalPlaceAreaPAC/placeAreaPACcount
@@ -367,11 +405,11 @@ for(f in 1:length(data_files))
      place <- individualGrab2Placedf$PlaceTime[b]/ 10000
      grab <- individualGrab2Placedf$GrabTime[b]/ 10000
      
-     if((place - grab)> 0){
-       
-     
-      totalGrab2PlaceTime <- totalGrab2PlaceTime + (place - grab)
-     }
+     # if((place - grab)> 0){
+     #   
+     # 
+     #  totalGrab2PlaceTime <- totalGrab2PlaceTime + (place - grab)
+     # }
    }
    grab2PlaceTime <- totalGrab2PlaceTime/grab2PlaceCount
    
@@ -492,7 +530,7 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
   }
 }
 
-#write.csv(df, newString, row.names = FALSE)
+# write.csv(individualPACdf, "PACdf tester 5_13", row.names = FALSE)
 
 
 individualGrab2Placedf <- individualGrab2Placedf  %>% mutate(EventTime = (PlaceTime/ 10000) - (GrabTime/ 10000))

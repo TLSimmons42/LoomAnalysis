@@ -15,7 +15,7 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf 5_9_24.csv"
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_13"
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
@@ -33,16 +33,14 @@ PACdf <- PACdf %>% filter(Participant == participantID)
 
 
 
-
-
 trimDF <- df %>%
   mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), "none", ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), CurrentGazeArea, ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(!grepl("P1", ActionEvent), ActionEvent, "none"))
+  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), CurrentGazeArea, ActionEvent))
 
 trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(ActionEvent != "none", "Grab", ActionEvent))
@@ -51,10 +49,16 @@ trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(grepl("dropped", Event), Event, ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), "Dropped", ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("player", ActionEvent), "none", ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", ActionEvent, "none"))
+  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), "none", ActionEvent))
+
+trimDF <- trimDF %>%
+  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), "none", ActionEvent))
+
+trimDF <- trimDF %>%
+  mutate(ActionEvent = ifelse(grepl("dropped", ActionEvent), "Dropped", ActionEvent))
 
 trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", ActionEvent, CurrentGazeArea))
@@ -79,11 +83,11 @@ trimDF <- trimDF %>%
 
 trimDF <- trimDF %>% dplyr :: filter(EyePos_X != "N/A")
 
-# 
-# trimDF <- trimDF %>%
-#   filter(as.numeric(EyePos_X) > -1)
-# 
-# 
+
+trimDF <- trimDF %>%
+  filter(as.numeric(EyePos_X) > -1)
+
+
 
 
 # 3D figure plot
@@ -115,8 +119,8 @@ trimDF <- trimDF %>% dplyr :: filter(EyePos_X != "N/A")
 
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
-# subTrimDF <- trimDF %>%
-#   dplyr :: filter(Time >= 208 & Time <=212)
+subTrimDF <- trimDF %>%
+  dplyr :: filter(Time >= 1 & Time <= 100)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
