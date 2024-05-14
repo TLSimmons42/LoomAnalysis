@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11")
+data_files <- list.files(pattern = "nuP11")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -315,7 +315,7 @@ for(f in 1:length(data_files))
         
         minX <- dropZoneLocation + 9.5
         maxX <- dropZoneLocation + 10.5
-        minY <- 6.5
+        minY <- 5
         
       
         if(as.numeric(subDF1$EyePos_X[t]) > minX & as.numeric(subDF1$EyePos_X[t]) < maxX & as.numeric(subDF1$EyePos_Y[t]) > minY){
@@ -530,7 +530,7 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
   }
 }
 
-# write.csv(individualPACdf, "PACdf tester 5_13", row.names = FALSE)
+# write.csv(individualPACdf, "PACdf tester 5_13.csv", row.names = FALSE)
 
 
 individualGrab2Placedf <- individualGrab2Placedf  %>% mutate(EventTime = (PlaceTime/ 10000) - (GrabTime/ 10000))

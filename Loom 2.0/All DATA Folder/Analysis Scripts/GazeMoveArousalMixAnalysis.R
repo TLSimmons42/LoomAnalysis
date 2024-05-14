@@ -15,8 +15,8 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_13"
-data_files <- list.files(pattern = "sdP11.csv")
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf nuTest 5_14.csv"
+data_files <- list.files(pattern = "nuP11")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
@@ -32,6 +32,10 @@ participantID <- df$Participant[1]
 PACdf <- PACdf %>% filter(Participant == participantID)
 
 
+
+
+# trimDF <- df %>%
+#   filter(as.numeric(HandPos_X) > 0)
 
 trimDF <- df %>%
   mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
@@ -90,6 +94,8 @@ trimDF <- trimDF %>%
 
 
 
+
+
 # 3D figure plot
 # gazeData <- data.frame(
 #   x = as.numeric(df$EyePos_X),
@@ -120,7 +126,7 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-  dplyr :: filter(Time >= 1 & Time <= 100)
+  dplyr :: filter(Time >= 235 & Time <= 238)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -183,5 +189,5 @@ p
  
 
 
-plot_ly(subTrimDF, x = ~xEye, y = ~yEye, z = ~zEye, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
+plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
 
