@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "nuP11")
+data_files <- list.files(pattern = "sdP11.csv")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -85,10 +85,17 @@ for(f in 1:length(data_files))
   
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- df[!duplicated(df$Time), ]
+  
+  
+  df <- df %>%
+    filter(as.numeric(HandPos_X) > 0)
+  
   df$Event <- gsub("\\(|\\)", "", df$Event)
   df$CurrentGazeTarget <- gsub("\\(|\\)", "", df$CurrentGazeTarget)
   gameOverTime <- df[df$Event == "Game Over",]
   df <- df %>% filter(df$Time <= gameOverTime[1,1])
+  
+
 
 
   
