@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11.csv")
+data_files <- list.files(pattern = "sdP11")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -283,7 +283,7 @@ for(f in 1:length(data_files))
       currentGazeArea <- trimedPlaceDF[i,12]
       currentEvent <- trimedPlaceDF[i,10]
       
-      subDF1 <- df %>% filter(Time > (currentTime-10000000) & Time <= currentTime)
+      subDF1 <- df %>% filter(Time > (currentTime-13000000) & Time <= currentTime)
       subDF1 <- subDF1 %>% filter(EyePos_X != "N/A")
       
       Participant <- trimedPlaceDF[2,2]
@@ -320,8 +320,8 @@ for(f in 1:length(data_files))
         currentXPos <- subDF$EyePos_X[t]
         currentYPos <- subDF$EyePos_Z[t]
         
-        minX <- dropZoneLocation + 9.5
-        maxX <- dropZoneLocation + 10.5
+        minX <- dropZoneLocation + 9.4
+        maxX <- dropZoneLocation + 10.6
         minY <- 5
         
       

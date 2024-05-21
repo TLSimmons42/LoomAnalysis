@@ -15,8 +15,8 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_1552.csv"
-data_files <- list.files(pattern = "sdP11.csv")
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_200.csv"
+data_files <- list.files(pattern = "sdP11_old4.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
@@ -33,33 +33,41 @@ PACdf <- PACdf %>% filter(Participant == participantID)
 
 
 
+trimDF <- df %>% dplyr :: filter(EyePos_X != "N/A")
 
-trimDF <- df %>%
+trimDF <- trimDF %>%
+  mutate(ModTime = (Time - Time[1])/10000000) 
+
+trimDF <- trimDF %>%
+  filter(as.numeric(EyePos_X) > -1)
+
+
+trimDF <- trimDF %>%
   filter(as.numeric(HandPos_X) > 0)
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "none"))
+  mutate(ActionEvent = ifelse(grepl("picked", Event), Event, "temp"))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), CurrentGazeArea, ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), "temp", ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), CurrentGazeArea, ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), "temp", ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(ActionEvent != "none", "Grab", ActionEvent))
+  mutate(ActionEvent = ifelse(ActionEvent != "temp", "Grab", ActionEvent))
 
 trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(grepl("dropped", Event), Event, ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("player", ActionEvent), "none", ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("player", ActionEvent), "temp", ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), "none", ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("P2", ActionEvent), "temp", ActionEvent))
 
 trimDF <- trimDF %>%
-  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), "none", ActionEvent))
+  mutate(ActionEvent = ifelse(grepl("P1", ActionEvent), "temp", ActionEvent))
 
 trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(grepl("dropped", ActionEvent), "Dropped", ActionEvent))
@@ -68,6 +76,32 @@ trimDF <- trimDF %>%
   mutate(ActionEvent = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", ActionEvent, CurrentGazeArea))
 
 
+filterDF <- trimDF %>% filter(ActionEvent == "Dropped")
+for (c in 1:nrow(filterDF)) {
+  
+  input_string <- filterDF$Event[c]
+  if(trimDF$Condition[1] == "solo"){
+    pattern <- ".*(?=was)"
+  }else{
+    pattern <- ".*(?= was)"
+  }
+  
+  secondHalf <- "was placed in dropzone"
+    
+  extracted_phrase <- str_extract(input_string, pattern)
+  full_phrase <- paste0(extracted_phrase, secondHalf)
+  print(extracted_phrase)
+  
+  print(full_phrase)
+  trimDF <- trimDF %>%
+    mutate(row_num = row_number()) %>%
+    mutate(Event = if_else(Event == full_phrase & row_num != max(row_num[Event == full_phrase]), 
+                            "playing", Event)) %>%
+    select(-row_num)
+  
+  
+  trimDF <- trimDF %>% mutate(ActionEvent = ifelse(full_phrase == Event, "DropStart",ActionEvent))
+}
 
 
 for (g in 1:nrow(PACdf)) {
@@ -79,17 +113,10 @@ for (g in 1:nrow(PACdf)) {
 }
 
 trimDF <- trimDF %>% 
-  mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook", 3, 1))
+  mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook"| ActionEvent == "DropStart", 3, 1))
 
 
-trimDF <- trimDF %>%
-  mutate(Time = (Time - Time[1])/10000000) 
 
-trimDF <- trimDF %>% dplyr :: filter(EyePos_X != "N/A")
-
-
-trimDF <- trimDF %>%
-  filter(as.numeric(EyePos_X) > -1)
 
 
 
@@ -126,7 +153,7 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-  dplyr :: filter(Time >= 100 & Time <= 130)
+  dplyr :: filter(ModTime >= 5 & ModTime <= 9)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -173,7 +200,7 @@ subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle * (180 / pi))
 
 
 p <- subTrimDF %>%
-  ggplot(aes(x = Time, y = xHand, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = ModTime, y = xHand, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
