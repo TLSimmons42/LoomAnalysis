@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11")
+data_files <- list.files(pattern = "sdP11_old6")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -94,9 +94,6 @@ for(f in 1:length(data_files))
   df$CurrentGazeTarget <- gsub("\\(|\\)", "", df$CurrentGazeTarget)
   gameOverTime <- df[df$Event == "Game Over",]
   df <- df %>% filter(df$Time <= gameOverTime[1,1])
-  
-
-
 
   
   # Find all of the Picked events
@@ -232,15 +229,18 @@ for(f in 1:length(data_files))
     
     # Find the position of " was picked up"
     pos <- regexpr(" was picked up", input_string)
+    #print(pos)
     
     # Extract the substring before the target text
     result <- substr(input_string, 1, pos - 1)
     
     # Print the result
-    #print(result)
-
+    if(result == ""){
+      pattern <- "Network.*"
+      result <- str_extract(input_string, pattern)
+      print(result)
+    }
     first_instance <- which(subDF$CurrentGazeTarget == result)[1]
-    
     
     
     if (!is.na(first_instance)) {
@@ -262,13 +262,11 @@ for(f in 1:length(data_files))
   
         #acceleration <- velocity/PACtime
         
-        
         #print(distance)
         #print(acceleration)
         
         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
         individualPACdf <- rbind(individualPACdf, newPartRow)
-        
         
       }
     }
@@ -292,8 +290,7 @@ for(f in 1:length(data_files))
       Group <-trimedPlaceDF[7,7]
       
       dropZoneLocation <- as.numeric(sub(".*DropzonePlaceHolderClone", "", trimedPlaceDF$Event[i]))
-      print(dropZoneLocation)
-      
+
       
       
       for(v in nrow(subDF1):1)

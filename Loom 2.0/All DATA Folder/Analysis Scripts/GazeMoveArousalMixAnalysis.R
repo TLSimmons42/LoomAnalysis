@@ -15,8 +15,8 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_200.csv"
-data_files <- list.files(pattern = "sdP11_old4.csv")
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_200.csv"
+data_files <- list.files(pattern = "sdP11_old6.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
@@ -153,7 +153,11 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-  dplyr :: filter(ModTime >= 5 & ModTime <= 9)
+  dplyr :: filter(ModTime >= 180.5 & ModTime <= 182)
+
+# subTrimDF <- trimDF %>% filter(as.numeric(EyePos_Z) > -.6)
+# subTrimDF <- subTrimDF %>% filter(as.numeric(EyePos_Z) < .6)
+
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -210,11 +214,27 @@ p <- subTrimDF %>%
 #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
 # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)
 # p + geom_point(aes (y = zHand),(color = factor(ActionEvent)), size = 3)
-
 p
 # p + scale_y_continuous(limits = c(-1.5,1.5))
  
 
 
 plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
+# plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
+
+
+
+testerrr <- subTrimDF %>% filter(ActionEvent == "Grab")
+testerrr2 <- subTrimDF %>% filter(ActionEvent == "grabLook")
+
+pattern <- ".*(?= was)"
+testerrr <- testerrr %>% mutate(Event = str_extract(Event, pattern))
+testerrr <- testerrr %>% mutate(Matched = FALSE)
+for (i in 1:nrow(testerrr2)){
+  currentPhrase <- testerrr2$CurrentGazeTarget[i]
+  
+  testerrr <- testerrr %>% 
+    mutate(Matched = ifelse(Event == currentPhrase, TRUE, Matched))
+}
+nonMatchedGrabs <- testerrr %>% filter(Matched == FALSE)
 
