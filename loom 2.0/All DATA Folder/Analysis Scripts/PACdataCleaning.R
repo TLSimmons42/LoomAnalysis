@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11_old6")
+data_files <- list.files(pattern = "sdP11_old4")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -270,6 +270,39 @@ for(f in 1:length(data_files))
         
       }
     }
+    
+    yMin <- 5
+    yMax <- 12.6
+    zMin <- -1.1
+    zMax <- .1
+    subDFGold <- subDF %>% filter(EyePos_Y != "N/A")
+    goldCheck <- grepl("Gold", currentEvent)
+    if(goldCheck & (trimedGrabDF$Condition[i] == "comp" | trimedGrabDF$Condition[i] == "co")){
+      for (g in 1:nrow(subDFGold)) {
+       if(as.numeric(subDFGold$EyePos_Y[g]) >= yMin & as.numeric(subDFGold$EyePos_Y[g]) <= yMax & as.numeric(subDFGold$EyePos_Z[g]) >= zMin & as.numeric(subDFGold$EyePos_Z[g]) <= zMax){
+         grabPACcount <- grabPACcount + 1
+         totalGrabPAC <- totalGrabPAC + (currentTime - subDFGold$Time[g])/10000
+         
+         PACtype <- "grab"
+         PACtime <- (currentTime - subDFGold$Time[g])/10000
+         
+         ColorCubeAnalysis(currentEvent, PACtime)
+         
+         PACstartTime <- subDFGold$Time[g]
+         PACendTime <- currentTime
+         Event <- trimedGrabDF$Event[i]
+         
+         #acceleration <- velocity/PACtime
+         
+         #print(distance)
+         #print(acceleration)
+         
+         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
+         individualPACdf <- rbind(individualPACdf, newPartRow)
+         break
+       } 
+      }
+    }
 
   }
   
@@ -474,9 +507,6 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
   
   
 }
-
-
-
 
 
 #Grab2PlaceAnalysis(trimedGrabDF, trimedPlaceDF)
