@@ -155,7 +155,7 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-  dplyr :: filter(ModTime >= 28 & ModTime <= 50)
+  dplyr :: filter(ModTime >= 76 & ModTime <= 84)
 
 
 
@@ -183,7 +183,9 @@ zEye <- as.numeric(subTrimDF$EyePos_Z)
 
 subTrimDF <- subTrimDF %>% mutate(EularAngle = asin(2 * (sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*yHeadRot - (xHeadRot * zHeadRot))))
 subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle * (180 / pi))
-
+subTrimDF <- subTrimDF %>% mutate(EularAngle = abs(EularAngle))
+subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle - max(EularAngle))
+subTrimDF <- subTrimDF %>% mutate(EularAngle = abs(EularAngle))
 
 # quaternion_to_euler <- function(xHeadRot, yHeadRot, zHeadRot) {
 #   # Calculate w assuming the quaternion is normalized
