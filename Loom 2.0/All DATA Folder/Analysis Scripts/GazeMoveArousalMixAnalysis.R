@@ -15,8 +15,8 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 5_2444.csv"
-data_files <- list.files(pattern = "sdP11_old4.csv")
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_9.csv"
+data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
@@ -118,13 +118,6 @@ trimDF <- trimDF %>%
   mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook"| ActionEvent == "DropStart", 3, 1))
 
 
-
-
-
-
-
-
-
 # 3D figure plot
 # gazeData <- data.frame(
 #   x = as.numeric(df$EyePos_X),
@@ -133,6 +126,7 @@ trimDF <- trimDF %>%
 #   area = df$CurrentGazeArea,
 #   group = "gaze"
 # )
+
 # gazeData <- gazeData %>% filter(x != "N/A")
 # gazeData <- gazeData %>% filter(x > -20)
 # 
@@ -155,9 +149,7 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-  dplyr :: filter(ModTime >= 76 & ModTime <= 84)
-
-
+    dplyr :: filter(ModTime >= 153 & ModTime <= 154)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -178,8 +170,6 @@ zRay <- subTrimDF$RayCast_EndPos_Z
 xEye <- as.numeric(subTrimDF$EyePos_X)
 yEye <- as.numeric(subTrimDF$EyePos_Y)
 zEye <- as.numeric(subTrimDF$EyePos_Z)
-
-
 
 subTrimDF <- subTrimDF %>% mutate(EularAngle = asin(2 * (sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*yHeadRot - (xHeadRot * zHeadRot))))
 subTrimDF <- subTrimDF %>% mutate(EularAngle = EularAngle * (180 / pi))
@@ -206,7 +196,7 @@ subTrimDF <- subTrimDF %>% mutate(EularAngle = abs(EularAngle))
 
 
 p <- subTrimDF %>%
-  ggplot(aes(x = ModTime, y = EularAngle, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = ModTime, y = xHand, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
@@ -222,7 +212,7 @@ p
 
 
 plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
-plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
+#plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
 
 
 

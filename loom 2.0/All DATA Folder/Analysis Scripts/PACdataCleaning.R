@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11_old4")
+data_files <- list.files(pattern = "sdP11.csv")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -186,8 +186,9 @@ for(f in 1:length(data_files))
 
   
   
-  
+  #trimedGrabDF <- trimedGrabDF %>% filter(grepl("Gold",Event))
   for(i in 1:nrow(trimedGrabDF))
+  #for(i in 1:1)
   {
     currentTime <- trimedGrabDF[i,1]
     currentGazeArea <- trimedGrabDF[i,12]
@@ -197,6 +198,15 @@ for(f in 1:length(data_files))
     currentHandZ <- trimedGrabDF[i,27]
     
     subDF <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
+
+        for (v in nrow(subDF):1) {
+      print(v)
+      if(subDF$CurrentGazeArea[v] != "play_wall"){
+        subDF <- subDF[(v-1):nrow(subDF),]
+        break
+      }else{
+      }
+    }
     
     Participant <- trimedGrabDF[2,2]
     Condition <- trimedGrabDF[8,8]
@@ -204,7 +214,6 @@ for(f in 1:length(data_files))
     Group <- trimedGrabDF[7,7]
     
     
-
     for(m in nrow(subDF):1)
     {
       if(subDF[m,12] != "play_wall")
@@ -214,6 +223,7 @@ for(f in 1:length(data_files))
         PACstartTime <- subDF[m,1]
         PACtime <- (PACendTime - PACstartTime)/10000
         ColorCubeAnalysis(currentEvent, PACtime)
+        
         
         
         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, currentEvent)
@@ -276,13 +286,33 @@ for(f in 1:length(data_files))
     zMin <- -1.1
     zMax <- .1
     subDFGold <- subDF %>% filter(EyePos_Y != "N/A")
+    print(currentEvent)
     goldCheck <- grepl("Gold", currentEvent)
     if(goldCheck & (trimedGrabDF$Condition[i] == "comp" | trimedGrabDF$Condition[i] == "co")){
-      for (g in 1:nrow(subDFGold)) {
+      
+      
+      # first_nonPlay_wall_index <- tail(which(subDFGold$CurrentGazeArea != "play_wall")[1])
+      # if(is.na(first_nonPlay_wall_index)){
+      # }else{
+      #   subDFGold <- subDFGold[1:(first_nonPlay_wall_index-1),]
+      # }
+      # 
+      print("come on")
+      for (v in nrow(subDFGold):1) {
+        print(v)
+        if(subDFGold$CurrentGazeArea[v] != "play_wall"){
+          subDFGold <- subDFGold[(v-1):nrow(subDFGold),]
+          break
+        }else{
+        }
+      }
+
+      print(nrow(subDFGold))
+      for (g in 1:nrow(subDFGold)){
        if(as.numeric(subDFGold$EyePos_Y[g]) >= yMin & as.numeric(subDFGold$EyePos_Y[g]) <= yMax & as.numeric(subDFGold$EyePos_Z[g]) >= zMin & as.numeric(subDFGold$EyePos_Z[g]) <= zMax){
          grabPACcount <- grabPACcount + 1
          totalGrabPAC <- totalGrabPAC + (currentTime - subDFGold$Time[g])/10000
-         
+
          PACtype <- "grab"
          PACtime <- (currentTime - subDFGold$Time[g])/10000
          
@@ -464,22 +494,22 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
   result2 <- regexpr("Blue", colorName)
   result3 <- regexpr("Gold", colorName)
   result4 <- regexpr("Neutral", colorName)
-  
+
   if (result1 != -1) {
     colorName <- "Red"
-  } 
+  }
   if (result2 != -1) {
     colorName <- "Blue"
-  }   
+  }
   if (result3 != -1) {
     colorName <- "Gold"
-  }   
+  }
   if (result4 != -1) {
     colorName <- "White"
-  } 
-  
+  }
+
   #print(colorName)
-  
+
   if(colorName == "Blue")
   {
     totalBlueCubeGrabCount <<- totalBlueCubeGrabCount + 1
@@ -490,22 +520,22 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
   {
     totalRedCubeGrabCount <<- totalRedCubeGrabCount + 1
     totalRedCubeGrabTime <<- totalRedCubeGrabTime + eventDuration
-    
+
   }
   if(colorName == "Gold")
   {
     totalGoldCubeGrabCount <<- totalGoldCubeGrabCount + 1
     totalGoldCubeGrabTime <<- totalGoldCubeGrabTime + eventDuration
-    
+
   }
   if(colorName == "White")
   {
     totalWhiteCubeGrabCount <<- totalWhiteCubeGrabCount + 1
     totalWhiteCubeGrabTime <<- totalWhiteCubeGrabTime + eventDuration
-    
+
   }
-  
-  
+
+
 }
 
 
@@ -517,17 +547,17 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
   Trial <- grabDF[9,9]
   Group <- grabDF[7,7]
   if(nrow(placeDF)== 0 | nrow(grabDF) == 0){
-    
+
   }else{
-  
+
     for(i in 1:nrow(grabDF))
     {
       currentEvent <- grabDF[i,10]
       # print(currentEvent)
-  
+
       # Your string
       input_string <- currentEvent
-      
+
       result <- str_extract(input_string, "CubeClone(\\d+)\\swas")
       #print(result)
       # Extracted number
@@ -538,9 +568,9 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
         {
           currentPlaceEvent <- placeDF[f,10]
           # print(currentPlaceEvent)
-          
+
           input_string <- currentPlaceEvent
-          
+
           result <- str_extract(input_string, "CubeClone(\\d+)\\was")
           #print(result)
           if (!is.na(result)){
@@ -548,7 +578,7 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
             # print(extracted_number)
             if(extracted_number == extracted_Grabnumber){
               SequenceOrder <<- SequenceOrder + 1
-              
+
               GrabTime <- grabDF[i,1]
               PlaceTime <- placeDF[f,1]
               GrabEvent <- currentEvent
