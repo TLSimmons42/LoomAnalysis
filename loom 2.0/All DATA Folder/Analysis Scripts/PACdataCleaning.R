@@ -288,7 +288,7 @@ for(f in 1:length(data_files))
     subDFGold <- subDF %>% filter(EyePos_Y != "N/A")
     print(currentEvent)
     goldCheck <- grepl("Gold", currentEvent)
-    if(goldCheck & (trimedGrabDF$Condition[i] == "comp" | trimedGrabDF$Condition[i] == "co")){
+    if(goldCheck & (trimedGrabDF$Condition[i] == "comp" | trimedGrabDF$Condition[i] == "co" | trimedGrabDF$Condition[i] == "solo")){
       
       
       # first_nonPlay_wall_index <- tail(which(subDFGold$CurrentGazeArea != "play_wall")[1])
@@ -309,7 +309,8 @@ for(f in 1:length(data_files))
 
       print(nrow(subDFGold))
       for (g in 1:nrow(subDFGold)){
-       if(as.numeric(subDFGold$EyePos_Y[g]) >= yMin & as.numeric(subDFGold$EyePos_Y[g]) <= yMax & as.numeric(subDFGold$EyePos_Z[g]) >= zMin & as.numeric(subDFGold$EyePos_Z[g]) <= zMax){
+       # if(as.numeric(subDFGold$EyePos_Y[g]) >= yMin & as.numeric(subDFGold$EyePos_Y[g]) <= yMax & as.numeric(subDFGold$EyePos_Z[g]) >= zMin & as.numeric(subDFGold$EyePos_Z[g]) <= zMax){
+         if(as.numeric(subDFGold$EyePos_X[g]) != 1.635337){
          grabPACcount <- grabPACcount + 1
          totalGrabPAC <- totalGrabPAC + (currentTime - subDFGold$Time[g])/10000
 

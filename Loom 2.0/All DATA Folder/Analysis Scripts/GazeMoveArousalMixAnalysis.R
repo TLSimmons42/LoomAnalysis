@@ -15,7 +15,7 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_9.csv"
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_1000.csv"
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
@@ -149,7 +149,7 @@ trimDF <- trimDF %>%
 # This will plot the individual movements for hand, head and gaze
 subTrimDF <- trimDF 
 subTrimDF <- trimDF %>%
-    dplyr :: filter(ModTime >= 158 & ModTime <= 160)
+    dplyr :: filter(ModTime >= 224 & ModTime <= 227)
 
 xHand <- subTrimDF$HandPos_X
 yHand <- subTrimDF$HandPos_Y
@@ -216,24 +216,24 @@ plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, ty
 
 
 
-testerrr <- subTrimDF %>% filter(ActionEvent == "Grab")
-testerrr2 <- subTrimDF %>% filter(ActionEvent == "grabLook")
-
-pattern <- ".*(?= was)"
-testerrr <- testerrr %>% mutate(Event = str_extract(Event, pattern))
-testerrr <- testerrr %>% mutate(Matched = FALSE)
-for (i in 1:nrow(testerrr2)){
-  currentPhrase <- testerrr2$CurrentGazeTarget[i]
-  
-  testerrr <- testerrr %>% 
-    mutate(Matched = ifelse(Event == currentPhrase, TRUE, Matched))
-}
-testerrr3 <- testerrr %>% filter(Matched == FALSE)
-
-
-GoldDF <- trimDF %>% 
-  filter(grepl("Gold", CurrentGazeTarget)) %>%
-  filter(CurrentGazeArea == "play_wall")
+# testerrr <- subTrimDF %>% filter(ActionEvent == "Grab")
+# testerrr2 <- subTrimDF %>% filter(ActionEvent == "grabLook")
+# 
+# pattern <- ".*(?= was)"
+# testerrr <- testerrr %>% mutate(Event = str_extract(Event, pattern))
+# testerrr <- testerrr %>% mutate(Matched = FALSE)
+# for (i in 1:nrow(testerrr2)){
+#   currentPhrase <- testerrr2$CurrentGazeTarget[i]
+#   
+#   testerrr <- testerrr %>% 
+#     mutate(Matched = ifelse(Event == currentPhrase, TRUE, Matched))
+# }
+# testerrr3 <- testerrr %>% filter(Matched == FALSE)
+# 
+# 
+# GoldDF <- trimDF %>% 
+#   filter(grepl("Gold", CurrentGazeTarget)) %>%
+#   filter(CurrentGazeArea == "play_wall")
 
 # plot_ly(subTrimDF, x = ~GoldDF$EyePos_X, y = ~GoldDF$EyePos_Y, z = ~GoldDF$EyePos_Z, type = "scatter3d", mode = "markers")
 
