@@ -199,10 +199,9 @@ for(f in 1:length(data_files))
     
     subDF <- df %>% filter(Time > (currentTime-20000000) & Time <= currentTime)
 
-        for (v in nrow(subDF):1) {
-      print(v)
+    for (v in nrow(subDF):1){
       if(subDF$CurrentGazeArea[v] != "play_wall"){
-        subDF <- subDF[(v-1):nrow(subDF),]
+        subDF <- subDF[(v+1):nrow(subDF),]
         break
       }else{
       }
@@ -286,7 +285,6 @@ for(f in 1:length(data_files))
     zMin <- -1.1
     zMax <- .1
     subDFGold <- subDF %>% filter(EyePos_Y != "N/A")
-    print(currentEvent)
     goldCheck <- grepl("Gold", currentEvent)
     if(goldCheck & (trimedGrabDF$Condition[i] == "comp" | trimedGrabDF$Condition[i] == "co" | trimedGrabDF$Condition[i] == "solo")){
       
@@ -297,20 +295,22 @@ for(f in 1:length(data_files))
       #   subDFGold <- subDFGold[1:(first_nonPlay_wall_index-1),]
       # }
       # 
-      print("come on")
       for (v in nrow(subDFGold):1) {
-        print(v)
         if(subDFGold$CurrentGazeArea[v] != "play_wall"){
-          subDFGold <- subDFGold[(v-1):nrow(subDFGold),]
+          subDFGold <- subDFGold[(v+1):nrow(subDFGold),]
           break
         }else{
         }
       }
+      
+      if(subDFGold$Event[nrow(subDFGold)] == "Network Gold Cube WholeClone313 was picked up"){
+        goldDFtest <- subDFGold
+        print("mooooooooooooooooooooo")
+      }
 
-      print(nrow(subDFGold))
       for (g in 1:nrow(subDFGold)){
        # if(as.numeric(subDFGold$EyePos_Y[g]) >= yMin & as.numeric(subDFGold$EyePos_Y[g]) <= yMax & as.numeric(subDFGold$EyePos_Z[g]) >= zMin & as.numeric(subDFGold$EyePos_Z[g]) <= zMax){
-         if(as.numeric(subDFGold$EyePos_X[g]) != 1.635337){
+       if(as.numeric(subDFGold$EyePos_X[g]) != 1.635337){
          grabPACcount <- grabPACcount + 1
          totalGrabPAC <- totalGrabPAC + (currentTime - subDFGold$Time[g])/10000
 
@@ -325,7 +325,7 @@ for(f in 1:length(data_files))
          
          #acceleration <- velocity/PACtime
          
-         #print(distance)
+         print(Event)
          #print(acceleration)
          
          newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
