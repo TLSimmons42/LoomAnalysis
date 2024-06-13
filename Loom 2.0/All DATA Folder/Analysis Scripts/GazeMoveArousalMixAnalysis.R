@@ -15,7 +15,7 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_11111.csv"
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_11111.csv"
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
@@ -211,12 +211,12 @@ subTrimDF <- subTrimDF %>% mutate(Yaw = abs(Yaw))
 
 
 p <- subTrimDF %>%
-  ggplot(aes(x = ModTime, y = Roll, color = ActionEvent)) +
+  ggplot(aes(x = ModTime, y = Yaw, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
   # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-  labs(title = "", x = "Time (S)", y = "x axis hand pos") +
+  labs(title = "", x = "Time (S)", y = "Yaw") +
   theme_minimal() 
 #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
 # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)
