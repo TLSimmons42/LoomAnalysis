@@ -15,11 +15,13 @@ library(signal)
 library(plotly)
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_11111.csv"
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 6_11111.csv"
+rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
 data_files <- list.files(pattern = "sdP11.csv")
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
+rotationConversionDF <- read.csv(rotationConversionFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 PACdf <- read.csv(PACdataFile, colClasses=c("PACstartTime" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- df[!duplicated(df$Time), ]
@@ -209,9 +211,22 @@ subTrimDF <- subTrimDF %>% mutate(Yaw = abs(Yaw))
 #   quaternion_to_euler(xHeadRot, row['y'], row['z'])
 # })
 
+subTrimDF <- subTrimDF %>% mutate(UnityHeadRotX = HeadRot_X)
+subTrimDF <- subTrimDF %>% mutate(UnityHeadRotY = HeadRot_Y)
+subTrimDF <- subTrimDF %>% mutate(UnityHeadRotZ = HeadRot_Z)
+
+for(i in 0:nrow(subTrimDF)){
+  subTrimDF$UnityHeadRotX[i] <- as.numeric(rotationConversionDF$xHandRot[i])
+  subTrimDF$UnityHeadRotY[i] <- as.numeric(rotationConversionDF$yHandRot[i])
+  subTrimDF$UnityHeadRotZ[i] <- as.numeric(rotationConversionDF$zHandRot[i])
+}
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotY = UnityHeadRotY - max(UnityHeadRotY))
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotY = abs(UnityHeadRotY))
+
+
 
 p <- subTrimDF %>%
-  ggplot(aes(x = ModTime, y = Yaw, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = ModTime, y = Pitch, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
@@ -223,8 +238,6 @@ p <- subTrimDF %>%
 # p + geom_point(aes (y = zHand),(color = factor(ActionEvent)), size = 3)
 p
 # p + scale_y_continuous(limits = c(-1.5,1.5))
- 
-
 
 plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
 #plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
