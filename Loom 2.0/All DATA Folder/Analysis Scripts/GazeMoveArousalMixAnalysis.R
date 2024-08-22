@@ -29,11 +29,8 @@ df <- df[!duplicated(df$Time), ]
 df$Time[is.na(df$Time)] <- 0
 df$Time <- as.integer64(df$Time)
 
-
 participantID <- df$Participant[1]
 PACdf <- PACdf %>% filter(Participant == participantID)
-
-
 
 trimDF <- df %>% dplyr :: filter(EyePos_X != "N/A")
 
@@ -178,15 +175,15 @@ zEye <- as.numeric(subTrimDF$EyePos_Z)
 
 subTrimDF <- subTrimDF %>% mutate(Roll = atan2(2*(sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*xHeadRot + yHeadRot*zHeadRot), 1 - 2*(xHeadRot^2 + yHeadRot^2)))
 subTrimDF <- subTrimDF %>% mutate(Roll = Roll * (180 / pi))
-subTrimDF <- subTrimDF %>% mutate(Roll = abs(Roll))
-subTrimDF <- subTrimDF %>% mutate(Roll = Roll - max(Roll))
-subTrimDF <- subTrimDF %>% mutate(Roll = abs(Roll))
+# subTrimDF <- subTrimDF %>% mutate(Roll = abs(Roll))
+# subTrimDF <- subTrimDF %>% mutate(Roll = Roll - max(Roll))
+# subTrimDF <- subTrimDF %>% mutate(Roll = abs(Roll))
 
 subTrimDF <- subTrimDF %>% mutate(Pitch = asin(2 * (sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*yHeadRot - (xHeadRot * zHeadRot))))
 subTrimDF <- subTrimDF %>% mutate(Pitch = Pitch * (180 / pi))
-subTrimDF <- subTrimDF %>% mutate(Pitch = abs(Pitch))
-subTrimDF <- subTrimDF %>% mutate(Pitch = Pitch - max(Pitch))
-subTrimDF <- subTrimDF %>% mutate(Pitch = abs(Pitch))
+# subTrimDF <- subTrimDF %>% mutate(Pitch = abs(Pitch))
+# subTrimDF <- subTrimDF %>% mutate(Pitch = Pitch - max(Pitch))
+# subTrimDF <- subTrimDF %>% mutate(Pitch = abs(Pitch))
 
 subTrimDF <- subTrimDF %>% mutate(Yaw = atan2(2*(sqrt(1 - (xHeadRot^2 + yHeadRot^2 + zHeadRot^2))*zHeadRot + xHeadRot*yHeadRot), 1 - 2*(yHeadRot^2 + zHeadRot^2)))
 subTrimDF <- subTrimDF %>% mutate(Yaw = Yaw * (180 / pi))
@@ -222,11 +219,17 @@ for(i in 0:nrow(subTrimDF)){
 }
 # subTrimDF <- subTrimDF %>% mutate(UnityHeadRotY = UnityHeadRotY - max(UnityHeadRotY))
 # subTrimDF <- subTrimDF %>% mutate(UnityHeadRotY = abs(UnityHeadRotY))
+# 
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotX = UnityHeadRotX - max(UnityHeadRotX))
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotX = abs(UnityHeadRotX))
+# 
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotZ = UnityHeadRotZ - max(UnityHeadRotZ))
+# subTrimDF <- subTrimDF %>% mutate(UnityHeadRotZ = abs(UnityHeadRotZ))
 
 
 
 p <- subTrimDF %>%
-  ggplot(aes(x = ModTime, y = Pitch, size = Size, color = ActionEvent)) +
+  ggplot(aes(x = ModTime, y = UnityHeadRotX, size = Size, color = ActionEvent)) +
   #geom_line(size = 2)+
   geom_point()+
   # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
