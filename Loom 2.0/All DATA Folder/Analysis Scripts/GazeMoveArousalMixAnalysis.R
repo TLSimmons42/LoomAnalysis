@@ -284,18 +284,19 @@ for(f in 1:length(data_files))
   
   
   p <- subTrimDF %>%
-    ggplot(aes(x = ModTime, y = xHand, size = Size, color = ActionEvent)) +
+    ggplot(aes(x = ModTime, y = yHeadRot, size = Size, color = ActionEvent)) +
     #geom_line(size = 2)+
     geom_point()+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
     # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-    labs(title = "", x = "Time (S)", y = "Yaw") +
+    labs(title = "", x = "Time (s)", y = "Rotation (Quaternions)") +
     theme_minimal() 
   #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
   # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)
   # p + geom_point(aes (y = zHand),(color = factor(ActionEvent)), size = 3)
   p
   # p + scale_y_continuous(limits = c(-1.5,1.5))
+  ggsave("Head Rotation 2D.pdf")
   
   plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
   #plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
