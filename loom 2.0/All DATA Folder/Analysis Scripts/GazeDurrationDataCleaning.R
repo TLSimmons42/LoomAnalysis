@@ -7,7 +7,7 @@ library(bit64)
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "nu")
 data_files[]
 
 gazeDurrationTimes <- data.frame(Time = numeric(),
@@ -282,6 +282,6 @@ AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
 
 
 
-#write.csv(df, newString, row.names = FALSE)
+#write.csv(gazeDurrationTimes, "GazeDurrationTimes 9_2_24.csv, row.names = FALSE)
 
 

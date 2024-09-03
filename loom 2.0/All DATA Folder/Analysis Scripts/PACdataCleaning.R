@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "sdP11.csv")
+data_files <- list.files(pattern = "nuP6_old5.csv")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -15,7 +15,7 @@ data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_fi
 
 PACdf <- data.frame(Time = numeric(),
                    Participant = factor(),
-                   Condition = factor(),
+                   Condition = factor(), 
                    Trial = numeric(),
                    Group = factor(),
                    grabPACcount = numeric(),
@@ -59,6 +59,7 @@ individualPACdf <- data.frame(Time = numeric(),
                     PACstartTime = numeric(),
                     PACendTime = numeric(),
                     Event = factor(),
+                    cubeColor = numeric(),
                     stringsAsFactors = FALSE)
 
 individualAreaPACdf <- data.frame(Time = numeric(),
@@ -182,6 +183,8 @@ for(f in 1:length(data_files))
   totalWhiteCubeGrabCount <- 0
   totalWhiteCubeGrabTime <- 0
   
+  cubeColor <- ""
+  
   
 
   
@@ -221,7 +224,7 @@ for(f in 1:length(data_files))
         PACendTime <- currentTime
         PACstartTime <- subDF[m,1]
         PACtime <- (PACendTime - PACstartTime)/10000
-        ColorCubeAnalysis(currentEvent, PACtime)
+        cubeColor <- ColorCubeAnalysis(currentEvent, PACtime)
         
         
         
@@ -235,22 +238,48 @@ for(f in 1:length(data_files))
     }
   
     input_string <- trimedGrabDF[i,10]
-    
+    print(input_string)
     # Find the position of " was picked up"
     pos <- regexpr(" was picked up", input_string)
     #print(pos)
     
     # Extract the substring before the target text
     result <- substr(input_string, 1, pos - 1)
-    
     # Print the result
     if(result == ""){
       pattern <- "Network.*"
       result <- str_extract(input_string, pattern)
-      print(result)
+      #print(result)
     }
     first_instance <- which(subDF$CurrentGazeTarget == result)[1]
+
     
+    badPartRow <- FALSE
+    badTime <- 0
+    if(df$Participant[5] == "P3"){
+      badTime <- BadParticipantAnalysis(input_string, subDF)
+      badPartRow <- badTime$found
+      badTime <- badTime$cubetime 
+      
+      if(badPartRow){
+        grabPACcount <- grabPACcount + 1
+        totalGrabPAC <- totalGrabPAC + (currentTime - badTime)/10000
+        
+        PACtype <- "grab"
+        PACtime <- (currentTime - badTime)/10000
+        
+        cubeColor <- ColorCubeAnalysis(currentEvent, PACtime)
+        #print(cubeColor)
+        PACstartTime <- badTime
+        PACendTime <- currentTime
+        Event <- input_string
+        
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event, cubeColor)
+        individualPACdf <- rbind(individualPACdf, newPartRow)
+      }
+      #print(badTime)
+      badPartRow <- FALSE
+    }
     
     if (!is.na(first_instance)) {
       first_instance_row <- subDF[first_instance, ]
@@ -263,8 +292,8 @@ for(f in 1:length(data_files))
         PACtype <- "grab"
         PACtime <- (currentTime - first_instance_row[1,1])/10000
         
-        ColorCubeAnalysis(currentEvent, PACtime)
-        
+        cubeColor <- ColorCubeAnalysis(currentEvent, PACtime)
+        #print(cubeColor)
         PACstartTime <- first_instance_row[1,1]
         PACendTime <- currentTime
         Event <- input_string
@@ -274,7 +303,7 @@ for(f in 1:length(data_files))
         #print(distance)
         #print(acceleration)
         
-        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event, cubeColor)
         individualPACdf <- rbind(individualPACdf, newPartRow)
         
       }
@@ -305,7 +334,7 @@ for(f in 1:length(data_files))
       
       if(subDFGold$Event[nrow(subDFGold)] == "Network Gold Cube WholeClone313 was picked up"){
         goldDFtest <- subDFGold
-        print("mooooooooooooooooooooo")
+        #print("mooooooooooooooooooooo")
       }
 
       for (g in 1:nrow(subDFGold)){
@@ -317,7 +346,7 @@ for(f in 1:length(data_files))
          PACtype <- "grab"
          PACtime <- (currentTime - subDFGold$Time[g])/10000
          
-         ColorCubeAnalysis(currentEvent, PACtime)
+         cubeColor <- ColorCubeAnalysis(currentEvent, PACtime)
          
          PACstartTime <- subDFGold$Time[g]
          PACendTime <- currentTime
@@ -325,10 +354,10 @@ for(f in 1:length(data_files))
          
          #acceleration <- velocity/PACtime
          
-         print(Event)
+         #print(Event)
          #print(acceleration)
          
-         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
+         newPartRow <- data.frame(Participant, Condition, Trial, Group, PACtype, PACtime, PACstartTime, PACendTime, Event, cubeColor)
          individualPACdf <- rbind(individualPACdf, newPartRow)
          break
        } 
@@ -396,8 +425,9 @@ for(f in 1:length(data_files))
           
           PACstartTime <- currentPlaceTime
           PACendTime <- currentTime
+          cubeColor <- ColorCubeAnalysis(currentEvent, PACtime)
 
-          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, Event)
+          newPartRow <- data.frame(Participant, Condition, Trial,Group, PACtype, PACtime, PACstartTime, PACendTime, Event, cubeColor)
           individualPACdf <- rbind(individualPACdf, newPartRow)
 
           break
@@ -491,21 +521,27 @@ for(f in 1:length(data_files))
 
 ColorCubeAnalysis <- function(colorName, eventDuration){
   #print(colorName)
-  result1 <- regexpr("Red", colorName)
-  result2 <- regexpr("Blue", colorName)
-  result3 <- regexpr("Gold", colorName)
-  result4 <- regexpr("Neutral", colorName)
+  #print(eventDuration)
+  result1 <- grepl("Red", colorName)
+  result2 <- grepl("Blue", colorName)
+  result3 <- grepl("Gold", colorName)
+  result4 <- grepl("Neutral", colorName)
+  
+  # #result1 <- regexpr("Red", colorName)
+  # result2 <- regexpr("Blue", colorName)
+  # result3 <- regexpr("Gold", colorName)
+  # result4 <- regexpr("Neutral", colorName)
 
-  if (result1 != -1) {
+  if (result1) {
     colorName <- "Red"
   }
-  if (result2 != -1) {
+  if (result2) {
     colorName <- "Blue"
   }
-  if (result3 != -1) {
+  if (result3) {
     colorName <- "Gold"
   }
-  if (result4 != -1) {
+  if (result4) {
     colorName <- "White"
   }
 
@@ -535,7 +571,7 @@ ColorCubeAnalysis <- function(colorName, eventDuration){
     totalWhiteCubeGrabTime <<- totalWhiteCubeGrabTime + eventDuration
 
   }
-
+  return(colorName)
 
 }
 
@@ -593,6 +629,56 @@ Grab2PlaceAnalysis <- function(grabDF, placeDF){
       } else{}
     }
   }
+}
+
+BadParticipantAnalysis <- function(event, dfFunc){
+  
+  dfFunc <- dfFunc %>% filter(Time >= (last(dfFunc$Time)-15000000))
+  
+  
+  foundCube <- FALSE
+  result1 <- grepl("Red", event)
+  result2 <- grepl("Blue", event)
+  result3 <- grepl("Gold", event)
+  result4 <- grepl("Neutral", event)
+  
+  lookForObj <- ""
+  returnTime <- 0
+  if(result1){
+    lookForObj <- "red_cube"
+  }
+  if(result2){
+    lookForObj <- "blue_cube"
+  }
+  if(result3){
+    lookForObj <- "gold_cube"
+  }
+  if(result4){
+    lookForObj <- "white_cube"
+  }
+  temp <- nrow(dfFunc)
+  for (i in 1:nrow(dfFunc)) {
+    
+    
+    
+    if(dfFunc$CurrentGazeTarget[i] == lookForObj){
+      returnTime <- dfFunc$Time[i]
+      #print("FOUND IT")
+      foundCube <- TRUE
+      break
+      #print(returnTime)
+    }
+    
+    if(i == temp){
+      print("got to the end")
+    }
+  }
+  # a <- last(df$Time) - returnTime
+  # print(a)
+  
+  
+  return(list(found = foundCube, cubetime = returnTime))
+
 }
 
 # write.csv(individualPACdf, "PACdf tester 5_13.csv", row.names = FALSE)
