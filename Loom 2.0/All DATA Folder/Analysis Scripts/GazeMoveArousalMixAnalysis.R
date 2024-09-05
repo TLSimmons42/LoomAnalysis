@@ -15,23 +15,26 @@ library(signal)
 library(plotly)
 
 
-# MovementTimesDF <- data.frame(Participant = factor(),
-#                              Condition = factor(),
-#                              Trial = numeric(),
-#                              Group = factor(),
-#                              avgGrab = numeric(),
-#                              avgDrop = numeric(),
-#                              avgFullSequence = numeric(),
-#                              stillGrab = numeric(),
-#                              slowGrab = numeric(),
-#                              fastGrab = numeric(),
-#                              stringsAsFactors = FALSE)
+MovementTimesDF <- data.frame(Participant = factor(),
+                              Age = numeric(),
+                              Sex = factor(),
+                              Condition = factor(),
+                             Trial = numeric(),
+                             Group = factor(),
+                             avgGrab = numeric(),
+                             avgDrop = numeric(),
+                             avgDropStart = numeric(),
+                             avgFullSequence = numeric(),
+                             stillGrab = numeric(),
+                             slowGrab = numeric(),
+                             fastGrab = numeric(),
+                             stringsAsFactors = FALSE)
 
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = "nuP5.csv")
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+data_files <- list.files(pattern = ".csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -111,12 +114,15 @@ for(f in 1:length(data_files))
     #print(input_string)
     
     
-    pattern <- ".*(?=was)"
+    pattern <- ".*(?= was)"
     extracted_phrase <- str_extract(input_string, pattern)
     if(is.na(extracted_phrase)){
-      pattern <- ".*(?= was)"
-      extracted_phrase <- str_extract(input_string, pattern)
+      # pattern <- ".*(?= was)"
+      # extracted_phrase <- str_extract(input_string, pattern)
       
+      extracted_phrase <- sub("(.*?)was.*", "\\1", input_string)
+      
+      #print("HELOOOOO PATTERN")
     }
     secondHalf <- "was placed in dropzone"
     
@@ -128,7 +134,7 @@ for(f in 1:length(data_files))
     # 
     # extracted_phrase <- str_extract(input_string, pattern)
     full_phrase <- paste0(extracted_phrase, secondHalf)
-    print(full_phrase)
+    #print(full_phrase)
 
     trimDF <- trimDF %>%
       mutate(row_num = row_number()) %>%
@@ -202,8 +208,8 @@ for(f in 1:length(data_files))
   
   # This will plot the individual movements for hand, head and gaze
   subTrimDF <- trimDF
-  subTrimDF <- trimDF %>%
-      dplyr :: filter(ModTime >= 154 & ModTime <= 157)
+  # subTrimDF <- trimDF %>%
+  #     dplyr :: filter(ModTime >= 50 & ModTime <= 54)
   
   xHand <- subTrimDF$HandPos_X
   yHand <- subTrimDF$HandPos_Y
@@ -308,203 +314,229 @@ for(f in 1:length(data_files))
   #--------------------------------------------------------------------------------------------------
   # Sequence Evaluation 
   # 
-  # sequenceEventDF <- subTrimDF %>% filter(Size == 3)
-  # 
-  # 
-  # indices <- which(sequenceEventDF$ActionEvent == "DropStart")
-  # sequenceEventDF$cubeColor[indices] <- sequenceEventDF$cubeColor[indices + 1]
-  # sequenceEventDF$sequenceNum[indices] <- sequenceEventDF$sequenceNum[indices + 1]
-  # 
-  # 
-  # currentIndex <- 0
-  # startIndex <- 0
-  # lookingForNewSequence <- TRUE
-  # currentEvent <- ""
-  # 
-  # grabLookCheck <- FALSE
-  # grabCheck <- FALSE
-  # dropLookCheck <- FALSE
-  # dropStartCheck <- FALSE
-  # dropCheck <- FALSE
-  # 
-  # for (i in 1:nrow(sequenceEventDF)) {
-  #   currentIndex <- sequenceEventDF$sequenceNum[i]
-  #   currentEvent <- sequenceEventDF$ActionEvent[i]
-  #   
-  #   if(!lookingForNewSequence){
-  #     #print(paste("current:", currentIndex, "start:", startIndex))
-  #     if(currentIndex <= startIndex + 1 ){
-  #       
-  #       if(grabLookCheck && currentEvent == "Grab"){
-  #         grabLookCheck = FALSE
-  #         grabCheck = TRUE
-  #         sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Grab", sequenceType))
-  #         print("1")
-  #         next
-  #       }
-  #       if(grabCheck && currentEvent == "placeLook"){
-  #         grabCheck = FALSE
-  #         dropLookCheck = TRUE
-  #         print("2")
-  #         next
-  #       }
-  #       if(dropLookCheck && currentEvent == "DropStart"){
-  #         dropLookCheck = FALSE
-  #         dropStartCheck = TRUE
-  #         print("3")
-  #         next
-  #       }
-  #       if(dropLookCheck && currentEvent == "Dropped"){
-  #         dropLookCheck = FALSE
-  #         lookingForNewSequence = TRUE
-  #         sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
-  #         sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
-  #         print("alt 3")
-  #         next
-  #       }
-  #       if(dropStartCheck && currentEvent == "Dropped"){
-  #         print("4")
-  #         
-  #         dropStartCheck = FALSE
-  #         lookingForNewSequence = TRUE
-  #         sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
-  #         sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
-  #         next
-  #       }else{
-  #         lookingForNewSequence = TRUE
-  #         #print("WTFFFF")
-  #         #print(currentEvent)
-  #         #print(currentIndex) 
-  #       }
-  #     }else{
-  #       #print("YIkesss")
-  #       #print(currentEvent)
-  #       #print(currentIndex)
-  #       lookingForNewSequence = TRUE
-  #       
-  #       #if(gra)
-  #     }
-  #     
-  # 
-  #   }
-  #   
-  #   if(lookingForNewSequence){
-  #     if(currentEvent == "grabLook"){
-  #       lookingForNewSequence <- FALSE
-  #       startIndex <- currentIndex
-  #       grabLookCheck <- TRUE
-  #     }
-  #     if(currentEvent == "placeLook"){
-  #       lookingForNewSequence <- FALSE
-  #       startIndex <- currentIndex - 1
-  #       dropLookCheck <- TRUE
-  #     }
-  #   }
-  # }
-  # 
-  # sequenceEventDF <- sequenceEventDF %>% filter(sequenceNum != 0)
-  # sequenceEventDF <- sequenceEventDF %>% filter(sequenceType != "none")
-  # 
-  # analysisDF <- sequenceEventDF %>% group_by(sequenceType, sequenceNum) %>%
-  #   summarise(moveTime = last(ModTime)-first(ModTime))
-  # 
-  # analysisDF <- analysisDF %>% group_by(sequenceType) %>%
-  #   summarise(meanTime = mean(moveTime))
-  # 
-  # analysisDF <- analysisDF %>%
-  #   pivot_wider(names_from = sequenceType, values_from = meanTime)
-  # 
-  # 
-  # 
-  # analysisFullSequence <- sequenceEventDF %>% group_by(sequenceNum) %>%
-  #   summarise(moveTime = last(ModTime)-first(ModTime))
-  # 
-  # analysisFullSequence <- analysisFullSequence %>%
-  #   summarise(meanTimeFullSequence = mean(moveTime))
-  # 
-  # 
-  # 
-  # colorDF <- sequenceEventDF %>% filter(sequenceType == "Grab")
-  # 
-  # analysisColorDF <- colorDF %>% group_by(sequenceNum, cubeColor) %>%
-  #   summarise(moveTime = last(ModTime)-first(ModTime))
-  # 
-  # analysisColorDF <- analysisColorDF %>% group_by(cubeColor) %>%
-  #   summarise(meanTime = mean(moveTime))
-  # 
-  # analysisColorDF <- analysisColorDF %>%
-  #   pivot_wider(names_from = cubeColor, values_from = meanTime)
-  # 
-  # Participant <- participantID
-  # Group <- df$Group[5]
-  # Condition <- df$Condition[5]
-  # Trial <- df$Trial[5]
-  # 
-  # if(Condition != "co"){
-  #   analysisColorDF <- analysisColorDF %>%
-  #     mutate(slowGrab = (Red + Blue)/2)
-  # }else{
-  #   analysisColorDF <- analysisColorDF %>%
-  #     mutate(slowGrab = Red)
-  # }
-  # 
-  # 
-  # 
-  # # Check if a column exists
-  # temp <- "Place" %in% colnames(analysisDF)
-  # if(temp){
-  #   avgDrop <- analysisDF$Place[1] 
-  #   print("helloooo")
-  # }else{
-  #   print("wuuuut")
-  #   avgDrop <- 0
-  # }
-  # temp <- "Grab" %in% colnames(analysisDF)
-  # if(temp){
-  #   avgGrab <- analysisDF$Grab[1] 
-  #   print("helloooo")
-  # }else{
-  #   print("wuuuut")
-  #   avgGrab <- 0
-  # }
-  # 
-  # temp <- "White" %in% colnames(analysisColorDF)
-  # if(temp){
-  #   fastGrab <- analysisColorDF$White[1] 
-  # }else{
-  #   print("wuuuut")
-  #   fastGrab <- 0
-  # }
-  # temp <- "White" %in% colnames(analysisColorDF)
-  # if(temp){
-  #   sta <- analysisColorDF$White[1] 
-  # }else{
-  #   print("wuuuut")
-  #   fastGrab <- 0
-  # }
-  # 
-  # 
-  # 
-  # avgFullSequence <- analysisFullSequence$meanTimeFullSequence[1]
-  # stillGrab <- analysisColorDF$Gold[1]
-  # slowGrab <- analysisColorDF$slowGrab[1]
-  # 
-  # 
-  # print(Participant)
-  # print(Condition)
-  # print(Trial)
-  # print(Group)
-  # print(avgGrab)
-  # print(avgDrop)
-  # print(avgFullSequence)
-  # print(stillGrab)
-  # print(slowGrab)
-  # print(fastGrab)
-  # 
-  # newPartRow <- data.frame(Participant, Condition, Trial, Group, avgGrab, avgDrop, avgFullSequence, stillGrab,
-  #                          slowGrab, fastGrab)
-  # 
-  # MovementTimesDF <- rbind(MovementTimesDF, newPartRow)
+  sequenceEventDF <- subTrimDF %>% filter(Size == 3)
+
+
+  indices <- which(sequenceEventDF$ActionEvent == "DropStart")
+  sequenceEventDF$cubeColor[indices] <- sequenceEventDF$cubeColor[indices + 1]
+  sequenceEventDF$sequenceNum[indices] <- sequenceEventDF$sequenceNum[indices + 1]
+
+
+  currentIndex <- 0
+  startIndex <- 0
+  lookingForNewSequence <- TRUE
+  currentEvent <- ""
+
+  grabLookCheck <- FALSE
+  grabCheck <- FALSE
+  dropLookCheck <- FALSE
+  dropStartCheck <- FALSE
+  dropCheck <- FALSE
+
+  for (i in 1:nrow(sequenceEventDF)) {
+    currentIndex <- sequenceEventDF$sequenceNum[i]
+    currentEvent <- sequenceEventDF$ActionEvent[i]
+
+    if(!lookingForNewSequence){
+      #print(paste("current:", currentIndex, "start:", startIndex))
+      if(currentIndex <= startIndex + 1 ){
+
+        if(grabLookCheck && currentEvent == "Grab"){
+          grabLookCheck = FALSE
+          grabCheck = TRUE
+          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Grab", sequenceType))
+          #print("1")
+          next
+        }
+        if(grabCheck && currentEvent == "placeLook"){
+          grabCheck = FALSE
+          dropLookCheck = TRUE
+          #print("2")
+          next
+        }
+        if(dropLookCheck && currentEvent == "DropStart"){
+          dropLookCheck = FALSE
+          dropStartCheck = TRUE
+          #print("3")
+          next
+        }
+        if(dropLookCheck && currentEvent == "Dropped"){
+          dropLookCheck = FALSE
+          lookingForNewSequence = TRUE
+          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
+          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
+          print("alt 3")
+          next
+        }
+        if(dropStartCheck && currentEvent == "Dropped"){
+          print("FULL")
+
+          dropStartCheck = FALSE
+          lookingForNewSequence = TRUE
+          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
+          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
+          next
+        }else{
+          lookingForNewSequence = TRUE
+          #print("WTFFFF")
+          #print(currentEvent)
+          #print(currentIndex)
+        }
+      }else{
+        #print("YIkesss")
+        #print(currentEvent)
+        #print(currentIndex)
+        lookingForNewSequence = TRUE
+
+        #if(gra)
+      }
+
+
+    }
+
+    if(lookingForNewSequence){
+      if(currentEvent == "grabLook"){
+        lookingForNewSequence <- FALSE
+        startIndex <- currentIndex
+        grabLookCheck <- TRUE
+      }
+      if(currentEvent == "placeLook"){
+        lookingForNewSequence <- FALSE
+        startIndex <- currentIndex - 1
+        dropLookCheck <- TRUE
+      }
+    }
+  }
+
+  sequenceEventDF <- sequenceEventDF %>% filter(sequenceNum != 0)
+  sequenceEventDF <- sequenceEventDF %>% filter(sequenceType != "none")
+  
+  # sequenceEventDF <- sequenceEventDF %>%
+  #   group_by(sequenceNum) %>%
+  #   mutate(SequenceRow = row_number()) %>%
+  #   ungroup()
+
+  analysisDF <- sequenceEventDF %>% group_by(sequenceType, sequenceNum) %>%
+    summarise(moveTime = last(ModTime)-first(ModTime))
+
+  analysisDF <- analysisDF %>% group_by(sequenceType) %>%
+    summarise(meanTime = mean(moveTime))
+
+  analysisDF <- analysisDF %>%
+    pivot_wider(names_from = sequenceType, values_from = meanTime)
+
+
+
+  analysisFullSequence <- sequenceEventDF %>% group_by(sequenceNum) %>%
+    summarise(moveTime = last(ModTime)-first(ModTime))
+
+  analysisFullSequence <- analysisFullSequence %>%
+    summarise(meanTimeFullSequence = mean(moveTime))
+
+
+
+  colorDF <- sequenceEventDF %>% filter(sequenceType == "Grab")
+
+  analysisColorDF <- colorDF %>% group_by(sequenceNum, cubeColor) %>%
+    summarise(moveTime = last(ModTime)-first(ModTime))
+
+  analysisColorDF <- analysisColorDF %>% group_by(cubeColor) %>%
+    summarise(meanTime = mean(moveTime))
+
+  analysisColorDF <- analysisColorDF %>%
+    pivot_wider(names_from = cubeColor, values_from = meanTime)
+  
+  
+  analysisAltDropDF <- sequenceEventDF %>%
+    group_by(sequenceNum) %>%
+    #filter(sequenceType != "Grab")%>%
+    filter(all(c('DropStart', 'placeLook') %in% ActionEvent)) %>%
+    summarise(moveTime = ModTime[ActionEvent == "DropStart"] - ModTime[ActionEvent == "placeLook"])
+  
+  analysisAltDropDF <- analysisAltDropDF  %>%
+    summarise(avgDropStart = mean(moveTime))
+  
+
+
+  
+  
+  
+  
+  
+  
+  Participant <- participantID
+  Group <- df$Group[5]
+  Condition <- df$Condition[5]
+  Trial <- df$Trial[5]
+  Age <- df$Age[5]
+  Sex <- df$Sex[5]
+
+  if(Condition != "co"){
+    analysisColorDF <- analysisColorDF %>%
+      mutate(slowGrab = (Red + Blue)/2)
+  }else{
+    analysisColorDF <- analysisColorDF %>%
+      mutate(slowGrab = Red)
+  }
+
+
+
+  # Check if a column exists
+  temp <- "Place" %in% colnames(analysisDF)
+  if(temp){
+    avgDrop <- analysisDF$Place[1]
+    print("helloooo")
+  }else{
+    print("wuuuut")
+    avgDrop <- 0
+  }
+  temp <- "Grab" %in% colnames(analysisDF)
+  if(temp){
+    avgGrab <- analysisDF$Grab[1]
+    print("helloooo")
+  }else{
+    print("wuuuut")
+    avgGrab <- 0
+  }
+
+  temp <- "White" %in% colnames(analysisColorDF)
+  if(temp){
+    fastGrab <- analysisColorDF$White[1]
+  }else{
+    print("wuuuut")
+    fastGrab <- 0
+  }
+  temp <- "White" %in% colnames(analysisColorDF)
+  if(temp){
+    sta <- analysisColorDF$White[1]
+  }else{
+    print("wuuuut")
+    fastGrab <- 0
+  }
+
+
+  avgDropStart <- analysisAltDropDF$avgDropStart[1]
+  avgFullSequence <- analysisFullSequence$meanTimeFullSequence[1]
+  stillGrab <- analysisColorDF$Gold[1]
+  slowGrab <- analysisColorDF$slowGrab[1]
+
+
+  print(Participant)
+  print(Condition)
+  print(Trial)
+  print(Group)
+  print(avgGrab)
+  print(avgDrop)
+  print(avgDropStart)
+  print(avgFullSequence)
+  print(stillGrab)
+  print(slowGrab)
+  print(fastGrab)
+
+  newPartRow <- data.frame(Participant, Age, Sex, Condition, Trial, Group, avgGrab, avgDrop,avgDropStart, avgFullSequence, stillGrab,
+                           slowGrab, fastGrab)
+
+  MovementTimesDF <- rbind(MovementTimesDF, newPartRow)
   
 }  
 
