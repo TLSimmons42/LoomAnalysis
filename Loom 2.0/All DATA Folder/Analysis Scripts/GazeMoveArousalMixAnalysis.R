@@ -24,6 +24,9 @@ MovementTimesDF <- data.frame(Participant = factor(),
                              avgGrab = numeric(),
                              avgDrop = numeric(),
                              avgDropStart = numeric(),
+                             grabCount = numeric(),
+                             dropCount = numeric(),
+                             dropStartCount = numeric(),
                              avgFullSequence = numeric(),
                              stillGrab = numeric(),
                              slowGrab = numeric(),
@@ -34,7 +37,7 @@ MovementTimesDF <- data.frame(Participant = factor(),
 
 PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
 rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = " .csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -43,9 +46,10 @@ strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
                        "nuP3_old5",  "nuP3_old4","nuP3_old3","nuP3_old2","nuP3_old1")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
 
+
 for(f in 1:length(data_files))
 {
-  
+  dropStartCounter <- 0
   participantDataFile <- data_files[f]
   print(participantDataFile)
 
@@ -416,11 +420,15 @@ for(f in 1:length(data_files))
   #   mutate(SequenceRow = row_number()) %>%
   #   ungroup()
 
+  
   analysisDF <- sequenceEventDF %>% group_by(sequenceType, sequenceNum) %>%
     summarise(moveTime = last(ModTime)-first(ModTime))
+  
 
   analysisDF <- analysisDF %>% group_by(sequenceType) %>%
-    summarise(meanTime = mean(moveTime))
+    summarise(meanTime = mean(moveTime),
+              moveCount = n()) %>%
+    arrange(sequenceType)
 
   analysisDF <- analysisDF %>%
     pivot_wider(names_from = sequenceType, values_from = meanTime)
@@ -431,7 +439,8 @@ for(f in 1:length(data_files))
     summarise(moveTime = last(ModTime)-first(ModTime))
 
   analysisFullSequence <- analysisFullSequence %>%
-    summarise(meanTimeFullSequence = mean(moveTime))
+    summarise(meanTimeFullSequence = mean(moveTime),
+              Count = n())
 
 
 
@@ -454,15 +463,11 @@ for(f in 1:length(data_files))
     summarise(moveTime = ModTime[ActionEvent == "DropStart"] - ModTime[ActionEvent == "placeLook"])
   
   analysisAltDropDF <- analysisAltDropDF  %>%
-    summarise(avgDropStart = mean(moveTime))
+    summarise(avgDropStart = mean(moveTime),
+              avgDropStartCount = n())
   
 
 
-  
-  
-  
-  
-  
   
   Participant <- participantID
   Group <- df$Group[5]
@@ -484,19 +489,23 @@ for(f in 1:length(data_files))
   # Check if a column exists
   temp <- "Place" %in% colnames(analysisDF)
   if(temp){
-    avgDrop <- analysisDF$Place[1]
+    avgDrop <- analysisDF$Place[2]
+    dropCount <- analysisDF$moveCount[2]
     print("helloooo")
   }else{
     print("wuuuut")
     avgDrop <- 0
+    dropCount <- 0
   }
   temp <- "Grab" %in% colnames(analysisDF)
   if(temp){
     avgGrab <- analysisDF$Grab[1]
+    grabCount <- analysisDF$moveCount[1]
     print("helloooo")
   }else{
     print("wuuuut")
     avgGrab <- 0
+    dropCount <- 0
   }
 
   temp <- "White" %in% colnames(analysisColorDF)
@@ -516,6 +525,7 @@ for(f in 1:length(data_files))
 
 
   avgDropStart <- analysisAltDropDF$avgDropStart[1]
+  dropStartCount <- analysisAltDropDF$avgDropStartCount[1]
   avgFullSequence <- analysisFullSequence$meanTimeFullSequence[1]
   stillGrab <- analysisColorDF$Gold[1]
   slowGrab <- analysisColorDF$slowGrab[1]
@@ -533,7 +543,8 @@ for(f in 1:length(data_files))
   print(slowGrab)
   print(fastGrab)
 
-  newPartRow <- data.frame(Participant, Age, Sex, Condition, Trial, Group, avgGrab, avgDrop,avgDropStart, avgFullSequence, stillGrab,
+  newPartRow <- data.frame(Participant, Age, Sex, Condition, Trial, Group, avgGrab, avgDrop,avgDropStart,
+                           grabCount, dropCount, dropStartCount, avgFullSequence, stillGrab,
                            slowGrab, fastGrab)
 
   MovementTimesDF <- rbind(MovementTimesDF, newPartRow)
@@ -541,3 +552,5 @@ for(f in 1:length(data_files))
 }  
 
 #print(unique(MovementTimesDF$Participant))
+# write.csv(individualPACdf, "PACdf tester 5_13.csv", row.names = FALSE)
+
