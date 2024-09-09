@@ -12,7 +12,7 @@ library(cowplot)
 #dataFile <- "gazeDurationTimes 9-27-23.csv"
 
 #dataFileGaze <- "PACsfnREAL.csv"
-dataFile <- "Grab_Place_FullPart3.csv"
+dataFile <- "GazeDurrationTimes 9_5_24.csv"
 datFileGaze <- "GazeDurrationTimes 9_2_24.csv"
 
 gazeDF <- read.csv(datFileGaze, header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -32,8 +32,8 @@ df <- df %>% mutate(Group = ifelse(Group == "f" & Participant == "nuP28", "c", G
 df <- df %>% mutate(Group = ifelse(Group == "f" & Participant == "sdP1", "e", Group))
 
 
-df <- df %>% mutate(Group = ifelse(Participant == "sdP2", "c", Group))
-# df <- df %>% mutate(Group = ifelse(Participant == "nuP10", "c", Group))
+# df <- df %>% mutate(Group = ifelse(Participant == "sdP2", "c", Group))
+# df <- df %>% mutate(Group = ifelse(Participant == "nuP10", "e", Group))
 # df <- df %>% mutate(Group = ifelse(Participant == "nuP02", "c", Group))
 # df <- df %>% mutate(Group = ifelse(Participant == "nuP02", "c", Group))
 # df <- df %>% mutate(Group = ifelse(Participant == "nuP05", "c", Group))
@@ -48,11 +48,11 @@ df <- df %>% mutate(Group = ifelse(Participant == "sdP2", "c", Group))
 
 
 
-
-df <- df %>% filter(Participant != "nuP30")
-df <- df %>% filter(Participant != "nuP29")
+# 
+# df <- df %>% filter(Participant != "nuP30")
+# df <- df %>% filter(Participant != "nuP31")
 #df <- df %>% filter(!(Condition == "solo" & Trial == 1))
-df <- df %>% filter(avgDrop < 4)
+# df <- df %>% filter(avgDrop < 4)
 
 
 
@@ -83,8 +83,8 @@ df <- df %>% mutate(avgViewWAllDurration = avgViewWAllDurration / 1000)
 p <- df %>%
   group_by(Group, Condition)%>%
   summarize(
-    Mean = mean(avgViewWAllDurration),
-    sd = sd(avgViewWAllDurration),
+    Mean = mean(avgDropStart),
+    sd = sd(avgDropStart),
     CI_lower = Mean - 1.96 * sd / sqrt(n()),
     CI_upper = Mean + 1.96 * sd / sqrt(n())) %>%
   ggplot(aes(Condition,Mean, fill = Group))+
@@ -112,6 +112,12 @@ group_B <- subset(tTestDF, Group == 'Non-AUT')$Duration
 result <- t.test(group_A, group_B, var.equal = FALSE)
 print(result)
 
+
+
+ggplot(df, aes(x = Condition, y = avgDropStart, fill = reorder(Group,avgDropStart))) +
+  geom_violin() +
+  theme_minimal() +
+  labs(title = "Violin Plot", x = "Category", y = "Value")
 
 # 
 # ggplot(df, aes(x = Condition, y = avgViewWAllDurration)) +
