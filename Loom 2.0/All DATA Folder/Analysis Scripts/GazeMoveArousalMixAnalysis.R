@@ -33,11 +33,34 @@ MovementTimesDF <- data.frame(Participant = factor(),
                              fastGrab = numeric(),
                              stringsAsFactors = FALSE)
 
+individualMovementTimes <- data.frame(Participant = factor(),
+                                      Age = numeric(),
+                                      Sex = factor(),
+                                      Condition = factor(),
+                                      Trial = numeric(),
+                                      Group = factor(),
+                                      sequecnceType = factor(),
+                                      startTime = numeric(),
+                                      endTime = numeric(),
+                                      moveTime = numeric())
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = "sdP12.csv")
+individualColorGrabTimes <- data.frame(Participant = factor(),
+                                      Age = numeric(),
+                                      Sex = factor(),
+                                      Condition = factor(),
+                                      Trial = numeric(),
+                                      Group = factor(),
+                                      cubeColor = factor(),
+                                      startTime = numeric(),
+                                      endTime = numeric(),
+                                      moveTime = numeric())
+
+
+
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+data_files <- list.files(pattern = ".csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -306,7 +329,7 @@ for(f in 1:length(data_files))
   # p + geom_point(aes (y = zHand),(color = factor(ActionEvent)), size = 3)
   p
   # p + scale_y_continuous(limits = c(-1.5,1.5))
-  ggsave("Head Rotation 2D.pdf")
+  #ggsave("Head Rotation 2D.pdf")
   
   plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
   #plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
@@ -422,8 +445,27 @@ for(f in 1:length(data_files))
   #   ungroup()
 
   
+  Participant <- participantID
+  Group <- df$Group[5]
+  Condition <- df$Condition[5]
+  Trial <- df$Trial[5]
+  Age <- df$Age[5]
+  Sex <- df$Sex[5]
+  
   analysisDF <- sequenceEventDF %>% group_by(sequenceType, sequenceNum) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime))
+    summarise(moveTime = last(ModTime)-first(ModTime),
+              startTime = first(ModTime),
+              endTime = last(ModTime))
+  
+  analysisDF$Participant = Participant
+  analysisDF$Age  = Age 
+  analysisDF$Sex = Sex
+  analysisDF$Condition = Condition
+  analysisDF$Trial = Trial
+  analysisDF$Group = Group
+  
+  individualMovementTimes  <- rbind(individualMovementTimes , analysisDF)
+  
   
 
   analysisDF <- analysisDF %>% group_by(sequenceType) %>%
@@ -437,7 +479,21 @@ for(f in 1:length(data_files))
 
 
   analysisFullSequence <- sequenceEventDF %>% group_by(sequenceNum) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime))
+    summarise(moveTime = last(ModTime)-first(ModTime),
+              startTime = first(ModTime),
+              endTime = last(ModTime))
+  
+  analysisFullSequence$sequenceType = "Full"
+  analysisFullSequence$Participant = Participant
+  analysisFullSequence$Age  = Age 
+  analysisFullSequence$Sex = Sex
+  analysisFullSequence$Condition = Condition
+  analysisFullSequence$Trial = Trial
+  analysisFullSequence$Group = Group
+  
+  individualMovementTimes  <- rbind(individualMovementTimes , analysisFullSequence)
+  
+  
 
   analysisFullSequence <- analysisFullSequence %>%
     summarise(meanTimeFullSequence = mean(moveTime),
@@ -448,7 +504,20 @@ for(f in 1:length(data_files))
   colorDF <- sequenceEventDF %>% filter(sequenceType == "Grab")
 
   analysisColorDF <- colorDF %>% group_by(sequenceNum, cubeColor) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime))
+    summarise(moveTime = last(ModTime)-first(ModTime),
+              startTime = first(ModTime),
+              endTime = last(ModTime))
+  
+  
+  #analysisColorDF$sequenceType = "Grab"
+  analysisColorDF$Participant = Participant
+  analysisColorDF$Age  = Age 
+  analysisColorDF$Sex = Sex
+  analysisColorDF$Condition = Condition
+  analysisColorDF$Trial = Trial
+  analysisColorDF$Group = Group
+  
+  individualColorGrabTimes  <- rbind(individualColorGrabTimes , analysisColorDF)
 
   analysisColorDF <- analysisColorDF %>% group_by(cubeColor) %>%
     summarise(meanTime = mean(moveTime))
@@ -461,7 +530,19 @@ for(f in 1:length(data_files))
     group_by(sequenceNum) %>%
     #filter(sequenceType != "Grab")%>%
     filter(all(c('DropStart', 'placeLook') %in% ActionEvent)) %>%
-    summarise(moveTime = ModTime[ActionEvent == "DropStart"] - ModTime[ActionEvent == "placeLook"])
+    summarise(moveTime = ModTime[ActionEvent == "DropStart"] - ModTime[ActionEvent == "placeLook"],
+              startTime = ModTime[ActionEvent == "placeLook"],
+              endTime = ModTime[ActionEvent == "DropStart"])
+  
+  analysisAltDropDF$sequenceType = "Old Drop"
+  analysisAltDropDF$Participant = Participant
+  analysisAltDropDF$Age  = Age 
+  analysisAltDropDF$Sex = Sex
+  analysisAltDropDF$Condition = Condition
+  analysisAltDropDF$Trial = Trial
+  analysisAltDropDF$Group = Group
+  
+  individualMovementTimes  <- rbind(individualMovementTimes , analysisAltDropDF)
   
   analysisAltDropDF <- analysisAltDropDF  %>%
     summarise(avgDropStart = mean(moveTime),
@@ -470,12 +551,6 @@ for(f in 1:length(data_files))
 
 
   
-  Participant <- participantID
-  Group <- df$Group[5]
-  Condition <- df$Condition[5]
-  Trial <- df$Trial[5]
-  Age <- df$Age[5]
-  Sex <- df$Sex[5]
 
   if(Condition != "co"){
     analysisColorDF <- analysisColorDF %>%
@@ -547,5 +622,5 @@ for(f in 1:length(data_files))
 }  
 
 #print(unique(MovementTimesDF$Participant))
-# write.csv(individualPACdf, "PACdf tester 5_13.csv", row.names = FALSE)
-
+# write.csv(individualMovementTimes, "individualMovementTimes 9_10-24.csv", row.names = FALSE)
+# write.csv(individualColorGrabTimes, "individualColorGrabTimes 9_10-24.csv", row.names = FALSE)
