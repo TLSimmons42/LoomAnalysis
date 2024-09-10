@@ -35,9 +35,9 @@ MovementTimesDF <- data.frame(Participant = factor(),
 
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = " .csv")
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+data_files <- list.files(pattern = "sdP12.csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -492,9 +492,7 @@ for(f in 1:length(data_files))
   if(temp){
     avgDrop <- analysisDF$Place[2]
     dropCount <- analysisDF$moveCount[2]
-    print("helloooo")
   }else{
-    print("wuuuut")
     avgDrop <- 0
     dropCount <- 0
   }
@@ -502,9 +500,7 @@ for(f in 1:length(data_files))
   if(temp){
     avgGrab <- analysisDF$Grab[1]
     grabCount <- analysisDF$moveCount[1]
-    print("helloooo")
   }else{
-    print("wuuuut")
     avgGrab <- 0
     dropCount <- 0
   }
@@ -513,14 +509,12 @@ for(f in 1:length(data_files))
   if(temp){
     fastGrab <- analysisColorDF$White[1]
   }else{
-    print("wuuuut")
     fastGrab <- 0
   }
   temp <- "White" %in% colnames(analysisColorDF)
   if(temp){
     sta <- analysisColorDF$White[1]
   }else{
-    print("wuuuut")
     fastGrab <- 0
   }
 
