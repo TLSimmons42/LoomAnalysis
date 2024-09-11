@@ -60,7 +60,7 @@ individualColorGrabTimes <- data.frame(Participant = factor(),
 
 PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
 rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "sdP7")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -72,6 +72,8 @@ data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_fi
 
 for(f in 1:length(data_files))
 {
+
+  print(df$Group[1])
   dropStartCounter <- 0
   participantDataFile <- data_files[f]
   print(participantDataFile)
@@ -82,6 +84,16 @@ for(f in 1:length(data_files))
   PACdf <- read.csv(PACdataFile, colClasses=c("PACstartTime" = "integer64", "PACendTime" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- df[!duplicated(df$Time), ]
+  
+  if(df$Participant[1] == "sd10"){
+    df <- df %>% mutate(Group = ifelse(Group == 1, "e", Group))
+    print("meh")
+  }
+  if(df$Participant[1] == "sdP7"){
+    df <- df %>% mutate(Sex = "m")
+    
+  }
+  
   
   df$Time[is.na(df$Time)] <- 0
   df$Time <- as.integer64(df$Time)
@@ -462,7 +474,7 @@ for(f in 1:length(data_files))
   analysisDF$Sex = Sex
   analysisDF$Condition = Condition
   analysisDF$Trial = Trial
-  analysisDF$Group = Group
+  analysisDF$Group =  Group
   
   individualMovementTimes  <- rbind(individualMovementTimes , analysisDF)
   
