@@ -58,9 +58,9 @@ individualColorGrabTimes <- data.frame(Participant = factor(),
 
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = "sdP7")
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+data_files <- list.files(pattern = ".csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -634,5 +634,5 @@ for(f in 1:length(data_files))
 }  
 
 #print(unique(MovementTimesDF$Participant))
-# write.csv(individualMovementTimes, "individualMovementTimes 9_10-24.csv", row.names = FALSE)
-# write.csv(individualColorGrabTimes, "individualColorGrabTimes 9_10-24.csv", row.names = FALSE)
+write.csv(individualMovementTimes, "individualMovementTimes 9_11-24.csv", row.names = FALSE)
+write.csv(individualColorGrabTimes, "individualColorGrabTimes 9_11-24.csv", row.names = FALSE)

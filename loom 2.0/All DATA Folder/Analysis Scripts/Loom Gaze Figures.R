@@ -15,11 +15,14 @@ library(cowplot)
 dataFile <- "move and gaze times 9-8-24.csv"
 datFileGaze <- "GazeDurrationTimes 9_2_24.csv"
 
+individualMovementDataFile <- "individualMovementTimes 9_11-24.csv"
+
+
 gazeDF <- read.csv(datFileGaze, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 #df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
-
-
+indiMoveDF <- read.csv(individualMovementDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+colorGrabDF
 
 merged_df <- merge(df, gazeDF, by = c("Participant", "Group", "Condition", "Trial"), all.x = TRUE)
 
