@@ -315,6 +315,28 @@ print(result)
 
 #__________________________________________________________________________________________________________
 
+tempDF <- QE.100px
+tempDF <- QE.50px
+tempDF <- tempDF %>% filter(Duration != 0)
+
+p <- tempDF %>%
+  group_by(Group)%>%
+  summarize(
+    Mean = mean(Onset),
+    sd = sd(Onset),
+    CI_lower = Mean - 1.96 * sd / sqrt(n()),
+    CI_upper = Mean + 1.96 * sd / sqrt(n())) %>%
+  ggplot(aes(Group,Mean, fill = Group))+
+  geom_bar(stat = "identity", position = "dodge")+
+  geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
+                width = .3, position = position_dodge(width = .9))+
+  labs(title = "View Wall Gaze Duration Time", x = "", y = "Time (s)")+
+  theme_bw()
+
+p <- p + guides(fill=guide_legend(title="Group"))
+p
+
+
 
 
 # p <- gazeDurationTimes %>%
