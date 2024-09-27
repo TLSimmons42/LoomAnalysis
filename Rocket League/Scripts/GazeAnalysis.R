@@ -315,18 +315,33 @@ print(result)
 
 #__________________________________________________________________________________________________________
 
-tempDF <- QE.100px
-tempDF <- QE.50px
-tempDF <- tempDF %>% filter(Duration != 0)
+tempDF_100 <- QE_100
+tempDF_50 <- QE_50
+
+QE_Zero_50 <- tempDF_50 %>% filter(Duration == 0)
+QE_Zero_100 <- tempDF_100 %>% filter(Duration == 0)
+
+QE_50_fixationThreshold <- tempDF_50 %>% filter(Duration > 100)
+QE_100_fixationThreshold <- tempDF_100 %>% filter(Duration > 100)
+
+tempDF <- tempDF %>% filter(Duration > 100)
+DF <- tempDF %>% filter(Group == "Expert")
+
+tempDF <- tempDF %>% group_by(Group, Participant) %>%
+  summarise(Duration = mean(Duration),
+            Onset = mean(Onset))
+
+
+
 
 p <- tempDF %>%
-  group_by(Group)%>%
+  group_by(Group, Trial)%>%
   summarize(
     Mean = mean(Onset),
     sd = sd(Onset),
     CI_lower = Mean - 1.96 * sd / sqrt(n()),
     CI_upper = Mean + 1.96 * sd / sqrt(n())) %>%
-  ggplot(aes(Group,Mean, fill = Group))+
+  ggplot(aes(Trial,Mean, fill = Group))+
   geom_bar(stat = "identity", position = "dodge")+
   geom_errorbar(mapping = aes(ymin = CI_lower, ymax = CI_upper),
                 width = .3, position = position_dodge(width = .9))+

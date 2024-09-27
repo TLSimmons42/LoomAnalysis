@@ -29,7 +29,7 @@ dfTrim <- dfTrim %>% filter(GazePoint_Y > 0)
 dfTrim <- dfTrim %>% filter(GazePoint_Y <= 1080)
 
 
-dfSmall <- df %>% filter(GazePoint_Y < 500)
+dfSmall <- df %>% filter(GazePoint_Y < 360)
 dfSmall <- dfSmall %>% filter(GazePoint_X < 600)
 dfSmall <- dfSmall %>% filter(GazePoint_Y >= 0)
 #dfSmall <- dfSmall %>% filter(Frame < 2254 & Frame > 2259)
@@ -102,7 +102,7 @@ dfTrim <- dfTrim %>% filter(GazePoint_X <= 1920)
 dfTrim <- dfTrim %>% filter(GazePoint_Y > 0)
 dfTrim <- dfTrim %>% filter(GazePoint_Y <= 1080)
 
-dfSmall <- dfTrim %>% filter(GazePoint_Y < 500)
+dfSmall <- dfTrim %>% filter(GazePoint_Y < 360)
 dfSmall <- dfSmall %>% filter(GazePoint_X < 600)
 
 
