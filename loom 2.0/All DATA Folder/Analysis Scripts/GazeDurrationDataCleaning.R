@@ -7,7 +7,7 @@ library(bit64)
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = "nu")
+data_files <- list.files(pattern = "nuP15.csv")
 data_files[]
 
 gazeDurrationTimes <- data.frame(Time = numeric(),
@@ -54,21 +54,14 @@ for(f in 1:length(data_files))
   df <- df[!duplicated(df$Time), ]
   
   
-  #shortDF <- df[(df$CurrentGazeArea == "play_wall" | df$CurrentGazeArea == "build_wall" | df$CurrentGazeArea == "view_wall") & df$CurrentGazeTarget == "none", ]
-  #shortDF <- df[(df$CurrentGazeArea == "play_wall" | df$CurrentGazeArea == "build_wall" | df$CurrentGazeArea == "view_wall"), ]
-  #shortDF <- df[df$CurrentGazeArea == "play_wall"& df$CurrentGazeTarget == "none",]
-  
-  #shortDF <- df[(df$CurrentGazeArea == "play_wall" |df$CurrentGazeArea == "background_wall" | df$CurrentGazeArea == "view_wall"| df$CurrentGazeArea == "build_wall"), ]
-  
   df$EyePos_X <- as.numeric(df$EyePos_X)
   df$EyePos_Y <- as.numeric(df$EyePos_Y)
   df$EyePos_Z <- as.numeric(df$EyePos_Z)
-  #shortDF <- df[(df$CurrentGazeArea == "play_wall" & df$EyePos_X > (0)),]
-  trimedDF <- df %>% filter((round(EyePos_X, 2) > -5 & CurrentGazeArea == "play_wall" & round(EyePos_X, 2) < 2.5 ) | CurrentGazeArea == "build_wall"| CurrentGazeArea == "view_wall" | CurrentGazeArea == "background_wall")
   
-  # x <- df[,13]
-  # y <- df[,14]
-  # z <- df[,15]
+  #trimedDF <- df %>% filter((round(EyePos_X, 2) > -5 & CurrentGazeArea == "play_wall" & round(EyePos_X, 2) < 2.5 ) | CurrentGazeArea == "build_wall"| CurrentGazeArea == "view_wall" | CurrentGazeArea == "background_wall")
+  trimedDF <- df %>%
+    filter(EyePos_X > -5) %>%
+    filter(EyePos_X != 0) 
   
   x <- trimedDF[,13]
   y <- trimedDF[,14]

@@ -22,7 +22,7 @@ gazeDF <- read.csv(datFileGaze, header = TRUE, sep = ",", stringsAsFactors = FAL
 #df <- read.csv(dataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 df <- read.csv(dataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 indiMoveDF <- read.csv(individualMovementDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
-colorGrabDF
+
 
 merged_df <- merge(df, gazeDF, by = c("Participant", "Group", "Condition", "Trial"), all.x = TRUE)
 
