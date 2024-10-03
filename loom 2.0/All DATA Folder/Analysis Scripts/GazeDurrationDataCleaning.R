@@ -2,6 +2,8 @@ library(plot3D)
 library(rgl)
 library(dplyr)
 library(bit64)
+library(plotly)
+
 
 
 
@@ -62,6 +64,13 @@ for(f in 1:length(data_files))
   trimedDF <- df %>%
     filter(EyePos_X > -5) %>%
     filter(EyePos_X != 0) 
+  
+  trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "background_wall" & EyePos_X == 1.6 & EyePos_Z >= -15 & EyePos_Z <= 16, "play_wall", CurrentGazeArea))
+  trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "background_wall" & EyePos_X <= 15.5 & EyePos_X >= 9.5, "view_wall", CurrentGazeArea))
+  trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "background_wall" & EyePos_X <= 15.5 & EyePos_X >= 10, "build_wall", CurrentGazeArea))
+  
+  dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 0 & EyePos_Z < 12, "build_wall", CurrentGazeArea ))
+  dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 12, "background_wall", CurrentGazeArea ))
   
   x <- trimedDF[,13]
   y <- trimedDF[,14]
@@ -272,6 +281,9 @@ AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
   newRow <- data.frame(Participant, Condition, Trial, Group, Event, viewSwitchCounter, startTime, endTime, eventDuration)
   durationEventDF <<- rbind(durationEventDF, newRow)
 }
+
+
+
 
 
 
