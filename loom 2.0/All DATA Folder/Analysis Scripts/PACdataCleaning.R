@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "nuP6_old5.csv")
+data_files <- list.files(pattern = "nuP15.csv")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -73,6 +73,167 @@ individualAreaPACdf <- data.frame(Time = numeric(),
                               PACendTime = numeric(),
                               Event = factor(),
                               stringsAsFactors = FALSE)
+ColorCubeAnalysis <- function(colorName, eventDuration){
+  #print(colorName)
+  #print(eventDuration)
+  result1 <- grepl("Red", colorName)
+  result2 <- grepl("Blue", colorName)
+  result3 <- grepl("Gold", colorName)
+  result4 <- grepl("Neutral", colorName)
+  
+  # #result1 <- regexpr("Red", colorName)
+  # result2 <- regexpr("Blue", colorName)
+  # result3 <- regexpr("Gold", colorName)
+  # result4 <- regexpr("Neutral", colorName)
+  
+  if (result1) {
+    colorName <- "Red"
+  }
+  if (result2) {
+    colorName <- "Blue"
+  }
+  if (result3) {
+    colorName <- "Gold"
+  }
+  if (result4) {
+    colorName <- "White"
+  }
+  
+  #print(colorName)
+  
+  if(colorName == "Blue")
+  {
+    totalBlueCubeGrabCount <<- totalBlueCubeGrabCount + 1
+    totalBlueCubeGrabTime <<- totalBlueCubeGrabTime + eventDuration
+    
+  }
+  if(colorName == "Red")
+  {
+    totalRedCubeGrabCount <<- totalRedCubeGrabCount + 1
+    totalRedCubeGrabTime <<- totalRedCubeGrabTime + eventDuration
+    
+  }
+  if(colorName == "Gold")
+  {
+    totalGoldCubeGrabCount <<- totalGoldCubeGrabCount + 1
+    totalGoldCubeGrabTime <<- totalGoldCubeGrabTime + eventDuration
+    
+  }
+  if(colorName == "White")
+  {
+    totalWhiteCubeGrabCount <<- totalWhiteCubeGrabCount + 1
+    totalWhiteCubeGrabTime <<- totalWhiteCubeGrabTime + eventDuration
+    
+  }
+  return(colorName)
+  
+}
+
+
+#Grab2PlaceAnalysis(trimedGrabDF, trimedPlaceDF)
+
+Grab2PlaceAnalysis <- function(grabDF, placeDF){
+  Participant <- grabDF[2,2]
+  Condition <- grabDF[8,8]
+  Trial <- grabDF[9,9]
+  Group <- grabDF[7,7]
+  if(nrow(placeDF)== 0 | nrow(grabDF) == 0){
+    
+  }else{
+    
+    for(i in 1:nrow(grabDF))
+    {
+      currentEvent <- grabDF[i,10]
+      # print(currentEvent)
+      
+      # Your string
+      input_string <- currentEvent
+      
+      result <- str_extract(input_string, "CubeClone(\\d+)\\swas")
+      #print(result)
+      # Extracted number
+      if (!is.na(result)) {
+        extracted_Grabnumber <- str_match(result, "CubeClone(\\d+)\\swas")[, 2]
+        #print(extracted_Grabnumber)
+        for(f in 1:nrow(placeDF))
+        {
+          currentPlaceEvent <- placeDF[f,10]
+          # print(currentPlaceEvent)
+          
+          input_string <- currentPlaceEvent
+          
+          result <- str_extract(input_string, "CubeClone(\\d+)\\was")
+          #print(result)
+          if (!is.na(result)){
+            extracted_number <- str_match(result, "CubeClone(\\d+)\\was")[, 2]
+            # print(extracted_number)
+            if(extracted_number == extracted_Grabnumber){
+              SequenceOrder <<- SequenceOrder + 1
+              
+              GrabTime <- grabDF[i,1]
+              PlaceTime <- placeDF[f,1]
+              GrabEvent <- currentEvent
+              PlaceEvent <- currentPlaceEvent
+              newRow <- data.frame(SequenceOrder, Participant, Condition, Trial, Group, GrabTime,PlaceTime, GrabEvent, PlaceEvent)
+              individualGrab2Placedf <<- rbind(individualGrab2Placedf, newRow)
+              break
+            }
+          }else{}
+        }
+      } else{}
+    }
+  }
+}
+
+BadParticipantAnalysis <- function(event, dfFunc){
+  
+  dfFunc <- dfFunc %>% filter(Time >= (last(dfFunc$Time)-15000000))
+  
+  
+  foundCube <- FALSE
+  result1 <- grepl("Red", event)
+  result2 <- grepl("Blue", event)
+  result3 <- grepl("Gold", event)
+  result4 <- grepl("Neutral", event)
+  
+  lookForObj <- ""
+  returnTime <- 0
+  if(result1){
+    lookForObj <- "red_cube"
+  }
+  if(result2){
+    lookForObj <- "blue_cube"
+  }
+  if(result3){
+    lookForObj <- "gold_cube"
+  }
+  if(result4){
+    lookForObj <- "white_cube"
+  }
+  temp <- nrow(dfFunc)
+  for (i in 1:nrow(dfFunc)) {
+    
+    
+    
+    if(dfFunc$CurrentGazeTarget[i] == lookForObj){
+      returnTime <- dfFunc$Time[i]
+      #print("FOUND IT")
+      foundCube <- TRUE
+      break
+      #print(returnTime)
+    }
+    
+    if(i == temp){
+      print("got to the end")
+    }
+  }
+  # a <- last(df$Time) - returnTime
+  # print(a)
+  
+  
+  return(list(found = foundCube, cubetime = returnTime))
+  
+}
 
 
 
@@ -519,169 +680,31 @@ for(f in 1:length(data_files))
 }
 
 
-ColorCubeAnalysis <- function(colorName, eventDuration){
-  #print(colorName)
-  #print(eventDuration)
-  result1 <- grepl("Red", colorName)
-  result2 <- grepl("Blue", colorName)
-  result3 <- grepl("Gold", colorName)
-  result4 <- grepl("Neutral", colorName)
-  
-  # #result1 <- regexpr("Red", colorName)
-  # result2 <- regexpr("Blue", colorName)
-  # result3 <- regexpr("Gold", colorName)
-  # result4 <- regexpr("Neutral", colorName)
-
-  if (result1) {
-    colorName <- "Red"
-  }
-  if (result2) {
-    colorName <- "Blue"
-  }
-  if (result3) {
-    colorName <- "Gold"
-  }
-  if (result4) {
-    colorName <- "White"
-  }
-
-  #print(colorName)
-
-  if(colorName == "Blue")
-  {
-    totalBlueCubeGrabCount <<- totalBlueCubeGrabCount + 1
-    totalBlueCubeGrabTime <<- totalBlueCubeGrabTime + eventDuration
-
-  }
-  if(colorName == "Red")
-  {
-    totalRedCubeGrabCount <<- totalRedCubeGrabCount + 1
-    totalRedCubeGrabTime <<- totalRedCubeGrabTime + eventDuration
-
-  }
-  if(colorName == "Gold")
-  {
-    totalGoldCubeGrabCount <<- totalGoldCubeGrabCount + 1
-    totalGoldCubeGrabTime <<- totalGoldCubeGrabTime + eventDuration
-
-  }
-  if(colorName == "White")
-  {
-    totalWhiteCubeGrabCount <<- totalWhiteCubeGrabCount + 1
-    totalWhiteCubeGrabTime <<- totalWhiteCubeGrabTime + eventDuration
-
-  }
-  return(colorName)
-
-}
-
-
-#Grab2PlaceAnalysis(trimedGrabDF, trimedPlaceDF)
-
-Grab2PlaceAnalysis <- function(grabDF, placeDF){
-  Participant <- grabDF[2,2]
-  Condition <- grabDF[8,8]
-  Trial <- grabDF[9,9]
-  Group <- grabDF[7,7]
-  if(nrow(placeDF)== 0 | nrow(grabDF) == 0){
-
-  }else{
-
-    for(i in 1:nrow(grabDF))
-    {
-      currentEvent <- grabDF[i,10]
-      # print(currentEvent)
-
-      # Your string
-      input_string <- currentEvent
-
-      result <- str_extract(input_string, "CubeClone(\\d+)\\swas")
-      #print(result)
-      # Extracted number
-      if (!is.na(result)) {
-        extracted_Grabnumber <- str_match(result, "CubeClone(\\d+)\\swas")[, 2]
-        #print(extracted_Grabnumber)
-        for(f in 1:nrow(placeDF))
-        {
-          currentPlaceEvent <- placeDF[f,10]
-          # print(currentPlaceEvent)
-
-          input_string <- currentPlaceEvent
-
-          result <- str_extract(input_string, "CubeClone(\\d+)\\was")
-          #print(result)
-          if (!is.na(result)){
-            extracted_number <- str_match(result, "CubeClone(\\d+)\\was")[, 2]
-            # print(extracted_number)
-            if(extracted_number == extracted_Grabnumber){
-              SequenceOrder <<- SequenceOrder + 1
-
-              GrabTime <- grabDF[i,1]
-              PlaceTime <- placeDF[f,1]
-              GrabEvent <- currentEvent
-              PlaceEvent <- currentPlaceEvent
-              newRow <- data.frame(SequenceOrder, Participant, Condition, Trial, Group, GrabTime,PlaceTime, GrabEvent, PlaceEvent)
-              individualGrab2Placedf <<- rbind(individualGrab2Placedf, newRow)
-              break
-            }
-          }else{}
-        }
-      } else{}
-    }
-  }
-}
-
-BadParticipantAnalysis <- function(event, dfFunc){
-  
-  dfFunc <- dfFunc %>% filter(Time >= (last(dfFunc$Time)-15000000))
-  
-  
-  foundCube <- FALSE
-  result1 <- grepl("Red", event)
-  result2 <- grepl("Blue", event)
-  result3 <- grepl("Gold", event)
-  result4 <- grepl("Neutral", event)
-  
-  lookForObj <- ""
-  returnTime <- 0
-  if(result1){
-    lookForObj <- "red_cube"
-  }
-  if(result2){
-    lookForObj <- "blue_cube"
-  }
-  if(result3){
-    lookForObj <- "gold_cube"
-  }
-  if(result4){
-    lookForObj <- "white_cube"
-  }
-  temp <- nrow(dfFunc)
-  for (i in 1:nrow(dfFunc)) {
-    
-    
-    
-    if(dfFunc$CurrentGazeTarget[i] == lookForObj){
-      returnTime <- dfFunc$Time[i]
-      #print("FOUND IT")
-      foundCube <- TRUE
-      break
-      #print(returnTime)
-    }
-    
-    if(i == temp){
-      print("got to the end")
-    }
-  }
-  # a <- last(df$Time) - returnTime
-  # print(a)
-  
-  
-  return(list(found = foundCube, cubetime = returnTime))
-
-}
-
-# write.csv(individualPACdf, "PACdf tester 5_13.csv", row.names = FALSE)
-
 
 individualGrab2Placedf <- individualGrab2Placedf  %>% mutate(EventTime = (PlaceTime/ 10000) - (GrabTime/ 10000))
+
+
+# This seciont below is going to be used to take individual grabs or drops from the PACdataCleaning.R 
+# Then seperate out the time into invidual csv's so that they can be exported to Unity for simulation
+
+dfsim <- individualPACdf
+
+dfsim <- dfsim %>% filter(PACtime == 18.0009)
+
+# upperTime <- dfsim$PACstartTime[1] - 20000000
+# lowerTime <- dfsim$PACendTime[1] + 20000000
+
+upperTime <- dfsim$PACstartTime[1] - 10000000/4
+lowerTime <- dfsim$PACendTime[1] 
+
+dfsimTrim <- df %>% filter(Time >= upperTime & Time <= lowerTime)
+
+dfsimTrim$EyePos_X <- as.numeric(dfsimTrim$EyePos_X)
+dfsimTrim$EyePos_Y <- as.numeric(dfsimTrim$EyePos_Y)
+dfsimTrim$EyePos_Z <- as.numeric(dfsimTrim$EyePos_Z)
+
+write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/GrabSim 10-22-24.csv", row.names = FALSE)
+
+
+
+

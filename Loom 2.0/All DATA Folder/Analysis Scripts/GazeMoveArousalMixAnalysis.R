@@ -11,7 +11,6 @@ library(ggsci)
 library(gridExtra)
 library(ggsignif)
 library(bit64)
-library(signal)
 library(plotly)
 
 
@@ -60,7 +59,7 @@ individualColorGrabTimes <- data.frame(Participant = factor(),
 
 PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
 rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
-data_files <- list.files(pattern = ".csv")
+data_files <- list.files(pattern = "nuP15_old3.csv")
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4",
@@ -73,9 +72,9 @@ data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_fi
 for(f in 1:length(data_files))
 {
 
-  print(df$Group[1])
+  #print(df$Group[1])
   dropStartCounter <- 0
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
 
   
@@ -145,6 +144,12 @@ for(f in 1:length(data_files))
   trimDF <- trimDF %>%
     mutate(ActionEvent = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped", ActionEvent, CurrentGazeArea))
   
+  trimDF <- trimDF %>%
+    mutate(ActionEvent = ifelse(grepl("Drop Hit", Event), "DropZone Hit", ActionEvent))
+  trimDF <- trimDF %>%
+    mutate(ActionEvent = ifelse(grepl("P2", Event) & grepl("dropped", Event), "P2 Drop", ActionEvent))
+  trimDF <- trimDF %>%
+    mutate(ActionEvent = ifelse(grepl("P2", Event) & grepl("picked", Event), "P2 Grab", ActionEvent))
   
   filterDF <- trimDF %>% filter(ActionEvent == "Dropped")
   for (c in 1:nrow(filterDF)) {
@@ -214,7 +219,8 @@ for(f in 1:length(data_files))
   }
   
   trimDF <- trimDF %>% 
-    mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook"| ActionEvent == "DropStart", 3, 1))
+    mutate(Size = ifelse(ActionEvent == "Grab" | ActionEvent == "Dropped"| ActionEvent == "grabLook"| ActionEvent == "placeLook"
+                         | ActionEvent == "DropStart"| ActionEvent == "DropZone Hit"| ActionEvent == "P2 Drop" | ActionEvent == "P2 Grab", 3, 1))
   
   
   # 3D figure plot
@@ -247,8 +253,8 @@ for(f in 1:length(data_files))
   
   # This will plot the individual movements for hand, head and gaze
   subTrimDF <- trimDF
-  # subTrimDF <- trimDF %>%
-  #     dplyr :: filter(ModTime >= 50 & ModTime <= 54)
+  subTrimDF <- trimDF %>%
+      dplyr :: filter(ModTime >= 50 & ModTime <= 70)
   
   xHand <- subTrimDF$HandPos_X
   yHand <- subTrimDF$HandPos_Y
@@ -329,12 +335,12 @@ for(f in 1:length(data_files))
   
   
   p <- subTrimDF %>%
-    ggplot(aes(x = ModTime, y = yHeadRot, size = Size, color = ActionEvent)) +
+    ggplot(aes(x = ModTime, y = xHand, size = Size, color = ActionEvent)) +
     #geom_line(size = 2)+
     geom_point()+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
     # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-    labs(title = "", x = "Time (s)", y = "Rotation (Quaternions)") +
+    labs(title = "", x = "Time (s)", y = "") +
     theme_minimal() 
   #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
   # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)

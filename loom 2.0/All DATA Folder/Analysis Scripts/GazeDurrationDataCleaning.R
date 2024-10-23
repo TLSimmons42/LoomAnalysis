@@ -43,11 +43,24 @@ durationEventDF <- data.frame(Participant = factor(),
                                  eventDuration = numeric(),
                                  stringsAsFactors = FALSE)
 
+AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
+  Participant <- df2[2,2]
+  Condition <- df2[8,8]
+  Trial <- df2[9,9]
+  Group <- df2[7,7]
+  viewSwitchCounter <<- viewSwitchCounter + 1
+  
+  
+  
+  newRow <- data.frame(Participant, Condition, Trial, Group, Event, viewSwitchCounter, startTime, endTime, eventDuration)
+  durationEventDF <<- rbind(durationEventDF, newRow)
+}
+
 
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[f]
+  participantDataFile <- data_files[1]
   print(participantDataFile)
   
   
@@ -61,6 +74,7 @@ for(f in 1:length(data_files))
   df$EyePos_Z <- as.numeric(df$EyePos_Z)
   
   #trimedDF <- df %>% filter((round(EyePos_X, 2) > -5 & CurrentGazeArea == "play_wall" & round(EyePos_X, 2) < 2.5 ) | CurrentGazeArea == "build_wall"| CurrentGazeArea == "view_wall" | CurrentGazeArea == "background_wall")
+  trimedDF <- df
   trimedDF <- df %>%
     filter(EyePos_X > -5) %>%
     filter(EyePos_X != 0) 
@@ -69,8 +83,8 @@ for(f in 1:length(data_files))
   trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "background_wall" & EyePos_X <= 15.5 & EyePos_X >= 9.5, "view_wall", CurrentGazeArea))
   trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "background_wall" & EyePos_X <= 15.5 & EyePos_X >= 10, "build_wall", CurrentGazeArea))
   
-  dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 0 & EyePos_Z < 12, "build_wall", CurrentGazeArea ))
-  dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 12, "background_wall", CurrentGazeArea ))
+  trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 0 & EyePos_Z < 12, "build_wall", CurrentGazeArea ))
+  trimedDF <- trimedDF %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 12, "background_wall", CurrentGazeArea ))
   
   x <- trimedDF[,13]
   y <- trimedDF[,14]
@@ -269,20 +283,49 @@ for(f in 1:length(data_files))
 
 }
   
-AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
-  Participant <- df2[2,2]
-  Condition <- df2[8,8]
-  Trial <- df2[9,9]
-  Group <- df2[7,7]
-  viewSwitchCounter <<- viewSwitchCounter + 1
+
+
+durationEventDFFinal <- data.frame()
+
+previousArea <- ""
+currentArea <- ""
+lastRow <- FALSE
+
+for (i in 1:nrow(durationEventDF)) {
+  currentArea <- durationEventDF$Event[i]
+  
+  if(i == nrow(durationEventDF) & currentArea != previousArea){
+    durationEventDFFinal <- rbind(durationEventDFFinal, durationEventDF[i-1,])
+    durationEventDFFinal <- rbind(durationEventDFFinal, durationEventDF[i,])
+    print("switch")
+    break
+    
+  }else if(i == nrow(durationEventDF) & currentArea == previousArea){
+    durationEventDF$startTime[i] <- durationEventDF$startTime[i-1]
+    durationEventDFFinal <- rbind(durationEventDFFinal, durationEventDF[i,])
+    break
+    
+  }
+  
+  
+  if(i == 1){
+    previousArea <- currentArea
+    #durationEventDFFinal <- rbind(durationEventDFFinal, durationEventDF[i,])
+  }else if(currentArea == previousArea){
+    durationEventDF$startTime[i] <- durationEventDF$startTime[i-1]
+    previousArea <- currentArea
+    
+  }else if(currentArea != previousArea){
+    durationEventDFFinal <- rbind(durationEventDFFinal, durationEventDF[i-1,])
+    previousArea <- currentArea
+
+  }else{
+    print("WHAA")
+  }
+  
 
   
-  
-  newRow <- data.frame(Participant, Condition, Trial, Group, Event, viewSwitchCounter, startTime, endTime, eventDuration)
-  durationEventDF <<- rbind(durationEventDF, newRow)
 }
-
-
 
 
 

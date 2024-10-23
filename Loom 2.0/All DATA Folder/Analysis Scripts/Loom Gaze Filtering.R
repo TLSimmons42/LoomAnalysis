@@ -15,7 +15,7 @@ library(plotly)
 
 
 
-data_files <- list.files(pattern = "nuP15.csv")
+data_files <- list.files(pattern = "nuP15_old3.csv")
 data_files[]
 
 participantDataFile <- data_files[1]
@@ -57,7 +57,7 @@ dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wa
 dfFilt <- dfFilt %>% mutate(CurrentGazeArea = ifelse(CurrentGazeArea == "view_wall" & EyePos_Z > 12, "background_wall", CurrentGazeArea ))
 
 # dfPlot <- dfFilt %>% filter(Time < 638338369614321351)
-dfPlot <- dfFilt %>% filter(Time >= 638338370339538401 & Time <= 638338370416430122)
+dfPlot <- dfFilt %>% filter(Time >= 638338350280247354 & Time <= 638338350283867724)
 
 
 dfPlot <- dfPlot %>% mutate(pointColor = ifelse(Time >= 638338370398863727 & Time <= 638338371172093471, "blue", "yellow"))
