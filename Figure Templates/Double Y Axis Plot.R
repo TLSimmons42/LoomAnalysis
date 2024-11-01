@@ -1,4 +1,29 @@
 library(ggplot2)
+library(plot3D)
+library(rgl)
+library(dplyr)
+library(bit64)
+library(stringr)
+
+
+data_files <- list.files(pattern = "nuP15.csv")
+participantDataFile <- data_files[1]
+print(participantDataFile)
+
+df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
+df <- df[!duplicated(df$Time), ]
+
+df$Event <- gsub("\\(|\\)", "", df$Event)
+df$CurrentGazeTarget <- gsub("\\(|\\)", "", df$CurrentGazeTarget)
+gameOverTime <- df[df$Event == "Game Over",]
+df <- df %>% filter(df$Time <= gameOverTime[1,1])
+
+df$EyePos_Y <- as.numeric(df$EyePos_Y)
+
+dfGazeOrigin <- df %>% filter(HeadPos_Y >= EyePos_Y-.1 & HeadPos_Y <= EyePos_Y+.1)
+dfGazeOrigin <- df %>% filter(HeadPos_Y == EyePos_Y)
+
+
 
 # Sample data
 df <- data.frame(

@@ -689,13 +689,13 @@ individualGrab2Placedf <- individualGrab2Placedf  %>% mutate(EventTime = (PlaceT
 
 dfsim <- individualPACdf
 
-dfsim <- dfsim %>% filter(PACtime == 18.0009)
+dfsim <- dfsim %>% filter(PACtime == 251.7297)
 
 # upperTime <- dfsim$PACstartTime[1] - 20000000
 # lowerTime <- dfsim$PACendTime[1] + 20000000
 
-upperTime <- dfsim$PACstartTime[1] - 10000000/4
-lowerTime <- dfsim$PACendTime[1] 
+upperTime <- dfsim$PACstartTime[1] - 10000000
+lowerTime <- dfsim$PACendTime[1] + 10000000
 
 dfsimTrim <- df %>% filter(Time >= upperTime & Time <= lowerTime)
 
@@ -703,7 +703,18 @@ dfsimTrim$EyePos_X <- as.numeric(dfsimTrim$EyePos_X)
 dfsimTrim$EyePos_Y <- as.numeric(dfsimTrim$EyePos_Y)
 dfsimTrim$EyePos_Z <- as.numeric(dfsimTrim$EyePos_Z)
 
-write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/GrabSim 10-22-24.csv", row.names = FALSE)
+dfsimTrimFront <- dfsimTrim %>% filter(Time <= dfsim$PACstartTime[1])
+dfsimTrimDurring <- dfsimTrim %>% filter(Time >= dfsim$PACstartTime[1] & Time <= dfsim$PACendTime[1])
+dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
+
+# dfsimTrim <- dfsimTrim %>% mutate(LRcolor = ifelse(Time >= dfsim$PACstartTime[1] & Time <= dfsim$PACendTime[1], "red","black"))
+# 
+# dfsimTrim <- dfsimTrim %>% mutate(LRcolor = ifelse( Time > dfsim$PACendTime[1], "blue",LRcolor))
+# dfsimTrim <- dfsimTrim %>% mutate(LRcolor = ifelse( Time < dfsim$PACstartTime[1], "green",LRcolor))
+
+write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
+write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
+write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
 
 
 
