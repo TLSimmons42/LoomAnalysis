@@ -712,10 +712,10 @@ dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
 # dfsimTrim <- dfsimTrim %>% mutate(LRcolor = ifelse( Time > dfsim$PACendTime[1], "blue",LRcolor))
 # dfsimTrim <- dfsimTrim %>% mutate(LRcolor = ifelse( Time < dfsim$PACstartTime[1], "green",LRcolor))
 
-write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
-write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
-write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
-
-
+# write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
+# write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
+# write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
+# 
+# 
 
 

@@ -24,6 +24,66 @@ dfGazeOrigin <- df %>% filter(HeadPos_Y >= EyePos_Y-.1 & HeadPos_Y <= EyePos_Y+.
 dfGazeOrigin <- df %>% filter(HeadPos_Y == EyePos_Y)
 
 
+dfsim <- individualPACdf
+
+dfsim <- dfsim %>% filter(PACtime == 251.7297)
+
+# upperTime <- dfsim$PACstartTime[1] - 20000000
+# lowerTime <- dfsim$PACendTime[1] + 20000000
+
+upperTime <- dfsim$PACstartTime[1] - 10000000/2
+lowerTime <- dfsim$PACendTime[1] + 10000000/2
+
+dfsimTrim <- df %>% filter(Time >= upperTime & Time <= lowerTime)
+dfsimTrim$EyePos_X <- as.numeric(dfsimTrim$EyePos_X)
+dfsimTrim$EyePos_Y <- as.numeric(dfsimTrim$EyePos_Y)
+dfsimTrim$EyePos_Z <- as.numeric(dfsimTrim$EyePos_Z)
+
+
+
+initialHeadPos <- c(dfsimTrim$HeadPos_X[1],dfsimTrim$HeadPos_Y[1],dfsimTrim$HeadPos_Z[1])
+initialGazePos <- c(dfsimTrim$EyePos_X[1],dfsimTrim$EyePos_Y[1],dfsimTrim$EyePos_Z[1])
+initialVector <- initialGazePos - initialHeadPos
+
+tempVar <- 3
+tempHeadPos <- c(dfsimTrim$HeadPos_X[tempVar],dfsimTrim$HeadPos_Y[tempVar],dfsimTrim$HeadPos_Z[tempVar])
+tempGazePos <- c(dfsimTrim$EyePos_X[tempVar],dfsimTrim$EyePos_Y[tempVar],dfsimTrim$EyePos_Z[tempVar])
+tempVector <- tempHeadPos - tempGazePos
+
+
+tempDotProd <- sum(initialVector * tempVector)
+magnitude_V1 <- sqrt(sum(initialVector^2))
+magnitude_V2 <- sqrt(sum(tempVector^2))
+cos_theta <- tempDotProd / (magnitude_V1 * magnitude_V2)
+theta_radians <- acos(cos_theta)
+theta_degrees <- theta_radians * (180 / pi)
+theta_degrees
+
+
+dfsimTrim <- dfsimTrim %>% mutate(gazeVecX = EyePos_X - HeadPos_X)
+dfsimTrim <- dfsimTrim %>% mutate(gazeVecY = EyePos_Y - HeadPos_Y)
+dfsimTrim <- dfsimTrim %>% mutate(gazeVecZ = EyePos_Z - HeadPos_Z)
+
+dfsimTrim <- dfsimTrim %>% mutate(dotProd = sum(initialVector * c(gazeVecX,gazeVecY,gazeVecZ)))
+
+initialVector_magnitude <- sqrt(sum(initialVector^2))
+dfsimTrim <- dfsimTrim %>% mutate(GazeVecMagnitude = sqrt(sum(c(gazeVecX,gazeVecY,gazeVecZ)^2))) 
+
+
+dfsimTrim <- dfsimTrim %>%  mutate(cos_theta = dotProd / (initialVector_magnitude * GazeVecMagnitude)) 
+dfsimTrim <- dfsimTrim %>%  mutate(theta_radians = acos(cos_theta))
+
+dfsimTrim <- dfsimTrim %>%  mutate(theta_degrees = theta_radians * (180 / pi))
+
+
+
+
+
+
+# dfsimTrimFront <- dfsimTrim %>% filter(Time <= dfsim$PACstartTime[1])
+# dfsimTrimDurring <- dfsimTrim %>% filter(Time >= dfsim$PACstartTime[1] & Time <= dfsim$PACendTime[1])
+# dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
+
 
 # Sample data
 df <- data.frame(
@@ -33,16 +93,16 @@ df <- data.frame(
 )
 
 # Improved plot
-ggplot(df, aes(x = x)) +
+ggplot(dfsimTrim, aes(x = Time)) +
   # First line for temperature (Y1) with a smooth line
-  geom_line(aes(y = temp, color = "Temperature (°C)"), size = 1.2) +
+  geom_line(aes(y = HandPos_X, color = "Hand Movement X-Axis"), size = 1.2) +
   # Second line for sales (Y2) scaled down
-  geom_line(aes(y = sales / 50, color = "Sales (units)"), size = 1.2, linetype = "dashed") +
+  geom_line(aes(y = theta_degrees * (360 / max(theta_degrees, na.rm = TRUE)), color = "Sales (units)"), size = 1.2, linetype = "dashed") +
   
   # Primary y-axis for temperature
   scale_y_continuous(
-    name = "Temperature (°C)",   # Left axis label
-    sec.axis = sec_axis(~.*50, name = "Sales (units)")  # Secondary y-axis
+    name = "Hand Movement (X-Axis)",  # Left axis label
+    sec.axis = sec_axis(~ . * (max(dfsimTrim$theta_degrees, na.rm = TRUE) / 360), name = "Sales (units)")  # Secondary y-axis for theta_degrees scaled to 1-360
   ) +
   
   # Customize colors for the lines
