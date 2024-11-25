@@ -26,6 +26,7 @@ dfGazeOrigin <- df %>% filter(HeadPos_Y == EyePos_Y)
 
 dfsim <- individualPACdf
 
+#dfsim <- dfsim %>% filter(PACtime == 373.0018)
 dfsim <- dfsim %>% filter(PACtime == 251.7297)
 
 # upperTime <- dfsim$PACstartTime[1] - 20000000
@@ -42,6 +43,14 @@ dfsimTrim <- dfsimTrim %>% mutate(ModTime = (Time - Time[1])/10000000)
 dfsimTrim <- dfsimTrim %>% mutate(handPosX = (abs(HandPos_X - HandPos_X[1])))
 dfsimTrim <- dfsimTrim %>% filter(EyePos_X != 0)
 
+
+#write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimGrab1.csv", row.names = FALSE)
+
+dfsimTrim$UnitHeadyRotX <- analytics.nuP15$xHeadRot 
+dfsimTrim$UnitHeadyRotY <- analytics.nuP15$yHeadRot 
+dfsimTrim$UnitHeadyRotZ <- analytics.nuP15$zHeadRot 
+
+#dfsimTrim <- dfsimTrim %>% filter(CurrentGazeTarget != "Network Neutral CubeClone144")
 
 initialHeadPos <- c(dfsimTrim$HeadPos_X[1],dfsimTrim$HeadPos_Y[1],dfsimTrim$HeadPos_Z[1])
 initialGazePos <- c(dfsimTrim$EyePos_X[1],dfsimTrim$EyePos_Y[1],dfsimTrim$EyePos_Z[1])
@@ -95,7 +104,9 @@ dfsimTrim <- dfsimTrim %>%  mutate(Degrees = Radians * (180 / pi))
 #   y3 = c(1, 4, 6, 3, 5, 7, 8, 6, 9, 10)       # Data for third line, sharing left y-axis
 # )
 
-dfsimTrim <- dfsimTrim %>% mutate(HeadRot_Y = HeadRot_Y*100)
+initHeadRotY <- dfsimTrim$UnitHeadyRotY[1]
+dfsimTrim <- dfsimTrim %>% mutate(figHeadRotY = abs(initHeadRotY - UnitHeadyRotY))
+dfsimTrim <- dfsimTrim %>% mutate(Degrees = ifelse(is.na(Degrees),0,Degrees))
 
 # Plot with two y-axes and three lines, with style differentiation
 ggplot(dfsimTrim, aes(x = ModTime)) +
@@ -104,7 +115,7 @@ ggplot(dfsimTrim, aes(x = ModTime)) +
   # Line for y2 with right y-axis in red, scaled to match y1 axis
   geom_line(aes(y = handPosX / max(handPosX) * max(Degrees), color = "Hand Movement"), size = 1.2, linetype = "solid") +
   # Line for y3, sharing left y-axis, in dashed blue
-  geom_line(aes(y = HeadRot_Y, color = "Head Rotation Y-Axis"), size = 1.2, linetype = "dashed") +
+  geom_line(aes(y = figHeadRotY, color = "Head Rotation Y-Axis"), size = 1.2, linetype = "dashed") +
   # Define primary y-axis
   scale_y_continuous(
     name = "Degrees", 
