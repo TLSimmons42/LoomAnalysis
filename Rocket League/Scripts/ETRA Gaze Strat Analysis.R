@@ -189,7 +189,7 @@ gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P43",
 
 # Duration analysis_________________________________________________________
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
-trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
+trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at target")
 #trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09")
 # trimStratTimes <- trimStratTimes %>% filter(Participant != "P39" & Participant != "P41" & Participant != "P44" & Participant != "P45"
 #                                             & Participant != "P01" & Participant != "P02" & Participant != "P03"
@@ -233,6 +233,8 @@ analysisDurationDF %>%
 #ggsave("Center Looking Individual Gaze Strategy Duration.pdf")
 
 # Percentage analysis_______________________________________________________________________________
+
+gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P23", "Beginner", Group))
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 # trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & 
 #                                               Participant != "P08" & Participant != "P09"& Participant != "P01"& Participant != "P02"& Participant != "P03"
@@ -249,7 +251,7 @@ analysisPercentageDF <- analysisPercentageDF %>%
 
 
 #trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
-analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "No Winner")
+analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "Looking at target")
 
 
 # new_row <- data.frame(
