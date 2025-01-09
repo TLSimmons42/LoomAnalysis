@@ -405,6 +405,7 @@ ggplot(analysisComboDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
 
 
 
-testingDF <- trimStratTimes %>% filter(Group == "Expert")
+testingDF <- trimStratTimes %>% filter(Group == "Beginner")
 unique(testingDF$Participant)
+
 

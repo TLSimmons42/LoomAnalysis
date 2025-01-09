@@ -10,20 +10,25 @@ library(tidyr)
 library(ggplot2)
 
 
-data_files <- list.files(pattern = "P28.csv")
+data_files <- list.files(pattern = "Data.csv")
 
 participantDataFile <- data_files[1]
 print(participantDataFile)
 
-df <- Cleaned_Data
+df <- read.csv(participantDataFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
-dfTrim <- df %>% filter(V5 == "P01" | V5 == "P02" | V5 == "P03" | V5 == "P04" | 
-                          V5 == "P05" | V5 == "P06" | V5 == "P07" | V5 == "P08" | 
-                          V5 == "P09" | V5 == "P12" | V5 == "P13" | V5 == "P14" | 
-                          V5 == "P15" | V5 == "P16" | V5 == "P17" | V5 == "P18" | 
-                          V5 == "P19" | V5 == "P21" | V5 == "P22" | V5 == "P23" | 
-                          V5 == "P24" | V5 == "P25" | V5 == "P26" | V5 == "P27" | 
-                          V5 == "P28" | V5 == "P29" | V5 == "P31" | V5 == "P32" | 
-                          V5 == "P33" | V5 == "P36" | V5 == "P37" | V5 == "P39" | 
-                          V5 == "P41" | V5 == "P44" | V5 == "P45" | V5 == "P49" | 
-                          V5 == "P50" | V5 == "P52")
+dfTrim <- df %>% filter(Participant.ID == "P01" | Participant.ID == "P02" | Participant.ID == "P03" | Participant.ID == "P04" | 
+                          Participant.ID == "P05" | Participant.ID == "P06" | Participant.ID == "P07" | Participant.ID == "P08" | 
+                          Participant.ID == "P09" | Participant.ID == "P12" | Participant.ID == "P13" | Participant.ID == "P14" | 
+                          Participant.ID == "P15" | Participant.ID == "P16" | Participant.ID == "P17" | Participant.ID == "P18" | 
+                          Participant.ID == "P19" | Participant.ID == "P21" | Participant.ID == "P22" | Participant.ID == "P23" | 
+                          Participant.ID == "P24" | Participant.ID == "P25" | Participant.ID == "P26" | Participant.ID == "P27" | 
+                          Participant.ID == "P28" | Participant.ID == "P29" | Participant.ID == "P31" | Participant.ID == "P32" | 
+                          Participant.ID == "P33" | Participant.ID == "P36" | Participant.ID == "P37" | Participant.ID == "P39" | 
+                          Participant.ID == "P41" | Participant.ID == "P44" | Participant.ID == "P45" | Participant.ID == "P49" | 
+                          Participant.ID == "P50" | Participant.ID == "P52"| Participant.ID == "P42"| Participant.ID == "P11"| Participant.ID == "P38")
+
+
+dfExpert <- dfTrim %>% filter(Participant.ID == "P05" | Participant.ID == "P06" | Participant.ID == "P11" | Participant.ID =="P14" | Participant.ID =="P15"| Participant.ID == "P16"| Participant.ID == "P17"
+                              | Participant.ID =="P24"| Participant.ID == "P26" | Participant.ID =="P39" | Participant.ID =="P42"| Participant.ID == "P43" | Participant.ID =="P45")
+mean(dfExpert$Age)
