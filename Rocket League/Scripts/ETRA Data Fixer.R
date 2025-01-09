@@ -10,7 +10,7 @@ library(tidyr)
 library(ggplot2)
 
 
-data_files <- list.files(pattern = "P43.csv")
+data_files <- list.files(pattern = "P42.csv")
 
 participantDataFile <- data_files[1]
 print(participantDataFile)
@@ -22,22 +22,22 @@ df <- df %>%
 
 
 
-dfMArk <- df %>% filter(diff_from_last > 20 | Frame == 89181)
+dfMArk <- df %>% filter(diff_from_last > 20 & Frame != 154564)
 #dfMArk <- dfMArk %>% filter(Frame != 55971 & Frame != 62010)
 
 
-df <- df %>%
-  mutate(Trial_Num = ntile(Timestamp, 6)) # Split into 6 sections using ntile()
+# df <- df %>%
+#   mutate(Trial_Num = ntile(Timestamp, 6)) # Split into 6 sections using ntile()
+# 
+# 
 
 
-
-
-# df <- df %>% mutate(Trial)
-# counter = 2
-# for (i in 1:nrow(dfMArk)) {
-#   df <- df %>% mutate(Trial_Num = ifelse(Timestamp > dfMArk$Timestamp[i], counter, Trial_Num))
-#   counter = counter + 1
-# }
+df <- df %>% mutate(Trial)
+counter = 2
+for (i in 1:nrow(dfMArk)) {
+  df <- df %>% mutate(Trial_Num = ifelse(Timestamp > dfMArk$Timestamp[i], counter, Trial_Num))
+  counter = counter + 1
+}
 
 
 
@@ -52,7 +52,7 @@ ggplot(df, aes(x = Timestamp, y = diff_from_last, color = Trial_Num)) +
   ) +
   theme_minimal()
 
-write.csv(df, "ScoringData_P43_REAL.csv", row.names = FALSE)
+write.csv(df, "ScoringData_P42_REAL.csv", row.names = FALSE)
 
 
 

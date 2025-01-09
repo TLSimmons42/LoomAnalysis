@@ -254,7 +254,7 @@ for(f in 1:length(data_files))
   # This will plot the individual movements for hand, head and gaze
   subTrimDF <- trimDF
   subTrimDF <- trimDF %>%
-      dplyr :: filter(ModTime >= 50 & ModTime <= 70)
+      dplyr :: filter(ModTime >= 51.5 & ModTime <= 68)
   
   xHand <- subTrimDF$HandPos_X
   yHand <- subTrimDF$HandPos_Y
@@ -340,7 +340,7 @@ for(f in 1:length(data_files))
     geom_point()+
     # geom_line(aes(y = yHand), color = "red", linetype = "solid") +
     # geom_line(aes(y = zHand), color = "green", linetype = "solid") +
-    labs(title = "", x = "Time (s)", y = "") +
+    labs(title = "", x = "Time (s)", y = "Hand Pos X-Axis (m)") +
     theme_minimal() 
   #p + geom_point(aes(color = factor(ActionEvent)), size = 3)
   # p + geom_point(aes (y = yHand),(color = factor(ActionEvent)), size = 3)

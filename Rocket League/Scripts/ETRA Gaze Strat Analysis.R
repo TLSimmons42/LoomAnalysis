@@ -11,7 +11,7 @@ library(ggplot2)
 
 library(tidyverse)
 library(afex) # For ANOVA
-library(emmeans) # For post-hoc comparisons
+#library(emmeans) # For post-hoc comparisons
 
 # dfAllData <- data.frame(Participant = factor(),
 #                         Group = factor(),
@@ -181,6 +181,7 @@ for(f in 1:length(data_files))
 # gazeStratTimes <- tempGazeStratTimes
 
 gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P43", "Expert", Group))
+gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P37", "Beginner", Group))
 
 # Data Analysis 
 
@@ -189,7 +190,7 @@ gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P43",
 
 # Duration analysis_________________________________________________________
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
-trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at target")
+trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
 #trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09")
 # trimStratTimes <- trimStratTimes %>% filter(Participant != "P39" & Participant != "P41" & Participant != "P44" & Participant != "P45"
 #                                             & Participant != "P01" & Participant != "P02" & Participant != "P03"
@@ -234,7 +235,7 @@ analysisDurationDF %>%
 
 # Percentage analysis_______________________________________________________________________________
 
-gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P23", "Beginner", Group))
+gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P24", "Expert", Group))
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 # trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & 
 #                                               Participant != "P08" & Participant != "P09"& Participant != "P01"& Participant != "P02"& Participant != "P03"
