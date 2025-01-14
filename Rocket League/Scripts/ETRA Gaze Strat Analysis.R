@@ -11,6 +11,7 @@ library(ggplot2)
 
 library(tidyverse)
 library(afex) # For ANOVA
+library(emmeans)
 #library(emmeans) # For post-hoc comparisons
 
 # dfAllData <- data.frame(Participant = factor(),
@@ -182,6 +183,8 @@ for(f in 1:length(data_files))
 
 gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P43", "Expert", Group))
 gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P37", "Beginner", Group))
+gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P23", "Beginner", Group))
+
 
 # Data Analysis 
 
@@ -190,17 +193,14 @@ gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P37",
 
 # Duration analysis_________________________________________________________
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
-trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
-#trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09")
-# trimStratTimes <- trimStratTimes %>% filter(Participant != "P39" & Participant != "P41" & Participant != "P44" & Participant != "P45"
-#                                             & Participant != "P01" & Participant != "P02" & Participant != "P03"
-#                                             & Participant != "P49" & Participant != "P50" & Participant != "P04")
+trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at target")
 
-
+trimStratTimes <- trimStratTimes %>% filter(Participant != "P01"& Participant != "P02" & Participant != "P03" & Participant != "P04" & Participant != "P05"& 
+                                                          Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
 
 analysisDurationDF <- trimStratTimes %>% group_by(Participant, Group, Trial) %>%
   summarise(avgStratDuration = mean(stratTime))
-  
+ 
 anova_results <- aov_ez(
   id = "Participant",       # Subject identifier
   dv = "avgStratDuration",        # Dependent variable
@@ -208,11 +208,16 @@ anova_results <- aov_ez(
   within = "Trial",      # Within-subjects factor
   data = analysisDurationDF
 )
-
-# Display ANOVA results
 print(anova_results)
 
-analysisDurationDF %>%
+emmeans_results_trial <- emmeans(anova_results, pairwise ~ Trial, adjust = "bonferroni")
+print(emmeans_results_trial$contrasts)
+# pairwise_results <- pairwise.t.test(analysisDurationDF$avgStratDuration, analysisDurationDF$Trial, 
+#                                     paired = TRUE, # Paired because trials are repeated measures
+#                                     p.adjust.method = "bonferroni") # Use Bonferroni or other corrections
+# pairwise_results
+
+p1 <- analysisDurationDF %>%
   group_by(Group, Trial) %>%
   summarize(mean_score = mean(avgStratDuration), 
             sd_score = sd(avgStratDuration), 
@@ -225,17 +230,21 @@ analysisDurationDF %>%
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
   labs(
-    title = "Individual Gaze Strategy Duration: Target-Looking",
-    x = "Time",
-    y = "Performance Scores",
+    title = "Target-Looking",
+    x = "Trial",
+    y = "Time (s)",
     color = "Group"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  scale_y_continuous(limits = c(.25, .95))+
+  theme(legend.position = "none")
+
+combined_plot <- p1 + p2 + p3
+combined_plot
 #ggsave("Center Looking Individual Gaze Strategy Duration.pdf")
 
 # Percentage analysis_______________________________________________________________________________
 
-gazeStratTimes <- gazeStratTimes %>% mutate(Group = ifelse(Participant == "P24", "Expert", Group))
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 # trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & 
 #                                               Participant != "P08" & Participant != "P09"& Participant != "P01"& Participant != "P02"& Participant != "P03"
@@ -248,25 +257,14 @@ analysisPercentageDF <- trimStratTimes %>% group_by(Participant, Group, Trial, G
 analysisPercentageDF <- analysisPercentageDF %>%
   group_by(Participant, Trial) %>%
   mutate(total_values = sum(totalStratDuration)) %>%
-  mutate(StratPercentage = totalStratDuration/total_values)
+  mutate(StratPercentage = totalStratDuration/total_values) %>%
+  mutate(StratPercentage = StratPercentage * 100)
 
+analysisPercentageDF <- analysisPercentageDF %>% filter(Participant != "P01"& Participant != "P02" & Participant != "P03" & Participant != "P04" & Participant != "P05"& 
+                                                         Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
 
 #trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
-analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "Looking at target")
-
-
-# new_row <- data.frame(
-#   Participant = "P24",
-#   Group = "Expert",
-#   Rank = 6,
-#   GazeStrat = "Looking at CGP",
-#   totalStratDuration = 0,
-#   total_values = 0,
-#   StratPercentage = 0.5095870
-# )
-
-# Add the new row to the DataFrame
-#analysisPercentageDF <- rbind(analysisPercentageDF, new_row)
+analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "No Winner")
 
 
 anova_results <- aov_ez(
@@ -278,7 +276,17 @@ anova_results <- aov_ez(
 )
 print(anova_results)
 
-analysisPercentageDF %>%
+pairwise_results <- pairwise.t.test(analysisPercentageDF$StratPercentage, analysisPercentageDF$Trial, 
+                                    paired = TRUE, # Paired because trials are repeated measures
+                                    p.adjust.method = "bonferroni") # Use Bonferroni or other corrections
+pairwise_results
+
+emmeans_results <- emmeans(anova_results, pairwise ~ Group | Trial, adjust = "bonferroni")
+print(emmeans_results$contrasts)
+emmeans_results <- emmeans(anova_results, pairwise ~ Group | Group, adjust = "bonferroni")
+print(emmeans_results$contrasts)
+
+p1 <- analysisPercentageDF %>%
   group_by(Group, Trial) %>%
   summarize(mean_score = mean(StratPercentage), 
             sd_score = sd(StratPercentage), 
@@ -291,12 +299,17 @@ analysisPercentageDF %>%
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
   labs(
-    title = "Gaze Strategy Percentage Use: Other",
+    title = "Gaze Strategy Percentage Use: Target-Looking",
     x = "Trial",
     y = "Time (%)",
     color = "Group"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  scale_y_continuous(limits = c(0, 65)) +
+  theme(legend.position = "none")
+
+combined_plot <- p1  + p3 + p2
+combined_plot
 #ggsave("Center Looking Gaze Strategy Percentage Use.pdf")
 
 
@@ -306,6 +319,9 @@ trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at target")
 trimStratTimes <- trimStratTimes %>% filter(GazeWinner == "Self" | GazeWinner == "Ball" |GazeWinner == "Opponent" |GazeWinner == "Teammate" |
                                               GazeWinner == "Boost" |GazeWinner == "Goal Post" )
+
+trimStratTimes <- trimStratTimes %>% filter(Participant != "P01"& Participant != "P02" & Participant != "P03" & Participant != "P04" & Participant != "P05"& 
+                                              Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
 
 analysisTargetDF <- trimStratTimes %>% group_by(Participant, GazeWinner) %>%
   summarise(totalStratDuration = sum(stratTime))
@@ -348,6 +364,9 @@ ggplot(analysisTargetDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
 
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
+trimStratTimes <- trimStratTimes %>% filter(Participant != "P01"& Participant != "P02" & Participant != "P03" & Participant != "P04" & Participant != "P05"& 
+                                              Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
+
 
 trimStratTimes <- trimStratTimes %>%
   mutate(GazeWinner = gsub("\\d+", "", GazeWinner)) %>%
@@ -405,7 +424,7 @@ ggplot(analysisComboDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
 
 
 
-testingDF <- trimStratTimes %>% filter(Group == "Beginner")
+testingDF <- trimStratTimes %>% filter(Group == "Expert")
 unique(testingDF$Participant)
 
 
