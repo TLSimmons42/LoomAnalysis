@@ -18,7 +18,7 @@ library(ggplot2)
 
 dfAllData = data.frame()
 
-data_files <- list.files(pattern = "P26.csv")
+data_files <- list.files(pattern = ".csv")
 for(f in 1:length(data_files))
 {
   participantDataFile <- data_files[f]
@@ -57,7 +57,7 @@ for(f in 1:length(data_files))
   
   
 }
-# 
+
 dfAllDataFilt <- dfAllData %>% filter(!is.na(Velocity))
 
 dfAllDataFilt <- dfAllDataFilt %>% group_by(Participant, Trial_Num)%>%
@@ -66,9 +66,8 @@ dfAllDataFilt <- dfAllDataFilt %>% group_by(Participant, Trial_Num)%>%
 dfAllDataFilt <- dfAllDataFilt %>% filter(dt < 1)
 
 
-p <- ggplot(dfHisto, aes(x = ModTime, y = Displacement, color = Trial_Num)) +
+p <- ggplot(dfHisto, aes(x = ModTime, y = Velocity, color = Trial_Num)) +
   geom_point() +
-  geom_smooth(method = "lm", color = "red", se = TRUE) +  # Fitted regression line with confidence interval
   theme_minimal() +
   labs(title = "Velocity between gaze points", x = "Time (s)", y = "Velocity (pixels/second)") 
   #theme(legend.position = "none")
@@ -87,9 +86,9 @@ dfHisto <- dfAllDataFilt %>%
   filter(abs(Velocity - mean_value) <= 3 * sd_value)
 
 
-dfHisto <- dfAllDataFilt
-dfHisto <- dfHisto %>% filter(Velocity <= 2000)
-dfHisto <- dfHisto %>% filter(Velocity > 0)
+# dfHisto <- dfAllDataFilt
+# dfHisto <- dfHisto %>% filter(Velocity <= 2000)
+# dfHisto <- dfHisto %>% filter(Velocity > 0)
 
 hist(
   dfHisto$Velocity,

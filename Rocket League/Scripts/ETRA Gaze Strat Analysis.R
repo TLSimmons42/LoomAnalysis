@@ -246,16 +246,16 @@ combined_plot
 # Percentage analysis_______________________________________________________________________________
 
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
-# trimStratTimes <- trimStratTimes %>% filter(Participant != "P05" & Participant != "P06" & Participant != "P07" & 
-#                                               Participant != "P08" & Participant != "P09"& Participant != "P01"& Participant != "P02"& Participant != "P03"
-#                                             & Participant != "P49")
-#                           
+trimStratTimes <- trimStratTimes %>% mutate(Difficulty = ifelse(Trial == 1 | Trial == 2, "Easy",Trial))
+trimStratTimes <- trimStratTimes %>% mutate(Difficulty = ifelse(Trial == 3 | Trial == 4, "Medium",Difficulty))
+trimStratTimes <- trimStratTimes %>% mutate(Difficulty = ifelse(Trial == 5 | Trial == 6, "Hard",Difficulty))
 
-analysisPercentageDF <- trimStratTimes %>% group_by(Participant, Group, Trial, GazeStrat) %>%
+
+analysisPercentageDF <- trimStratTimes %>% group_by(Participant, Group, Difficulty, GazeStrat) %>%
   summarise(totalStratDuration = sum(stratTime))
 
 analysisPercentageDF <- analysisPercentageDF %>%
-  group_by(Participant, Trial) %>%
+  group_by(Participant, Difficulty) %>%
   mutate(total_values = sum(totalStratDuration)) %>%
   mutate(StratPercentage = totalStratDuration/total_values) %>%
   mutate(StratPercentage = StratPercentage * 100)
@@ -264,51 +264,53 @@ analysisPercentageDF <- analysisPercentageDF %>% filter(Participant != "P01"& Pa
                                                          Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
 
 #trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
-analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "No Winner")
+analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "Looking at target")
 
 
 anova_results <- aov_ez(
   id = "Participant",       # Subject identifier
   dv = "StratPercentage",        # Dependent variable
   between = "Group",    # Between-subjects factor
-  within = "Trial",      # Within-subjects factor
+  within = "Difficulty",      # Within-subjects factor
   data = analysisPercentageDF
 )
 print(anova_results)
 
-pairwise_results <- pairwise.t.test(analysisPercentageDF$StratPercentage, analysisPercentageDF$Trial, 
-                                    paired = TRUE, # Paired because trials are repeated measures
-                                    p.adjust.method = "bonferroni") # Use Bonferroni or other corrections
-pairwise_results
+# pairwise_results <- pairwise.t.test(analysisPercentageDF$StratPercentage, analysisPercentageDF$Difficulty, 
+#                                     paired = TRUE, # Paired because trials are repeated measures
+#                                     p.adjust.method = "bonferroni") # Use Bonferroni or other corrections
+# pairwise_results
 
-emmeans_results <- emmeans(anova_results, pairwise ~ Group | Trial, adjust = "bonferroni")
+emmeans_results <- emmeans(anova_results, pairwise ~  Difficulty, adjust = "bonferroni")
 print(emmeans_results$contrasts)
 emmeans_results <- emmeans(anova_results, pairwise ~ Group | Group, adjust = "bonferroni")
 print(emmeans_results$contrasts)
 
-p1 <- analysisPercentageDF %>%
-  group_by(Group, Trial) %>%
+p3 <- analysisPercentageDF %>%
+  mutate(Difficulty = factor(Difficulty, levels = c("Easy", "Medium", "Hard"))) %>%  # Set the order of Difficulty
+  group_by(Group, Difficulty) %>%
   summarize(mean_score = mean(StratPercentage), 
             sd_score = sd(StratPercentage), 
             n = n(),
             ci_lower = mean_score - qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
             ci_upper = mean_score + qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
             .groups = "drop") %>%
-  ggplot(aes(x = Trial, y = mean_score, group = Group, color = Group)) +
+  ggplot(aes(x = Difficulty, y = mean_score, group = Group, color = Group)) +
   geom_line(size = 1) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
   labs(
-    title = "Gaze Strategy Percentage Use: Target-Looking",
-    x = "Trial",
-    y = "Time (%)",
+    title = "Other",
+    x = "",
+    y = "",
     color = "Group"
   ) +
   theme_minimal()+
   scale_y_continuous(limits = c(0, 65)) +
   theme(legend.position = "none")
+p2
 
-combined_plot <- p1  + p3 + p2
+combined_plot <- p1  + p2 + p3
 combined_plot
 #ggsave("Center Looking Gaze Strategy Percentage Use.pdf")
 
@@ -317,6 +319,7 @@ combined_plot
 # Combo and Target analysis_______________________________________________________________________________
 trimStratTimes <- gazeStratTimes %>% filter(stratTime > .1)
 trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at target")
+
 trimStratTimes <- trimStratTimes %>% filter(GazeWinner == "Self" | GazeWinner == "Ball" |GazeWinner == "Opponent" |GazeWinner == "Teammate" |
                                               GazeWinner == "Boost" |GazeWinner == "Goal Post" )
 
@@ -339,6 +342,8 @@ analysisTargetDF <- analysisTargetDF %>%
 # Calculate the percentage use for each GazeWinner category
 analysisTargetDF <- analysisTargetDF %>%
   mutate(percentageUse = (totalStratDuration / participantTotalDuration) * 100)
+
+
 
 ggplot(analysisTargetDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
   geom_boxplot() +
