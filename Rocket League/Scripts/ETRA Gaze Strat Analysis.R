@@ -8,6 +8,7 @@ library(bit64)
 library(stringr)
 library(tidyr)
 library(ggplot2)
+library(patchwork)
 
 library(tidyverse)
 library(afex) # For ANOVA
@@ -264,7 +265,7 @@ analysisPercentageDF <- analysisPercentageDF %>% filter(Participant != "P01"& Pa
                                                          Participant != "P06" & Participant != "P07" & Participant != "P08" & Participant != "P09" )
 
 #trimStratTimes <- trimStratTimes %>% filter(GazeStrat == "Looking at CGP")
-analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "Looking at target")
+analysisPercentageDF <- analysisPercentageDF %>% filter(GazeStrat == "Looking at CGP")
 
 
 anova_results <- aov_ez(
@@ -283,32 +284,86 @@ print(anova_results)
 
 emmeans_results <- emmeans(anova_results, pairwise ~  Difficulty, adjust = "bonferroni")
 print(emmeans_results$contrasts)
-emmeans_results <- emmeans(anova_results, pairwise ~ Group | Group, adjust = "bonferroni")
+emmeans_results <- emmeans(anova_results, pairwise ~ Difficulty | Group, adjust = "bonferroni")
 print(emmeans_results$contrasts)
 
-p3 <- analysisPercentageDF %>%
-  mutate(Difficulty = factor(Difficulty, levels = c("Easy", "Medium", "Hard"))) %>%  # Set the order of Difficulty
+# p3 <- analysisPercentageDF %>%
+#   mutate(Difficulty = factor(Difficulty, levels = c("Easy", "Medium", "Hard"))) %>%  # Set the order of Difficulty
+#   group_by(Group, Difficulty) %>%
+#   summarize(mean_score = mean(StratPercentage), 
+#             sd_score = sd(StratPercentage), 
+#             n = n(),
+#             ci_lower = mean_score - qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
+#             ci_upper = mean_score + qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
+#             .groups = "drop") %>%
+#   ggplot(aes(x = Difficulty, y = mean_score, group = Group, color = Group)) +
+#   geom_line(size = 1) +
+#   geom_point(size = 3) +
+#   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
+#   labs(
+#     title = "Other",
+#     x = "",
+#     y = "",
+#     color = "Group"
+#   ) +
+#   theme_minimal()+
+#   scale_y_continuous(limits = c(0, 65)) +
+#   theme(legend.position = "none")
+# p3
+p2 <- analysisPercentageDF %>%
+  mutate(Difficulty = factor(Difficulty, levels = c("Easy", "Medium", "Hard"))) %>%
   group_by(Group, Difficulty) %>%
-  summarize(mean_score = mean(StratPercentage), 
-            sd_score = sd(StratPercentage), 
-            n = n(),
-            ci_lower = mean_score - qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
-            ci_upper = mean_score + qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
-            .groups = "drop") %>%
-  ggplot(aes(x = Difficulty, y = mean_score, group = Group, color = Group)) +
+  summarize(
+    mean_score = mean(StratPercentage), 
+    sd_score = sd(StratPercentage), 
+    n = n(),
+    ci_lower = mean_score - qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
+    ci_upper = mean_score + qt(0.975, df = n - 1) * (sd_score / sqrt(n)),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(
+    x = Difficulty, 
+    y = mean_score, 
+    group = Group, 
+    color = "black",     # All lines and points start as black
+    linetype = Group,    # Differentiates groups by line type
+    shape = Group        # Differentiates groups by point symbol
+  )) +
   geom_line(size = 1) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2) +
   labs(
-    title = "Other",
-    x = "",
+    title = "Center-Looking",
+    x = "Difficulty (AI bot Strength)",
     y = "",
-    color = "Group"
+    linetype = "Group",  # Update legend labels
+    shape = "Group"
   ) +
-  theme_minimal()+
+  theme_minimal() +
   scale_y_continuous(limits = c(0, 65)) +
-  theme(legend.position = "none")
+  scale_color_manual(values = c("black")) +  # Keep everything black
+  scale_linetype_manual(values = c("dashed", "solid", "dotted")) + # Line types
+  scale_shape_manual(values = c(16, 17, 15)) + # Point symbols
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"), # Bold x-axis text
+    axis.text.y = element_text(face = "bold"),                       # Bold y-axis text
+    axis.title.x = element_text(face = "bold"),                      # Bold x-axis title
+    axis.title.y = element_text(face = "bold"),                      # Bold y-axis title
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 14),# Bold and centered plot title
+    legend.title = element_text(size = 12, face = "bold"),           # Bold legend title
+    legend.text = element_text(size = 10, face = "bold"),            # Bold legend text
+    panel.background = element_blank(),                              # Removes the background
+    panel.grid.major = element_blank(),                              # Removes major grid lines
+    panel.grid.minor = element_blank(),                              # Removes minor grid lines
+    axis.line = element_line(color = "black", size = 0.8),           # Slightly thicker axis line
+    axis.ticks = element_line(color = "black", size = 0.5),          # Adds ticks to both axes
+    axis.ticks.length = unit(5, "pt"),                               # Adjusts tick length
+    legend.position = "none"                                        # Position the legend for better visibility
+  ) +
+  guides(color = "none")  # Remove the color legend
+
 p2
+
 
 combined_plot <- p1  + p2 + p3
 combined_plot
@@ -345,21 +400,50 @@ analysisTargetDF <- analysisTargetDF %>%
 
 
 
-ggplot(analysisTargetDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
-  geom_boxplot() +
+# ggplot(analysisTargetDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
+#   geom_boxplot() +
+#   labs(
+#     title = "Percentage Use of Target-Looking Winners",
+#     x = "Gaze Winner Category",
+#     y = "Percentage Use (%)"
+#   ) +
+#   theme_minimal() +
+#   theme(
+#     axis.text.x = element_text(angle = 45, hjust = 1), # Rotate x-axis labels
+#     legend.title = element_text(size = 12),
+#     legend.text = element_text(size = 10)
+#   ) #+
+#   #scale_fill_brewer(palette = "Set1") # Optional: Adjust the color palette
+# 
+p1 <- ggplot(analysisTargetDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
+  geom_boxplot(
+    aes(linetype = Group), # Differentiates groups by line type (e.g., solid, dotted)
+    color = "black",       # Ensures the box outlines are black
+    fill = "white"         # Optional: Keeps the box interiors white
+  ) +
   labs(
-    title = "Percentage Use of Target-Looking Winners",
-    x = "Gaze Winner Category",
-    y = "Percentage Use (%)"
+    title = "Target-Looking Objects",
+    x = "Objects",
+    y = "Percentage Use (%)",
+    linetype = "Group"     # Adds linetype to the legend
   ) +
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1), # Rotate x-axis labels
-    legend.title = element_text(size = 12),
-    legend.text = element_text(size = 10)
-  ) #+
-  #scale_fill_brewer(palette = "Set1") # Optional: Adjust the color palette
-
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"), # Bold x-axis text
+    axis.text.y = element_text(face = "bold"),                       # Bold y-axis text
+    axis.title.x = element_text(face = "bold"),                      # Bold x-axis title
+    axis.title.y = element_text(face = "bold"),                      # Bold y-axis title
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 14),# Bold and centered plot title
+    legend.title = element_text(size = 12, face = "bold"),           # Bold legend title
+    legend.text = element_text(size = 10, face = "bold"),            # Bold legend text
+    panel.background = element_blank(),                              # Removes the background
+    panel.grid.major = element_blank(),                              # Removes major grid lines
+    panel.grid.minor = element_blank(),                              # Removes minor grid lines
+    axis.line = element_line(color = "black", size = 0.8),           # Slightly thinner axis line
+    axis.ticks = element_line(color = "black", size = 0.5),          # Adds ticks to both axes
+    axis.ticks.length = unit(5, "pt")                                # Adjusts tick length
+  )+
+  theme(legend.position = "none")
 
 
 
@@ -411,25 +495,57 @@ analysisComboDF <- analysisComboDF %>%
 analysisTargetDF <- analysisTargetDF %>%
   mutate(percentageUse = (totalStratDuration / participantTotalDuration) * 100)
 
-ggplot(analysisComboDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
-  geom_boxplot() +
-  labs(
-    title = "Center-Looking Combinations",
-    x = "",
-    y = "Percentage Use (%)"
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1), # Rotate x-axis labels
-    legend.title = element_text(size = 12),
-    legend.text = element_text(size = 10)
-  )  + scale_y_continuous(limits = c(0, 75))
+# ggplot(analysisComboDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
+#   geom_boxplot() +
+#   labs(
+#     title = "Center-Looking Combinations",
+#     x = "",
+#     y = "Percentage Use (%)"
+#   ) +
+#   theme_minimal() +
+#   theme(
+#     axis.text.x = element_text(angle = 45, hjust = 1), # Rotate x-axis labels
+#     legend.title = element_text(size = 12),
+#     legend.text = element_text(size = 10)
+#   )  + scale_y_continuous(limits = c(0, 75))
 #scale_fill_brewer(palette = "Set1") # Optional: Adjust the color palette
 #ggsave("Center Looking Combination Comparison.pdf")
 
+p2 <- ggplot(analysisComboDF, aes(x = GazeWinner, y = percentageUse, fill = Group)) +
+  geom_boxplot(
+    aes(linetype = Group), # Differentiates groups by line type (e.g., solid, dotted)
+    color = "black",       # Ensures the box outlines are black
+    fill = "white"         # Optional: Keeps the box interiors white
+  ) +
+  labs(
+    title = "Center-Looking Object Combinations",
+    x = "Object Combinations",
+    y = "",
+    linetype = "Group"     # Adds linetype to the legend
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"), # Bold x-axis text
+    axis.text.y = element_text(face = "bold"),                       # Bold y-axis text
+    axis.title.x = element_text(face = "bold"),                      # Bold x-axis title
+    axis.title.y = element_text(face = "bold"),                      # Bold y-axis title
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 14),# Bold and centered plot title
+    legend.title = element_text(size = 12, face = "bold"),           # Bold legend title
+    legend.text = element_text(size = 10, face = "bold"),            # Bold legend text
+    panel.background = element_blank(),                              # Removes the background
+    panel.grid.major = element_blank(),                              # Removes major grid lines
+    panel.grid.minor = element_blank(),                              # Removes minor grid lines
+    axis.line = element_line(color = "black", size = 0.8),           # Slightly thinner axis line
+    axis.ticks = element_line(color = "black", size = 0.5),          # Adds ticks to both axes
+    axis.ticks.length = unit(5, "pt")                                # Adjusts tick length
+  )
+
+combined_plot <- p1  + p2 
+combined_plot
 
 
 testingDF <- trimStratTimes %>% filter(Group == "Expert")
 unique(testingDF$Participant)
 
+write.csv(gazeStratTimes, "Final Gaze Strat Data.csv", row.names = FALSE)
 
