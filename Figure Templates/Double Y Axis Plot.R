@@ -46,9 +46,9 @@ dfsimTrim <- dfsimTrim %>% filter(EyePos_X != 0)
 
 #write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimGrab1.csv", row.names = FALSE)
 
-dfsimTrim$UnitHeadyRotX <- analytics.nuP15$xHeadRot 
-dfsimTrim$UnitHeadyRotY <- analytics.nuP15$yHeadRot 
-dfsimTrim$UnitHeadyRotZ <- analytics.nuP15$zHeadRot 
+dfsimTrim$UnitHeadyRotX <- analytics_nuP15$xHeadRot 
+dfsimTrim$UnitHeadyRotY <- analytics_nuP15$yHeadRot 
+dfsimTrim$UnitHeadyRotZ <- analytics_nuP15$zHeadRot 
 
 #dfsimTrim <- dfsimTrim %>% filter(CurrentGazeTarget != "Network Neutral CubeClone144")
 

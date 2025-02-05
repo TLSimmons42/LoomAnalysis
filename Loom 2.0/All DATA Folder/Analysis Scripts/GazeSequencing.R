@@ -5,7 +5,7 @@ library(bit64)
 library(scatterplot3d)
 library(ggplot2)
 
-data_files <- list.files(pattern = "sdP9_old1.csv")
+data_files <- list.files(pattern = "nuP15.csv")
 data_files[]
 
 gazeDurrationTimes <- data.frame(Time = numeric(),

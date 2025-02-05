@@ -18,19 +18,19 @@ MovementTimesDF <- data.frame(Participant = factor(),
                               Age = numeric(),
                               Sex = factor(),
                               Condition = factor(),
-                             Trial = numeric(),
-                             Group = factor(),
-                             avgGrab = numeric(),
-                             avgDrop = numeric(),
-                             avgDropStart = numeric(),
-                             grabCount = numeric(),
-                             dropCount = numeric(),
-                             dropStartCount = numeric(),
-                             avgFullSequence = numeric(),
-                             stillGrab = numeric(),
-                             slowGrab = numeric(),
-                             fastGrab = numeric(),
-                             stringsAsFactors = FALSE)
+                              Trial = numeric(),
+                              Group = factor(),
+                              avgGrab = numeric(),
+                              avgDrop = numeric(),
+                              avgDropStart = numeric(),
+                              grabCount = numeric(),
+                              dropCount = numeric(),
+                              dropStartCount = numeric(),
+                              avgFullSequence = numeric(),
+                              stillGrab = numeric(),
+                              slowGrab = numeric(),
+                              fastGrab = numeric(),
+                              stringsAsFactors = FALSE)
 
 individualMovementTimes <- data.frame(Participant = factor(),
                                       Age = numeric(),
@@ -45,15 +45,15 @@ individualMovementTimes <- data.frame(Participant = factor(),
 
 
 individualColorGrabTimes <- data.frame(Participant = factor(),
-                                      Age = numeric(),
-                                      Sex = factor(),
-                                      Condition = factor(),
-                                      Trial = numeric(),
-                                      Group = factor(),
-                                      cubeColor = factor(),
-                                      startTime = numeric(),
-                                      endTime = numeric(),
-                                      moveTime = numeric())
+                                       Age = numeric(),
+                                       Sex = factor(),
+                                       Condition = factor(),
+                                       Trial = numeric(),
+                                       Group = factor(),
+                                       cubeColor = factor(),
+                                       startTime = numeric(),
+                                       endTime = numeric(),
+                                       moveTime = numeric())
 
 
 
@@ -71,12 +71,12 @@ data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_fi
 
 for(f in 1:length(data_files))
 {
-
+  
   #print(df$Group[1])
   dropStartCounter <- 0
   participantDataFile <- data_files[1]
   print(participantDataFile)
-
+  
   
   
   rotationConversionDF <- read.csv(rotationConversionFile, header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -179,11 +179,11 @@ for(f in 1:length(data_files))
     # extracted_phrase <- str_extract(input_string, pattern)
     full_phrase <- paste0(extracted_phrase, secondHalf)
     #print(full_phrase)
-
+    
     trimDF <- trimDF %>%
       mutate(row_num = row_number()) %>%
       mutate(Event = if_else(Event == full_phrase & row_num != max(row_num[Event == full_phrase]), 
-                              "playing", Event)) %>%
+                             "playing", Event)) %>%
       select(-row_num)
     
     
@@ -201,7 +201,7 @@ for(f in 1:length(data_files))
     currentPACendTime <- PACdf$PACendTime[g]
     currentEvent <- PACdf$PACtype[g]
     currentColor <- PACdf$cubeColor[g]
-  
+    
     trimDF <- trimDF %>% mutate(cubeColor = ifelse(currentPACstartTime == Time & currentEvent == "grab", currentColor,cubeColor))
     trimDF <- trimDF %>% mutate(cubeColor = ifelse(currentPACendTime == Time & currentEvent == "grab", currentColor,cubeColor))
     trimDF <- trimDF %>% mutate(cubeColor = ifelse(currentPACstartTime == Time & currentEvent == "place", currentColor,cubeColor))
@@ -254,7 +254,7 @@ for(f in 1:length(data_files))
   # This will plot the individual movements for hand, head and gaze
   subTrimDF <- trimDF
   subTrimDF <- trimDF %>%
-      dplyr :: filter(ModTime >= 50 & ModTime <= 100)
+    dplyr :: filter(ModTime >= 64.99873 & ModTime <= 68)
   
   xHand <- subTrimDF$HandPos_X
   yHand <- subTrimDF$HandPos_Y
@@ -352,293 +352,40 @@ for(f in 1:length(data_files))
   plot_ly(subTrimDF, x = ~xHand, y = ~yHand, z = ~zHand, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
   #plot_ly(subTrimDF, x = ~subTrimDF$EyePos_X, y = ~subTrimDF$EyePos_Y, z = ~subTrimDF$EyePos_Z, color = ~ ActionEvent, type = "scatter3d", mode = "markers")
   
-  
-  # sequenceEventDF <- subTrimDF %>% filter(ActionEvent == "Grab"| ActionEvent == "Dropped"| ActionEvent == "DropStart"|
-  #                                           ActionEvent == "grabLook"| ActionEvent == "placeLook")
-  
-  
-  #--------------------------------------------------------------------------------------------------
-  # Sequence Evaluation 
-  # 
-  sequenceEventDF <- subTrimDF %>% filter(Size == 3)
+}
 
 
-  indices <- which(sequenceEventDF$ActionEvent == "DropStart")
-  sequenceEventDF$cubeColor[indices] <- sequenceEventDF$cubeColor[indices + 1]
-  sequenceEventDF$sequenceNum[indices] <- sequenceEventDF$sequenceNum[indices + 1]
 
 
-  currentIndex <- 0
-  startIndex <- 0
-  lookingForNewSequence <- TRUE
-  currentEvent <- ""
+# Phase Determination
+#___________________________________________________________________________________________________________
 
-  grabLookCheck <- FALSE
-  grabCheck <- FALSE
-  dropLookCheck <- FALSE
-  dropStartCheck <- FALSE
-  dropCheck <- FALSE
+# Read in the durationEventDF from GazeDurrationDataCleaning.R
 
-  for (i in 1:nrow(sequenceEventDF)) {
-    currentIndex <- sequenceEventDF$sequenceNum[i]
-    currentEvent <- sequenceEventDF$ActionEvent[i]
+durationEventDF
 
-    if(!lookingForNewSequence){
-      #print(paste("current:", currentIndex, "start:", startIndex))
-      if(currentIndex <= startIndex + 1 ){
-
-        if(grabLookCheck && currentEvent == "Grab"){
-          grabLookCheck = FALSE
-          grabCheck = TRUE
-          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Grab", sequenceType))
-          #print("1")
-          next
-        }
-        if(grabCheck && currentEvent == "placeLook"){
-          grabCheck = FALSE
-          dropLookCheck = TRUE
-          #print("2")
-          next
-        }
-        if(dropLookCheck && currentEvent == "DropStart"){
-          dropLookCheck = FALSE
-          dropStartCheck = TRUE
-          #print("3")
-          next
-        }
-        if(dropLookCheck && currentEvent == "Dropped"){
-          dropLookCheck = FALSE
-          lookingForNewSequence = TRUE
-          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
-          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
-          print("alt 3")
-          next
-        }
-        if(dropStartCheck && currentEvent == "Dropped"){
-          print("FULL")
-
-          dropStartCheck = FALSE
-          lookingForNewSequence = TRUE
-          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceType = ifelse(sequenceNum == currentIndex, "Place", sequenceType))
-          sequenceEventDF <- sequenceEventDF %>% mutate(sequenceNum = ifelse(sequenceNum == currentIndex, startIndex, sequenceNum))
-          next
-        }else{
-          lookingForNewSequence = TRUE
-          #print("WTFFFF")
-          #print(currentEvent)
-          #print(currentIndex)
-        }
-      }else{
-        #print("YIkesss")
-        #print(currentEvent)
-        #print(currentIndex)
-        lookingForNewSequence = TRUE
-
-        #if(gra)
-      }
+phaseDF <- subTrimDF %>% mutate(Phase = "none")
 
 
-    }
-
-    if(lookingForNewSequence){
-      if(currentEvent == "grabLook"){
-        lookingForNewSequence <- FALSE
-        startIndex <- currentIndex
-        grabLookCheck <- TRUE
-      }
-      if(currentEvent == "placeLook"){
-        lookingForNewSequence <- FALSE
-        startIndex <- currentIndex - 1
-        dropLookCheck <- TRUE
-      }
-    }
+for (i in 2:nrow(durationEventDF)) {
+  if(durationEventDF$Event[i] == "play_wall" & durationEventDF$Event[i-1] == "build_wall"){
+    phaseDF <- phaseDF %>% mutate(Phase = ifelse(Time == durationEventDF$startTime[i],"P1On P5Off",Phase))
   }
-
-  sequenceEventDF <- sequenceEventDF %>% filter(sequenceNum != 0)
-  sequenceEventDF <- sequenceEventDF %>% filter(sequenceType != "none")
-  
-  # sequenceEventDF <- sequenceEventDF %>%
-  #   group_by(sequenceNum) %>%
-  #   mutate(SequenceRow = row_number()) %>%
-  #   ungroup()
-
-  
-  Participant <- participantID
-  Group <- df$Group[5]
-  Condition <- df$Condition[5]
-  Trial <- df$Trial[5]
-  Age <- df$Age[5]
-  Sex <- df$Sex[5]
-  
-  analysisDF <- sequenceEventDF %>% group_by(sequenceType, sequenceNum) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime),
-              startTime = first(ModTime),
-              endTime = last(ModTime))
-  
-  analysisDF$Participant = Participant
-  analysisDF$Age  = Age 
-  analysisDF$Sex = Sex
-  analysisDF$Condition = Condition
-  analysisDF$Trial = Trial
-  analysisDF$Group =  Group
-  
-  individualMovementTimes  <- rbind(individualMovementTimes , analysisDF)
-  
-  
-
-  analysisDF <- analysisDF %>% group_by(sequenceType) %>%
-    summarise(meanTime = mean(moveTime),
-              moveCount = n()) %>%
-    arrange(sequenceType)
-
-  analysisDF <- analysisDF %>%
-    pivot_wider(names_from = sequenceType, values_from = meanTime)
+}
 
 
 
-  analysisFullSequence <- sequenceEventDF %>% group_by(sequenceNum) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime),
-              startTime = first(ModTime),
-              endTime = last(ModTime))
-  
-  analysisFullSequence$sequenceType = "Full"
-  analysisFullSequence$Participant = Participant
-  analysisFullSequence$Age  = Age 
-  analysisFullSequence$Sex = Sex
-  analysisFullSequence$Condition = Condition
-  analysisFullSequence$Trial = Trial
-  analysisFullSequence$Group = Group
-  
-  individualMovementTimes  <- rbind(individualMovementTimes , analysisFullSequence)
-  
-  
+phaseDF <- phaseDF %>% mutate(Phase = ifelse(ActionEvent == "grabLook","P2On P1Off", Phase))
 
-  analysisFullSequence <- analysisFullSequence %>%
-    summarise(meanTimeFullSequence = mean(moveTime),
-              Count = n())
+phaseDF <- phaseDF %>% mutate(Phase = ifelse(ActionEvent == "Grab","P3On P2Off", Phase))
+
+phaseDF <- phaseDF %>% mutate(Phase = ifelse(ActionEvent == "placeLook","P4On P3Off", Phase))
+
+
+phaseDF <- phaseDF %>% mutate(Phase = ifelse(ActionEvent == "Dropped","P5On P4Off", Phase))
 
 
 
-  colorDF <- sequenceEventDF %>% filter(sequenceType == "Grab")
-
-  analysisColorDF <- colorDF %>% group_by(sequenceNum, cubeColor) %>%
-    summarise(moveTime = last(ModTime)-first(ModTime),
-              startTime = first(ModTime),
-              endTime = last(ModTime))
-  
-  
-  #analysisColorDF$sequenceType = "Grab"
-  analysisColorDF$Participant = Participant
-  analysisColorDF$Age  = Age 
-  analysisColorDF$Sex = Sex
-  analysisColorDF$Condition = Condition
-  analysisColorDF$Trial = Trial
-  analysisColorDF$Group = Group
-  
-  individualColorGrabTimes  <- rbind(individualColorGrabTimes , analysisColorDF)
-
-  analysisColorDF <- analysisColorDF %>% group_by(cubeColor) %>%
-    summarise(meanTime = mean(moveTime))
-
-  analysisColorDF <- analysisColorDF %>%
-    pivot_wider(names_from = cubeColor, values_from = meanTime)
-  
-  
-  analysisAltDropDF <- sequenceEventDF %>%
-    group_by(sequenceNum) %>%
-    #filter(sequenceType != "Grab")%>%
-    filter(all(c('DropStart', 'placeLook') %in% ActionEvent)) %>%
-    summarise(moveTime = ModTime[ActionEvent == "DropStart"] - ModTime[ActionEvent == "placeLook"],
-              startTime = ModTime[ActionEvent == "placeLook"],
-              endTime = ModTime[ActionEvent == "DropStart"])
-  
-  analysisAltDropDF$sequenceType = "Old Drop"
-  analysisAltDropDF$Participant = Participant
-  analysisAltDropDF$Age  = Age 
-  analysisAltDropDF$Sex = Sex
-  analysisAltDropDF$Condition = Condition
-  analysisAltDropDF$Trial = Trial
-  analysisAltDropDF$Group = Group
-  
-  individualMovementTimes  <- rbind(individualMovementTimes , analysisAltDropDF)
-  
-  analysisAltDropDF <- analysisAltDropDF  %>%
-    summarise(avgDropStart = mean(moveTime),
-              avgDropStartCount = n())
-  
+phaseDF <- phaseDF %>% filter(Phase != "none")
 
 
-  
-
-  if(Condition != "co"){
-    analysisColorDF <- analysisColorDF %>%
-      mutate(slowGrab = (Red + Blue)/2)
-  }else{
-    analysisColorDF <- analysisColorDF %>%
-      mutate(slowGrab = Red)
-  }
-
-
-
-  # Check if a column exists
-  temp <- "Place" %in% colnames(analysisDF)
-  if(temp){
-    avgDrop <- analysisDF$Place[2]
-    dropCount <- analysisDF$moveCount[2]
-  }else{
-    avgDrop <- 0
-    dropCount <- 0
-  }
-  temp <- "Grab" %in% colnames(analysisDF)
-  if(temp){
-    avgGrab <- analysisDF$Grab[1]
-    grabCount <- analysisDF$moveCount[1]
-  }else{
-    avgGrab <- 0
-    dropCount <- 0
-  }
-
-  temp <- "White" %in% colnames(analysisColorDF)
-  if(temp){
-    fastGrab <- analysisColorDF$White[1]
-  }else{
-    fastGrab <- 0
-  }
-  temp <- "White" %in% colnames(analysisColorDF)
-  if(temp){
-    sta <- analysisColorDF$White[1]
-  }else{
-    fastGrab <- 0
-  }
-
-
-  avgDropStart <- analysisAltDropDF$avgDropStart[1]
-  dropStartCount <- analysisAltDropDF$avgDropStartCount[1]
-  avgFullSequence <- analysisFullSequence$meanTimeFullSequence[1]
-  stillGrab <- analysisColorDF$Gold[1]
-  slowGrab <- analysisColorDF$slowGrab[1]
-
-
-  print(Participant)
-  print(Condition)
-  print(Trial)
-  print(Group)
-  print(avgGrab)
-  print(avgDrop)
-  print(avgDropStart)
-  print(avgFullSequence)
-  print(stillGrab)
-  print(slowGrab)
-  print(fastGrab)
-
-  newPartRow <- data.frame(Participant, Age, Sex, Condition, Trial, Group, avgGrab, avgDrop,avgDropStart,
-                           grabCount, dropCount, dropStartCount, avgFullSequence, stillGrab,
-                           slowGrab, fastGrab)
-
-  MovementTimesDF <- rbind(MovementTimesDF, newPartRow)
-  
-}  
-
-#print(unique(MovementTimesDF$Participant))
-# write.csv(individualMovementTimes, "individualMovementTimes 9_11-24.csv", row.names = FALSE)
-# write.csv(individualColorGrabTimes, "individualColorGrabTimes 9_11-24.csv", row.names = FALSE)
