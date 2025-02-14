@@ -23,32 +23,41 @@ df$EyePos_Y <- as.numeric(df$EyePos_Y)
 dfGazeOrigin <- df %>% filter(HeadPos_Y >= EyePos_Y-.1 & HeadPos_Y <= EyePos_Y+.1)
 dfGazeOrigin <- df %>% filter(HeadPos_Y == EyePos_Y)
 
+df <- df %>%
+  mutate(ModTime = (Time - Time[1])/10000000) 
+
 
 dfsim <- individualPACdf
 
 #dfsim <- dfsim %>% filter(PACtime == 373.0018)
 dfsim <- dfsim %>% filter(PACtime == 251.7297)
 
-# upperTime <- dfsim$PACstartTime[1] - 20000000
-# lowerTime <- dfsim$PACendTime[1] + 20000000
 
 upperTime <- dfsim$PACstartTime[1] - 10000000/1.5
 lowerTime <- dfsim$PACendTime[1] + 10000000/1.5
 
-dfsimTrim <- df %>% filter(Time >= upperTime & Time <= lowerTime)
+
+upperTime <- 638338370224583548
+lowerTime <- 638338370248807873
+
+
+upperTime <- 131.72188
+lowerTime <- 134.96704
+
+dfsimTrim <- df %>% filter(ModTime >= upperTime & ModTime <= lowerTime)
 dfsimTrim$EyePos_X <- as.numeric(dfsimTrim$EyePos_X)
 dfsimTrim$EyePos_Y <- as.numeric(dfsimTrim$EyePos_Y)
 dfsimTrim$EyePos_Z <- as.numeric(dfsimTrim$EyePos_Z)
-dfsimTrim <- dfsimTrim %>% mutate(ModTime = (Time - Time[1])/10000000)
+#dfsimTrim <- dfsimTrim %>% mutate(ModTime = (Time - Time[1])/10000000)
 dfsimTrim <- dfsimTrim %>% mutate(handPosX = (abs(HandPos_X - HandPos_X[1])))
 dfsimTrim <- dfsimTrim %>% filter(EyePos_X != 0)
 
 
-#write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimGrab1.csv", row.names = FALSE)
+#write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/PhaseSimData.csv", row.names = FALSE)
 
-dfsimTrim$UnitHeadyRotX <- analytics_nuP15$xHeadRot 
-dfsimTrim$UnitHeadyRotY <- analytics_nuP15$yHeadRot 
-dfsimTrim$UnitHeadyRotZ <- analytics_nuP15$zHeadRot 
+dfsimTrim$UnitHeadyRotX <- Phase_analytics2$xHeadRot 
+dfsimTrim$UnitHeadyRotY <- Phase_analytics2$yHeadRot 
+dfsimTrim$UnitHeadyRotZ <- Phase_analytics2$zHeadRot 
 
 #dfsimTrim <- dfsimTrim %>% filter(CurrentGazeTarget != "Network Neutral CubeClone144")
 

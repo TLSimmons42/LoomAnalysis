@@ -57,8 +57,8 @@ individualColorGrabTimes <- data.frame(Participant = factor(),
 
 
 
-PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
 data_files <- list.files(pattern = "nuP15.csv")
 
 
@@ -253,8 +253,8 @@ for(f in 1:length(data_files))
   
   # This will plot the individual movements for hand, head and gaze
   subTrimDF <- trimDF
-  subTrimDF <- trimDF %>%
-    dplyr :: filter(ModTime >= 64.99873 & ModTime <= 68)
+  # subTrimDF <- trimDF %>%
+  #   dplyr :: filter(ModTime >= 64.99873 & ModTime <= 68)
   
   xHand <- subTrimDF$HandPos_X
   yHand <- subTrimDF$HandPos_Y
