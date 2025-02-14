@@ -388,4 +388,9 @@ phaseDF <- phaseDF %>% mutate(Phase = ifelse(ActionEvent == "Dropped","P5On P4Of
 
 phaseDF <- phaseDF %>% filter(Phase != "none")
 
+upperTime <- 131.72188
+lowerTime <- 134.96704
+
+phaseDF <- phaseDF %>% filter(ModTime >= upperTime & ModTime <= lowerTime)
+
 

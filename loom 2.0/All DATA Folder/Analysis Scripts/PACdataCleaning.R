@@ -717,11 +717,11 @@ dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
 
 
 
-# write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
-# write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
-# write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
-# 
-#write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/Grab Aut1.csv", row.names = FALSE)
-# 
+write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
+write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
+write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
+
+write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/Grab Pres1.csv", row.names = FALSE)
+
 
 

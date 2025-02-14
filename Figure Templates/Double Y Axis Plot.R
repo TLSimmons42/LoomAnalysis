@@ -117,6 +117,9 @@ initHeadRotY <- dfsimTrim$UnitHeadyRotY[1]
 dfsimTrim <- dfsimTrim %>% mutate(figHeadRotY = abs(initHeadRotY - UnitHeadyRotY))
 dfsimTrim <- dfsimTrim %>% mutate(Degrees = ifelse(is.na(Degrees),0,Degrees))
 
+
+graphPhasedf <- phaseDF %>% dplyr::filter(ModTime != 131.7219)
+
 # Plot with two y-axes and three lines, with style differentiation
 ggplot(dfsimTrim, aes(x = ModTime)) +
   # Line for y1 with left y-axis in solid blue
@@ -126,6 +129,7 @@ ggplot(dfsimTrim, aes(x = ModTime)) +
   # Line for y3, sharing left y-axis, in dashed blue
   geom_line(aes(y = figHeadRotY, color = "Head Rotation Y-Axis"), size = 1.2, linetype = "dashed") +
   # Define primary y-axis
+  geom_vline(data = phaseDF, aes(xintercept = ModTime), color = "black", linetype = "dotted", size = 1) +
   scale_y_continuous(
     name = "Degrees", 
     # Define secondary y-axis with transformation
