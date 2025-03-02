@@ -34,6 +34,8 @@ print(df_Hand_Vel$v_x[2])
 
 
 #FILTER TIME--------------------------------------------------
+
+library(signal)  # For Butterworth filter
 fs <- 90   # Sampling frequency (Hz)
 fc <- 6    # Cutoff frequency (Hz)
 n <- 2     # 2nd-order filter (applied twice = 4th order total)
@@ -69,17 +71,17 @@ df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(ModTime > lower & ModTime < upper)
 
 #df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(ModTime > 68 & ModTime < 71)
 
-# ggplot(df_Hand_Vel, aes(x = ModTime, y = velocity, color = as.factor(Trial))) +
-#   geom_line(alpha = 0.8) +
-#   geom_point()+
-#   facet_wrap(~Condition) +  # Separate plots for each Condition
-#   labs(
-#     title = "Hand Velocity Over Time",
-#     x = "Time (seconds)",
-#     y = "Velocity (units/s)",
-#     color = "Trial"
-#   ) +
-#   theme_minimal()
+ggplot(df_Hand_Vel, aes(x = ModTime, y = velocity_smooth, color = as.factor(Trial))) +
+  geom_line(alpha = 0.8) +
+  geom_point()+
+  facet_wrap(~Condition) +  # Separate plots for each Condition
+  labs(
+    title = "Hand Velocity Over Time",
+    x = "Time (seconds)",
+    y = "Velocity (m/s)",
+    color = "Trial"
+  ) +
+  theme_minimal()
 
 ggplot(df_Hand_Vel, aes(x = ModTime)) +
   geom_line(aes(y = velocity, color = as.factor(Trial)), alpha = 0.8) +
