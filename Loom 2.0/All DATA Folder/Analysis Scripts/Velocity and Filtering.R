@@ -3,10 +3,14 @@ library(dplyr)
 library(ggplot2)
 library(signal)  # For Butterworth filter
 library(plotly)
+library(bit64)
+library(pracma)  # For rad2deg function
 
 
-#dirInput <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Conversion Data/mergedData.csv"
-#df_merged <- read.csv(dirInput, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+
+ #dirInput <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Conversion Data/mergedData.csv"
+ #df_merged <- read.csv(dirInput, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 
 df_Hand_Vel <- df_merged
@@ -18,8 +22,15 @@ df_Hand_Vel <- df_Hand_Vel %>%
 
 df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(Condition == "comp" & Trial == 2)
 df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(EyePos_X != 0)
+df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(EyePos_X != "N/A")
+
+df_Hand_Vel$EyePos_X <- as.numeric(df_Hand_Vel$EyePos_X)
+df_Hand_Vel$EyePos_Y <- as.numeric(df_Hand_Vel$EyePos_Y)
+df_Hand_Vel$EyePos_Z <- as.numeric(df_Hand_Vel$EyePos_Y)
 
 
+
+# Calculate Hand Velocity
 df_Hand_Vel <- df_Hand_Vel %>%
   group_by(Condition, Trial) %>%
   arrange(Time) %>%
@@ -28,14 +39,64 @@ df_Hand_Vel <- df_Hand_Vel %>%
     v_x = (HandPos_X - lag(HandPos_X)) / delta_t,
     v_y = (HandPos_Y - lag(HandPos_Y)) / delta_t,
     v_z = (HandPos_Z - lag(HandPos_Z)) / delta_t,
-    velocity = sqrt(v_x^2 + v_y^2 + v_z^2)  # Magnitude of velocity
+    hand_velocity = sqrt(v_x^2 + v_y^2 + v_z^2)  # Magnitude of velocity
   )
-print(df_Hand_Vel$v_x[2])
 
+# # Calculate gaze Velocity
+# df_Hand_Vel <- df_Hand_Vel %>%
+#   group_by(Condition, Trial) %>%
+#   arrange(Time) %>%
+#   mutate(
+#     delta_t = ModTime - lag(ModTime),
+#     gaze_velocity_x = (eyeAngleX - lag(eyeAngleX)) / delta_t,
+#     gaze_velocity_y = (eyeAngleY - lag(eyeAngleY)) / delta_t,
+#     gaze_velocity_z = (eyeAngleZ - lag(eyeAngleZ)) / delta_t,
+#     gaze_velocity = sqrt(gaze_velocity_x^2 + gaze_velocity_y^2 + gaze_velocity_z^2)  # Magnitude of velocity
+#   )
+
+#calculate degree
+df_Hand_Vel <- df_Hand_Vel %>%
+  mutate(
+    gazeDirX = EyePos_X - HeadPos_X,
+    gazeDirY = EyePos_Y - HeadPos_Y,
+    gazeDirZ = EyePos_Z - HeadPos_Z,
+    # Normalize current and previous vectors
+    dir_mag = sqrt(gazeDirX^2 + gazeDirY^2 + gazeDirZ^2),
+    
+    normX = gazeDirX / dir_mag,
+    normY = gazeDirY / dir_mag,
+    normZ = gazeDirZ / dir_mag,
+    
+    
+    # Compute dot product using normalized vectors
+    dotProd = (lag(normX) * normX) + (lag(normY) * normY) + (lag(normZ) * normZ),
+    
+    # Ensure dot product is within valid range [-1,1] to avoid NaN issues
+    #dotProd = pmin(pmax(dotProd, -1), 1),
+    
+    # Compute angle in radians and convert to degrees
+    theta_radians = acos(dotProd),
+    degrees = rad2deg(theta_radians)
+  )
+
+# for(i in 2:nrow(df_Hand_Vel)){
+#   df_Hand_Vel <- df_Hand_Vel %>% mutate(dotProd = (eyeAngleX[i-1] * eyeAngleX[i]) + (eyeAngleY[i-1] * eyeAngleY[i])+(eyeAngleZ[i-1] * eyeAngleZ[i]))
+#   df_Hand_Vel <- df_Hand_Vel %>% mutate(theta_radians = acos(dotProd))
+#   df_Hand_Vel <- df_Hand_Vel %>% mutate(degrees = rad2deg(theta_radians))
+#   
+# }
+
+#calculate velocity of change in degrees
+df_Hand_Vel <- df_Hand_Vel %>%
+  group_by(Condition, Trial) %>%
+  arrange(Time) %>%
+  mutate(
+    delta_t = ModTime - lag(ModTime),
+    gaze_velocity = degrees / delta_t,
+  )
 
 #FILTER TIME--------------------------------------------------
 
-library(signal)  # For Butterworth filter
 fs <- 90   # Sampling frequency (Hz)
 fc <- 6    # Cutoff frequency (Hz)
 n <- 2     # 2nd-order filter (applied twice = 4th order total)
@@ -47,18 +108,36 @@ df_Hand_Vel <- df_Hand_Vel %>%
     v_x_smooth = filtfilt(bf, v_x),
     v_y_smooth = filtfilt(bf, v_y),
     v_z_smooth = filtfilt(bf, v_z),
-    velocity_smooth = filtfilt(bf, velocity)  # Smoothed velocity magnitude
+    velocity_smooth = filtfilt(bf, hand_velocity)  # Smoothed velocity magnitude
   )
 print(df_Hand_Vel$v_x[2])
 print(df_Hand_Vel$velocity_smooth[1])
 
-# Blue cube
-gazeArrivePoint <- 62.75130
-grabPoint <- 62.92226
-dropPoint <- 64.99573
-arrivePoint <- 64.54988
+df_Hand_Vel <- df_Hand_Vel %>%
+  group_by(Condition, Trial) %>%
+  arrange(Time) %>%
+  mutate(
+    a_x = (v_x_smooth - lag(v_x_smooth)) / delta_t,
+    a_y = (v_y_smooth - lag(v_y_smooth)) / delta_t,
+    a_z = (v_z_smooth - lag(v_z_smooth)) / delta_t,
+    acceleration = sqrt(a_x^2 + a_y^2 + a_z^2)  # Magnitude of acceleration
+  )
+df_Hand_Vel <- df_Hand_Vel %>%
+  # group_by(Condition, Trial) %>%
+  mutate(
+    a_x_smooth = filtfilt(bf, a_x),
+    a_y_smooth = filtfilt(bf, a_x),
+    a_z_smooth = filtfilt(bf, a_x),
+    acceleration_smooth = filtfilt(bf, acceleration)  # Smoothed velocity magnitude
+  )
 
-#white cube
+# Blue cube
+# gazeArrivePoint <- 62.75130
+# grabPoint <- 62.92226
+# dropPoint <- 64.99573
+# arrivePoint <- 64.54988
+
+# #white cube
 gazeArrivePoint <- 68.53409
 grabPoint <- 68.65318
 dropPoint <- 69.78529
@@ -69,11 +148,20 @@ upper <- dropPoint + .6
 lower <- grabPoint -.6
 df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(ModTime > lower & ModTime < upper)
 
-#df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(ModTime > 68 & ModTime < 71)
+#df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(ModTime > 63.1 & ModTime < 63.5)
 
-ggplot(df_Hand_Vel, aes(x = ModTime, y = velocity_smooth, color = as.factor(Trial))) +
+df_Hand_Vel <- df_Hand_Vel %>% dplyr::filter(gaze_velocity < 800)
+df_Hand_Vel <- df_Hand_Vel %>% mutate(gaze_velocity_filt_bf =  filtfilt(bf, gaze_velocity))
+df_Hand_Vel$gaze_velocity_filt <- runmed(df_Hand_Vel$gaze_velocity, k = 7, endrule = "keep")
+
+
+ggplot(df_Hand_Vel, aes(x = ModTime, y = gaze_velocity_filt, color = as.factor(Trial))) +
   geom_line(alpha = 0.8) +
   geom_point()+
+  # geom_vline(data = df_Hand_Vel, aes(xintercept = grabPoint), color = "black", linetype = "solid", size = 1) +
+  # geom_vline(data = df_Hand_Vel, aes(xintercept = dropPoint), color = "black", linetype = "solid", size = 1) +
+  # geom_vline(data = df_Hand_Vel, aes(xintercept = arrivePoint), color = "black", linetype = "solid", size = 1) +
+  # geom_vline(data = df_Hand_Vel, aes(xintercept = gazeArrivePoint), color = "black", linetype = "solid", size = 1) +
   facet_wrap(~Condition) +  # Separate plots for each Condition
   labs(
     title = "Hand Velocity Over Time",
@@ -84,19 +172,21 @@ ggplot(df_Hand_Vel, aes(x = ModTime, y = velocity_smooth, color = as.factor(Tria
   theme_minimal()
 
 ggplot(df_Hand_Vel, aes(x = ModTime)) +
-  geom_line(aes(y = velocity, color = as.factor(Trial)), alpha = 0.8) +
-  geom_line(aes(y = velocity_smooth), color = "blue", linetype = "solid") + # New line
-  geom_point(aes(y = velocity, color = as.factor(Trial))) +
-  geom_point(aes(y = velocity_smooth, color = "blue")) +
+  geom_line(aes(y = gaze_velocity, color = as.factor(Trial)), alpha = 0.8) +
+  geom_line(aes(y = gaze_velocity_filt), color = "blue", linetype = "solid") + # New line
+  geom_line(aes(y = gaze_velocity_filt_bf), color = "blue", linetype = "solid") + # New line
+  geom_point(aes(y = gaze_velocity, color = as.factor(Trial))) +
+  geom_point(aes(y = gaze_velocity_filt, color = "blue")) +
+  geom_point(aes(y = gaze_velocity_filt_bf, color = "green")) +
   geom_vline(data = df_Hand_Vel, aes(xintercept = grabPoint), color = "black", linetype = "solid", size = 1) +
   geom_vline(data = df_Hand_Vel, aes(xintercept = dropPoint), color = "black", linetype = "solid", size = 1) +
   geom_vline(data = df_Hand_Vel, aes(xintercept = arrivePoint), color = "black", linetype = "solid", size = 1) +
   geom_vline(data = df_Hand_Vel, aes(xintercept = gazeArrivePoint), color = "black", linetype = "solid", size = 1) +
   facet_wrap(~Condition) +  
   labs(
-    title = "Hand Velocity Over Time White CUBE",
+    title = "Hand Velocity Over Time Blue CUBE",
     x = "Time (seconds)",
-    y = "Velocity (m/s)",
+    y = "Velocity (deg/s)",
     color = "Trial"
   ) +
   theme_minimal()
@@ -159,6 +249,9 @@ tempVector <- tempHeadPos - tempGazePos
 df_Gaze_Vel <- df_Gaze_Vel %>% mutate(gazeVecX = EyePos_X - HeadPos_X)
 df_Gaze_Vel <- df_Gaze_Vel %>% mutate(gazeVecY = EyePos_Y - HeadPos_Y)
 df_Gaze_Vel <- df_Gaze_Vel %>% mutate(gazeVecZ = EyePos_Z - HeadPos_Z)
+
+
+
 
 df_Gaze_Vel <- df_Gaze_Vel %>% mutate(dotProd = (initialVector[1] * gazeVecX)+ (initialVector[2] * gazeVecY)+(initialVector[3] * gazeVecZ))
 

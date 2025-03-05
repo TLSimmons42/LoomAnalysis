@@ -57,8 +57,8 @@ individualColorGrabTimes <- data.frame(Participant = factor(),
 
 
 
-PACdataFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
-rotationConversionFile <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
+PACdataFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/PACdf tester 9_1.csv"
+rotationConversionFile <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Data csv Files/headRotTest.csv"
 data_files <- list.files(pattern = "nuP15.csv")
 
 

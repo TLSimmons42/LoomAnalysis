@@ -6,7 +6,7 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "nuP15.csv")
+data_files <- list.files(pattern = "nuP15")
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -717,11 +717,11 @@ dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
 
 
 
-write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
-write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
-write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
-
-write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/Grab Pres1.csv", row.names = FALSE)
-
-
+# write.csv(dfsimTrimFront, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimFront.csv", row.names = FALSE)
+# write.csv(dfsimTrimDurring, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimDurring.csv", row.names = FALSE)
+# write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
+# 
+# write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/Grab Pres1.csv", row.names = FALSE)
+# write.csv(individualPACdf, "nuP15_PAC.csv", row.names = FALSE)
+# 
 
