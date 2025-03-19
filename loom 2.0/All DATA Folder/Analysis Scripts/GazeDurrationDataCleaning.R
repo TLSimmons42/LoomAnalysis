@@ -9,8 +9,10 @@ library(plotly)
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = "nuP15.csv")
-data_files[]
+data_files <- list.files(pattern = "sdP15(\\D|$)")
+output_file <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data/sdP15_Gaze_Events.csv"  # Change this to your desired output file
+
+
 
 gazeDurrationTimes <- data.frame(Time = numeric(),
                                  Participant = factor(),
@@ -60,7 +62,7 @@ AddRow <- function(startTime, endTime, eventDuration, counter, Event, df, df2){
 
 for(f in 1:length(data_files))
 {
-  participantDataFile <- data_files[1]
+  participantDataFile <- data_files[f]
   print(participantDataFile)
   
   
@@ -91,7 +93,7 @@ for(f in 1:length(data_files))
   z <- trimedDF[,15]
   
   
-  plot3d(x, y, z)
+  #plot3d(x, y, z)
   
   
   #-------------------------------------------------------------------------------------------
@@ -322,12 +324,14 @@ for (i in 1:nrow(durationEventDF)) {
   }else{
     print("WHAA")
   }
-  
 
   
 }
 
+durationEventDFFinal <- durationEventDFFinal %>% mutate(eventDuration = (endTime - startTime)/10000)
 
+write.csv(durationEventDFFinal, output_file, row.names = FALSE)
+print(output_file)
 
 
 #write.csv(gazeDurrationTimes, "GazeDurrationTimes 9_2_24.csv, row.names = FALSE)

@@ -368,7 +368,7 @@ phaseDF <- subTrimDF %>% mutate(Phase = "none")
 
 
 for (i in 2:nrow(durationEventDF)) {
-  if(durationEventDF$Event[i] == "play_wall" & durationEventDF$Event[i-1] == "build_wall"){
+  if(durationEventDF$Event[i] == "play_wall" & (durationEventDF$Event[i-1] == "build_wall" | durationEventDF$Event[i-1] == "background_wall")){
     phaseDF <- phaseDF %>% mutate(Phase = ifelse(Time == durationEventDF$startTime[i],"P1On P5Off",Phase))
   }
 }

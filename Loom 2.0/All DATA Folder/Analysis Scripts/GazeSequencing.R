@@ -203,19 +203,19 @@ entireSequenceDF$CurrentGazeArea <- gsub("play_wall", "blue", entireSequenceDF$C
 entireSequenceDF$CurrentGazeArea <- gsub("background_wall", "green", entireSequenceDF$CurrentGazeArea)
 entireSequenceDF$CurrentGazeArea <- gsub("view_wall", "red", entireSequenceDF$CurrentGazeArea)
 
-
-
-scatterplot3d(
-  x = x,
-  y = y,
-  z = z,
-  color = entireSequenceDF$CurrentGazeArea,  # Use numeric values for color
-  pch = 16,
-  type = "b",
-  angle = 60,
-  main = "3D Scatter Plot with Colors by Group",
-  xlab = "X",
-  ylab = "Y",
-  zlab = "Z",
-  color.legend = TRUE
-)
+# 
+# 
+# scatterplot3d(
+#   x = x,
+#   y = y,
+#   z = z,
+#   color = entireSequenceDF$CurrentGazeArea,  # Use numeric values for color
+#   pch = 16,
+#   type = "b",
+#   angle = 60,
+#   main = "3D Scatter Plot with Colors by Group",
+#   xlab = "X",
+#   ylab = "Y",
+#   zlab = "Z",
+#   color.legend = TRUE
+# )
