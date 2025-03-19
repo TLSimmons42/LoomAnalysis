@@ -13,7 +13,7 @@ if (!dir.exists(output_dir)) {
 }
 
 # Get all CSV files in the input directory
-csv_files <- list.files(input_dir, pattern = "nuP15.csv", full.names = TRUE)
+csv_files <- list.files(input_dir, pattern = "nuP38", full.names = TRUE)
 
 # Loop through each file, process it, and save the modified version
 for(f in 1:length(csv_files)){
@@ -26,15 +26,15 @@ for(f in 1:length(csv_files)){
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   df <- df[!duplicated(df$Time), ]
   # Read in the CSV
-  
+
   # Create output filename
-  # file_name <- paste0("filt_", basename(participantDataFile))
-  # output_path <- file.path(output_dir, file_name)
-  # 
-  # # Write the modified CSV
-  # write.csv(df, output_path, row.names = FALSE)
-  # 
-  # cat("Processed:", file_name, "\n")
+   file_name <- paste0("filt_", basename(participantDataFile))
+   output_path <- file.path(output_dir, file_name)
+  
+   # Write the modified CSV
+   write.csv(df, output_path, row.names = FALSE)
+  
+   
 }
 
 cat("All files processed and saved in", output_dir, "\n")

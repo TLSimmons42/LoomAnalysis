@@ -1,0 +1,27 @@
+import pyxdf
+import csv
+
+# Specify the input and output file paths
+input_file = "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/NU Participants/P37/nuP37_old9.xdf"
+
+with open('loomtest1.csv', mode='w', newline='') as csv_file:
+    writer = csv.writer(csv_file)
+
+output_file = "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/NU Participants/P37/nuP37_old9.csv"
+
+# Load the .xdf file using pyxdf library
+xdf_data, _ = pyxdf.load_xdf(input_file)
+
+    # Open the output .txt file
+with open(output_file, 'w') as f_out:
+    
+    f_out.write("Time,Participant,Age,Sex,Handedness,Task,Group,Condition,Trial,Event,CurrentGazeTarget,CurrentGazeArea,EyePos_X,EyePos_Y,EyePos_Z,eyeAngleX,eyeAngleY,eyeAngleZ,HeadPos_X,HeadPos_Y,HeadPos_Z,HeadRot_X,HeadRot_Y,HeadRot_Z,HandPos_X,HandPos_Y,HandPos_Z,HandRot_X,HandRot_Y,HandRot_Z,RayCast_StartPos_X,RayCast_StartPos_Y,RayCast_StartPos_Z,RayCast_EndPos_X,RayCast_EndPos_Y,RayCast_EndPos_Z,Partner_HeadPos_X,Partner_HeadPos_Y,Partner_HeadPos_Z,Partner_HeadRot_X,Partner_HeadRot_Y,Partner_HeadRot_Z,Partner_HandPos_X,Partner_HandPos_Y,Partner_HandPos_Z,Partner_HandRot_X,Partner_HandRot_Y,Partner_HandRot_Z,Partner_RayCast_StartPos_X,Partner_RayCast_StartPos_Y,Partner_RayCast_StartPos_Z,Partner_RayCast_EndPos_X,Partner_RayCast_EndPos_Y,Partner_RayCast_EndPos_Z,RightPupil,LeftPupil\n")
+        # Loop through all the streams in the .xdf file
+    for stream in xdf_data:
+
+    
+
+        # Loop through all the samples in the stream and write them to the output .txt file
+        for sample in stream['time_series']:
+            f_out.write(sample[0] + "\n")
+            

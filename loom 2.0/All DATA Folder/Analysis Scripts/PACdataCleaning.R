@@ -6,7 +6,9 @@ library(stringr)
 
 
 
-data_files <- list.files(pattern = "nuP15")
+data_files <- list.files(pattern = "nuP38(\\D|$)")
+output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data/nuP38_PAC.csv"  # Change this to your desired output file
+
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
 data_files <- data_files[!(grepl(paste(strings_to_filter, collapse="|"), data_files))]
@@ -224,7 +226,7 @@ BadParticipantAnalysis <- function(event, dfFunc){
     }
     
     if(i == temp){
-      print("got to the end")
+      #print("got to the end")
     }
   }
   # a <- last(df$Time) - returnTime
@@ -399,7 +401,7 @@ for(f in 1:length(data_files))
     }
   
     input_string <- trimedGrabDF[i,10]
-    print(input_string)
+    #print(input_string)
     # Find the position of " was picked up"
     pos <- regexpr(" was picked up", input_string)
     #print(pos)
@@ -722,6 +724,7 @@ dfsimTrimEnd <- dfsimTrim %>% filter(Time >= dfsim$PACendTime[1])
 # write.csv(dfsimTrimEnd, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/SimEnd.csv", row.names = FALSE)
 # 
 # write.csv(dfsimTrim, "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Simulation CSVs/Grab Pres1.csv", row.names = FALSE)
-# write.csv(individualPACdf, "nuP15_PAC.csv", row.names = FALSE)
+write.csv(individualPACdf, output_file, row.names = FALSE)
+print(output_file)
 # 
 

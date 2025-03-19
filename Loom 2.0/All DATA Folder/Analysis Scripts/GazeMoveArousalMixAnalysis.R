@@ -151,9 +151,9 @@ for(f in 1:length(data_files))
   trimDF <- trimDF %>%
     mutate(ActionEvent = ifelse(grepl("P2", Event) & grepl("picked", Event), "P2 Grab", ActionEvent))
   
-  filterDF <- trimDF %>% filter(ActionEvent == "Dropped")
+  trimDF <- trimDF %>% filter(ActionEvent == "Dropped")
   
-  trimDF <- trimDF %>%
+  filterDF <- trimDF %>%
     mutate(ActionEvent = ifelse(grepl("dropped by player", Event), "Cube Dropped", ActionEvent))
   
   for (c in 1:nrow(filterDF)) {
