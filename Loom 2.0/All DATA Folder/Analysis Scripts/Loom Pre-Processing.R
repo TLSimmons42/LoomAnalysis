@@ -23,9 +23,8 @@ library(plotly)
 
 
 # FILE READ ----------------------------------------------------------------------------------------------------------------
-
-Patterns <- c("nuP35", "nuP36", "nuP37", "nuP38", "sdP2", "sdP3", "sdP4",
-              "sdP5", "sdP7", "sdP8", "sdP9", "sdP10", "sdP11",
+ 
+Patterns <- c("sdP8", "sdP9", "sdP10", "sdP11",
               "sdP12", "sdP13", "sdP14", "sdP15", "sdP10")
 
 
