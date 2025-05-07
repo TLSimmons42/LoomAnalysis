@@ -43,8 +43,8 @@ moveDF <- data.frame(Participant = factor(),
 
 
 
-data_files <- list.files(pattern = "nuP15(\\D|$)")
-#data_files <- list.files(pattern = ".csv")
+#data_files <- list.files(pattern = "nuP15(\\D|$)")
+data_files <- list.files(pattern = ".csv")
 
 for(f in 1:length(data_files))
 {
@@ -383,6 +383,7 @@ moveDF <- moveDF %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
 moveDF <- moveDF %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
 
+#write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df.csv", row.names = FALSE)
 
 
 
