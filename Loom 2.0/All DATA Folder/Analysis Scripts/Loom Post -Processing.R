@@ -18,7 +18,7 @@ PhaseDF <- data.frame(Participant = factor(),
 
 
 
- #data_files <- list.files(pattern = "nuP15(\\D|$)")
+#data_files <- list.files(pattern = "nuP15(\\D|$)")
 data_files <- list.files(pattern = ".csv")
 
 for(f in 1:length(data_files))

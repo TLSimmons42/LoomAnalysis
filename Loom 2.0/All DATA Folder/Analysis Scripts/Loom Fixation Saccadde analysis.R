@@ -23,18 +23,41 @@ df_trim <- df %>%
     gazeDirZ = EyePos_Z - HeadPos_Z,
     # Normalize current and previous vectors
     dir_mag = sqrt(gazeDirX^2 + gazeDirY^2 + gazeDirZ^2),
-    
+
     normX = gazeDirX / dir_mag,
     normY = gazeDirY / dir_mag,
     normZ = gazeDirZ / dir_mag,
-    
+
     # Compute dot product using normalized vectors
     dotProd = (lag(normX) * normX) + (lag(normY) * normY) + (lag(normZ) * normZ),
-    
+
     # Compute angle in radians and convert to degrees
     theta_radians = acos(dotProd),
     degrees = rad2deg(theta_radians)
   )
+
+# df_trim <- df %>%
+#   group_by(Condition, Trial) %>%
+#   arrange(Time) %>%
+#   mutate(
+#     
+#     dir_mag = sqrt(eyeAngleX^2 + eyeAngleY^2 + eyeAngleZ^2),
+#     #     
+#      normX = eyeAngleX / dir_mag,
+#      normY = eyeAngleY / dir_mag,
+#      normZ = eyeAngleZ / dir_mag,
+#   # Compute dot product between consecutive gaze direction vectors
+#      dotProd = (lag(normX) * normX) + (lag(normY) * normY) + (lag(normZ) * normZ),
+#   
+# 
+#     # Clamp dot product to [-1, 1] to avoid NaNs from acos
+#     #dotProd_clamped = pmin(pmax(dotProd, -1), 1),
+#     
+#     # Compute angle between frames
+#     theta_radians = acos(dotProd),
+#     degrees = rad2deg(theta_radians)
+#   )
+
 
 df_trim <- df_trim %>%
   group_by(Condition, Trial) %>%
@@ -92,12 +115,12 @@ placeLookPoint <- 64.42636
 arrivePoint <- 64.54988
 dropPoint <- 64.99573
 
-#White cube
-gazeArrivePoint <- 68.53409
-grabPoint <- 68.65318
-placeLookPoint <- 69.18653
-dropPoint <- 69.78529
-arrivePoint <- 70.16435
+# #White cube
+# gazeArrivePoint <- 68.53409
+# grabPoint <- 68.65318
+# placeLookPoint <- 69.18653
+# dropPoint <- 69.78529
+# arrivePoint <- 70.16435
 
 
 upper <- dropPoint + .6
@@ -109,19 +132,19 @@ df_plot <- df_plot %>% dplyr::filter(Trial == 2)
 
 
 #output_dir <- "C:\Users\Trent Simons\Desktop\Data\LoomAnalysis\Loom 2.0\Unity Conversion DATA" 
-P1_a <- df_plot %>% dplyr::filter(ModTime <= gazeArrivePoint)
-P1_b <- df_plot %>% dplyr::filter(ModTime <= grabPoint)
-P2_a <- df_plot %>% dplyr::filter(ModTime <= placeLookPoint & ModTime >= grabPoint)
-P2_b <- df_plot %>% dplyr::filter(ModTime <= arrivePoint & ModTime >= grabPoint)
-P2_c <- df_plot %>% dplyr::filter(ModTime <= dropPoint & ModTime >= grabPoint)
-P3_a <- df_plot %>% dplyr::filter(ModTime >= dropPoint)
-
-write.csv(P1_a, "P1_a.csv", row.names = FALSE)
-write.csv(P1_b, "P1_b.csv", row.names = FALSE)
-write.csv(P2_a, "P2_a.csv", row.names = FALSE)
-write.csv(P2_b, "P2_b.csv", row.names = FALSE)
-write.csv(P2_c, "P2_c.csv", row.names = FALSE)
-write.csv(P3_a, "P3_a.csv", row.names = FALSE)
+# P1_a <- df_plot %>% dplyr::filter(ModTime <= gazeArrivePoint)
+# P1_b <- df_plot %>% dplyr::filter(ModTime <= grabPoint)
+# P2_a <- df_plot %>% dplyr::filter(ModTime <= placeLookPoint & ModTime >= grabPoint)
+# P2_b <- df_plot %>% dplyr::filter(ModTime <= arrivePoint & ModTime >= grabPoint)
+# P2_c <- df_plot %>% dplyr::filter(ModTime <= dropPoint & ModTime >= grabPoint)
+# P3_a <- df_plot %>% dplyr::filter(ModTime >= dropPoint)
+# 
+# write.csv(P1_a, "P1_a.csv", row.names = FALSE)
+# write.csv(P1_b, "P1_b.csv", row.names = FALSE)
+# write.csv(P2_a, "P2_a.csv", row.names = FALSE)
+# write.csv(P2_b, "P2_b.csv", row.names = FALSE)
+# write.csv(P2_c, "P2_c.csv", row.names = FALSE)
+# write.csv(P3_a, "P3_a.csv", row.names = FALSE)
 
 
 ggplot(df_plot, aes(x = ModTime, y = gaze_velocity_filt_bf)) +
@@ -132,6 +155,7 @@ ggplot(df_plot, aes(x = ModTime, y = gaze_velocity_filt_bf)) +
   geom_vline(data = df_trim, aes(xintercept = placeLookPoint), color = "black", linetype = "solid", size = 1) +
   geom_vline(aes(xintercept = arrivePoint), color = "black", linetype = "solid", size = 1) +
   geom_vline(aes(xintercept = gazeArrivePoint), color = "black", linetype = "solid", size = 1) +
+  geom_vline(aes(xintercept = 63.48828), color = "blue", linetype = "solid", size = 1) +
   labs(
     title = "Hand Velocity Over Time",
     x = "Time (seconds)",
