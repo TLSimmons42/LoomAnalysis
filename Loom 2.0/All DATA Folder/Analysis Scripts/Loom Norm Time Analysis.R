@@ -144,9 +144,9 @@ ggplot(df_binned, aes(x = TimeBin, y = AvgVelocity, group = Group, linetype = Gr
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = AvgVelocity - SDVelocity, ymax = AvgVelocity + SDVelocity, fill = Group), alpha = 0.2) +
   labs(
-    title = "Hand Velocity Over Binned Normalized Time (2% Intervals)",
+    title = "Gaze Velocity Over Binned Normalized Time (2% Intervals)",
     x = "Normalized Time (%)",
-    y = "Velocity (m/s)"
+    y = "Velocity (degrees/s)"
   ) +
   theme_minimal() +
   theme(legend.title = element_blank())

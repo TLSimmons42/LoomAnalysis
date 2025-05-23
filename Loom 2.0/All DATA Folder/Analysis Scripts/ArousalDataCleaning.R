@@ -145,7 +145,7 @@ for(f in 1:length(data_files))
           Meanpupil = mean(pupilAverage))
       
       
-      combined_df <- rbind(combined_df, group_mean)
+        <- rbind(combined_df, group_mean)
     }
   }
   
