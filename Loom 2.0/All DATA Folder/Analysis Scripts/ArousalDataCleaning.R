@@ -3,6 +3,8 @@ library(rgl)
 library(dplyr)
 library(bit64)
 library(stringr)
+setwd("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Processed Data")
+
 
 
 data_files <- list.files(pattern = ".csv")

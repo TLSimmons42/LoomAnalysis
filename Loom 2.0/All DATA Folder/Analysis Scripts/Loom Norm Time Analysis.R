@@ -8,7 +8,7 @@ library(signal)  # For Butterworth dplyr::filter
 setwd("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Processed Data")
 
 timeNormalizedDF <- data.frame()
-filePath <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df.csv"
+filePath <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df_6-10.csv"
 grab2DropDF <- read.csv(filePath, colClasses=c("startTime" = "integer64", "endTime" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
 
 #data_files <- list.files(pattern = "nuP15(\\D|$)")

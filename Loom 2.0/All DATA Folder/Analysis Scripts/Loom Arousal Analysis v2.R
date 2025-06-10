@@ -313,41 +313,90 @@ for(f in 1:length(data_files))
 #Figures ---------------------------------------------------------------------------------------------------------------------------
 
 trim_combined_df <- combined_df_drop %>% filter(Condition != "")
-trim_combined_df <- trim_combined_df %>% filter(Participant != "nuP10" |Participant != "sdP2" |Participant != "P5" |Participant != "sdP11" |
-                                                  Participant != "nuP19" |Participant != "nuP13" |Participant != "nuP20" |Participant != "nuP15")
-trim_combined_df <- trim_combined_df %>% mutate(Group = ifelse(Participant == "nuP33","e",Group))
+# trim_combined_df <- trim_combined_df %>% filter(Participant != "nuP10" |Participant != "sdP2" |Participant != "P5" |Participant != "sdP11" |
+#                                                   Participant != "nuP19" |Participant != "nuP13" |Participant != "nuP20" |Participant != "nuP15")
+# trim_combined_df <- trim_combined_df %>% mutate(Group = ifelse(Participant == "nuP33","e",Group))
 
 
 trim_combined_df <- trim_combined_df %>% filter(TimeEpoch < 1)
+trim_combined_df <- trim_combined_df %>% filter(MeanPercentChange > -100)
 
-# Calculate Mean and SEM (Standard Error of the Mean) for each Condition and Time Epoch
+
+# # Calculate Mean and SEM (Standard Error of the Mean) for each Condition and Time Epoch
 summary_df <- trim_combined_df %>%
   group_by(TimeEpoch, Condition, Group) %>%
   summarize(
     mean_percent = mean(MeanPercentChange, na.rm = TRUE),
     sem = sd(MeanPercentChange, na.rm = TRUE) / sqrt(n())
   )
+trim_combined_df <- trim_combined_df %>% filter(Group != "")
 
+# summary_dfTemp <- trim_combined_df %>%
+#   group_by(TimeEpoch, Participant, Condition, Group) %>%
+#   dplyr::summarise(
+#     mean_percent = mean(MeanPercentChange, na.rm = TRUE)
+#   )
+# 
+# 
+# 
+# summary_df <- summary_dfTemp %>%
+#   group_by(TimeEpoch, Condition, Group) %>%
+#   dplyr::summarise(
+#     mean_percent = mean(mean_percent, na.rm = TRUE),
+#     sem = sd(mean_percent, na.rm = TRUE) / sqrt(n()),
+#     .groups = "drop"
+#   )
 summary_df <- summary_df %>% filter(Group != "")
 
-#summary_df <- summary_df %>% filter(Condition == "comp")
+
+summary_df <- summary_df %>% filter(Condition == "comp")
 #summary_df <- summary_df %>% filter(Group == "c")
 
 
 # Plotting the Line Plot with Error Bars for Multiple Conditions and Groups
-ggplot(summary_df, aes(x = TimeEpoch, y = mean_percent, color = Group, linetype = Condition, group = interaction(Group, Condition))) +
+p3 <- ggplot(summary_df, aes(x = TimeEpoch, y = mean_percent, color = Group, linetype = Condition, group = interaction(Group, Condition))) +
   geom_line(size = 1) +
   geom_point(size = 2) +
   geom_ribbon(aes(ymin = mean_percent - sem, ymax = mean_percent + sem, fill = Group), alpha = 0.2, color = NA) +
   labs(
-    title = "Mean Percentage Change by Condition and Group with Error Bars",
-    x = "Time Epoch",
-    y = "Mean Percentage Change"
+    title = "Compeditive",
+    x = "Time (s)",
+    #y = "Percentage Change"
+    y = ""
   ) +
   theme_minimal(base_size = 15) +
+  ylim(-4.4, 2)+
   theme(
     plot.title = element_text(face = "bold", size = 18),
     legend.title = element_blank(),
     legend.position = "top",
     legend.text = element_text(size = 12)
   )
+
+
+library(patchwork)
+
+combined_plot <- p1 + p2 + p3
+combined_plot
+
+
+
+combined_df_grab <- combined_df_grab %>% filter(Group != "")
+
+ggplot(combined_df_grab, aes(x = Condition, y = Meanpupil, fill = Group)) +
+  geom_boxplot(position = position_dodge(0.8), width = 0.7, outlier.shape = NA) +
+  #geom_jitter(position = position_jitter(width = 0.2), size = 1, alpha = 0.6) +
+  labs(x = "Condition", y = "Size (mm)",
+       title = "Pupil size")+
+  #subtitle = "Comparing two groups across five categories") +
+  scale_fill_manual(values = c( "salmon", "skyblue"), name = "Group") +
+  theme_minimal(base_size = 15) + 
+  ylim(0, 10)+
+  # Use a minimal theme with a larger base font size
+  theme(plot.title = element_text(face = "bold", size = 18),
+        plot.subtitle = element_text(size = 14),
+        axis.text.x = element_text(face = "bold"),
+        axis.title = element_text(face = "bold"),
+        legend.position = "top") # Move legend to the top
+
+

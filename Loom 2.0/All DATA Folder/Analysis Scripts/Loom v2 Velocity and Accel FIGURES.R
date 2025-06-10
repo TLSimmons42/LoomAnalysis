@@ -14,6 +14,7 @@ moveDF <- data.frame(Participant = factor(),
                       Group = factor(),
                       startTime = numeric(),
                       endTime = numeric(),
+                    cubeColor = factor(),
                       Duration_Time = numeric(),
                       hand_avgVel = numeric(),
                       hand_peak_vel = numeric(),
@@ -47,8 +48,8 @@ moveDF <- data.frame(Participant = factor(),
                       stringsAsFactors = FALSE)
 
 
-data_files <- list.files(pattern = "nuP15(\\D|$)")
-#data_files <- list.files(pattern = ".csv")
+#data_files <- list.files(pattern = "nuP15(\\D|$)")
+data_files <- list.files(pattern = ".csv")
 
 for(f in 1:length(data_files))
 {
@@ -58,11 +59,12 @@ for(f in 1:length(data_files))
                             Group = factor(),
                             StartTime = factor(),
                             EndTime = numeric(),
+                            color = factor(),
                             stringsAsFactors = FALSE)
   
   
   participantDataFile <- data_files[f]
-  print(participantDataFile)
+   (participantDataFile)
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   
   
@@ -89,7 +91,26 @@ for(f in 1:length(data_files))
         
         StartTime <- trimDF$Time[i]
         EndTime <- trimDF$Time[i+2]
-        newPartRow <- data.frame(Participant, Condition, Trial, Group, StartTime, EndTime)
+        
+        color <- trimDF$cubeColor[i]
+        if(color == "none"){
+          if(grepl("Blue", trimDF$Event[i])){
+            color = "Blue"
+          }
+          if(grepl("Red", trimDF$Event[i])){
+            color = "Red"
+          }
+          if(grepl("Neutral ", trimDF$Event[i])){
+            color = "White"
+          }
+          if(grepl("Gold", trimDF$Event[i])){
+            color = "Gold"
+          }
+          
+        }
+        
+        
+        newPartRow <- data.frame(Participant, Condition, Trial, Group, StartTime, EndTime, color)
         Grab2DropDF <- rbind(Grab2DropDF, newPartRow)
         
       }
@@ -109,9 +130,13 @@ for(f in 1:length(data_files))
     Condition <- Grab2DropDF$Condition[j]
     Trial <- Grab2DropDF$Trial[j]
     Group <- Grab2DropDF$Group[j]
-
+    cubeColor <- Grab2DropDF$color[j]
+    
+    
     startTime <- first(filtDF$Time)
     endTime <- last(filtDF$Time)
+    
+      
     Duration_Time <- (Grab2DropDF$EndTime[j] - Grab2DropDF$StartTime[j])/10000
     
     
@@ -378,7 +403,7 @@ for(f in 1:length(data_files))
     handRot_time2Initiation = 0
     headRot_time2Initiation = 0
     gaze_time2Initiation = 0
-    newPartRow <- data.frame(Participant, Condition, Trial, Group, startTime, endTime, Duration_Time, 
+    newPartRow <- data.frame(Participant, Condition, Trial, Group, startTime, endTime, cubeColor, Duration_Time, 
                              hand_avgVel, hand_peak_vel, hand_avg_accel, hand_peak_accel, hand_time2PeakVel, hand_time2PeakAccel,
                              handRot_avgVel, handRot_peak_vel, handRot_avg_accel, handRot_peak_accel, handRot_time2PeakVel, handRot_time2PeakAccel,
                              headRot_avgVel, headRot_peak_vel, headRot_avg_accel, headRot_peak_accel, headRot_time2PeakVel, headRot_time2PeakAccel,
@@ -407,10 +432,10 @@ for(f in 1:length(data_files))
     headIndex <- which(filtDF_trim$head_rot_Vel_smooth > headRotSD)[1]
     gazeIndex <- which(filtDF_trim$gaze_velocity_filt_bf > gazeSD)[1]
     
-    print(handIndex)
-    print(handRotIndex)
-    print(headIndex)
-    print(gazeIndex)
+    # print(handIndex)
+    # print(handRotIndex)
+    # print(headIndex)
+    # print(gazeIndex)
 
     
     handTime <- filtDF_trim$ModTime[handIndex]
@@ -444,7 +469,7 @@ moveDF <- moveDF %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
 moveDF <- moveDF %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
 
-#write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df.csv", row.names = FALSE)
+write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df_6-10.csv", row.names = FALSE)
 
 
 
