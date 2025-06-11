@@ -6,10 +6,10 @@ library(bit64)
 # Define input and output directories
 input_dirBase <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Filtered Data"
 input_dir <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Conversion Data"  # Change this to your actual folder path
-output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data/nuP38_merged.csv"  # Change this to your desired output file
+output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data/nuP27_merged.csv"  # Change this to your desired output file
 
 # Get all CSV files in the input directory
-filePattern = "nuP38(\\D|$)"
+filePattern = "nuP27(\\D|$)"
 csv_files <- list.files(input_dir, pattern = filePattern, full.names = TRUE)
 csv_files_Base <- list.files(input_dirBase, pattern = filePattern, full.names = TRUE)
 

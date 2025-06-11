@@ -24,8 +24,7 @@ library(plotly)
 
 # FILE READ ----------------------------------------------------------------------------------------------------------------
  
-Patterns <- c("sdP8", "sdP9", "sdP10", "sdP11",
-              "sdP12", "sdP13", "sdP14", "sdP15", "sdP10")
+Patterns <- c("nuP27")
 
 
 Pattern <- ""
@@ -33,7 +32,7 @@ for (t in Patterns) {
     Pattern <- t
     print(Pattern)
     
-  output_file <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Processed Data/"  # Change this to your desired output file
+  output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Processed Data/"  
     
     
   output_file2 <- paste(output_file, Pattern, ".csv", sep = "")
@@ -42,9 +41,9 @@ for (t in Patterns) {
   print(Pattern)
 
   
-  raw_Data_Directory <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data"
-  PAC_Data_Directory <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/PAC Merged Data"
-  gaze_Data_Directory <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data"
+  raw_Data_Directory <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data"
+  PAC_Data_Directory <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/PAC Merged Data"
+  gaze_Data_Directory <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data"
   
   data_files <- list.files(path = raw_Data_Directory, pattern = Pattern, full.names = TRUE)
   participantDataFile <- data_files[1]

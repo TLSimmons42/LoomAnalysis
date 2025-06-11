@@ -3,14 +3,14 @@ library(rgl)
 library(dplyr)
 library(bit64)
 library(plotly)
-
+setwd("C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data")
 
 
 
 #participantDataFile <- "sdP1_old1.csv"
 
-data_files <- list.files(pattern = "sdP15(\\D|$)")
-output_file <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data/sdP15_Gaze_Events.csv"  # Change this to your desired output file
+data_files <- list.files(pattern = "nuP27(\\D|$)")
+output_file <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data/nuP27_Gaze_Events.csv"  # Change this to your desired output file
 
 
 

@@ -13,7 +13,7 @@ if (!dir.exists(output_dir)) {
 }
 
 # Get all CSV files in the input directory
-csv_files <- list.files(input_dir, pattern = "nuP38", full.names = TRUE)
+csv_files <- list.files(input_dir, pattern = "nuP8", full.names = TRUE)
 
 # Loop through each file, process it, and save the modified version
 for(f in 1:length(csv_files)){

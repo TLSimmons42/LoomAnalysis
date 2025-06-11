@@ -3,11 +3,11 @@ library(rgl)
 library(dplyr)
 library(bit64)
 library(stringr)
+setwd("C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data")
 
 
-
-data_files <- list.files(pattern = "nuP38(\\D|$)")
-output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Merged Data/nuP38_PAC.csv"  # Change this to your desired output file
+data_files <- list.files(pattern = "nuP39(\\D|$)")
+output_file <- "C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/PAC Merged Data/nuP39_PAC.csv"  # Change this to your desired output file
 
 
 strings_to_filter <- c("nuP2_old1","nuP2_old2","nuP2_old3","nuP2_old4")
