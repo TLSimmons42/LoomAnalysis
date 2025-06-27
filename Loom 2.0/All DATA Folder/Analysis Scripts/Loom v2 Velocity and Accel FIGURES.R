@@ -34,7 +34,6 @@ moveDF <- data.frame(Participant = factor(),
                        headRot_peak_accel = numeric(),
                        headRot_time2PeakVel = numeric(),
                        headRot_time2PeakAccel = numeric(),
-                       headRot_time2PeakAccel = numeric(),
                      gaze_avgVel = numeric(),
                      gaze_peak_vel = numeric(),
                      gaze_avg_accel = numeric(),
@@ -45,6 +44,22 @@ moveDF <- data.frame(Participant = factor(),
                        handRot_time2Initiation = numeric(),
                        headRot_time2Initiation = numeric(),
                        gaze_time2Initiation = numeric(),
+                    hand_endVel = numeric(),
+                    handRot_endVel = numeric(),
+                    headRot_endVel = numeric(),
+                    gaze_endVel = numeric(),
+                    hand_endAccel = numeric(),
+                    handRot_endAccel = numeric(),
+                    headRot_endAccel = numeric(),
+                    gaze_endAccel = numeric(),
+                      hand_1secondVel = numeric(),
+                      hand_1secondAccel = numeric(),
+                      handRot_1secondVel = numeric(),
+                      handRot_1secondAccel = numeric(),
+                      headRot_1secondVel = numeric(),
+                      headRot_1secondAccel = numeric(),
+                      gaze_1secondVel = numeric(),
+                      gaze_1secondAccel = numeric(),
                       stringsAsFactors = FALSE)
 
 
@@ -64,7 +79,7 @@ for(f in 1:length(data_files))
   
   
   participantDataFile <- data_files[f]
-   (participantDataFile)
+  print(participantDataFile)
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   
   
@@ -72,6 +87,7 @@ for(f in 1:length(data_files))
   trimDF <- df %>% mutate(Phase = ifelse(ActionEvent == "DropStart","Place Start", Phase))
 
   trimDF <- trimDF %>%  dplyr::filter(Phase != "none")
+  trimDF <- trimDF %>%  dplyr::filter(Phase != "Place Start")
   
   Participant <- ""
   Condition <- ""
@@ -83,15 +99,23 @@ for(f in 1:length(data_files))
   temp <- nrow(trimDF) -2
   for (i in 1:temp){
     if(trimDF$Phase[i] == "Phase 3"){
-      if(trimDF$Phase[i+1] == "Phase 4" & trimDF$Phase[i+2] == "Place Start"){
+      #if(trimDF$Phase[i+1] == "Phase 4" & trimDF$Phase[i+2] == "Place Start"){
+      if(trimDF$Phase[i+1] == "Phase 5" | trimDF$Phase[i+2] == "Phase 5"){
         Participant <- trimDF$Participant[i]
         Condition <- trimDF$Condition[i]
         Trial <- trimDF$Trial[i]
         Group <- trimDF$Group[i]
         
         StartTime <- trimDF$Time[i]
-        EndTime <- trimDF$Time[i+2]
         
+        
+        if(trimDF$Phase[i+1] == "Phase 5"){
+          EndTime <- trimDF$Time[i+1]
+        }
+        if(trimDF$Phase[i+2] == "Phase 5"){
+          EndTime <- trimDF$Time[i+2]
+        }
+
         color <- trimDF$cubeColor[i]
         if(color == "none"){
           if(grepl("Blue", trimDF$Event[i])){
@@ -194,6 +218,9 @@ for(f in 1:length(data_files))
     hand_avg_accel <- mean(filtDF$acceleration_smooth)
     hand_peak_accel <- max(filtDF$acceleration_smooth)
     hand_time2PeakAccel <- filtDF$ModTime[which.max(filtDF$acceleration_smooth)] - first(filtDF$ModTime)
+    
+    hand_endVel = last(filtDF$hand_velocity_smooth)
+    hand_endAccel = last(filtDF$acceleration_smooth)
 
     # Calculate Hand Rotation Velocity and Acceleration --------------------------------------------------------------------------
     
@@ -265,6 +292,9 @@ for(f in 1:length(data_files))
     handRot_avg_accel <- mean(filtDF$hand_ROT_acceleration_smooth)
     handRot_peak_accel <- max(filtDF$hand_ROT_acceleration_smooth)
     handRot_time2PeakAccel <- filtDF$ModTime[which.max(filtDF$hand_ROT_acceleration_smooth)] - first(filtDF$ModTime)
+    
+    handRot_endVel = last(filtDF$hand_rot_Vel_smooth)
+    handRot_endAccel = last(filtDF$hand_ROT_acceleration_smooth)
     
     # Head Rotation Velocity --------------------------------------------------------------------
     filtDF <- filtDF %>%
@@ -338,6 +368,9 @@ for(f in 1:length(data_files))
     headRot_peak_accel <- max(filtDF$head_ROT_acceleration_smooth)
     headRot_time2PeakAccel <- filtDF$ModTime[which.max(filtDF$head_ROT_acceleration_smooth)] - first(filtDF$ModTime)
     
+    headRot_endVel = last(filtDF$head_rot_Vel_smooth)
+    headRot_endAccel = last(filtDF$head_rot_Vel_smooth)
+    
     # Gaze Velocity and Accel--------------------------------------------------------------------
     
     filtDF <- filtDF %>%
@@ -392,8 +425,24 @@ for(f in 1:length(data_files))
     gaze_avg_accel <- mean(filtDF$gaze_accel_filt_bf)
     gaze_peak_accel <- max(filtDF$gaze_accel_filt_bf)
     gaze_time2PeakAccel <- filtDF$ModTime[which.max(filtDF$gaze_accel_filt_bf)] - first(filtDF$ModTime)
-
     
+    gaze_endVel = last(filtDF$gaze_velocity_filt_bf)
+    gaze_endAccel = last(filtDF$gaze_accel_filt_bf)
+    
+    
+    closest_to_1s <- filtDF %>% 
+      mutate(diff_from_1s = abs(ModTime - (first(ModTime) + 1))) %>%  # distance from 1 s mark
+      slice_min(diff_from_1s, n = 1)  
+    
+    hand_1secondVel = closest_to_1s$hand_velocity_smooth[1]
+    hand_1secondAccel = closest_to_1s$hand_ROT_acceleration_smooth[1]
+    handRot_1secondVel = closest_to_1s$hand_rot_Vel_smooth[1]
+    handRot_1secondAccel = closest_to_1s$hand_ROT_acceleration_smooth[1]
+    headRot_1secondVel = closest_to_1s$head_rot_Vel_smooth[1]
+    headRot_1secondAccel = closest_to_1s$head_ROT_acceleration_smooth[1]
+    gaze_1secondVel = closest_to_1s$gaze_velocity_filt_bf[1]
+    gaze_1secondAccel = closest_to_1s$gaze_accel_filt_bf[1]
+
     
     
     g2pData <- rbind(g2pData, filtDF)
@@ -403,15 +452,20 @@ for(f in 1:length(data_files))
     handRot_time2Initiation = 0
     headRot_time2Initiation = 0
     gaze_time2Initiation = 0
+    
     newPartRow <- data.frame(Participant, Condition, Trial, Group, startTime, endTime, cubeColor, Duration_Time, 
                              hand_avgVel, hand_peak_vel, hand_avg_accel, hand_peak_accel, hand_time2PeakVel, hand_time2PeakAccel,
                              handRot_avgVel, handRot_peak_vel, handRot_avg_accel, handRot_peak_accel, handRot_time2PeakVel, handRot_time2PeakAccel,
                              headRot_avgVel, headRot_peak_vel, headRot_avg_accel, headRot_peak_accel, headRot_time2PeakVel, headRot_time2PeakAccel,
                              gaze_avgVel, gaze_peak_vel, gaze_avg_accel, gaze_peak_accel, gaze_time2PeakVel, gaze_time2PeakAccel,
-                             hand_time2Initiation, handRot_time2Initiation, headRot_time2Initiation, gaze_time2Initiation)
+                             hand_time2Initiation, handRot_time2Initiation, headRot_time2Initiation, gaze_time2Initiation,
+                             hand_endVel, handRot_endVel, headRot_endVel, gaze_endVel, hand_endAccel, handRot_endAccel,headRot_endAccel, gaze_endAccel,
+                             hand_1secondVel, hand_1secondAccel, handRot_1secondVel, handRot_1secondAccel, headRot_1secondVel, headRot_1secondAccel,
+                             gaze_1secondVel, gaze_1secondAccel)
     moveDF <- rbind(moveDF, newPartRow)
 
   }
+  
 
   moveFiltDF <- moveDF %>% dplyr::filter(Participant == df$Participant[5])
   
@@ -469,7 +523,7 @@ moveDF <- moveDF %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
 moveDF <- moveDF %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
 
-write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df_6-10.csv", row.names = FALSE)
+write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df_6-19.csv", row.names = FALSE)
 
 
 
@@ -570,11 +624,12 @@ moveDF <- moveDF %>% dplyr::filter(Condition != "")
 
 
 # Create the box plot
-ggplot(moveDF, aes(x = Condition, y = Duration_Time, fill = Group)) +
+ggplot(moveDF, aes(x = cubeColor, y = Duration_Time, fill = Group)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.6) +
   labs(x = "Category", y = "Value", 
        title = "Box Plot of Values by Category and Group") +
   theme_minimal() +
+  ylim(250, 2000)+
   scale_fill_manual(values = c("lightblue", "lightcoral"), name = "Group") +
   theme(plot.title = element_text(face = "bold", size = 16),
         axis.text.x = element_text(face = "bold"),
@@ -649,7 +704,7 @@ ggplot(moveDF, aes(x = Condition, y = avg_accel, fill = Group)) +
         axis.title = element_text(face = "bold"),
         legend.position = "top") # Move legend to the top
 
-ggplot(moveDF, aes(x = Condition, y = peak_accel, fill = Group)) +
+ggplot(moveDF, aes(x = Condition, y = gaze, fill = Group)) +
   geom_boxplot(position = position_dodge(0.8), width = 0.7, outlier.shape = NA) +
   #geom_jitter(position = position_jitter(width = 0.2), size = 1, alpha = 0.6) +
   labs(x = "Condition", y = "speed",
@@ -657,7 +712,7 @@ ggplot(moveDF, aes(x = Condition, y = peak_accel, fill = Group)) +
   #subtitle = "Comparing two groups across five categories") +
   scale_fill_manual(values = c("skyblue", "salmon"), name = "Group") +
   theme_minimal(base_size = 15) + 
-  ylim(0, 10)+
+  ylim(0, 1)+
   # Use a minimal theme with a larger base font size
   theme(plot.title = element_text(face = "bold", size = 18),
         plot.subtitle = element_text(size = 14),

@@ -29,18 +29,19 @@ for(f in 1:length(data_files))
   df <- read.csv(participantDataFile, colClasses=c("Time" = "integer64"), header = TRUE, sep = ",", stringsAsFactors = FALSE)
   
   
+  
   #  output_file <- "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Gaze Merged Data/sdP15_Gaze_Events.csv"  # Change this to your desired output file
   trimDF <- df %>% mutate(Phase = ifelse(ActionEvent == "DropStart","Place Start", Phase))
   
   trimDF <- trimDF %>%  dplyr::filter(Phase != "none")
   trimDF <- trimDF %>% filter(LeftPupil != -1 & RightPupil != -1)
   
-
+  
   #Get the movement Times------------------------------------------------------------------------------------------
   grab_df <- trimDF %>% filter(Phase == "Phase 3")
   drop_df <- trimDF %>% filter(Phase == "Phase 5")
   
-    # temp <- nrow(trimDF) -2
+  # temp <- nrow(trimDF) -2
   # for (i in 1:temp){
   #   if(trimDF$Phase[i] == "Phase 2"){
   #     if(trimDF$Phase[i+1] == "Phase 3"){
@@ -151,7 +152,7 @@ for(f in 1:length(data_files))
     
     
     #firstArousal <- (subDFFull[1,55] + subDFFull[1,56])/2
-    print((subDFFull$Time[nrow(subDFFull)]  - subDFFull$Time[1])/10000000)
+    #print((subDFFull$Time[nrow(subDFFull)]  - subDFFull$Time[1])/10000000)
     #print(range($))
     
     if(nrow(subDFFull) != 0){
@@ -256,7 +257,7 @@ for(f in 1:length(data_files))
     
     
     #firstArousal <- (subDFFull[1,55] + subDFFull[1,56])/2
-    print((subDFFull$Time[nrow(subDFFull)]  - subDFFull$Time[1])/10000000)
+    #print((subDFFull$Time[nrow(subDFFull)]  - subDFFull$Time[1])/10000000)
     #print(range($))
     
     if(nrow(subDFFull) != 0){
@@ -307,29 +308,51 @@ for(f in 1:length(data_files))
   
 }
 
+
 #write.csv(combined_df, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Cube_PAC.csv", row.names = FALSE)
 
 
 #Figures ---------------------------------------------------------------------------------------------------------------------------
 
-trim_combined_df <- combined_df_drop %>% filter(Condition != "")
+trim_combined_df <- combined_df_grab %>% filter(Condition != "")
+trim_combined_df <- trim_combined_df %>% filter(Group != "")
+
 # trim_combined_df <- trim_combined_df %>% filter(Participant != "nuP10" |Participant != "sdP2" |Participant != "P5" |Participant != "sdP11" |
 #                                                   Participant != "nuP19" |Participant != "nuP13" |Participant != "nuP20" |Participant != "nuP15")
 # trim_combined_df <- trim_combined_df %>% mutate(Group = ifelse(Participant == "nuP33","e",Group))
 
 
-trim_combined_df <- trim_combined_df %>% filter(TimeEpoch < 1)
+trim_combined_df <- trim_combined_df %>% filter(TimeEpoch <= 1)
 trim_combined_df <- trim_combined_df %>% filter(MeanPercentChange > -100)
 
 
-# # Calculate Mean and SEM (Standard Error of the Mean) for each Condition and Time Epoch
-summary_df <- trim_combined_df %>%
-  group_by(TimeEpoch, Condition, Group) %>%
-  summarize(
-    mean_percent = mean(MeanPercentChange, na.rm = TRUE),
-    sem = sd(MeanPercentChange, na.rm = TRUE) / sqrt(n())
+
+# 1. Compute a mean for each participant first
+subject_means <- trim_combined_df %>% 
+  group_by(TimeEpoch, Participant, Condition, Group) %>% 
+  summarise(participant_mean  = mean(MeanPercentChange, na.rm = TRUE),
+            .groups = "drop")
+
+# 2. Now compute SEM (or CI) across participants
+summary_df <- subject_means %>% 
+  group_by(TimeEpoch, Condition, Group) %>% 
+  summarise(
+    mean_percent = mean(participant_mean, na.rm = TRUE),
+    sd  = sd(participant_mean,  na.rm = TRUE),
+    n   = n(),                              # participants, not samples
+    sem = sd / sqrt(n),
+    ci95 = sem * qt(.975, df = n - 1),      # optional: 95 % CI
+    .groups = "drop"
   )
-trim_combined_df <- trim_combined_df %>% filter(Group != "")
+
+
+# # Calculate Mean and SEM (Standard Error of the Mean) for each Condition and Time Epoch
+# summary_df <- trim_combined_df %>%
+#   group_by(TimeEpoch, Condition, Group) %>%
+#   summarize(
+#     mean_percent = mean(MeanPercentChange, na.rm = TRUE),
+#     sem = sd(MeanPercentChange, na.rm = TRUE) / sqrt(n())
+#   )
 
 # summary_dfTemp <- trim_combined_df %>%
 #   group_by(TimeEpoch, Participant, Condition, Group) %>%
@@ -346,10 +369,10 @@ trim_combined_df <- trim_combined_df %>% filter(Group != "")
 #     sem = sd(mean_percent, na.rm = TRUE) / sqrt(n()),
 #     .groups = "drop"
 #   )
-summary_df <- summary_df %>% filter(Group != "")
+#summary_df <- summary_df %>% filter(Group != "")
 
 
-summary_df <- summary_df %>% filter(Condition == "comp")
+summary_df <- summary_df %>% filter(Condition == "co")
 #summary_df <- summary_df %>% filter(Group == "c")
 
 
@@ -357,7 +380,10 @@ summary_df <- summary_df %>% filter(Condition == "comp")
 p3 <- ggplot(summary_df, aes(x = TimeEpoch, y = mean_percent, color = Group, linetype = Condition, group = interaction(Group, Condition))) +
   geom_line(size = 1) +
   geom_point(size = 2) +
-  geom_ribbon(aes(ymin = mean_percent - sem, ymax = mean_percent + sem, fill = Group), alpha = 0.2, color = NA) +
+  geom_ribbon(aes(
+    ymin = mean_percent - ci95,
+    ymax = mean_percent + ci95,
+    fill = Group), alpha = 0.2, color = NA)  +
   labs(
     title = "Compeditive",
     x = "Time (s)",
@@ -365,20 +391,69 @@ p3 <- ggplot(summary_df, aes(x = TimeEpoch, y = mean_percent, color = Group, lin
     y = ""
   ) +
   theme_minimal(base_size = 15) +
-  ylim(-4.4, 2)+
+  #ylim(-4.4, 2)+
   theme(
     plot.title = element_text(face = "bold", size = 18),
     legend.title = element_blank(),
     legend.position = "top",
     legend.text = element_text(size = 12)
   )
-
+p3
 
 library(patchwork)
 
 combined_plot <- p1 + p2 + p3
 combined_plot
 
+
+#Stats -------------------------------------------------------------------------------------------------------------------------------
+
+
+leveneTest(participant_mean ~ Group, data = subject_means)
+
+
+library(nlme)
+
+model_var <- lme(participant_mean ~ Group * Condition * TimeEpoch,
+                 random = ~1 | Participant,
+                 weights = varIdent(form = ~1 | Group),
+                 data = subject_means)
+
+summary(model_var)
+
+
+model_equal <- lme(participant_mean ~ Group * Condition * TimeEpoch,
+                   random = ~1 | Participant,
+                   data = subject_means)
+
+anova(model_equal, model_var) 
+
+# library(lme4)
+# library(lmerTest)
+# 
+# model <- lmer(participant_mean ~ Group * Condition * TimeEpoch + (1 | Participant), data = subject_means)
+# summary(model)
+
+emm <- emmeans(model, ~ Group * Condition * TimeEpoch)
+pairs(emm, by = c("TimeEpoch", "Condition"))
+
+
+
+
+subset_df <- subject_means %>%
+  filter(TimeEpoch == 1)
+
+# Group difference per condition
+library(broom)
+
+subset_df %>%
+  group_by(Condition) %>%
+  do(tidy(t.test(participant_mean ~ Group, data = .)))
+
+
+last_epoch <- max(subject_means$TimeEpoch)
+
+emm <- emmeans(model, ~ Group | Condition, at = list(TimeEpoch = last_epoch))
 
 
 combined_df_grab <- combined_df_grab %>% filter(Group != "")
