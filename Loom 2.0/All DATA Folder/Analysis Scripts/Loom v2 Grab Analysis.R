@@ -62,7 +62,7 @@ GrabmoveDF <- data.frame(Participant = factor(),
                      stringsAsFactors = FALSE)
 
 
-data_files <- list.files(pattern = "nuP15(\\D|$)")
+data_files <- list.files(pattern = "nuP16(\\D|$)")
 #data_files <- list.files(pattern = ".csv")
 
 for(f in 1:length(data_files))
@@ -655,6 +655,8 @@ GrabmoveDF <- data.frame(Participant = factor(),
                          stringsAsFactors = FALSE)
 
 #useDF <- GrabmoveDF %>% filter(Duration_Time > .5)
+GrabmoveDF <- df
+
 GrabmoveDF <- GrabmoveDF %>% mutate(cubeColor =  ifelse(cubeColor == "Blue", "Red", cubeColor))
 GrabmoveDF <- GrabmoveDF %>%
   mutate(cubeColor = recode(cubeColor,

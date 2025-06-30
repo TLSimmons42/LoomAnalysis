@@ -523,7 +523,7 @@ moveDF <- moveDF %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
 moveDF <- moveDF %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
 
-write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Vel_and_Accel_df_6-19.csv", row.names = FALSE)
+write.csv(moveDF, file = "C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_2_Drop_FINAL.csv", row.names = FALSE)
 
 
 

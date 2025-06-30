@@ -313,8 +313,12 @@ for(f in 1:length(data_files))
 
 
 #Figures ---------------------------------------------------------------------------------------------------------------------------
+arousal_df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_Arousal_DF.csv")
+# arousal_df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Drop_Arousal_DF.csv")
 
-trim_combined_df <- combined_df_grab %>% filter(Condition != "")
+
+
+trim_combined_df <- arousal_df %>% filter(Condition != "")
 trim_combined_df <- trim_combined_df %>% filter(Group != "")
 
 # trim_combined_df <- trim_combined_df %>% filter(Participant != "nuP10" |Participant != "sdP2" |Participant != "P5" |Participant != "sdP11" |
@@ -372,7 +376,7 @@ summary_df <- subject_means %>%
 #summary_df <- summary_df %>% filter(Group != "")
 
 
-summary_df <- summary_df %>% filter(Condition == "co")
+summary_df <- summary_df %>% filter(Condition == "comp")
 #summary_df <- summary_df %>% filter(Group == "c")
 
 

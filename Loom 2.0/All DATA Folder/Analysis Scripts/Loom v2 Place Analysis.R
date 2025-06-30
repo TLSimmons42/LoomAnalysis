@@ -204,7 +204,7 @@ for(f in 1:length(data_files))
     hand_peak_accel <- max(filtDF$acceleration_smooth)
     hand_time2PeakAccel <- filtDF$ModTime[which.max(filtDF$acceleration_smooth)] - first(filtDF$ModTime)
     
-    hand_endVel = last(filt_df$hand_velocity_smooth)
+    hand_endVel = last(filtDF$hand_velocity_smooth)
     hand_endAccel = last(filtDF$acceleration_smooth)
     
     
