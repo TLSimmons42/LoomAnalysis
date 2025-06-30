@@ -3,6 +3,10 @@
 library(dplyr)
 library(ggplot2)
 library(bit64)
+library(cowplot)
+library(scales)
+library(patchwork)
+
 
 setwd("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/Processed Data")
 
@@ -313,8 +317,10 @@ for(f in 1:length(data_files))
 
 
 #Figures ---------------------------------------------------------------------------------------------------------------------------
-arousal_df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_Arousal_DF.csv")
+arousal_df <- read.csv("C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_Arousal_DF.csv")
 # arousal_df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Drop_Arousal_DF.csv")
+arousal_df <- arousal_df %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
+arousal_df <- arousal_df %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
 
 
