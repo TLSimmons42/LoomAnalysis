@@ -317,12 +317,13 @@ for(f in 1:length(data_files))
 
 
 #Figures ---------------------------------------------------------------------------------------------------------------------------
-arousal_df <- read.csv("C:/Users/Trent Simmons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_Arousal_DF.csv")
+arousal_df <- read.csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Grab_Arousal_DF.csv")
 # arousal_df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/Drop_Arousal_DF.csv")
 arousal_df <- arousal_df %>% mutate(Group = ifelse(Group == "c","Non-Aut",Group))
 arousal_df <- arousal_df %>% mutate(Group = ifelse(Group == "e","Aut",Group))
 
-
+arousal_df <- arousal_df %>% filter(MeanPercentChange <= sd(MeanPercentChange)*3)
+  
 
 trim_combined_df <- arousal_df %>% filter(Condition != "")
 trim_combined_df <- trim_combined_df %>% filter(Group != "")
@@ -382,7 +383,7 @@ summary_df <- subject_means %>%
 #summary_df <- summary_df %>% filter(Group != "")
 
 
-summary_df <- summary_df %>% filter(Condition == "comp")
+#summary_df <- summary_df %>% filter(Condition == "comp")
 #summary_df <- summary_df %>% filter(Group == "c")
 
 
@@ -390,10 +391,10 @@ summary_df <- summary_df %>% filter(Condition == "comp")
 p3 <- ggplot(summary_df, aes(x = TimeEpoch, y = mean_percent, color = Group, linetype = Condition, group = interaction(Group, Condition))) +
   geom_line(size = 1) +
   geom_point(size = 2) +
-  geom_ribbon(aes(
-    ymin = mean_percent - ci95,
-    ymax = mean_percent + ci95,
-    fill = Group), alpha = 0.2, color = NA)  +
+  # geom_ribbon(aes(
+  #   ymin = mean_percent - ci95,
+  #   ymax = mean_percent + ci95,
+  #   fill = Group), alpha = 0.2, color = NA)  +
   labs(
     title = "Compeditive",
     x = "Time (s)",
@@ -427,7 +428,7 @@ library(nlme)
 model_var <- lme(participant_mean ~ Group * Condition * TimeEpoch,
                  random = ~1 | Participant,
                  weights = varIdent(form = ~1 | Group),
-                 data = subject_means)
+                 data = arousal_df <- arousal_df %>%)
 
 summary(model_var)
 

@@ -67,8 +67,8 @@ mod <- lmer(Value ~ Group * Condition * TargetSpeed +
               (1 + Condition + TargetSpeed | Participant),
             data = df)
 
-mod <- lmer(Value ~ Group * Condition * TargetSpeed + 
-                    (1 + Condition + TargetSpeed || Participant), 
+mod <- lmer(Value ~ Group * Condition + 
+                    (1 | Participant), 
                   data = df)
 
 mod <- lmer(
@@ -140,14 +140,14 @@ run_metric_analysis <- function(df, metric, nice_lab = NULL) {
     drop_na()
   
   # Fit the model
-  # mod <- lmer(Value ~ Group * Condition * TargetSpeed + 
-  #               (1 + Condition + TargetSpeed | Participant), data = df_metric)
-  # 
+  mod <- lmer(Value ~ Group * Condition * TargetSpeed +
+                (1 + Condition + TargetSpeed | Participant), data = df_metric)
+
   mod <- lmer(
     Value ~ Group * Condition * TargetSpeed + (1 | Participant),
     data = df_metric
   )
-  
+
   # Fixed effects summary
   fixed_effects <- summary(mod)$coefficients %>%
     as.data.frame() %>%
@@ -162,13 +162,53 @@ run_metric_analysis <- function(df, metric, nice_lab = NULL) {
     mutate(Metric = metric, Label = nice_lab)
   
   list(fixed = fixed_effects, group_comparisons = group_diff, model = mod)
+  
+
+  
 }
 
 df <- read_csv("C:/Users/Trent Simons/Desktop/Data/LoomAnalysis/Loom 2.0/All DATA Folder/SICK DATA FRAMES/GrabmoveDF_Final.csv") %>%
-  filter(Participant != "nuP30")
+  filter(Participant != "nuP34")
 
-result <- run_metric_analysis(df, "hand_endVel", "Peak hand velocity (m/s)")
+
+metric <- "hand_endVel"          # <––– choose your metric column
+metric_sym <- rlang::sym(metric) # turn the string into a symbol for tidy eval
+
+result <- run_metric_analysis(df, metric, "Movement Time(ms)")
 
 # View tables
 result$fixed
 result$group_comparisons
+
+
+df_clean <- df %>%
+  # filter(Participant != "nuP30")%>%
+  filter(!!metric_sym !=0) %>%
+  mutate(
+    Group     = factor(Group),
+    Condition = factor(Condition, levels = c("solo", "co", "comp")),
+    TargetSpeed = factor(cubeColor, levels = c("Gold", "Red", "White")),
+  ) %>%
+  filter(!is.na(!!metric_sym))   # keep only complete cases for this metric
+
+# # OPTIONAL: Trial-level outlier trimming BEFORE aggregation
+df_clean <- df_clean %>%
+  filter(!!metric_sym < mean(!!metric_sym) + 3 * sd(!!metric_sym) & !!metric_sym > mean(!!metric_sym) - 3 * sd(!!metric_sym))
+
+# One row per Participant × Condition  ( = participant means )
+df_mean <- df_clean %>%
+  group_by(Participant, Group, Condition, TargetSpeed) %>%
+  summarise(Value = mean(!!metric_sym, na.rm = TRUE), .groups = "drop")
+
+# --- Linear model on participant means ---------------------------------------
+mod <- lm(Value ~ Group * Condition * TargetSpeed, data = df_mean)
+summary(mod)
+
+
+mod <- lm(Value ~ Group * Condition, data = df_mean)
+summary(mod)
+
+# Pairwise group contrasts within each condition
+emm <- emmeans(mod, ~ Group | Condition * TargetSpeed)
+contr <- contrast(emm, method = "revpairwise", adjust = "bonferroni")
+summary(contr)
